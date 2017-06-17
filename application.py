@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 
 # # print a nice greeting.
 # def say_hello():
@@ -32,7 +32,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return render_template('index.html')
+    return '<p>Hey there Hannah</p>'
 
 if __name__ == '__main__':
     app.run()
