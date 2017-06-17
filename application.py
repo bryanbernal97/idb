@@ -1,4 +1,6 @@
 from flask import Flask
+from flask import render_template
+
 
 # Create the Flask app
 application = Flask(__name__)
@@ -6,7 +8,7 @@ application = Flask(__name__)
 # print a nice greeting.
 @application.route('/')
 def say_hello():
-    return '<p>Testing deployment after setting up custom domain 123!</p>\n'
+    return render_template('index.html')
 
 # # some bits of text for the page.
 # header_text = '''
