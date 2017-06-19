@@ -13,15 +13,15 @@ def say_hello():
     return render_template('index.html')
 
 @application.route('/games/league-of-legends')
-def say_hello():
+def show_league_of_legends():
     return render_template('league-of-legends.html')
 
 @application.route('/games/dota-2')
-def say_hello():
+def show_dota_2():
     return render_template('dota-2.html')
 
 @application.route('/games/counter-strike-global-offensive')
-def say_hello():
+def show_counter_strike():
     return render_template('counter-strike-global-offensive.html')
 
 # # some bits of text for the page.
