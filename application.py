@@ -24,6 +24,18 @@ def show_dota_2():
 def show_counter_strike():
     return render_template('counter-strike-global-offensive.html')
 
+@application.route('/streamers/LegendaryLea')
+def show_legendary_lea():
+    return render_template('LegendaryLea.html')
+
+@application.route('/streamers/LIRIK')
+def show_lirik():
+    return render_template('LIRIK.html')
+
+@application.route('/streamers/MitchJones')
+def show_mitch():
+    return render_template('MitchJones.html')
+
 # # some bits of text for the page.
 # header_text = '''
 #     <html>\n<head> <title>StreamGlean</title> </head>\n<body>'''
