@@ -6,6 +6,19 @@ from flask import render_template
 application = Flask(__name__)
 
 # print a nice greeting.
+@application.route('/games/league-of-leagends')
+def say_hello():
+    return render_template('league-of-legends.html')
+
+@application.route('/games/dota-2')
+def say_hello():
+    return render_template('dota-2.html')
+
+@application.route('/games/counter-strike-global-offensive')
+def say_hello():
+    return render_template('counter-strike-global-offensive.html')
+
+# print a nice greeting.
 @application.route('/')
 def say_hello():
     return render_template('index.html')
