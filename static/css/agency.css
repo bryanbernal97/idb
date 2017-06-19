@@ -347,13 +347,22 @@ section h3.section-subheading {
 .portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
   margin: 0;
 }
-.portfolio .portfolio-item .portfolio-caption {
+.portfolio .portfolio-item .portfolio-caption-white {
   max-width: 400px;
   margin: 0 auto;
   background-color: white;
   text-align: center;
   padding: 25px;
 }
+
+.portfolio .portfolio-item .portfolio-caption-gray {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #eeeeee;
+  text-align: center;
+  padding: 25px;
+}
+
 .portfolio .portfolio-item .portfolio-caption h4 {
   text-transform: none;
   margin: 0;
