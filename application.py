@@ -36,6 +36,18 @@ def show_lirik():
 def show_mitch():
     return render_template('MitchJones.html')
 
+@application.route('/communities/positivity')
+def show_positivity():
+    return render_template('positivity.html')
+
+@application.route('/communities/speedrunning')
+def show_speedrunning():
+    return render_template('speedrunning.html')
+
+@application.route('/communities/catsonly')
+def show_catsonly():
+    return render_template('catsonly.html')
+
 # # some bits of text for the page.
 # header_text = '''
 #     <html>\n<head> <title>StreamGlean</title> </head>\n<body>'''
