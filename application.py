@@ -6,9 +6,23 @@ from flask import render_template
 application = Flask(__name__)
 
 # print a nice greeting.
+
+# print a nice greeting.
 @application.route('/')
 def say_hello():
     return render_template('index.html')
+
+@application.route('/games/league-of-legends')
+def show_league_of_legends():
+    return render_template('league-of-legends.html')
+
+@application.route('/games/dota-2')
+def show_dota_2():
+    return render_template('dota-2.html')
+
+@application.route('/games/counter-strike-global-offensive')
+def show_counter_strike():
+    return render_template('counter-strike-global-offensive.html')
 
 # # some bits of text for the page.
 # header_text = '''
