@@ -1,3 +1,4 @@
+<!-- Following code adapted from https://startbootstrap.com/template-overviews/agency/ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h4>Description of the site, its purpose, its intended users</h4>
+                    <small class="text-muted">Twitch.tv is a website where streamers live stream themselves providing content centered around their lives and video games. There are many facets of this experience that we define as models: Streamer, Game, Community, Team. A streamer plays different games, takes part in different established communities centered around these games, and often join various esports teams which their streams then represent. Included with all of them are many other media and information which enhances each of those models. Twitch contains all of this information but there isn’t a good place that brings all of this information together in an easy to navigate environment. We decided to make this information more readily available by linking these data points together on a website.  We are accomplishing this by fleshing out different user use cases, scraping available RESTful API for Twitch and other supplementary data, defining important models which will connect to each other, and exploring new tools to make this process easier and more intuitive. We have named our website StreamGlean.me (glean - extract (information) from various sources) to represent the process of gathering stream information.</small>
                 </div>
             </div>
         </div>
@@ -487,37 +488,37 @@
             <div class="row text-center">
                 <div class="col-sm-4 team-col">
                     <h5>Number of Commits</h5>
-                    <p>XX</p>
+                    <p>1</p>
                 </div>
                 <div class="col-sm-4 team-col">
                     <h5>Number of Commits</h5>
-                    <p>XX</p>
+                    <p>93</p>
                 </div>
                 <div class="col-sm-4 team-col">
                     <h5>Number of Commits</h5>
-                    <p>XX</p>
+                    <p>4</p>
                 </div>
                 <div class="col-sm-4 team-col">
                     <h5>Number of Commits</h5>
-                    <p>XX</p>
+                    <p>3</p>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col-sm-4 team-col">
                     <h5>Number of Issues</h5>
-                    <p>XX</p>
+                    <p>6</p>
                 </div>
                 <div class="col-sm-4 team-col">
                     <h5>Number of Issues</h5>
-                    <p>XX</p>
+                    <p>12</p>
                 </div>
                 <div class="col-sm-4 team-col">
                     <h5>Number of Issues</h5>
-                    <p>XX</p>
+                    <p>6</p>
                 </div>
                 <div class="col-sm-4 team-col">
                     <h5>Number of Issues</h5>
-                    <p>XX</p>
+                    <p>4</p>
                 </div>
             </div>
             <div class="row text-center">
@@ -541,7 +542,7 @@
 
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <p class="large text-muted">Total number of commits: XX; Total number of issues: XX; Total number of unit tests: N/A</p>
+                    <p class="large text-muted">Total number of commits: 116; Total number of issues: 19; Total number of unit tests: N/A</p>
                 </div>
             </div>
         </div>
@@ -557,25 +558,46 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h4>Needs to include:</h4>
+                    <h3>
+                        Technical Report:
+                        <small class="text-muted"><a href="https://app.box.com/s/zr1ob09h5aqqk3bohztqlahoglhq3tp5">https://app.box.com/s/zr1ob09h5aqqk3bohztqlahoglhq3tp5</a></small>
+                </h3>
+                    <h3>
+                        Apiary API:
+                        <small class="text-muted"><a href="https://docs.hannahperry5.apiary.io">https://docs.hannahperry5.apiary.io</a></small>
+                    </h3>
+                    <h3>
+                        GitHub Repo:
+                        <small class="text-muted"><a href="https://github.com/hannahperry5/streamglean">https://github.com/hannahperry5/streamglean</a></small>
+                    </h3>
+                    <h3>
+                        Trello:
+                        <small class="text-muted"><a href="https://trello.com/b/AwRnQypG/idb1-streamglean">https://trello.com/b/AwRnQypG/idb1-streamglean</a></small>
+                    </h3>
+
+                    <h3>Data</h3>
                     <ul>
-                        <li>a link to the Apiary API</li>
-                        <li>a link to the GitHub Repo</li>
-                        <li>a link to the Trello</li>
-                        <li>Data
-                            <ul>
-                                <li>links to the data sources</li>
-                                <li>description of how each was scraped</li>
-                            </ul>
-                        </li>
-                        <li>Tools
-                            <ul>
-                                <li>tools used (special focus on optional tools that were not required)</li>
-                                <li>describe their use</li>
-                            </ul>
-                        </li>
-                        <li>link to Report.pdf</li>
+                        <li><h5><a href="https://dev.twitch.tv/docs">https://dev.twitch.tv/docs</a></h5></li>
+                        <li><h5><a href="https://dev.twitter.com/overview/api">https://dev.twitter.com/overview/api</a></h5></li>
                     </ul>
+                    <h6>These data sources were scraped using a tool called Postman and the results were then used to create this static website.</h6>
+                
+
+                    <h3>Tools</h3>
+                    <h4>Apiary</h4>
+                    <p>We used Apiary to document the main API we used for this first part of the project.</p>
+                    <h4>Trello</h4>
+                    <p>We used Trello to do issue tracking as a team.</p>
+                    <h4>PlanITpoker</h4>
+                    <p>We used PlanITpoker to come up with user stories and estimate track their estimated and actual completion times.</p>
+                    <h4>Namecheap</h4>
+                    <p>We used Namecheap to register our custom domain.</p>
+                    <h4>AWS</h4>
+                    <p>We used AWS to host our website. We used AWS sub-product Elastic Beanstalk to connect our website development with git and to deploy versions of our website. We used AWS sub-product EC2 for different instnaces to allow for a dev and prod environment, and we used AWS sub-product S3 to store our uploaded website content.</p>
+                    <h4>Slack</h4>
+                    <p>We used Slack to communicate as a team.</p>
+
+                
                 </div>
             </div>
         </div>
