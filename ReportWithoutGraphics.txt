@@ -1,0 +1,133 @@
+﻿Technical Report
+Group 2 - CS 373 Software Engineering
+June 19, 2017
+Brittany Madrigal, Hannah Perry, Tonya Howard, Bryan Bernal
+
+
+STREAMGLEAN.me
+
+
+Motivation
+Twitch.tv is a website where streamers live stream themselves providing content centered around their lives and video games. There are many facets of this experience that we define as models: Streamer, Game, Community, Team. A streamer plays different games, takes part in different established communities centered around these games, and often join various esports teams which their streams then represent. Included with all of them are many other media and information which enhances each of those models. Twitch contains all of this information but there isn’t a good place that brings all of this information together in an easy to navigate environment. We decided to make this information more readily available by linking these data points together on a website.  We are accomplishing this by fleshing out different user use cases, scraping available RESTful API for Twitch and other supplementary data, defining important models which will connect to each other, and exploring new tools to make this process easier and more intuitive. We have named our website StreamGlean.me (glean - extract (information) from various sources[1]) to represent the process of gathering stream information.
+
+
+Use Cases
+Those with an interest in the streaming community will have various uses for the site. Users can see who streaming, what games are frequently played, what team or community a particular streamer is a part of, if a streamer donates to charity, etc. As someone who might be interested in streaming, they could check out team information such as location, whether or not they compete, what game they focus on, if they have a website, how many people are currently members, and other publicly available data. A streamer or user can find a list of communities and links to other channels if they want to discover users with similar tastes. 
+
+
+RESTful API
+Making use of the RESTful API for Twitch was a lot more difficult than expected. Twitch provides excellent documentation for many of the calls available through its API, though the process of actually using these methods and obtaining the needed data initially stumped us. We were not aware of where to make the calls--whether it be within a Python program, command line, or some other tool. Ultimately, we decided to make use of Postman, a third party GUI for API get requests, in order to make these calls. Despite this, a problem we faced early on was authorization. Twitch makes use of a request header that must be typed in prior to making any get requests. In order to obtain a client-ID that will be used as a request header in Postman, one must sign in through the Twitch developer portal (https://devportal.twitch.tv/). We did not know where to put this info in until we watched several youtube videos that pointed us in the direction that we needed to go in. 
+
+
+Finally learning how to input the client ID that we were given upon signing up on Twitch’s development portal, we were then faced with another problem. Twitch provides two versions of its API, a v3 and a v5. One difference between these two versions is support for communities, one of the models we chose to support through our website. Version 3 of Twitch’s API does not support this relatively new feature, which was implemented recently in February 2017, which meant that we had to make use of Version 5. Version 5 requires another header, with key Accept and value application/vnd.twitchtv.v5+json, which required more youtube video tutorials in order to find out how to implement. In the end, our header info in Postman looked like this (though the client-id value will differ on a dev account per dev account basis):  
+
+
+
+
+After this information was input in the headers tab of Postman, we were able to make a couple of calls in order to obtain the data that we needed through various JSONS-- These calls made use of the URLs https://api.twitch.tv/kraken/teams/ for info on teams, https://api.twitch.tv/kraken/channels/<channel_name> for channels, https://api.twitch.tv/kraken/communities/top for the top communities, and https://api.twitch.tv/kraken/streams for the top games currently being streamed. After obtaining the JSON files through these calls, we parsed for relatively barebones but necessary info in order to populate our website with static yet distinct versions of our models. A call to the communities URL given above resulted in this for example.   
+
+
+Models
+We have chosen four interconnected models to focus on for this project: Streamer, Game, Community, Team
+
+
+Streamer
+A streamer is a person creating content on a channel. Here is an example:
+ Streamer.png 
+
+In the image above, the text in the red box (LIRIK) is the channel name for that particular streamer. 
+
+
+When their channel name is clicked it directs to their channel:
+ channel.png 
+
+This image shows the connection to the other three models. The red box contains three pieces of information. “Portal 2” is the game, “CatsOnly” is the community, and “The Hammer Squad” is the team.
+
+
+Many of the attributes we chose can be seen on this page and can be found using the Kraken API.
+1. Username    channel-name.png 
+2. Picture    channel-photo.png 
+3. Live/Not Live    channel-live.png 
+4. Viewer Count    channel-viewcount.png 
+
+
+The attribute not found on this page is subscriber count of the channel. This can only be accurately acquired by a Kraken API call.
+Game
+The games the streamers are playing on Twitch can be found ranked from the game with the highest number of viewers(total number of viewers of each streamer playing it) to lowest.
+ game.png 
+
+The image shows the top games at the time. The game highlighted in the red box is the game that LIRIK was playing in that previous example.
+
+
+Attributes
+   1. Title - found below each picture (e.g. Portal 2) Can access through Kraken API
+   2. Company - Game Website
+   3. Genre - Game Website
+   4. Rating - Game Website
+   5. Website - Twitter API
+   6. Trailers - Game Website/Youtube API
+   7. Platform - Game Website
+   8. Game cover art - Can access individual images above via Kraken API calls
+
+
+________________
+
+
+
+
+Community
+Streamers and viewers can join a community to show they have a collective identity. 
+
+
+ Community.png 
+
+The image shows the most populated communities at the time. The community highlighted in the red box is the community LIRIK from the above examples is part of.
+
+
+Attributes can all be found using Kraken API calls
+   1. View count
+   2. Current Streamers LIVE in that community
+   3. Total Streams
+   4. Description
+   5. Rules
+
+
+Team
+Teams on Twitch are groups of streamers who represent a specific Esports team. They usually require contracts.
+ Team.png 
+
+
+
+Attributes
+   1. Name - Kraken API
+   2. Members - Kraken API
+   3. Website - Twitter API
+   4. Location - Twitter API
+   5. Info - Kraken API
+
+
+Tools
+Postman makes using API easier by providing an intuitive interface in which to make API calls. A user plugs in a request URL and is able to view the output easily in a formatted and visually pleasing way.
+
+
+Apiary is a web-based repository used to help document and easily collaborate on building APIs. Creating an account is as easy as signing-in with your Github, and project repos can be integrated for easy updating.
+It uses a Markdown-related syntax called API Blueprint which is relatively simple to learn just by viewing the link. At the moment, our API is not very complex so we haven’t made much use of the site’s features (automated mock servers, tests, validations, proxies, and code samples), but this section will be filled out accordingly as we progress through the phases. 
+
+
+PlanitPoker is a free online planning “poker” app which uses points assist in estimating the time needed to complete a story--is used to keep track of our workflow and to practice Agile project management. At least ten user stories are required for each phase of our project; because of the nature of the phases, we thought of possible stories from the perspective of the consumer (those who want to know more about streamers and relevant information) and from the perspective of the developers. This is useful when collaborating remotely to figure out the next steps that are needed to be completed. Typically this is done before any code is written, and anyone in the group is invited to create a story. The main screen features a set 13 cards, each labeled with numbers or some type of symbol. Depending on the scope of the project, the group can assign the numbers to represent hours, days, weeks, or even months. For the sake of our purposes, we will designate each value to represent hours. When at least one story is created, the group can begin to anonymously vote for how long they believe each story will take to complete. Once everyone has voted, results are revealed and everyone can discuss the estimates until agreement. 
+
+
+NameCheap is a domain hosting service we used to secure streamglean.me
+
+
+
+
+Hosting
+
+
+
+
+
+
+________________
+[1] https://www.merriam-webster.com/dictionary/glean
