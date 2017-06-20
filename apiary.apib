@@ -1,11 +1,17 @@
 FORMAT: 1A
-HOST: http://streamgleam.apiblueprint.org/
+HOST: http://streamglean.apiblueprint.org/
 
-# gleaming API
+# Twitch Kraken API
 
-gleaming is the API for streamgleam, our lovely CS 373 summer project
+Kraken is the API for Twitch.tv's site
+
+
 
 ## Streamer Collection [/streamers]
+
+## found using 
+## GET https://api.twitch.tv/kraken/channels/<streamer>
+## on Twitch v3 API
     
 ### List ALL Streamers [GET]
 
@@ -155,6 +161,10 @@ gleaming is the API for streamgleam, our lovely CS 373 summer project
         ]
         
 ## Team Collection [/teams]
+
+## found using 
+## GET https://api.twitch.tv/kraken/teams/<team name>
+## on Twitch v5 API
 
 ### List ALL Teams [GET]
 
@@ -3107,6 +3117,10 @@ gleaming is the API for streamgleam, our lovely CS 373 summer project
 
 ## Community Collection [/communities]
 
+## found using 
+## GET https://api.twitch.tv/kraken/communities/top
+## on Twitch v5 API
+
 ### List ALL Communities [GET]
 
 + Response 200 (application/json)
@@ -3153,3 +3167,84 @@ gleaming is the API for streamgleam, our lovely CS 373 summer project
              COMMAND LINE:
             {"_id":"5181e78f-2280-42a6-873d-758e25a7c313","owner_id":"23161357","name":"catsonly","display_name":"CatsOnly","summary":"Meow. Cats Only. No Dogs. Meow.","description":"Cats Only. Kitties Only.","description_html":"Cats Only. Kitties Only.\u003cbr\u003e","rules":"Meow. Cats Only. No Dogs. Meow.","rules_html":"Meow. Cats Only. No Dogs. Meow.\u003cbr\u003e","language":"EN","avatar_image_url":"https://static-cdn.jtvnw.net/community-images/5181e78f-2280-42a6-873d-758e25a7c313/4d8cd2a4-fecd-4593-af7d-20699357188a-185x258.jpeg","cover_image_url":"https://static-cdn.jtvnw.net/community-images/5181e78f-2280-42a6-873d-758e25a7c313/071bb723-e64a-493e-983c-94b9e5e05b99-1200x180.jpeg"}
         ]
+        
+## Game Collection [/games]
+
+## found using 
+## GET https://api.twitch.tv/kraken/streams
+## on Twitch v5 API
+        
+        {
+            "game": {
+                "name": "League of Legends",
+                "popularity": 268833,
+                "_id": 21779,
+                "giantbomb_id": 24024,
+                "box": {
+                    "large": "https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-272x380.jpg",
+                    "medium": "https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-136x190.jpg",
+                    "small": "https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-52x72.jpg",
+                    "template": "https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-{width}x{height}.jpg"
+                },
+                "logo": {
+                    "large": "https://static-cdn.jtvnw.net/ttv-logoart/League%20of%20Legends-240x144.jpg",
+                    "medium": "https://static-cdn.jtvnw.net/ttv-logoart/League%20of%20Legends-120x72.jpg",
+                    "small": "https://static-cdn.jtvnw.net/ttv-logoart/League%20of%20Legends-60x36.jpg",
+                    "template": "https://static-cdn.jtvnw.net/ttv-logoart/League%20of%20Legends-{width}x{height}.jpg"
+                },
+                "localized_name": "League of Legends",
+                "locale": ""
+            },
+            "viewers": 269843,
+            "channels": 1827
+        },
+        {
+            "game": {
+                "name": "Dota 2",
+                "popularity": 158030,
+                "_id": 29595,
+                "giantbomb_id": 32887,
+                "box": {
+                    "large": "https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-272x380.jpg",
+                    "medium": "https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-136x190.jpg",
+                    "small": "https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-52x72.jpg",
+                    "template": "https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-{width}x{height}.jpg"
+                },
+                "logo": {
+                    "large": "https://static-cdn.jtvnw.net/ttv-logoart/Dota%202-240x144.jpg",
+                    "medium": "https://static-cdn.jtvnw.net/ttv-logoart/Dota%202-120x72.jpg",
+                    "small": "https://static-cdn.jtvnw.net/ttv-logoart/Dota%202-60x36.jpg",
+                    "template": "https://static-cdn.jtvnw.net/ttv-logoart/Dota%202-{width}x{height}.jpg"
+                },
+                "localized_name": "Dota 2",
+                "locale": ""
+            },
+            "viewers": 160183,
+            "channels": 474
+        },
+        {
+            "game": {
+                "name": "Counter-Strike: Global Offensive",
+                "popularity": 113753,
+                "_id": 32399,
+                "giantbomb_id": 36113,
+                "box": {
+                    "large": "https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-272x380.jpg",
+                    "medium": "https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-136x190.jpg",
+                    "small": "https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-52x72.jpg",
+                    "template": "https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-{width}x{height}.jpg"
+                },
+                "logo": {
+                    "large": "https://static-cdn.jtvnw.net/ttv-logoart/Counter-Strike:%20Global%20Offensive-240x144.jpg",
+                    "medium": "https://static-cdn.jtvnw.net/ttv-logoart/Counter-Strike:%20Global%20Offensive-120x72.jpg",
+                    "small": "https://static-cdn.jtvnw.net/ttv-logoart/Counter-Strike:%20Global%20Offensive-60x36.jpg",
+                    "template": "https://static-cdn.jtvnw.net/ttv-logoart/Counter-Strike:%20Global%20Offensive-{width}x{height}.jpg"
+                },
+                "localized_name": "Counter-Strike: Global Offensive",
+                "locale": ""
+            },
+            "viewers": 117295,
+            "channels": 1101
+        },
+
+### List ALL Communities [GET]
