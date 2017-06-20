@@ -48,6 +48,18 @@ def show_speedrunning():
 def show_catsonly():
     return render_template('catsonly.html')
 
+@application.route('/teams/tempostorm')
+def show_tempostorm():
+    return render_template('tempostorm.html')
+
+@application.route('/teams/gfe')
+def show_gfe():
+    return render_template('gfe.html')
+
+@application.route('/teams/cloud9')
+def show_cloud9():
+    return render_template('cloud9.html')
+
 # # some bits of text for the page.
 # header_text = '''
 #     <html>\n<head> <title>StreamGlean</title> </head>\n<body>'''
