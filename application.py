@@ -14,7 +14,7 @@ POSTGRES = {
     'host': 'streamglean-rds.cxx60yvk87ey.us-east-2.rds.amazonaws.com',
     'port': '5432',
 }
-application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 
 db.init_app(application)
 
