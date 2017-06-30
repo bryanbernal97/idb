@@ -1,9 +1,22 @@
 from flask import Flask
 from flask import render_template
 
+from models import db
+
 
 # Create the Flask app
 application = Flask(__name__)
+
+POSTGRES = {
+    'user': 'group2',
+    'pw': 'cs373group2',
+    'db': 'streamglean_db',
+    'host': 'streamglean-rds.cxx60yvk87ey.us-east-2.rds.amazonaws.com',
+    'port': '5432',
+}
+application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+
+db.init_app(application)
 
 # print a nice greeting.
 
