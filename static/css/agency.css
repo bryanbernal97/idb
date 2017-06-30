@@ -10,6 +10,7 @@ body {
 
 .team-col {
   width: 25%;
+  margin:0 auto;
 }
 
 .text-muted {
