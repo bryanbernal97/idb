@@ -22,7 +22,7 @@ def say_hello():
     json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
     channels = json['streams']
     top['channels'] = channels
-    return render_template('index.html', name=top)
+    return render_template('index2.html', name=top)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
