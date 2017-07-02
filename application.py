@@ -29,7 +29,7 @@ def say_hello():
     json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
     channels = json['streams']
     top['channels'] = channels
-    return render_template('index2.html', name=top)
+    return render_template('index.html', name=top)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
@@ -37,7 +37,7 @@ def show_teams(wow):
     url = 'https://api.twitch.tv/kraken/teams/' + wow
     teams[wow] = requests.get(url, headers=headers).json()
 
-    return render_template('test_template.html', name = teams[wow])
+    return render_template('model_template.html', name = teams[wow])
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
@@ -46,7 +46,7 @@ def show_communities(wow):
     communities[wow] = requests.get(url, headers=headers).json()
     communities[wow]['model_type'] = 'community'
 
-    return render_template('test_template.html', name = communities[wow])
+    return render_template('model_template.html', name = communities[wow])
 
 @application.route('/streamers/<wow>')
 def show_streamers(wow):
@@ -57,7 +57,7 @@ def show_streamers(wow):
 
     print(streamers[wow])
 
-    return render_template('test_template.html', name = streamers[wow])
+    return render_template('model_template.html', name = streamers[wow])
 
 @application.route('/games/<wow>')
 def show_games(wow):
@@ -70,7 +70,7 @@ def show_games(wow):
     games[game['name']]['_id'] = wow
     games[game['name']]['model_type'] = 'game'
 
-    return render_template('test_template.html', name = games[game['name']])
+    return render_template('model_template.html', name = games[game['name']])
 
     
 @application.route('/testWrite')
