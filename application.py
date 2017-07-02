@@ -8,6 +8,7 @@ import datetime
 
 # Create the Flask app
 application = Flask(__name__)
+application.debug = True
 
 
 # print a nice greeting.
