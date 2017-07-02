@@ -72,6 +72,19 @@ def show_games(wow):
 
     return render_template('test_template.html', name = games[game['name']])
 
+    
+@application.route('/testWrite')
+def testing_db_write():
+    notes = str(datetime.datetime.now())
+    data_entered = Data(notes=notes)
+    try:     
+        db.session.add(data_entered)
+        db.session.commit()        
+        db.session.close()
+    except:
+        db.session.rollback()
+    return render_template('cloud9.html')
+
 
 # run the app.
 if __name__ == "__main__":
