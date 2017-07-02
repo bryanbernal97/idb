@@ -3,8 +3,9 @@ from flask import render_template
 from application import db
 from application.models import Data
 
-import requests
 import datetime
+import requests
+
 
 
 # Create the Flask app
@@ -13,57 +14,59 @@ application.debug = True
 
 
 # print a nice greeting.
+
+# print a nice greeting.
 @application.route('/')
 def say_hello():
-    json = requests.get('https://api.twitch.tv/kraken/communities/top', headers=headers).json()
-    top['communities'] = json['communities']
-    json = requests.get('https://api.twitch.tv/kraken/games/top', headers=headers).json()
-    top['games'] = json['top']
-    json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
-    channels = json['streams']
-    top['channels'] = channels
-    return render_template('index2.html', name=top)
+    return render_template('index.html')
 
-@application.route('/teams/<wow>')
-def show_teams(wow):
-    global teams
-    url = 'https://api.twitch.tv/kraken/teams/' + wow
-    teams[wow] = requests.get(url, headers=headers).json()
+@application.route('/games/league-of-legends')
+def show_league_of_legends():
+    return render_template('league-of-legends.html')
 
-    return render_template('test_template.html', name = teams[wow])
+@application.route('/games/dota-2')
+def show_dota_2():
+    return render_template('dota-2.html')
 
-@application.route('/communities/<wow>')
-def show_communities(wow):
-    global communities
-    url = 'https://api.twitch.tv/kraken/communities?name=' + wow
-    communities[wow] = requests.get(url, headers=headers).json()
-    communities[wow]['model_type'] = 'community'
+@application.route('/games/counter-strike-global-offensive')
+def show_counter_strike():
+    return render_template('counter-strike-global-offensive.html')
 
-    return render_template('test_template.html', name = communities[wow])
+@application.route('/streamers/LegendaryLea')
+def show_legendary_lea():
+    return render_template('LegendaryLea.html')
 
-@application.route('/streamers/<wow>')
-def show_streamers(wow):
-    global streamers
-    url = 'https://api.twitch.tv/kraken/channels/' + wow
-    streamers[wow] = requests.get(url, headers=headers).json()
-    streamers[wow]['model_type'] = 'streamer'
+@application.route('/streamers/LIRIK')
+def show_lirik():
+    return render_template('LIRIK.html')
 
-    print(streamers[wow])
+@application.route('/streamers/MitchJones')
+def show_mitch():
+    return render_template('MitchJones.html')
 
-    return render_template('test_template.html', name = streamers[wow])
+@application.route('/communities/positivity')
+def show_positivity():
+    return render_template('positivity.html')
 
-@application.route('/games/<wow>')
-def show_games(wow):
-    global games, gb_id
-    url = 'http://www.giantbomb.com/api/game/' + wow + gb_id
-    json = requests.get(url, headers={'user-agent' : '1234'}).json()
-    print("hi")
-    game = json['results']
-    games[game['name']] = game
-    games[game['name']]['_id'] = wow
-    games[game['name']]['model_type'] = 'game'
+@application.route('/communities/speedrunning')
+def show_speedrunning():
+    return render_template('speedrunning.html')
 
-    return render_template('test_template.html', name = games[game['name']])
+@application.route('/communities/catsonly')
+def show_catsonly():
+    return render_template('catsonly.html')
+
+@application.route('/teams/tempostorm')
+def show_tempostorm():
+    return render_template('tempostorm.html')
+
+@application.route('/teams/gfe')
+def show_gfe():
+    return render_template('gfe.html')
+
+@application.route('/teams/cloud9')
+def show_cloud9():
+    return render_template('cloud9.html')
 
 
 # run the app.
