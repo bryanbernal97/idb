@@ -64,6 +64,17 @@ def show_gfe():
 def show_cloud9():
     return render_template('cloud9.html')
 
+@application.route('/testWrite')
+def testing_db_write():
+    data_entered = Data(notes='testing123')
+    try:     
+        db.session.add(data_entered)
+        db.session.commit()        
+        db.session.close()
+    except:
+        db.session.rollback()
+    return render_template('cloud9.html')
+
 
 # run the app.
 if __name__ == "__main__":
