@@ -34,6 +34,7 @@
 </head>
 <body id="page-top" class="index">
 
+
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
@@ -60,130 +61,40 @@
 
 
 
-    <section id={{name['_id']}}>
+    <section id="streamers_lirik">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">{{name['display_name']}}</h2>
-                    {% if name['avatar_image_url'] %}
-                        <img src={{name['avatar_image_url']}}>
-                    {% endif %}
-
-                    {% if name['logo'] %}
-                        <img src={{name['logo']}}>
-                    {% endif %}
-
-                    {% if name['image'] %}
-                        <img src={{name['image']['thumb_url']}}>
-                    {% endif %}
-
-                    <h3>
-                        Name:
-                        <small class="text-muted">{{name['name']}}</small>
-                    </h3>
-
-                    {% if name['info'] or name['description'] %}
-                    <h3>
-                        Info:
-                        {% if name['deck'] %}
-                            <small class="text-muted">{{name['deck']}}</small>
-                        {% elif name['description'] %}
-                            <small class="text-muted">{{name['description']}}</small>
-                        {% else %}
-                            <small class="text-muted">{{name['info']}}</small>
-                        {% endif %}
-                    </h3>
-                    {% endif %}
-
-                    {% if name['original_release_date'] %}
-                    <h3>
-                        Release Date:
-                        <small class="text-muted">{{name['original_release_date']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['mature'] %}
-                    <h3>
-                        Mature:
-                        <small class="text-muted">{{name['mature']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['language'] %}
-                    <h3>
-                        Language:
-                        <small class="text-muted">{{name['language']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['views'] %}
-                    <h3>
-                        Views:
-                        <small class="text-muted">{{name['views']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['followers'] %}
-                    <h3>
-                        Followers:
-                        <small class="text-muted">{{name['followers']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['game'] %}
+                    <h2 class="section-heading">LIRIK</h2>
+                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/lirik-profile_image-476e7a592cdfed74-300x300.png">
                     <h3>
                         Game:
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game']['_id'])}}">{{name['game']}}</a></small>
+                        <small class="text-muted">League of Legends</small>
                     </h3>
-                    {% endif %}
-
-                    {% if name['url'] %}
+                    <h3>
+                        Stream Type:
+                        <small class="text-muted">Live</small>
+                    </h3>
+                    <h3>
+                        Mature:
+                        <small class="text-muted">No</small>
+                    </h3>
+                    <h3>
+                        Language:
+                        <small class="text-muted">English</small>
+                    </h3>
+                    <h3>
+                        Views:
+                        <small class="text-muted">181544811</small>
+                    </h3>
+                    <h3>
+                        Followers:
+                        <small class="text-muted">1692237</small>
+                    </h3>
                     <h3>
                         URL:
-                        <small class="text-muted"><a href={{name['url']}}>{{name['url']}}</a></small>
+                        <small class="text-muted"><a href="https://www.twitch.tv/lirik">https://www.twitch.tv/lirik</a></small>
                     </h3>
-                    {% endif %}
-
-                    {% if name['rules'] %}
-                    <h3>
-                        Rules:
-                        <small class="text-muted">{{name['rules']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['channels'] %}
-                    <h3>
-                        Channels:
-                        <small class="text-muted">{{name['channels']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['viewers'] %}
-                    <h3>
-                        Viewers:
-                        <small class="text-muted">{{name['viewers']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['users'] %}
-                    <h3>
-                        Team Members:
-                        {% for user in name['users'] %}
-                            <small class="text-muted"><a href="{{ url_for('show_streamers', wow=user['_id'])}}"><br />{{user['name']}}</a></small>
-                        {% endfor %}
-                    </h3>
-                    {% endif %}
-
-                    {% if name['created_at'] or name['updated_at'] %}
-                    <h3>
-                        Created:
-                        <small class="text-muted">{{name['created_at']}}</small>
-                    </h3>
-                    <h3>
-                        Updated:
-                        <small class="text-muted">{{name['updated_at']}}</small>
-                    </h3>
-                    {% endif %}
                 </div>
             </div>
         </div>

@@ -116,24 +116,49 @@
                 </div>
             </div>
             <div class="row">
-                {% for channel in name['channels'] %}
-                    <div class="col-md-4 col-sm-6 portfolio-item">
-                        <a href="{{'/streamers/' ~ channel['channel']['_id']}}" class="portfolio-link" data-toggle="modal">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <i class="fa fa-plus fa-3x"></i>
-                                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/streamers/LIRIK" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
                             </div>
-                            <img src={{channel['channel']['logo']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                        </a>
-                        <div class="portfolio-caption portfolio-caption-gray">
-                            <h4>{{channel['channel']['name']}}</h4>
                         </div>
+                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/lirik-profile_image-476e7a592cdfed74-300x300.png" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-white">
+                        <h4>LIRIK</h4>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/streamers/LegendaryLea" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/legendarylea-profile_image-d0f3a63980113816-300x300.jpeg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-white">
+                        <h4>LegendaryLea</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/streamers/MitchJones" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/42dfc148727317d6-profile_image-300x300.jpeg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-white">
+                        <h4>MitchJones</h4>
+                    </div>
+                </div>
         </div>
     </section>
+
+
 
     <!-- Games Section -->
     <section id="games" class="portfolio">
@@ -144,22 +169,45 @@
                 </div>
             </div>
             <div class="row">
-                {% for game in name['games'] %}
-                    <div class="col-md-4 col-sm-6 portfolio-item">
-                        <a href="{{'/games/' ~ game['game']['giantbomb_id']}}" class="portfolio-link" data-toggle="modal">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <i class="fa fa-plus fa-3x"></i>
-                                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/games/league-of-legends" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
                             </div>
-                            <img src={{game['game']['box']['large']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                        </a>
-                        <div class="portfolio-caption portfolio-caption-gray">
-                            <h4>{{game['game']['name']}}</h4>
                         </div>
+                        <img src="https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-272x380.jpg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>League of Legends</h4>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/games/dota-2" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-272x380.jpg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>Dota 2</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/games/counter-strike-global-offensive" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-272x380.jpg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>Counter-Strike: Global Offensive</h4>
+                    </div>
+                </div>
         </div>
     </section>
 
@@ -330,22 +378,45 @@
                 </div>
             </div>
             <div class="row">
-                {% for community in name['communities'] %}
-                    <div class="col-md-4 col-sm-6 portfolio-item">
-                        <a href="{{'/communities/' ~ community['name']}}" class="portfolio-link" data-toggle="modal">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <i class="fa fa-plus fa-3x"></i>
-                                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/communities/positivity" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
                             </div>
-                            <img src={{community['avatar_image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                        </a>
-                        <div class="portfolio-caption portfolio-caption-gray">
-                            <h4>{{community['display_name']}}</h4>
                         </div>
+                        <img src="https://static-cdn.jtvnw.net/community-images/ff1e77af-551d-4993-945c-f8ceaa2a2829/b7d6418f-32d6-48e4-8adf-1f592d9df4f8-185x258.jpeg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>Positivity</h4>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/communities/speedrunning" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://static-cdn.jtvnw.net/community-images/6e940c4a-c42f-47d2-af83-0a2c7e47c421/08b6da6b-e74b-407d-a68f-ae7a04c956ec-185x258.png" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>Speedrunning</h4>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="/communities/catsonly" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="https://static-cdn.jtvnw.net/community-images/5181e78f-2280-42a6-873d-758e25a7c313/4d8cd2a4-fecd-4593-af7d-20699357188a-185x258.jpeg" style="width:350px;height:350px;" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>CatsOnly</h4>
+                    </div>
+                </div>
         </div>
     </section>
 
@@ -358,8 +429,8 @@
                     <h3 class="section-subheading text-muted">The Bots.</h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4 team-col">
+            <div class="row align-items-center">
+                <div class="col-sm-4 team-col"> 
                     <div class="team-member">
                         <img src="/static/img/team/blue_headshot.jpg" class="img-responsive img-circle" alt="">
                         <h4>Blue Madrigal</h4>
