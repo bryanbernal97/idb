@@ -17,7 +17,14 @@ application.debug = True
 # print a nice greeting.
 @application.route('/')
 def say_hello():
-    return render_template('index.html')
+    json = requests.get('https://api.twitch.tv/kraken/communities/top', headers=headers).json()
+    top['communities'] = json['communities']
+    json = requests.get('https://api.twitch.tv/kraken/games/top', headers=headers).json()
+    top['games'] = json['top']
+    json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
+    channels = json['streams']
+    top['channels'] = channels
+    return render_template('index2.html', name=top)
 
 @application.route('/games/league-of-legends')
 def show_league_of_legends():
