@@ -5,6 +5,8 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 PyMySQL==0.6.3
 SQLAlchemy==0.9.8
+psycopg2==2.6.1
+python-dateutil==2.6.0
 WTForms==2.0.1
 Werkzeug==0.9.6
 argparse==1.2.1
