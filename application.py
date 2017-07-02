@@ -3,6 +3,7 @@ from flask import render_template
 from application import db
 from application.models import Data
 
+import datetime
 
 
 # Create the Flask app
@@ -66,7 +67,8 @@ def show_cloud9():
 
 @application.route('/testWrite')
 def testing_db_write():
-    data_entered = Data(notes='testing123')
+    notes = str(datetime.datetime.now())
+    data_entered = Data(notes=notes)
     try:     
         db.session.add(data_entered)
         db.session.commit()        
