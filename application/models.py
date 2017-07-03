@@ -30,7 +30,7 @@ class BaseModel(db.Model):
 # https://www.codementor.io/sheena/understanding-sqlalchemy-cheat-sheet-du107lawl
 class Streamer (BaseModel, db.Model) :
     __tablename__ = 'streamer'
-    _id = db.Column(db.Integer, primary_key = True, nullable =  False)
+    id = db.Column(db.Integer, primary_key = True, nullable =  False)
     channel_id = db.Column(db.Integer, db.ForeignKey(channel.id))   # <-----
     stream_id = db.Column(db.Integer, db.ForeignKey(stream.id))     # <-----
     team_id = db.Column(db.Integer, db.ForeignKey(team.id), nullable = True)
@@ -43,10 +43,10 @@ class Streamer (BaseModel, db.Model) :
 
 class Channel (BaseModel, db.Model) :
     __tablename__ = 'channel'
-    _id = db.Column(db.Integer, primary_key = True, nullable = False)
+    id = db.Column(db.Integer, primary_key = True, nullable = False)
 
     mature = db.Column(db.String(128), nullable = True)
-    partner = db.Column(db.String(128), nullable = True)
+    partner = db.Column(db.Boolean(), nullable = True)
     status = db.Column(db.String(128))
     broadcaster_language = db.Column(db.String(128))
     display_name = db.Column(db.String(128))
@@ -65,6 +65,8 @@ class Channel (BaseModel, db.Model) :
     url = db.Column(db.String(128))
     views = db.Column(db.Integer)
     followers = db.Column(db.Integer)
+    links = db.Column(db.Array(String(128))) # self, follows, commercial, stream_key, chat
+                                             # features, subscriptions, editors, teams, videos
 
 class Stream (BaseModel, db.Model) :
     __tablename__ = 'stream'
@@ -108,3 +110,14 @@ class Community (BaseModel, db.Model) :
 class Game (BaseModel, db.Model) :
 
     __tablename__ = 'game'
+    id = db.Column(db.Integer, primary_key = True)
+
+    name = db.Column(db.String(128))
+    popularity = db.Column(db.Integer)
+    giantbomb_id = db.Column(db.Integer)
+    box = db.Column(db.Array(String(128)))  # Game.box[0] is large, Game.box[1] is medium, etc
+    logo = db.Column(db.Array(String(128)))
+    localized_name = db.Column(db.String(128))
+    locale = db.Column(db.String(128), nullable = True)
+    viewers = db.Column(db.Integer)
+    channels = db.Column(db.Integer)
