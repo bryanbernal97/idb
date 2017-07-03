@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-import datetime
+from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey
 
 db = SQLAlchemy()
 
@@ -26,21 +27,6 @@ class BaseModel(db.Model):
             for column, value in self._to_dict().items()
         }
 
-# https://stackoverflow.com/questions/28280507/setup-relationship-one-to-one-in-flask-sqlalchemy
-# https://www.codementor.io/sheena/understanding-sqlalchemy-cheat-sheet-du107lawl
-class Streamer (BaseModel, db.Model) :
-    __tablename__ = 'streamer'
-    id = db.Column(db.Integer, primary_key = True, nullable =  False)
-    channel_id = db.Column(db.Integer, db.ForeignKey(channel.id))   # <-----
-    stream_id = db.Column(db.Integer, db.ForeignKey(stream.id))     # <-----
-    team_id = db.Column(db.Integer, db.ForeignKey(team.id), nullable = True)
-    community_id = db.Column(db.Integer, db.ForeignKey(community.id), nullable = True)
-
-    channel = relationship("Channel", backref = backref("streamers", uselist = False)) # one-to-one
-    stream = relationship("Stream", backref = backref("streamers", uselist = False)) # one-to-one
-    team = relationship("Team", backref = "streamers", nullable = True)
-    community = relationship("Community", backref = "streamers", nullable = True)
-
 class Channel (BaseModel, db.Model) :
     __tablename__ = 'channel'
     id = db.Column(db.Integer, primary_key = True, nullable = False)
@@ -53,34 +39,48 @@ class Channel (BaseModel, db.Model) :
     game = db.Column(db.String(128))
     language = db.Column(db.String(128))
     name = db.Column(db.String(128))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
+    created_at = db.Column(db.String(128))
+    updated_at = db.Column(db.String(128))
     delay = db.Column(db.Integer, nullable = True)
     logo = db.Column(db.String(128), nullable = True)
     banner = db.Column(db.String(128), nullable = True)
     video_banner = db.Column(db.String(128), nullable = True)
-    background =db.Column(db.String(128), nullable = True)
+    background = db.Column(db.String(128), nullable = True)
     profile_banner  = db.Column(db.String(128), nullable = True)
     profile_banner_background_color = db.Column(db.String(128), nullable = True)
     url = db.Column(db.String(128))
     views = db.Column(db.Integer)
     followers = db.Column(db.Integer)
-    links = db.Column(db.Array(String(128))) # self, follows, commercial, stream_key, chat
+#    links = db.Column(db.Array(db.String(128))) # self, follows, commercial, stream_key, chat
                                              # features, subscriptions, editors, teams, videos
 
 class Stream (BaseModel, db.Model) :
     __tablename__ = 'stream'
     id = db.Column(db.Integer, primary_key = True, nullable = False)
-    streamer_id = db.Column(db.Integer, ForeignKey('Streamer.id'), nullable = False)
 
     game = db.Column(db.String(128))
     viewers = db.Column(db.Integer)
     video_height = db.Column(db.Integer)
     average_fps = db.Column(db.Float)
     delay = db.Column(db.Integer, nullable = True)
-    created_at = db.Column(db.DateTime)
+    created_at = db.Column(db.String(128))
     is_playlist = db.Column(db.String(128))
     stream_type = db.Column(db.String(128))
+
+# https://stackoverflow.com/questions/28280507/setup-relationship-one-to-one-in-flask-sqlalchemy
+# https://www.codementor.io/sheena/understanding-sqlalchemy-cheat-sheet-du107lawl
+class Streamer (BaseModel, db.Model) :
+    __tablename__ = 'streamer'
+    id = db.Column(db.Integer, primary_key = True, nullable =  False)
+    channel_id = db.Column(db.Integer, db.ForeignKey('channel.id'))   # <-----
+    stream_id = db.Column(db.Integer, db.ForeignKey('stream.id'))     # <-----
+    team_id = db.Column(db.Integer, db.ForeignKey('team.id'), nullable = True)
+    community_id = db.Column(db.Integer, db.ForeignKey('community.id'), nullable = True)
+
+    channel = relationship("Channel",backref = 'streamers') # one-to-one
+    stream = relationship("Stream", backref = 'streamers') # one-to-one
+    team = relationship("Team", backref = 'streamers')
+    community = relationship("Community", backref = 'streamers')    
 
 class Team (BaseModel, db.Model) :
 
@@ -90,8 +90,8 @@ class Team (BaseModel, db.Model) :
     name = db.Column(db.String(128))
     info = db.Column(db.String(500), nullable = True)
     display_name = db.Column(db.String(128))
-    created_at = db.Column(db.DateTime)
-    updated_at = db.Column(db.DateTime)
+    created_at = db.Column(db.String(128))
+    updated_at = db.Column(db.String(128))
     logo = db.Column(db.String(128), nullable = True)
     banner = db.Column(db.String(128), nullable = True)
     background = db.Column(db.String(128), nullable = True)
@@ -115,8 +115,8 @@ class Game (BaseModel, db.Model) :
     name = db.Column(db.String(128))
     popularity = db.Column(db.Integer)
     giantbomb_id = db.Column(db.Integer)
-    box = db.Column(db.Array(String(128)))  # Game.box[0] is large, Game.box[1] is medium, etc
-    logo = db.Column(db.Array(String(128)))
+#    box = db.Column(db.Array(db.String(128)))  # Game.box[0] is large, Game.box[1] is medium, etc
+#    logo = db.Column(db.Array(db.String(128)))
     localized_name = db.Column(db.String(128))
     locale = db.Column(db.String(128), nullable = True)
     viewers = db.Column(db.Integer)
