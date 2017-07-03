@@ -12,7 +12,7 @@ gb_id = '/?api_key=d483af9dcc46474051b451953aa550322df2b793&format=json'
 top = {}
 teams = {}
 communities = {}
-streamers = {}
+users = {}
 games = {}
 
 # Create the Flask app
@@ -24,19 +24,19 @@ application.debug = True
 @application.route('/')
 def say_hello():
     global top
-    users = {}
-    communities = {}
-    streamers = {}
-    games = {}
+    users = []
+    communities = []
+    users = []
+    games = []
     #users
     try:   
             query_db = User.query
             for q in query_db:
                 user = {}
-                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
-                for member in members
-                    user[member] = getattr(q, member)
-                users[user['name']] = user
+                user['id'] = q.id
+                user['name'] = q.name
+                user['image_url'] = q.image_url
+                users += user
             db.session.close()
         except:
             db.session.rollback()
@@ -45,10 +45,10 @@ def say_hello():
             query_db = Game.query
             for q in query_db:
                 game = {}
-                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
-                for member in members
-                    game[member] = getattr(q, member)
-                games[game['name']] = game
+                game['id'] = q.id
+                game['name'] = q.name
+                game['image_url'] = q.image_url
+                games += game
             db.session.close()
         except:
             db.session.rollback()
@@ -57,10 +57,10 @@ def say_hello():
             query_db = Team.query
             for q in query_db:
                 team = {}
-                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
-                for member in members
-                    team[member] = getattr(q, member)
-                teams[team['name']] = team
+                team['id'] = q.id
+                team['name'] = q.name
+                team['image_url'] = q.image_url
+                teams += team
             db.session.close()
         except:
             db.session.rollback()
@@ -68,17 +68,15 @@ def say_hello():
     try:   
             query_db = Community.query
             for q in query_db:
-                community = {}
-                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
-                for member in members
-                    community[member] = getattr(q, member)
-                communities[community['name']] = community
+                communities = {}
+                community['id'] = q.id
+                community['name'] = q.name
+                community['image_url'] = q.image_url
+                communities += community
             db.session.close()
         except:
             db.session.rollback()
-
-    #json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
-    #channels = json['streams']
+    
     top['users'] = users
     top['communities'] = communities
     top['games'] = games
@@ -102,16 +100,29 @@ def show_communities(wow):
 
     return render_template('model_template.html', name = communities[wow])
 
-@application.route('/streamers/<wow>')
-def show_streamers(wow):
-    global streamers
+@application.route('/users/<wow>')
+def show_users(wow):
+    global users
     url = 'https://api.twitch.tv/kraken/channels/' + wow
-    streamers[wow] = requests.get(url, headers=headers).json()
-    streamers[wow]['model_type'] = 'streamer'
+    users[wow] = requests.get(url, headers=headers).json()
+    users[wow]['model_type'] = 'user'
 
-    print(streamers[wow])
+    """
+    user = {}
+    user['name'] = q.name
+    user['info'] = q.info
+    user['language'] = q.language
+    user['views'] = q.views
+    user['followers'] = q.followers
+    user['url'] = q.url
+    user['created'] = q.created
+    user['updated'] = q.updated
+    user['image_url'] = q.image_url
+    """
 
-    return render_template('model_template.html', name = streamers[wow])
+    print(users[wow])
+
+    return render_template('model_template.html', name = users[wow])
 
 @application.route('/games/<wow>')
 def show_games(wow):
@@ -119,6 +130,19 @@ def show_games(wow):
     url = 'http://www.giantbomb.com/api/game/' + wow + gb_id
     json = requests.get(url, headers={'user-agent' : '1234'}).json()
     print("hi")
+
+    """
+    game = {}
+    game['name'] = q.name
+    game['description'] = q.description
+    game['genre'] = q.genre
+    game['platform'] = q.platform
+    game['release_date'] = q.release_date
+    game['image_url'] = q.image_url
+    game['user_id'] = q.user_id
+    game['team_id'] = q.team_id
+    """
+
     game = json['results']
     games[game['name']] = game
     games[game['name']]['_id'] = wow
@@ -126,7 +150,6 @@ def show_games(wow):
 
     return render_template('model_template.html', name = games[game['name']])
 
-<<<<<<< HEAD
     
 @application.route('/testWrite')
 def testing_db_write():
@@ -139,21 +162,6 @@ def testing_db_write():
     except:
         db.session.rollback()
     return render_template('cloud9.html')
-=======
-# we will erase this eventually
-# @application.route('/testWrite')
-# def testing_db_write():
-#     notes = str(datetime.datetime.now())
-#     data_entered = Data(notes=notes)
-#     try:     
-#         db.session.add(data_entered)
-#         db.session.commit()        
-#         db.session.close()
-#     except:
-#         db.session.rollback()
-#     return render_template('cloud9.html')
-    
->>>>>>> c7e2722d83e37b07a816cc73a03be6d7c8114dc6
 
 
 # run the app.
