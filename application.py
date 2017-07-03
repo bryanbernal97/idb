@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from application import db
-from application.models import Data
+# from application.models import Data
 
 import datetime
 import requests
