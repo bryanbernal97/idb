@@ -759,3 +759,26 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #6441A4;
 }
+
+.container2 {
+  /*Margin-top:45vh;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  margin:0 auto;
+}
+
+.container3 {
+  /*Margin-top:45vh;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  margin:0 auto;
+}
+
+.container4 {
+  /*Margin-top:45vh;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  margin:0 auto;
+}
+
+
