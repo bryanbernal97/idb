@@ -2,6 +2,10 @@ from flask import Flask
 from flask import render_template
 from application import db
 # from application.models import Data
+# from application.models import User
+# from application.models import Team
+# from application.models import Community
+# from application.models import Game
 
 import datetime
 import requests
