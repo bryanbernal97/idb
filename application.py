@@ -126,6 +126,7 @@ def show_games(wow):
 
     return render_template('model_template.html', name = games[game['name']])
 
+<<<<<<< HEAD
     
 @application.route('/testWrite')
 def testing_db_write():
@@ -138,6 +139,21 @@ def testing_db_write():
     except:
         db.session.rollback()
     return render_template('cloud9.html')
+=======
+# we will erase this eventually
+# @application.route('/testWrite')
+# def testing_db_write():
+#     notes = str(datetime.datetime.now())
+#     data_entered = Data(notes=notes)
+#     try:     
+#         db.session.add(data_entered)
+#         db.session.commit()        
+#         db.session.close()
+#     except:
+#         db.session.rollback()
+#     return render_template('cloud9.html')
+    
+>>>>>>> c7e2722d83e37b07a816cc73a03be6d7c8114dc6
 
 
 # run the app.
