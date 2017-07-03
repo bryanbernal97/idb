@@ -141,3 +141,17 @@ class User (BaseModel, db.Model):
     community = db.Column(db.Integer, db.ForeignKey('community.id')) # Connection to Community model
 
 
+class Game (BaseModel, db.Model):
+    __tablename__ = 'game'
+
+    id = db.Column(db.Integer, primary_key = True)
+
+    name = db.Column(db.String(128))
+    description = db.Column(db.String(500))
+    genre = db.Column(db.String(128))
+    platform = db.Column(db.String(128))
+    release_date = db.Column(db.DateTime)
+    image_url = db.Column(db.String(128))
+
+    user = db.Column(db.Integer, db.ForeignKey('user.id')) # Connection to User model
+    team = db.Column(db.Integer, db.ForeignKey('team.id')) # Connection to Team model
