@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from application import db
+from application.models import User, Team, Game, Community
 # from application.models import Data
 
 import datetime
@@ -22,13 +23,66 @@ application.debug = True
 # print a nice greeting.
 @application.route('/')
 def say_hello():
-    json = requests.get('https://api.twitch.tv/kraken/communities/top', headers=headers).json()
-    top['communities'] = json['communities']
-    json = requests.get('https://api.twitch.tv/kraken/games/top', headers=headers).json()
-    top['games'] = json['top']
-    json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
-    channels = json['streams']
-    top['channels'] = channels
+    global top
+    users = {}
+    communities = {}
+    streamers = {}
+    games = {}
+    #users
+    try:   
+            query_db = User.query
+            for q in query_db:
+                user = {}
+                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
+                for member in members
+                    user[member] = getattr(q, member)
+                users[user['name']] = user
+            db.session.close()
+        except:
+            db.session.rollback()
+    #games
+    try:   
+            query_db = Game.query
+            for q in query_db:
+                game = {}
+                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
+                for member in members
+                    game[member] = getattr(q, member)
+                games[game['name']] = game
+            db.session.close()
+        except:
+            db.session.rollback()
+    #teams
+    try:   
+            query_db = Team.query
+            for q in query_db:
+                team = {}
+                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
+                for member in members
+                    team[member] = getattr(q, member)
+                teams[team['name']] = team
+            db.session.close()
+        except:
+            db.session.rollback()
+    #communities
+    try:   
+            query_db = Community.query
+            for q in query_db:
+                community = {}
+                members = [key for key, value in A.__dict__.items() if not isinstance(value, CALLABLES)]
+                for member in members
+                    community[member] = getattr(q, member)
+                communities[community['name']] = community
+            db.session.close()
+        except:
+            db.session.rollback()
+
+    #json = requests.get('https://api.twitch.tv/kraken/streams', headers=headers).json()
+    #channels = json['streams']
+    top['users'] = users
+    top['communities'] = communities
+    top['games'] = games
+    top['teams'] = teams
     return render_template('index.html', name=top)
 
 @application.route('/teams/<wow>')
@@ -72,18 +126,18 @@ def show_games(wow):
 
     return render_template('model_template.html', name = games[game['name']])
 
-# we will erase this eventually
-# @application.route('/testWrite')
-# def testing_db_write():
-#     notes = str(datetime.datetime.now())
-#     data_entered = Data(notes=notes)
-#     try:     
-#         db.session.add(data_entered)
-#         db.session.commit()        
-#         db.session.close()
-#     except:
-#         db.session.rollback()
-#     return render_template('cloud9.html')
+    
+@application.route('/testWrite')
+def testing_db_write():
+    notes = str(datetime.datetime.now())
+    data_entered = Data(notes=notes)
+    try:     
+        db.session.add(data_entered)
+        db.session.commit()        
+        db.session.close()
+    except:
+        db.session.rollback()
+    return render_template('cloud9.html')
 
 
 # run the app.
