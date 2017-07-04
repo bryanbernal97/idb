@@ -12,7 +12,7 @@ class BaseModel(db.Model):
         """Define a base way to print models"""
         return '%s(%s)' % (self.__class__.__name__, {
             column: value
-            for column, value in self._to_dict().items()
+            for column, value in self.__dict__.items()
         })
 
     def json(self):
@@ -32,7 +32,7 @@ class User (BaseModel, db.Model):
 
     # Attributes
     name = db.Column(db.String(128))
-    info = db.Column(db.String(500))
+    description = db.Column(db.String(500))
     language = db.Column(db.String(128))
     views = db.Column(db.Integer)
     followers = db.Column(db.Integer)
@@ -44,6 +44,7 @@ class User (BaseModel, db.Model):
     # Connections to other models
     game_id = db.Column(db.Integer)
     community_id = db.Column(db.Integer)
+    team_id = db.Column(db.Integer)
 
 
 class Game (BaseModel, db.Model):
@@ -62,6 +63,7 @@ class Game (BaseModel, db.Model):
     # Connections to other models
     user_id = db.Column(db.Integer)
     team_id = db.Column(db.Integer) 
+    community_id = db.Column(db.Integer)
 
 
 class Team (BaseModel, db.Model):
@@ -96,4 +98,3 @@ class Community (BaseModel, db.Model):
     # Connection to other models
     games = db.Column(db.ARRAY(db.Integer)) # list of game id's
     users = db.Column(db.ARRAY(db.Integer)) # list of user id's
-
