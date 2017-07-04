@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/hannahperry5/streamglean/issues"
   },
-  "homepage": "https://github.com/hannahperry5/streamglean#readme"
+  "homepage": "https://github.com/hannahperry5/streamglean#readme",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
 }
