@@ -6,6 +6,7 @@ Flask-Migrate==1.8.0
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.1
 idna==2.5
+iso639==0.1.4
 itsdangerous==0.24
 Jinja2==2.9.6
 Mako==1.0.6

@@ -2,6 +2,10 @@ from flask import Flask
 from flask import render_template
 from application import db
 # from application.models import Data
+# from application.models import User
+# from application.models import Team
+# from application.models import Community
+# from application.models import Game
 
 import datetime
 import requests
@@ -72,18 +76,19 @@ def show_games(wow):
 
     return render_template('model_template.html', name = games[game['name']])
 
+# we will erase this eventually
+# @application.route('/testWrite')
+# def testing_db_write():
+#     notes = str(datetime.datetime.now())
+#     data_entered = Data(notes=notes)
+#     try:     
+#         db.session.add(data_entered)
+#         db.session.commit()        
+#         db.session.close()
+#     except:
+#         db.session.rollback()
+#     return render_template('cloud9.html')
     
-@application.route('/testWrite')
-def testing_db_write():
-    notes = str(datetime.datetime.now())
-    data_entered = Data(notes=notes)
-    try:     
-        db.session.add(data_entered)
-        db.session.commit()        
-        db.session.close()
-    except:
-        db.session.rollback()
-    return render_template('cloud9.html')
 
 
 # run the app.
