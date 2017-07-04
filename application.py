@@ -26,88 +26,67 @@ def say_hello():
     global top
     users = []
     communities = []
-    users = []
+    teams = []
     games = []
     #users
     try:   
-            query_db = User.query
-            for q in query_db:
-                user = {}
-                user['id'] = q.id
-                user['name'] = q.name
-                user['image_url'] = q.image_url
-                users += user
-            db.session.close()
-        except:
-            db.session.rollback()
+        query_db = User.query
+        for q in query_db:
+            user = {}
+            user['id'] = q.id
+            user['name'] = q.name
+            user['image_url'] = q.image_url
+            users += user
+        db.session.close()
+    except:
+        db.session.rollback()
     #games
     try:   
-            query_db = Game.query
-            for q in query_db:
-                game = {}
-                game['id'] = q.id
-                game['name'] = q.name
-                game['image_url'] = q.image_url
-                games += game
-            db.session.close()
-        except:
-            db.session.rollback()
+        query_db = Game.query
+        for q in query_db:
+            game = {}
+            game['id'] = q.id
+            game['name'] = q.name
+            game['image_url'] = q.image_url
+            games += game
+        db.session.close()
+    except:
+        db.session.rollback()
     #teams
     try:   
-            query_db = Team.query
-            for q in query_db:
-                team = {}
-                team['id'] = q.id
-                team['name'] = q.name
-                team['image_url'] = q.image_url
-                teams += team
-            db.session.close()
-        except:
-            db.session.rollback()
+        query_db = Team.query
+        for q in query_db:
+            team = {}
+            team['id'] = q.id
+            team['name'] = q.name
+            team['image_url'] = q.image_url
+            teams += team
+        db.session.close()
+    except:
+        db.session.rollback()
     #communities
     try:   
-            query_db = Community.query
-            for q in query_db:
-                communities = {}
-                community['id'] = q.id
-                community['name'] = q.name
-                community['image_url'] = q.image_url
-                communities += community
-            db.session.close()
-        except:
-            db.session.rollback()
-    
+        query_db = Community.query
+        for q in query_db:
+            communities = {}
+            community['id'] = q.id
+            community['name'] = q.name
+            community['image_url'] = q.image_url
+            communities += community
+        db.session.close()
+    except:
+        db.session.rollback()
+
     top['users'] = users
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
     return render_template('index.html', name=top)
 
-@application.route('/teams/<wow>')
-def show_teams(wow):
-    global teams
-    url = 'https://api.twitch.tv/kraken/teams/' + wow
-    teams[wow] = requests.get(url, headers=headers).json()
-
-    return render_template('model_template.html', name = teams[wow])
-
-@application.route('/communities/<wow>')
-def show_communities(wow):
-    global communities
-    url = 'https://api.twitch.tv/kraken/communities?name=' + wow
-    communities[wow] = requests.get(url, headers=headers).json()
-    communities[wow]['model_type'] = 'community'
-
-    return render_template('model_template.html', name = communities[wow])
-
 @application.route('/users/<wow>')
 def show_users(wow):
-    global users
-    url = 'https://api.twitch.tv/kraken/channels/' + wow
-    users[wow] = requests.get(url, headers=headers).json()
-    users[wow]['model_type'] = 'user'
-
-    """
+    id_num = Integer.parseInt(wow)
+    q = User.query.get(id_num)
     user = {}
     user['name'] = q.name
     user['info'] = q.info
@@ -118,20 +97,13 @@ def show_users(wow):
     user['created'] = q.created
     user['updated'] = q.updated
     user['image_url'] = q.image_url
-    """
 
-    print(users[wow])
-
-    return render_template('model_template.html', name = users[wow])
+    return render_template('model_template.html', name = user)
 
 @application.route('/games/<wow>')
 def show_games(wow):
-    global games, gb_id
-    url = 'http://www.giantbomb.com/api/game/' + wow + gb_id
-    json = requests.get(url, headers={'user-agent' : '1234'}).json()
-    print("hi")
-
-    """
+    id_num = Integer.parseInt(wow)
+    q = Game.query.get(id_num)
     game = {}
     game['name'] = q.name
     game['description'] = q.description
@@ -141,16 +113,99 @@ def show_games(wow):
     game['image_url'] = q.image_url
     game['user_id'] = q.user_id
     game['team_id'] = q.team_id
-    """
 
-    game = json['results']
-    games[game['name']] = game
-    games[game['name']]['_id'] = wow
-    games[game['name']]['model_type'] = 'game'
+    return render_template('model_template.html', name = game)
 
-    return render_template('model_template.html', name = games[game['name']])
+@application.route('/teams/<wow>')
+def show_teams(wow):
+    q = Team.query.get(id_num)
+    team = {}
+    team['name'] = q.name
+    team['info'] = q.info
+    team['created'] = q.created
+    team['updated'] = q.updated
+    team['image_url'] = q.image_url
+    community['user_ids'] = q.user_ids
+    community['game_id'] = q.game_id
 
-    
+    return render_template('model_template.html', name = teams[wow])
+
+@application.route('/communities/<wow>')
+def show_communities(wow):
+    id_num = Integer.parseInt(wow)
+    q = Community.query.get(id_num)
+    community = {}
+    community['name'] = q.name
+    community['info'] = q.info
+    community['language'] = q.language
+    community['rules'] = q.rules
+    community['image_url'] = q.image_url
+    community['user_ids'] = q.users
+    community['game_ids'] = q.games
+
+    return render_template('model_template.html', name = community)
+
+@application.route('/api/v0/user/<wow>', methods=['GET'])
+def get_user(wow):
+    id_num = Integer.parseInt(wow)
+    q = User.query.get(id_num)
+    user = {}
+    user['name'] = q.name
+    user['info'] = q.info
+    user['language'] = q.language
+    user['views'] = q.views
+    user['followers'] = q.followers
+    user['url'] = q.url
+    user['created'] = q.created
+    user['updated'] = q.updated
+    user['image_url'] = q.image_url
+
+    return jsonify({'user': user})
+
+@application.route('/api/v0/game/<wow>', methods=['GET'])
+def get_game(wow):
+    id_num = Integer.parseInt(wow)
+    q = Game.query.get(id_num)
+    game = {}
+    game['name'] = q.name
+    game['description'] = q.description
+    game['genre'] = q.genre
+    game['platform'] = q.platform
+    game['release_date'] = q.release_date
+    game['image_url'] = q.image_url
+    game['user_id'] = q.user_id
+    game['team_id'] = q.team_id
+    return jsonify({'game': game})
+
+@application.route('/api/v0/team/<wow>', methods=['GET'])
+def get_team(wow):
+    q = Team.query.get(id_num)
+    team = {}
+    team['name'] = q.name
+    team['info'] = q.info
+    team['created'] = q.created
+    team['updated'] = q.updated
+    team['image_url'] = q.image_url
+    community['user_ids'] = q.user_ids
+    community['game_id'] = q.game_id
+    return jsonify({'team': team})
+
+@application.route('/api/v0/community/<wow>', methods=['GET'])
+def get_community(wow):
+    id_num = Integer.parseInt(wow)
+    q = Community.query.get(id_num)
+    community = {}
+    community['name'] = q.name
+    community['info'] = q.info
+    community['language'] = q.language
+    community['rules'] = q.rules
+    community['image_url'] = q.image_url
+    community['user_ids'] = q.users
+    community['game_ids'] = q.games
+    return jsonify({'community': community})
+
+
+"""
 @application.route('/testWrite')
 def testing_db_write():
     notes = str(datetime.datetime.now())
@@ -162,6 +217,7 @@ def testing_db_write():
     except:
         db.session.rollback()
     return render_template('cloud9.html')
+"""
 
 
 # run the app.

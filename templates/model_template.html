@@ -65,54 +65,34 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">{{name['display_name']}}</h2>
-                    {% if name['avatar_image_url'] %}
-                        <img src={{name['avatar_image_url']}}>
-                    {% endif %}
-
-                    {% if name['logo'] %}
-                        <img src={{name['logo']}}>
-                    {% endif %}
-
-                    {% if name['image'] %}
-                        <img src={{name['image']['thumb_url']}}>
-                    {% endif %}
-
+                        <img src={{name['image_url']}}>
                     <h3>
                         Name:
                         <small class="text-muted">{{name['name']}}</small>
                     </h3>
-
-                    {% if name['info'] or name['description'] %}
                     <h3>
                         Info:
-                        {% if name['deck'] %}
-                            <small class="text-muted">{{name['deck']}}</small>
-                        {% elif name['description'] %}
-                            <small class="text-muted">{{name['description']}}</small>
-                        {% else %}
                             <small class="text-muted">{{name['info']}}</small>
-                        {% endif %}
                     </h3>
-                    {% endif %}
-
-                    {% if name['original_release_date'] %}
-                    <h3>
-                        Release Date:
-                        <small class="text-muted">{{name['original_release_date']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['mature'] %}
-                    <h3>
-                        Mature:
-                        <small class="text-muted">{{name['mature']}}</small>
-                    </h3>
-                    {% endif %}
 
                     {% if name['language'] %}
                     <h3>
                         Language:
                         <small class="text-muted">{{name['language']}}</small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['rules'] %}
+                    <h3>
+                        Rules:
+                        <small class="text-muted">{{name['rules']}}</small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['release_date'] %}
+                    <h3>
+                        Release Date:
+                        <small class="text-muted">{{name['release_date']}}</small>
                     </h3>
                     {% endif %}
 
@@ -130,10 +110,37 @@
                     </h3>
                     {% endif %}
 
-                    {% if name['game'] %}
+                    {% if name['games'] %}
                     <h3>
                         Game:
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game']['_id'])}}">{{name['game']}}</a></small>
+                        {% for game in name['games'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}">{{game}}</a></small>
+                        {% endfor %}
+                    </h3>
+                    {% endif %}
+
+                    {% if name['game_id'] %}
+                    <h3>
+                        Game:
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game_id)}}">{{game_id}}</a></small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['users'] %}
+                    <h3>
+                        Game:
+                        {% for user in name['users'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}">{{user}}</a></small>
+                        {% endfor %}
+                    </h3>
+                    {% endif %}
+
+                    {% if name['user_ids'] %}
+                    <h3>
+                        Game:
+                        {% for user in name['user_ids'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}">{{user}}</a></small>
+                        {% endfor %}
                     </h3>
                     {% endif %}
 
@@ -141,27 +148,6 @@
                     <h3>
                         URL:
                         <small class="text-muted"><a href={{name['url']}}>{{name['url']}}</a></small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['rules'] %}
-                    <h3>
-                        Rules:
-                        <small class="text-muted">{{name['rules']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['channels'] %}
-                    <h3>
-                        Channels:
-                        <small class="text-muted">{{name['channels']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['viewers'] %}
-                    <h3>
-                        Viewers:
-                        <small class="text-muted">{{name['viewers']}}</small>
                     </h3>
                     {% endif %}
 
@@ -174,14 +160,17 @@
                     </h3>
                     {% endif %}
 
-                    {% if name['created_at'] or name['updated_at'] %}
+                    {% if name['created'] %}
                     <h3>
                         Created:
-                        <small class="text-muted">{{name['created_at']}}</small>
+                        <small class="text-muted">{{name['created']}}</small>
                     </h3>
+                    {% endif %}
+
+                    {% if name['updated'] %}
                     <h3>
                         Updated:
-                        <small class="text-muted">{{name['updated_at']}}</small>
+                        <small class="text-muted">{{name['updated']}}</small>
                     </h3>
                     {% endif %}
                 </div>
