@@ -6,7 +6,7 @@ from application import db
 from application.models import User
 from application.models import Team
 from application.models import Community
-from application.models import User
+from application.models import Game
 
 import datetime
 import iso639
@@ -77,7 +77,8 @@ for t in json.get('teams'):
 			# Get game information from 2nd API
 			gb_request_url = gb_api_url + user_game_name + '&resources=game'
 			print('GB REQUEST: ' + gb_request_url + '\n')
-			game_response = requests.get(gb_request_url)
+			game_response = requests.get(gb_request_url, headers={'user-agent' : '1234'})
+			print('GB RESPONSE: ' + str(game_response) + '\n')
 			game_json = None
 			if game_response:
 				game_json = game_response.json()
