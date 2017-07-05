@@ -28,23 +28,23 @@ class BaseModel(db.Model):
 class User (BaseModel, db.Model):
     __tablename__ = 'user'
 
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.String, primary_key = True)
 
     # Attributes
-    name = db.Column(db.String(128))
-    description = db.Column(db.String(500))
-    language = db.Column(db.String(128))
+    name = db.Column(db.TEXT)
+    description = db.Column(db.TEXT)
+    language = db.Column(db.TEXT)
     views = db.Column(db.Integer)
     followers = db.Column(db.Integer)
-    url = db.Column(db.String(128))
+    url = db.Column(db.TEXT)
     created = db.Column(db.DateTime)
     updated = db.Column(db.DateTime)
-    image_url = db.Column(db.String(128))
+    image_url = db.Column(db.TEXT)
 
     # Connections to other models
     game_id = db.Column(db.Integer)
-    community_id = db.Column(db.Integer)
-    team_id = db.Column(db.Integer)
+    community_id = db.Column(db.String)
+    team_ids = db.Column(db.ARRAY(db.Integer))
 
 
 class Game (BaseModel, db.Model):
@@ -53,17 +53,17 @@ class Game (BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key = True)
 
     # Attributes
-    name = db.Column(db.String(128))
-    description = db.Column(db.String(500))
-    genre = db.Column(db.String(128))
-    platform = db.Column(db.String(128))
+    name = db.Column(db.TEXT)
+    description = db.Column(db.TEXT)
+    genres = db.Column(db.ARRAY(db.TEXT))
+    platforms = db.Column(db.ARRAY(db.TEXT))
     release_date = db.Column(db.DateTime)
-    image_url = db.Column(db.String(128))
+    image_url = db.Column(db.TEXT)
 
     # Connections to other models
-    user_id = db.Column(db.Integer)
-    team_id = db.Column(db.Integer) 
-    community_id = db.Column(db.Integer)
+    user_ids = db.Column(db.ARRAY(db.String))
+    team_ids = db.Column(db.ARRAY(db.Integer))
+    community_ids = db.Column(db.ARRAY(db.String))
 
 
 class Team (BaseModel, db.Model):
@@ -72,29 +72,29 @@ class Team (BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key = True)
 
     # Attributes
-    name = db.Column(db.String(128))
-    info = db.Column(db.String(500))
-    image_url = db.Column(db.String(128))
+    name = db.Column(db.TEXT)
+    info = db.Column(db.TEXT)
+    image_url = db.Column(db.TEXT)
     created = db.Column(db.DateTime)
     updated = db.Column(db.DateTime)
 
     # Connection to other models
-    user_ids = db.Column(db.ARRAY(db.Integer))
-    game_id = db.Column(db.Integer)
+    user_ids = db.Column(db.ARRAY(db.String))
+    game_ids = db.Column(db.ARRAY(db.Integer))
 
 
 class Community (BaseModel, db.Model):
     __tablename__ = 'community'
 
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.String(128), primary_key = True)
 
     # Attributes
-    name = db.Column(db.String(128))
-    info = db.Column(db.String(500))
-    language = db.Column(db.String(50))
-    rules = db.Column(db.String(500))
-    image_url = db.Column(db.String(128))
+    name = db.Column(db.TEXT)
+    description = db.Column(db.TEXT)
+    language = db.Column(db.String(128))
+    rules = db.Column(db.TEXT)
+    image_url = db.Column(db.TEXT)
 
     # Connection to other models
-    games = db.Column(db.ARRAY(db.Integer)) # list of game id's
-    users = db.Column(db.ARRAY(db.Integer)) # list of user id's
+    game_id = db.Column(db.Integer)
+    owner_id = db.Column(db.String)
