@@ -55,7 +55,6 @@ def say_hello():
             team['id'] = q.id
             team['name'] = q.name
             team['image_url'] = q.image_url
-            print(team)
             teams.append(team)
         db.session.close()
     except Exception as e:
@@ -70,7 +69,6 @@ def say_hello():
             community['name'] = q.name
             community['image_url'] = q.image_url
             communities.append(community)
-        print(communities)
         db.session.close()
     except Exception as e:
         print(str(e))
@@ -87,7 +85,6 @@ def show_users(wow):
     q = User.query.get(wow)
     user = {}
     user['name'] = q.name
-    print(q.name)
     user['description'] = q.description
     user['language'] = q.language
     user['views'] = q.views
@@ -96,6 +93,11 @@ def show_users(wow):
     user['created'] = q.created
     user['updated'] = q.updated
     user['image_url'] = q.image_url
+    user['game_id'] = q.game_id
+    if q.game_id:
+        user['game'] = get_name_by_id(q.game_id, 'game')
+    user['community_id'] = q.community_id
+    user['team_ids'] = q.team_ids
 
     return render_template('model_template.html', name = user)
 
@@ -110,6 +112,9 @@ def show_games(wow):
     game['release_date'] = q.release_date
     game['image_url'] = q.image_url
     game['user_ids'] = q.user_ids
+    game['user_names'] = {}
+    for _id in game['user_ids']:
+        game['user_names'][_id] = get_name_by_id(_id, 'user')
     game['team_ids'] = q.team_ids
     game['community_ids'] = q.community_ids
 
@@ -138,8 +143,10 @@ def show_communities(wow):
     community['language'] = q.language
     community['rules'] = q.rules
     community['image_url'] = q.image_url
-    community['user_id'] = q.owner_id
+    community['owner_id'] = q.owner_id
     community['game_id'] = q.game_id
+    if q.game_id:
+        community['game'] = get_name_by_id(q.game_id, 'game')
 
     return render_template('model_template.html', name = community)
 
@@ -149,7 +156,7 @@ def get_user(wow):
     q = User.query.get(id_num)
     user = {}
     user['name'] = q.name
-    user['info'] = q.info
+    user['description'] = q.description
     user['language'] = q.language
     user['views'] = q.views
     user['followers'] = q.followers
@@ -157,6 +164,9 @@ def get_user(wow):
     user['created'] = q.created
     user['updated'] = q.updated
     user['image_url'] = q.image_url
+    user['game_id'] = q.game_id
+    user['community_id'] = q.community_id
+    user['team_ids'] = q.team_ids
 
     return jsonify({'user': user})
 
@@ -167,12 +177,13 @@ def get_game(wow):
     game = {}
     game['name'] = q.name
     game['description'] = q.description
-    game['genre'] = q.genre
-    game['platform'] = q.platform
+    game['genres'] = q.genres
+    game['platforms'] = q.platforms
     game['release_date'] = q.release_date
     game['image_url'] = q.image_url
-    game['user_id'] = q.user_id
-    game['team_id'] = q.team_id
+    game['user_ids'] = q.user_ids
+    game['team_ids'] = q.team_ids
+    game['community_ids'] = q.community_ids
     return jsonify({'game': game})
 
 @application.route('/api/v0/team/<wow>', methods=['GET'])
@@ -185,7 +196,7 @@ def get_team(wow):
     team['updated'] = q.updated
     team['image_url'] = q.image_url
     team['user_ids'] = q.user_ids
-    team['game_id'] = q.game_id
+    team['game_ids'] = q.game_ids
     return jsonify({'team': team})
 
 @application.route('/api/v0/community/<wow>', methods=['GET'])
@@ -194,14 +205,24 @@ def get_community(wow):
     q = Community.query.get(id_num)
     community = {}
     community['name'] = q.name
-    community['info'] = q.info
+    community['description'] = q.description
     community['language'] = q.language
     community['rules'] = q.rules
     community['image_url'] = q.image_url
-    community['user_ids'] = q.users
-    community['game_ids'] = q.games
+    community['owner_id'] = q.owner_id
+    community['game_id'] = q.game_id
     return jsonify({'community': community})
 
+def get_name_by_id(_id, what_kind):
+    if what_kind == 'user':
+        q = User.query.get(_id)
+    elif what_kind == 'community':
+        q = Community.query.get(_id)
+    elif what_kind == 'game':
+        q = Game.query.get(_id)
+    elif what_kind == 'team':
+        q = Team.query.get(_id)
+    return q.name
 
 """
 @application.route('/testWrite')

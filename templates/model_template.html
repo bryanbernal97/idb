@@ -72,7 +72,7 @@
                     </h3>
                     {% if name['description'] %}
                     <h3>
-                        Info:
+                        Description:
                             <small class="text-muted">{{name['description']}}</small>
                     </h3>
                     {% endif %}
@@ -119,36 +119,18 @@
                     </h3>
                     {% endif %}
 
-                    {% if name['games'] %}
-                    <h3>
-                        Game:
-                        {% for game in name['games'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}">{{game}}</a></small>
-                        {% endfor %}
-                    </h3>
-                    {% endif %}
-
                     {% if name['game_id'] %}
                     <h3>
                         Game:
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game_id)}}">{{game_id}}</a></small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['users'] %}
-                    <h3>
-                        Game:
-                        {% for user in name['users'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}">{{user}}</a></small>
-                        {% endfor %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game_id'])}}">{{name['game']}}</a></small>
                     </h3>
                     {% endif %}
 
                     {% if name['user_ids'] %}
                     <h3>
-                        Game:
+                        Users Playing This:
                         {% for user in name['user_ids'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}">{{user}}</a></small>
+                        <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}">{{name['user_names'][user]}}</a></small>
                         {% endfor %}
                     </h3>
                     {% endif %}
