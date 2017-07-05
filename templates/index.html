@@ -650,8 +650,62 @@
 			</div>
 		</section>
 
+		<section class="bg-light-gray">
+			<div class="container" style="width: 100%;">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<div class="container first-slide">
+										<div>
+											<h1>Example headline.</h1>
+											<p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+											<p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="container second-slide">
+										<div>
+											<h1>Another example headline.</h1>
+											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+											<p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="container third-slide">
+										<div>
+											<h1>One more for good measure.</h1>
+											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+											<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="background: none;">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #6441A4"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="background: none;">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="color: #6441A4"></span>
+								<span class="sr-only">Next</span>
+							</a>
 
-		<section class="bg-light-gray portfolio">
+							<!-- Indicators -->
+							<ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+								<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
+								<li data-target="#myCarousel" data-slide-to="1" class="">2</li>
+								<li data-target="#myCarousel" data-slide-to="2" class="">3</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="portfolio">
 			<div class="container" style="width: 100%;">
 				<div class="row">
 					<div class="col-lg-12 text-center">
@@ -662,9 +716,6 @@
 					<div class="col-lg-12 text-center">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 							<div class="carousel-inner" role="listbox">
-
-
-
 								{% for user in name['users'] %}
 									{% if loop.first %}
         								<div class="item active">
@@ -725,33 +776,6 @@
       								{% endif %}
 
 								{% endfor %}
-								<!-- <div class="item active">
-									<div class="container">
-										<div>
-											<h1>Example headline.</h1>
-											<p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-											<p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="container">
-										<div>
-											<h1>Another example headline.</h1>
-											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-											<p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="container">
-										<div>
-											<h1>One more for good measure.</h1>
-											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-											<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-										</div>
-									</div>
-								</div> -->
 							</div>
 							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="background: none;">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #6441A4"></span>
@@ -764,8 +788,6 @@
 
 							<!-- Indicators -->
 							<ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-
-
 								{% for user in name['users'] %}
 									{% if loop.first %}
 										<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
@@ -773,9 +795,6 @@
 										<li data-target="#myCarousel" data-slide-to="{{loop.index}}" class="">{{loop.index+1}}</li>
 									{% endif %}
 								{% endfor %}
-								<!-- <li data-target="#myCarousel" data-slide-to="0" class="active">1</li> -->
-								<!-- <li data-target="#myCarousel" data-slide-to="1" class="">2</li> -->
-								<!-- <li data-target="#myCarousel" data-slide-to="2" class="">3</li> -->
 							</ol>
 						</div>
 					</div>
