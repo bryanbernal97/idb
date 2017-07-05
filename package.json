@@ -1,0 +1,23 @@
+{
+  "name": "streamglean",
+  "version": "1.0.0",
+  "description": "CS373 Summer Project to develop a website using API",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hannahperry5/streamglean.git"
+  },
+  "author": "H Perry, B Madrigal, T Howard, B Bernal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hannahperry5/streamglean/issues"
+  },
+  "homepage": "https://github.com/hannahperry5/streamglean#readme",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
