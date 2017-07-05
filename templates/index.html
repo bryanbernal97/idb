@@ -4,647 +4,728 @@
 <head>
 
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>streamGlean</title>
+	<title>streamGlean</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+	<!-- Custom Fonts -->
+	<link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-    <!-- Theme CSS -->
-    <link href="/static/css/agency.css" rel="stylesheet">
+	<!-- Theme CSS -->
+	<link href="/static/css/agency.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
-        <![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" integrity="sha384-0s5Pv64cNZJieYFkXYOTId2HMA2Lfb6q2nAcx2n0RTLUnCAoTTsS0nKEO27XyKcY" crossorigin="anonymous"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
+		<![endif]-->
 
-    </head>
-    <body id="page-top" class="index">
-
-
-       <!-- Navigation -->
-       <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">streamGlean</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#users">Users</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#games">Games</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#teams">Teams</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#communities">Communities</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#team">Our Team</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#resources">Resources</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">Welcome To streamGlean!</div>
-                <div class="intro-heading">It's Nice To Meet You</div>
-                <a href="#about" class="page-scroll btn btn-xl">Tell Me More</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">About</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div id="root"></div>
-                <!-- <div class="col-lg-12 text-center">
-                    <small class="text-muted">Twitch.tv is a website where streamers live stream themselves providing content centered around their lives and video games. There are many facets of this experience that we define as models: Streamer, Game, Community, Team. A streamer plays different games, takes part in different established communities centered around these games, and often join various esports teams which their streams then represent. Included with all of them are many other media and information which enhances each of those models. Twitch contains all of this information but there isn’t a good place that brings all of this information together in an easy to navigate environment. We decided to make this information more readily available by linking these data points together on a website.  We are accomplishing this by fleshing out different user use cases, scraping available RESTful API for Twitch and other supplementary data, defining important models which will connect to each other, and exploring new tools to make this process easier and more intuitive. We have named our website StreamGlean.me (glean - extract (information) from various sources) to represent the process of gathering stream information.</small>
-                </div>  -->
-            </div>
-        </div>
-    </section>
+	</head>
+	<body id="page-top" class="index">
 
 
-    <!-- Users Section -->
-    <section id="users" class="bg-light-gray portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Users</h2>
-                </div>
-            </div>
-                <p>Filter:</p>
-                <form>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Most Followers
-                  </label>
-                  <label class="radio-inline">
-                      <input type="radio" name="optradio">Most Views
-                  </label>
-                  <label class="radio-inline">
-                      <input type="radio" name="optradio">Date Created
-                  </label>
-              </form>
-              <br>
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">A -> Z</a></li>
-                      <li><a href="#">Z -> A</a></li>
-                  </ul>
-              </div>
-              <hr>
-            <div class="row">
-                {% for user in name['users'] %}
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption portfolio-caption-gray">
-                        <h4>{{user['name']}}</h4>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="container4">
-            <nav> 
-            <div style="display:flex;justify-content:center;align-items:center;">
-                <ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
-                <br>
-            </div>
-            </nav>
-        </div>
-    </section>
+		<!-- Navigation -->
+		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header page-scroll">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand page-scroll" href="#page-top">streamGlean</a>
+				</div>
 
-    <!-- Games Section -->
-    <section id="games" class="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Games</h2>
-                </div>
-            </div>
-            <p>Filter:</p>
-                <form>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Most Popular
-                  </label>
-                  <label class="radio-inline">
-                      <input type="radio" name="optradio">Rating
-                  </label>
-              </form>
-              <br>
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">A -> Z</a></li>
-                      <li><a href="#">Z -> A</a></li>
-                  </ul>
-              </div>
-              <hr>
-            <div class="row">
-                {% for game in name['games'] %}
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="{{'/games/' ~ game['id']}}" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src={{game['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption portfolio-caption-gray">
-                        <h4>{{game['name']}}</h4>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="container3">
-            <nav> 
-            <div style="display:flex;justify-content:center;align-items:center;">
-                <ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
-                <br>
-            </div>
-            </nav>
-        </div>
-    </section>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#about">About</a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#users">Users</a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#games">Games</a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#teams">Teams</a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#communities">Communities</a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#team">Our Team</a>
+						</li>
+						<li>
+							<a class="page-scroll" href="#resources">Resources</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<div class="intro-text">
+					<div class="intro-lead-in">Welcome To streamGlean!</div>
+					<div class="intro-heading">It's Nice To Meet You</div>
+					<a href="#about" class="page-scroll btn btn-xl">Tell Me More</a>
+				</div>
+			</div>
+		</header>
+
+
+		<!-- About Section -->
+		<section id="about">
 
 
 
-
-    <!-- <section id="games">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Games</h2>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <img src="https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-272x380.jpg" style="width:112px;height:112px;">
-                    <h3 class="service-heading">League of Legends</h3>
-                </div>
-                <div class="col-md-4">
-                    <img src="https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-272x380.jpg" style="width:112px;height:112px;">
-                    <h3 class="service-heading">Dota 2</h3>
-                </div>
-                <div class="col-md-4">
-                    <img src="https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-272x380.jpg" style="width:112px;height:112px;">
-                    <h3 class="service-heading">Counter-Strike: Global Offensive</h3>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h5>
-                        Popularity:
-                        <small class="text-muted">268833</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Popularity:
-                        <small class="text-muted">158030</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Popularity:
-                        <small class="text-muted">113753</small>
-                    </h5>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h5>
-                        Viewers:
-                        <small class="text-muted">269843</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Viewers:
-                        <small class="text-muted">160183</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Viewers:
-                        <small class="text-muted">117295</small>
-                    </h5>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h5>
-                        Channels:
-                        <small class="text-muted">1827</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Channels:
-                        <small class="text-muted">474</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Channels:
-                        <small class="text-muted">1101</small>
-                    </h5>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h5>
-                        Giantbomb_id:
-                        <small class="text-muted">24024</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Giantbomb_id:
-                        <small class="text-muted">32887</small>
-                    </h5>
-                </div>
-                <div class="col-md-4">
-                    <h5>
-                        Giantbomb_id:
-                        <small class="text-muted">36113</small>
-                    </h5>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Teams Section -->
-    <section id="teams" class="portfolio bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Teams</h2>
-                </div>
-            </div>
-            <p>Filter:</p>
-                <form>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Total Members
-                  </label>
-                  <label class="radio-inline">
-                      <input type="radio" name="optradio">Date Created
-                  </label>
-              </form>
-              <br>
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">A -> Z</a></li>
-                      <li><a href="#">Z -> A</a></li>
-                  </ul>
-              </div>
-              <hr>
-            <div class="row">
-                {% for team in name['teams'] %}
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="{{'/teams/' ~ team['id']}}" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src={{team['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption portfolio-caption-gray">
-                        <h4>{{team['name']}}</h4>
-                    </div>
-                </div>
-                {% endfor %}
-                </div>
-            </div>
-            <div class="container2">
-            <nav> 
-            <div style="display:flex;justify-content:center;align-items:center;">
-                <ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
-                <br>
-            </div>
-            </nav>
-        </div>
-        </section>
-
-        <!-- Communities Section -->
-        <section id="communities" class="portfolio">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Communities</h2>
-                    </div>
-                </div>
-                <p>Filter:</p>
-                <form>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Game
-                  </label>
-              </form>
-              <br>
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="">A -> Z</a></li>
-                      <li><a href="#">Z -> A</a></li>
-                  </ul>
-              </div>
-              <hr>
-                <div class="row">
-                    {% for community in name['communities'] %}
-                    <div class="col-md-4 col-sm-6 portfolio-item">
-                        <a href="{{'/communities/' ~ community['id']}}" class="portfolio-link" data-toggle="modal">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <i class="fa fa-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src={{community['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-                        </a>
-                        <div class="portfolio-caption portfolio-caption-gray">
-                            <h4>{{community['name']}}</h4>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="container2">
-            <nav> 
-            <div style="display:flex;justify-content:center;align-items:center;">
-                <ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
-                <br> 
-                </div>
-            </nav>
-        </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="bg-light-gray">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Our Amazing Team</h2>
-                        <h3 class="section-subheading text-muted">The Bots.</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 team-col">
-                        <div class="team-member">
-                            <img src="/static/img/team/blue_headshot.jpg" class="img-responsive img-circle" alt="">
-                            <h4>Blue Madrigal</h4>
-                            <p class="text-muted">
-                                Senior at the University of Texas at Austin. CompSci major. Enjoys video games, singing, cats, Star Trek, and cheese.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <div class="team-member">
-                            <img src="/static/img/team/hannah_headshot.jpg" class="img-responsive img-circle" alt="">
-                            <h4>Hannah Perry</h4>
-                            <p class="text-muted">
-                                Senior computer science student at the University of Texas at Austin. Hannah enjoys traveling to as many places and possible and playing soccer, and she will be relocating to Seattle at the end of the summer to start adulting.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <div class="team-member">
-                            <img src="/static/img/team/bryan_headshot.jpg" class="img-responsive img-circle" alt="">
-                            <h4>Bryan Bernal</h4>
-                            <p class="text-muted">
-                                Junior CS student at UT Austin. Bryan likes to spend his free time playing video games and worrying about whatever classes he’s taking at the moment.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <div class="team-member">
-                            <img src="/static/img/team/tonya_headshot.jpg" class="img-responsive img-circle" alt="">
-                            <h4>Tonya Howard</h4>
-                            <p class="text-muted">
-                                Currently studying Computer Science at the University of Texas at Austin. Has a varied interest in many subjects. Hobbies include drawing, sleeping, video games, cooking, and occasionally working out to offset aforementioned cooking.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-sm-4 team-col">
-                        <h5>Major Responsibilites</h5>
-                        <p>API scraping and Apiary documentation</p>
-                        <p>Front-end design</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Major Responsibilites</h5>
-                        <p>AWS and Website development</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Major Responsibilites</h5>
-                        <p>API scraping and Apiary documentation</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Major Responsibilites</h5>
-                        <p>PlanITpoker and API research</p>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Commits</h5>
-                        <p>5</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Commits</h5>
-                        <p>98</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Commits</h5>
-                        <p>4</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Commits</h5>
-                        <p>4</p>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Issues</h5>
-                        <p>6</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Issues</h5>
-                        <p>12</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Issues</h5>
-                        <p>6</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Issues</h5>
-                        <p>4</p>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Unit Tests</h5>
-                        <p>N/A</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Unit Tests</h5>
-                        <p>N/A</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Unit Tests</h5>
-                        <p>N/A</p>
-                    </div>
-                    <div class="col-sm-4 team-col">
-                        <h5>Number of Unit Tests</h5>
-                        <p>N/A</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <p class="large text-muted">Total number of commits: 116; Total number of issues: 19; Total number of unit tests: N/A</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Resources Section -->
-        <section id="resources">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Resources</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h3>
-                            Technical Report:
-                            <small class="text-muted"><a href="https://app.box.com/s/zr1ob09h5aqqk3bohztqlahoglhq3tp5">https://app.box.com/s/zr1ob09h5aqqk3bohztqlahoglhq3tp5</a></small>
-                        </h3>
-                        <h3>
-                            Apiary API:
-                            <small class="text-muted"><a href="https://docs.hannahperry5.apiary.io">https://docs.hannahperry5.apiary.io</a></small>
-                        </h3>
-                        <h3>
-                            GitHub Repo:
-                            <small class="text-muted"><a href="https://github.com/hannahperry5/streamglean">https://github.com/hannahperry5/streamglean</a></small>
-                        </h3>
-                        <h3>
-                            Trello:
-                            <small class="text-muted"><a href="https://trello.com/b/AwRnQypG/idb1-streamglean">https://trello.com/b/AwRnQypG/idb1-streamglean</a></small>
-                        </h3>
-
-                        <h3>Data
-                            <ul>
-                                <li><small class="text-muted"><a href="https://dev.twitch.tv/docs">https://dev.twitch.tv/docs</a></small></li>
-                                <li><small class="text-muted"><a href="https://www.giantbomb.com/api/">https://dev.twitter.com/overview/api</a></small></li>
-                            </ul>
-                        </h3>
-                        <h6>These data sources were scraped using a tool called Postman and the results were then used to create this static website.</h6>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">About</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div id="root"></div>
+				<!-- <div class="col-lg-12 text-center">
+					<small class="text-muted">Twitch.tv is a website where streamers live stream themselves providing content centered around their lives and video games. There are many facets of this experience that we define as models: Streamer, Game, Community, Team. A streamer plays different games, takes part in different established communities centered around these games, and often join various esports teams which their streams then represent. Included with all of them are many other media and information which enhances each of those models. Twitch contains all of this information but there isn’t a good place that brings all of this information together in an easy to navigate environment. We decided to make this information more readily available by linking these data points together on a website.  We are accomplishing this by fleshing out different user use cases, scraping available RESTful API for Twitch and other supplementary data, defining important models which will connect to each other, and exploring new tools to make this process easier and more intuitive. We have named our website StreamGlean.me (glean - extract (information) from various sources) to represent the process of gathering stream information.</small>
+				</div>  -->
+			</div>
+		</div>
+	</section>
 
 
-                        <h3>Tools</h3>
-                        <h4>Apiary</h4>
-                        <p>We used Apiary to document the main API we used for this first part of the project.</p>
-                        <h4>Trello</h4>
-                        <p>We used Trello to do issue tracking as a team.</p>
-                        <h4>PlanITpoker</h4>
-                        <p>We used PlanITpoker to come up with user stories and estimate track their estimated and actual completion times.</p>
-                        <h4>Namecheap</h4>
-                        <p>We used Namecheap to register our custom domain.</p>
-                        <h4>AWS</h4>
-                        <p>We used AWS to host our website. We used AWS sub-product Elastic Beanstalk to connect our website development with git and to deploy versions of our website. We used AWS sub-product EC2 for different instnaces to allow for a dev and prod environment, and we used AWS sub-product S3 to store our uploaded website content.</p>
-                        <h4>Slack</h4>
-                        <p>We used Slack to communicate as a team.</p>
+	<!-- Users Section -->
+	<section id="users" class="bg-light-gray portfolio">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Users</h2>
+				</div>
+			</div>
+			<p>Filter:</p>
+			<form>
+				<label class="radio-inline">
+					<input type="radio" name="optradio">Most Followers
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="optradio">Most Views
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="optradio">Date Created
+				</label>
+			</form>
+			<br>
+			<div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">A -> Z</a></li>
+						<li><a href="#">Z -> A</a></li>
+					</ul>
+				</div>
+				<hr>
+				<div class="row">
+					{% for user in name['users'] %}
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div>
+							<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption portfolio-caption-gray">
+							<h4>{{user['name']}}</h4>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="container4">
+				<nav> 
+					<div style="display:flex;justify-content:center;align-items:center;">
+						<ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
+						<br>
+					</div>
+				</nav>
+			</div>
+		</section>
 
-
-                    </div>
-                </div>
-            </div>
-        </section>
+		<!-- Games Section -->
+		<section id="games" class="portfolio">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">Games</h2>
+					</div>
+				</div>
+				<p>Filter:</p>
+				<form>
+					<label class="radio-inline">
+						<input type="radio" name="optradio">Most Popular
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio">Rating
+					</label>
+				</form>
+				<br>
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li><a href="#">A -> Z</a></li>
+							<li><a href="#">Z -> A</a></li>
+						</ul>
+					</div>
+					<hr>
+					<div class="row">
+						{% for game in name['games'] %}
+						<div class="col-md-4 col-sm-6 portfolio-item">
+							<a href="{{'/games/' ~ game['id']}}" class="portfolio-link" data-toggle="modal">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<i class="fa fa-plus fa-3x"></i>
+									</div>
+								</div>
+								<img src={{game['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+							</a>
+							<div class="portfolio-caption portfolio-caption-gray">
+								<h4>{{game['name']}}</h4>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="container3">
+					<nav> 
+						<div style="display:flex;justify-content:center;align-items:center;">
+							<ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
+							<br>
+						</div>
+					</nav>
+				</div>
+			</section>
 
 
 
 
+	<!-- <section id="games">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Games</h2>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-4">
+					<img src="https://static-cdn.jtvnw.net/ttv-boxart/League%20of%20Legends-272x380.jpg" style="width:112px;height:112px;">
+					<h3 class="service-heading">League of Legends</h3>
+				</div>
+				<div class="col-md-4">
+					<img src="https://static-cdn.jtvnw.net/ttv-boxart/Dota%202-272x380.jpg" style="width:112px;height:112px;">
+					<h3 class="service-heading">Dota 2</h3>
+				</div>
+				<div class="col-md-4">
+					<img src="https://static-cdn.jtvnw.net/ttv-boxart/Counter-Strike:%20Global%20Offensive-272x380.jpg" style="width:112px;height:112px;">
+					<h3 class="service-heading">Counter-Strike: Global Offensive</h3>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-4">
+					<h5>
+						Popularity:
+						<small class="text-muted">268833</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Popularity:
+						<small class="text-muted">158030</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Popularity:
+						<small class="text-muted">113753</small>
+					</h5>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-4">
+					<h5>
+						Viewers:
+						<small class="text-muted">269843</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Viewers:
+						<small class="text-muted">160183</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Viewers:
+						<small class="text-muted">117295</small>
+					</h5>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-4">
+					<h5>
+						Channels:
+						<small class="text-muted">1827</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Channels:
+						<small class="text-muted">474</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Channels:
+						<small class="text-muted">1101</small>
+					</h5>
+				</div>
+			</div>
+			<div class="row text-center">
+				<div class="col-md-4">
+					<h5>
+						Giantbomb_id:
+						<small class="text-muted">24024</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Giantbomb_id:
+						<small class="text-muted">32887</small>
+					</h5>
+				</div>
+				<div class="col-md-4">
+					<h5>
+						Giantbomb_id:
+						<small class="text-muted">36113</small>
+					</h5>
+				</div>
+			</div>
+		</div>
+	</section> -->
 
-        <!-- jQuery -->
-        <script src="/static/vendor/jquery/jquery.min.js"></script>
+	<!-- Teams Section -->
+	<section id="teams" class="portfolio bg-light-gray">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Teams</h2>
+				</div>
+			</div>
+			<p>Filter:</p>
+			<form>
+				<label class="radio-inline">
+					<input type="radio" name="optradio">Total Members
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="optradio">Date Created
+				</label>
+			</form>
+			<br>
+			<div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#">A -> Z</a></li>
+						<li><a href="#">Z -> A</a></li>
+					</ul>
+				</div>
+				<hr>
+				<div class="row">
+					{% for team in name['teams'] %}
+					<div class="col-md-4 col-sm-6 portfolio-item">
+						<a href="{{'/teams/' ~ team['id']}}" class="portfolio-link" data-toggle="modal">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content">
+									<i class="fa fa-plus fa-3x"></i>
+								</div>
+							</div>
+							<img src={{team['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+						</a>
+						<div class="portfolio-caption portfolio-caption-gray">
+							<h4>{{team['name']}}</h4>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="container2">
+				<nav> 
+					<div style="display:flex;justify-content:center;align-items:center;">
+						<ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
+						<br>
+					</div>
+				</nav>
+			</div>
+		</section>
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Communities Section -->
+		<section id="communities" class="portfolio">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">Communities</h2>
+					</div>
+				</div>
+				<p>Filter:</p>
+				<form>
+					<label class="radio-inline">
+						<input type="radio" name="optradio">Game
+					</label>
+				</form>
+				<br>
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li><a href="">A -> Z</a></li>
+							<li><a href="#">Z -> A</a></li>
+						</ul>
+					</div>
+					<hr>
+					<div class="row">
+						{% for community in name['communities'] %}
+						<div class="col-md-4 col-sm-6 portfolio-item">
+							<a href="{{'/communities/' ~ community['id']}}" class="portfolio-link" data-toggle="modal">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<i class="fa fa-plus fa-3x"></i>
+									</div>
+								</div>
+								<img src={{community['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+							</a>
+							<div class="portfolio-caption portfolio-caption-gray">
+								<h4>{{community['name']}}</h4>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="container2">
+					<nav> 
+						<div style="display:flex;justify-content:center;align-items:center;">
+							<ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
+							<br> 
+						</div>
+					</nav>
+				</div>
+			</section>
 
-        <!-- Plugin JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+			<!-- Team Section -->
+			<section id="team" class="bg-light-gray">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<h2 class="section-heading">Our Amazing Team</h2>
+							<h3 class="section-subheading text-muted">The Bots.</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 team-col">
+							<div class="team-member">
+								<img src="/static/img/team/blue_headshot.jpg" class="img-responsive img-circle" alt="">
+								<h4>Blue Madrigal</h4>
+								<p class="text-muted">
+									Senior at the University of Texas at Austin. CompSci major. Enjoys video games, singing, cats, Star Trek, and cheese.
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 team-col">
+							<div class="team-member">
+								<img src="/static/img/team/hannah_headshot.jpg" class="img-responsive img-circle" alt="">
+								<h4>Hannah Perry</h4>
+								<p class="text-muted">
+									Senior computer science student at the University of Texas at Austin. Hannah enjoys traveling to as many places and possible and playing soccer, and she will be relocating to Seattle at the end of the summer to start adulting.
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 team-col">
+							<div class="team-member">
+								<img src="/static/img/team/bryan_headshot.jpg" class="img-responsive img-circle" alt="">
+								<h4>Bryan Bernal</h4>
+								<p class="text-muted">
+									Junior CS student at UT Austin. Bryan likes to spend his free time playing video games and worrying about whatever classes he’s taking at the moment.
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 team-col">
+							<div class="team-member">
+								<img src="/static/img/team/tonya_headshot.jpg" class="img-responsive img-circle" alt="">
+								<h4>Tonya Howard</h4>
+								<p class="text-muted">
+									Currently studying Computer Science at the University of Texas at Austin. Has a varied interest in many subjects. Hobbies include drawing, sleeping, video games, cooking, and occasionally working out to offset aforementioned cooking.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-sm-4 team-col">
+							<h5>Major Responsibilites</h5>
+							<p>API scraping and Apiary documentation</p>
+							<p>Front-end design</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Major Responsibilites</h5>
+							<p>AWS and Website development</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Major Responsibilites</h5>
+							<p>API scraping and Apiary documentation</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Major Responsibilites</h5>
+							<p>PlanITpoker and API research</p>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-sm-4 team-col">
+							<h5>Number of Commits</h5>
+							<p>5</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Commits</h5>
+							<p>98</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Commits</h5>
+							<p>4</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Commits</h5>
+							<p>4</p>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-sm-4 team-col">
+							<h5>Number of Issues</h5>
+							<p>6</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Issues</h5>
+							<p>12</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Issues</h5>
+							<p>6</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Issues</h5>
+							<p>4</p>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-sm-4 team-col">
+							<h5>Number of Unit Tests</h5>
+							<p>N/A</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Unit Tests</h5>
+							<p>N/A</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Unit Tests</h5>
+							<p>N/A</p>
+						</div>
+						<div class="col-sm-4 team-col">
+							<h5>Number of Unit Tests</h5>
+							<p>N/A</p>
+						</div>
+					</div>
 
-        <!-- Contact Form JavaScript -->
-        <script src="/static/js/jqBootstrapValidation.js"></script>
-        <script src="/static/js/contact_me.js"></script>
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2 text-center">
+							<p class="large text-muted">Total number of commits: 116; Total number of issues: 19; Total number of unit tests: N/A</p>
+						</div>
+					</div>
+				</div>
+			</section>
 
-        <!-- Theme JavaScript -->
-        <script src="/static/js/agency.min.js"></script>
+			<!-- Resources Section -->
+			<section id="resources">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<h2 class="section-heading">Resources</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+								<div class="carousel-inner" role="listbox">
+									<div class="carousel-item active">
+										<img class="d-block img-fluid" src="..." alt="First slide">
+									</div>
+									<div class="carousel-item">
+										<img class="d-block img-fluid" src="..." alt="Second slide">
+									</div>
+									<div class="carousel-item">
+										<img class="d-block img-fluid" src="..." alt="Third slide">
+									</div>
+								</div>
+								<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+						<h3>
+							Technical Report:
+							<small class="text-muted"><a href="https://app.box.com/s/zr1ob09h5aqqk3bohztqlahoglhq3tp5">https://app.box.com/s/zr1ob09h5aqqk3bohztqlahoglhq3tp5</a></small>
+						</h3>
+						<h3>
+							Apiary API:
+							<small class="text-muted"><a href="https://docs.hannahperry5.apiary.io">https://docs.hannahperry5.apiary.io</a></small>
+						</h3>
+						<h3>
+							GitHub Repo:
+							<small class="text-muted"><a href="https://github.com/hannahperry5/streamglean">https://github.com/hannahperry5/streamglean</a></small>
+						</h3>
+						<h3>
+							Trello:
+							<small class="text-muted"><a href="https://trello.com/b/AwRnQypG/idb1-streamglean">https://trello.com/b/AwRnQypG/idb1-streamglean</a></small>
+						</h3>
 
-        <!-- React -->
-        <script src="https://unpkg.com/react@15/dist/react.js"></script> 
-        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
-        <script src="/static/index.js"></script>
-        <script src="/static/index.css"></script>
-    </body>
-    </html>
+						<h3>Data
+							<ul>
+								<li><small class="text-muted"><a href="https://dev.twitch.tv/docs">https://dev.twitch.tv/docs</a></small></li>
+								<li><small class="text-muted"><a href="https://www.giantbomb.com/api/">https://dev.twitter.com/overview/api</a></small></li>
+							</ul>
+						</h3>
+						<h6>These data sources were scraped using a tool called Postman and the results were then used to create this static website.</h6>
+
+
+						<h3>Tools</h3>
+						<h4>Apiary</h4>
+						<p>We used Apiary to document the main API we used for this first part of the project.</p>
+						<h4>Trello</h4>
+						<p>We used Trello to do issue tracking as a team.</p>
+						<h4>PlanITpoker</h4>
+						<p>We used PlanITpoker to come up with user stories and estimate track their estimated and actual completion times.</p>
+						<h4>Namecheap</h4>
+						<p>We used Namecheap to register our custom domain.</p>
+						<h4>AWS</h4>
+						<p>We used AWS to host our website. We used AWS sub-product Elastic Beanstalk to connect our website development with git and to deploy versions of our website. We used AWS sub-product EC2 for different instnaces to allow for a dev and prod environment, and we used AWS sub-product S3 to store our uploaded website content.</p>
+						<h4>Slack</h4>
+						<p>We used Slack to communicate as a team.</p>
+
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class=""></li>
+								<li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="2" class=""></li>
+							</ol>
+							<div class="carousel-inner" role="listbox">
+								<div class="item">
+									<img class="first-slide" src="http://media.istockphoto.com/photos/perfect-wood-planks-background-picture-id523584249?k=6&m=523584249&s=612x612&w=0&h=733mmrl5yJ3wMbiSFiTCRwDq5Mth-sUeDcRVAn8Qakw=" alt="First slide" data-pin-nopin="true">
+									<div class="container">
+										<div class="carousel-caption">
+											<h1>Example headline.</h1>
+											<p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+											<p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+										</div>
+									</div>
+								</div>
+								<div class="item active">
+									<img class="second-slide" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgp1K2R63d5V54y3vmgu9yWoum_YgJqqz82-kWh6tMyXToYXC1Fg" alt="Second slide" data-pin-nopin="true">
+									<div class="container">
+										<div class="carousel-caption">
+											<h1>Another example headline.</h1>
+											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+											<p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<img class="third-slide" src="https://image.freepik.com/free-psd/abstract-background-design_1297-84.jpg" alt="Third slide" data-pin-nopin="true">
+									<div class="container">
+										<div class="carousel-caption">
+											<h1>One more for good measure.</h1>
+											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+											<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- jQuery -->
+		<script src="/static/vendor/jquery/jquery.min.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Plugin JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+
+		<!-- Contact Form JavaScript -->
+		<script src="/static/js/jqBootstrapValidation.js"></script>
+		<script src="/static/js/contact_me.js"></script>
+
+		<!-- Theme JavaScript -->
+		<script src="/static/js/agency.min.js"></script>
+
+		<!-- React -->
+		<script src="https://unpkg.com/react@15/dist/react.js"></script> 
+		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+		<script src="/static/index.js"></script>
+		<script src="/static/index.css"></script>
+	</body>
+	</html>
