@@ -59,17 +59,24 @@
     </nav>
 
 
-
+    {% if name['_id'] %}
     <section id={{name['_id']}}>
+    {% else %}
+    <section id=eh>
+    {% endif %}
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">{{name['display_name']}}</h2>
+                        {% if name['image_url'] %}
                         <img src={{name['image_url']}}>
+                        {% endif %}
+                    {% if name['name'] %}
                     <h3>
                         Name:
                         <small class="text-muted">{{name['name']}}</small>
                     </h3>
+                    {% endif %}
                     {% if name['description'] %}
                     <h3>
                         Description:
@@ -91,20 +98,6 @@
                     </h3>
                     {% endif %}
 
-                    {% if name['rules'] %}
-                    <h3>
-                        Rules:
-                        <small class="text-muted">{{name['rules']}}</small>
-                    </h3>
-                    {% endif %}
-
-                    {% if name['release_date'] %}
-                    <h3>
-                        Release Date:
-                        <small class="text-muted">{{name['release_date']}}</small>
-                    </h3>
-                    {% endif %}
-
                     {% if name['views'] %}
                     <h3>
                         Views:
@@ -119,6 +112,41 @@
                     </h3>
                     {% endif %}
 
+                    {% if name['url'] %}
+                    <h3>
+                        URL:
+                        <small class="text-muted"><a href={{name['url']}}>{{name['url']}}</a></small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['rules'] %}
+                    <h3>
+                        Rules:
+                        <small class="text-muted">{{name['rules']}}</small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['genres'] %}
+                    <h3>
+                        Genres:
+                        <small class="text-muted">{{name['genres']}}</small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['platforms'] %}
+                    <h3>
+                        Platforms:
+                        <small class="text-muted">{{name['platforms']}}</small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['release_date'] %}
+                    <h3>
+                        Release Date:
+                        <small class="text-muted">{{name['release_date']}}</small>
+                    </h3>
+                    {% endif %}
+
                     {% if name['game_id'] %}
                     <h3>
                         Game:
@@ -128,26 +156,37 @@
 
                     {% if name['user_ids'] %}
                     <h3>
-                        Users Playing This:
+                        Players:
                         {% for user in name['user_ids'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}">{{name['user_names'][user]}}</a></small>
+                            {% if name['user_names'][user] %}
+                            <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}">{{name['user_names'][user]}}</a></small>
+                            {% else %}
+                            <small class="text-muted">None</small>
+                            {% endif %}
                         {% endfor %}
                     </h3>
                     {% endif %}
 
-                    {% if name['url'] %}
+                    {% if name['team_ids'] %}
                     <h3>
-                        URL:
-                        <small class="text-muted"><a href={{name['url']}}>{{name['url']}}</a></small>
+                        Teams:
+                        {% for team in name['team_ids'] %}
+                            {% if name['team_names'][team] %}
+                            <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}">{{name['team_names'][team]}}</a></small>
+                            {% else %}
+                            <small class="text-muted">None</small>
+                            {% endif %}
+                        {% endfor %}
                     </h3>
                     {% endif %}
 
-                    {% if name['users'] %}
-                    <h3>
+                    {% if name['user_ids'] %}
+                    <!--- h3>
                         Team Members:
-                        {% for user in name['users'] %}
-                            <small class="text-muted"><a href="{{ url_for('show_streamers', wow=user['_id'])}}"><br />{{user['name']}}</a></small>
+                        {% for user in name['user_ids'] %}
+                            <small class="text-muted"><a href="{{ url_for('show_users', wow=user['_id'])}}"><br />{{user['name']}}</a></small>
                         {% endfor %}
+                    <-->
                     </h3>
                     {% endif %}
 
