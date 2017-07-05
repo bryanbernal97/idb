@@ -147,10 +147,24 @@
                     </h3>
                     {% endif %}
 
+                    {% if name['owner_id'] %}
+                    <h3>
+                        Owner:
+                        <small class="text-muted"><a href="{{ url_for('show_users', wow=name['owner_id'])}}">{{name['owner']}}</a></small>
+                    </h3>
+                    {% endif %}
+
                     {% if name['game_id'] %}
                     <h3>
                         Game:
                         <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game_id'])}}">{{name['game']}}</a></small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['community_id'] %}
+                    <h3>
+                        Community:
+                        <small class="text-muted"><a href="{{ url_for('show_communities', wow=name['community_id'])}}">{{name['community']}}</a></small>
                     </h3>
                     {% endif %}
 
@@ -159,7 +173,20 @@
                         Players:
                         {% for user in name['user_ids'] %}
                             {% if name['user_names'][user] %}
-                            <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}">{{name['user_names'][user]}}</a></small>
+                            <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{name['user_names'][user]}}</a></small>
+                            {% else %}
+                            <small class="text-muted">None</small>
+                            {% endif %}
+                        {% endfor %}
+                    </h3>
+                    {% endif %}
+
+                    {% if name['game_ids'] %}
+                    <h3>
+                        Games:
+                        {% for game in name['game_ids'] %}
+                            {% if name['game_names'][game] %}
+                            <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}"><br />{{name['game_names'][game]}}</a></small>
                             {% else %}
                             <small class="text-muted">None</small>
                             {% endif %}
@@ -172,7 +199,7 @@
                         Teams:
                         {% for team in name['team_ids'] %}
                             {% if name['team_names'][team] %}
-                            <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}">{{name['team_names'][team]}}</a></small>
+                            <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{name['team_names'][team]}}</a></small>
                             {% else %}
                             <small class="text-muted">None</small>
                             {% endif %}
@@ -180,13 +207,16 @@
                     </h3>
                     {% endif %}
 
-                    {% if name['user_ids'] %}
-                    <!--- h3>
-                        Team Members:
-                        {% for user in name['user_ids'] %}
-                            <small class="text-muted"><a href="{{ url_for('show_users', wow=user['_id'])}}"><br />{{user['name']}}</a></small>
+                    {% if name['community_ids'] %}
+                    <h3>
+                        communities:
+                        {% for community in name['community_ids'] %}
+                            {% if name['community_names'][community] %}
+                            <small class="text-muted"><a href="{{ url_for('show_communities', wow=community)}}"><br />{{name['community_names'][community]}}</a></small>
+                            {% else %}
+                            <small class="text-muted">None</small>
+                            {% endif %}
                         {% endfor %}
-                    <-->
                     </h3>
                     {% endif %}
 

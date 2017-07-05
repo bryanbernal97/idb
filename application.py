@@ -93,10 +93,18 @@ def show_users(wow):
     user['created'] = q.created
     user['updated'] = q.updated
     user['image_url'] = q.image_url
+
+    # Connections
+
     user['game_id'] = q.game_id
     if user['game_id']:
         user['game'] = get_name_by_id(q.game_id, 'game')
+    
     user['community_id'] = q.community_id
+    if user['community_id']:
+        user['community'] = get_name_by_id(q.community_id, 'community')
+    
+
     user['team_ids'] = q.team_ids
     user['team_names'] = {}
     if user['team_ids']:
@@ -115,19 +123,24 @@ def show_games(wow):
     game['platforms'] = q.platforms
     game['release_date'] = q.release_date
     game['image_url'] = q.image_url
+
+    # Connections
+
     game['user_ids'] = q.user_ids
-    #
     game['user_names'] = {}
     if game['user_ids']:
         for _id in game['user_ids']:
             game['user_names'][_id] = get_name_by_id(_id, 'user')
-    #
     game['team_ids'] = q.team_ids
     game['team_names'] = {}
     if game['team_ids']:
         for _id in game['team_ids']:
             game['team_names'][_id] = get_name_by_id(_id, 'team')
     game['community_ids'] = q.community_ids
+    game['community_names'] = {}
+    if game['community_ids']:
+        for _id in game['community_ids']:
+            game['community_names'][_id] = get_name_by_id(_id, 'community')
 
     return render_template('model_template.html', name = game)
 
@@ -140,14 +153,20 @@ def show_teams(wow):
     team['created'] = q.created
     team['updated'] = q.updated
     team['image_url'] = q.image_url
-    team['user_ids'] = q.user_ids
 
+    # Connections
+
+    team['user_ids'] = q.user_ids
     team['user_names'] = {}
     if team['user_ids']:
         for _id in team['user_ids']:
             team['user_names'][_id] = get_name_by_id(_id, 'user')
 
     team['game_ids'] = q.game_ids
+    team['game_names'] = {}
+    if team['game_ids']:
+        for _id in team['game_ids']:
+            team['game_names'][_id] = get_name_by_id(_id, 'game')
 
     return render_template('model_template.html', name = team)
 
@@ -160,12 +179,16 @@ def show_communities(wow):
     community['language'] = q.language
     community['rules'] = q.rules
     community['image_url'] = q.image_url
-    community['owner_id'] = q.owner_id
+
+    # Connections
+
     community['game_id'] = q.game_id
-    #
     if community['game_id']:
         community['game'] = get_name_by_id(q.game_id, 'game')
-    #
+
+    community['owner_id'] = q.owner_id
+    if community['owner_id']:
+        community['owner'] = get_name_by_id(q.owner_id, 'user')
 
     return render_template('model_template.html', name = community)
 
@@ -187,8 +210,9 @@ def get_user(wow):
     user['community_id'] = q.community_id
     user['team_ids'] = q.team_ids
     user['team_names'] = {}
-    for _id in user['team_ids']:
-        user['team_names'][_id] = get_name_by_id(_id, 'team')
+    if user['team_ids']:
+        for _id in user['team_ids']:
+            user['team_names'][_id] = get_name_by_id(_id, 'team')
 
     return jsonify({'user': user})
 
@@ -206,8 +230,9 @@ def get_game(wow):
     game['user_ids'] = q.user_ids
     game['team_ids'] = q.team_ids
     game['team_names'] = {}
-    for _id in game['team_ids']:
-        game['team_names'][_id] = get_name_by_id(_id, 'team')
+    if game['team_ids']:
+        for _id in game['team_ids']:
+            game['team_names'][_id] = get_name_by_id(_id, 'team')
     game['community_ids'] = q.community_ids
     return jsonify({'game': game})
 
