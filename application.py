@@ -23,7 +23,6 @@ games = {}
 application = Flask(__name__)
 application.debug = True
 
-
 # print a nice greeting.
 @application.route('/')
 def say_hello():
@@ -42,7 +41,8 @@ def say_hello():
             user['image_url'] = q.image_url
             users += user
         db.session.close()
-    except:
+    except Exception as e:
+        print(str(e))
         db.session.rollback()
     #games
     try:   

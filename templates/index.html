@@ -109,12 +109,12 @@
     </section>
 
 
-    <!-- Streamers Section -->
-    <section id="streamers" class="bg-light-gray portfolio">
+    <!-- Users Section -->
+    <section id="users" class="bg-light-gray portfolio">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Streamers</h2>
+                    <h2 class="section-heading">Users</h2>
                 </div>
             </div>
                 <p>Filter:</p>
@@ -140,18 +140,18 @@
               </div>
               <hr>
             <div class="row">
-                {% for channel in name['channels'] %}
+                {% for user in name['users'] %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="{{'/streamers/' ~ channel['channel']['_id']}}" class="portfolio-link" data-toggle="modal">
+                    <a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src={{channel['channel']['logo']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+                        <img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption portfolio-caption-gray">
-                        <h4>{{channel['channel']['name']}}</h4>
+                        <h4>{{user['name']}}</h4>
                     </div>
                 </div>
                 {% endfor %}
@@ -197,16 +197,16 @@
             <div class="row">
                 {% for game in name['games'] %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="{{'/games/' ~ game['game']['giantbomb_id']}}" class="portfolio-link" data-toggle="modal">
+                    <a href="{{'/games/' ~ game['id']}}" class="portfolio-link" data-toggle="modal">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src={{game['game']['box']['large']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+                        <img src={{game['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption portfolio-caption-gray">
-                        <h4>{{game['game']['name']}}</h4>
+                        <h4>{{game['name']}}</h4>
                     </div>
                 </div>
                 {% endfor %}
@@ -357,44 +357,21 @@
               </div>
               <hr>
             <div class="row">
+                {% for team in name['teams'] %}
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="/teams/tempostorm" class="portfolio-link" data-toggle="modal">
+                    <a href="{{'/teams/' ~ team['id']}}" class="portfolio-link" data-toggle="modal">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/team-tempostorm-team_logo_image-c6722d6226c7a908-300x300.png" style="width:350px;height:350px;" class="img-responsive" alt="">
+                        <img src={{team['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
                     </a>
-                    <div class="portfolio-caption portfolio-caption-white">
-                        <h4>Tempo Storm</h4>
+                    <div class="portfolio-caption portfolio-caption-gray">
+                        <h4>{{team['name']}}</h4>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="/teams/gfe" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/team-gfe-background_image-042bf81e9f90ca1f.jpeg" style="width:350px;height:350px;" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption portfolio-caption-white">
-                        <h4>Gale Force Esports</h4>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="/teams/cloud9" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/team-cloud9-team_logo_image-8e39fa9f6c9e36eb-300x300.png" style="width:350px;height:350px;" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption portfolio-caption-white">
-                        <h4>Cloud 9</h4>
-                    </div>
+                {% endfor %}
                 </div>
             </div>
             <div class="container2">
@@ -426,7 +403,7 @@
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a href="#">A -> Z</a></li>
+                      <li><a href="">A -> Z</a></li>
                       <li><a href="#">Z -> A</a></li>
                   </ul>
               </div>
@@ -434,16 +411,16 @@
                 <div class="row">
                     {% for community in name['communities'] %}
                     <div class="col-md-4 col-sm-6 portfolio-item">
-                        <a href="{{'/communities/' ~ community['name']}}" class="portfolio-link" data-toggle="modal">
+                        <a href="{{'/communities/' ~ community['id']}}" class="portfolio-link" data-toggle="modal">
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content">
                                     <i class="fa fa-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img src={{community['avatar_image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+                            <img src={{community['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
                         </a>
                         <div class="portfolio-caption portfolio-caption-gray">
-                            <h4>{{community['display_name']}}</h4>
+                            <h4>{{community['name']}}</h4>
                         </div>
                     </div>
                     {% endfor %}
@@ -669,7 +646,5 @@
         <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
         <script src="/static/index.js"></script>
         <script src="/static/index.css"></script>
-
-
     </body>
     </html>
