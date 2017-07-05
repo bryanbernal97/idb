@@ -2,22 +2,12 @@ from flask import Flask
 from flask import render_template
 from application import db
 from application.models import User, Team, Game, Community
-# from application.models import Data
-# from application.models import User
-# from application.models import Team
-# from application.models import Community
-# from application.models import Game
 
 import datetime
 import requests
 
 headers = {'client-id' : 'rpd5zvz9ofz3s7jeisuddqjo3fvfj0', 'Accept' :'application/vnd.twitchtv.v5+json'}
 gb_id = '/?api_key=d483af9dcc46474051b451953aa550322df2b793&format=json'
-top = {}
-teams = {}
-communities = {}
-users = {}
-games = {}
 
 # Create the Flask app
 application = Flask(__name__)
@@ -26,7 +16,7 @@ application.debug = True
 # print a nice greeting.
 @application.route('/')
 def say_hello():
-    global top
+    top = {}
     users = []
     communities = []
     teams = []
@@ -39,7 +29,7 @@ def say_hello():
             user['id'] = q.id
             user['name'] = q.name
             user['image_url'] = q.image_url
-            users += user
+            users.append(user)
         db.session.close()
     except Exception as e:
         print(str(e))
@@ -52,9 +42,10 @@ def say_hello():
             game['id'] = q.id
             game['name'] = q.name
             game['image_url'] = q.image_url
-            games += game
+            games.append(game)
         db.session.close()
-    except:
+    except Exception as e:
+        print(str(e))
         db.session.rollback()
     #teams
     try:   
@@ -64,21 +55,25 @@ def say_hello():
             team['id'] = q.id
             team['name'] = q.name
             team['image_url'] = q.image_url
-            teams += team
+            print(team)
+            teams.append(team)
         db.session.close()
-    except:
+    except Exception as e:
+        print(str(e))
         db.session.rollback()
     #communities
     try:   
         query_db = Community.query
         for q in query_db:
-            communities = {}
+            community = {}
             community['id'] = q.id
             community['name'] = q.name
             community['image_url'] = q.image_url
-            communities += community
+            communities.append(community)
+        print(communities)
         db.session.close()
-    except:
+    except Exception as e:
+        print(str(e))
         db.session.rollback()
 
     top['users'] = users
@@ -89,11 +84,11 @@ def say_hello():
 
 @application.route('/users/<wow>')
 def show_users(wow):
-    id_num = Integer.parseInt(wow)
-    q = User.query.get(id_num)
+    q = User.query.get(wow)
     user = {}
     user['name'] = q.name
-    user['info'] = q.info
+    print(q.name)
+    user['description'] = q.description
     user['language'] = q.language
     user['views'] = q.views
     user['followers'] = q.followers
@@ -106,46 +101,45 @@ def show_users(wow):
 
 @application.route('/games/<wow>')
 def show_games(wow):
-    id_num = Integer.parseInt(wow)
-    q = Game.query.get(id_num)
+    q = Game.query.get(wow)
     game = {}
     game['name'] = q.name
     game['description'] = q.description
-    game['genre'] = q.genre
-    game['platform'] = q.platform
+    game['genres'] = q.genres
+    game['platforms'] = q.platforms
     game['release_date'] = q.release_date
     game['image_url'] = q.image_url
-    game['user_id'] = q.user_id
-    game['team_id'] = q.team_id
+    game['user_ids'] = q.user_ids
+    game['team_ids'] = q.team_ids
+    game['community_ids'] = q.community_ids
 
     return render_template('model_template.html', name = game)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
-    q = Team.query.get(id_num)
+    q = Team.query.get(wow)
     team = {}
     team['name'] = q.name
     team['info'] = q.info
     team['created'] = q.created
     team['updated'] = q.updated
     team['image_url'] = q.image_url
-    community['user_ids'] = q.user_ids
-    community['game_id'] = q.game_id
+    team['user_ids'] = q.user_ids
+    team['game_ids'] = q.game_ids
 
-    return render_template('model_template.html', name = teams[wow])
+    return render_template('model_template.html', name = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
-    id_num = Integer.parseInt(wow)
-    q = Community.query.get(id_num)
+    q = Community.query.get(wow)
     community = {}
     community['name'] = q.name
-    community['info'] = q.info
+    community['description'] = q.description
     community['language'] = q.language
     community['rules'] = q.rules
     community['image_url'] = q.image_url
-    community['user_ids'] = q.users
-    community['game_ids'] = q.games
+    community['user_id'] = q.owner_id
+    community['game_id'] = q.game_id
 
     return render_template('model_template.html', name = community)
 
@@ -190,8 +184,8 @@ def get_team(wow):
     team['created'] = q.created
     team['updated'] = q.updated
     team['image_url'] = q.image_url
-    community['user_ids'] = q.user_ids
-    community['game_id'] = q.game_id
+    team['user_ids'] = q.user_ids
+    team['game_id'] = q.game_id
     return jsonify({'team': team})
 
 @application.route('/api/v0/community/<wow>', methods=['GET'])

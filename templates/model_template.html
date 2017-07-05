@@ -70,10 +70,19 @@
                         Name:
                         <small class="text-muted">{{name['name']}}</small>
                     </h3>
+                    {% if name['description'] %}
+                    <h3>
+                        Info:
+                            <small class="text-muted">{{name['description']}}</small>
+                    </h3>
+                    {% endif %}
+
+                    {% if name['info'] %}
                     <h3>
                         Info:
                             <small class="text-muted">{{name['info']}}</small>
                     </h3>
+                    {% endif %}
 
                     {% if name['language'] %}
                     <h3>
