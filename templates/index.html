@@ -162,14 +162,14 @@
 					{% endfor %}
 				</div>
 			</div>
-			<div class="container4">
+			<!-- <div class="container4">
 				<nav> 
 					<div style="display:flex;justify-content:center;align-items:center;">
 						<ul class="pagination pagination-sm"> <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li> <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li> <li><a href="#">2</a></li> <li><a href="#">3</a></li><li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li> </ul>
 						<br>
 					</div>
 				</nav>
-			</div>
+			</div> -->
 		</section>
 
 		<!-- Games Section -->
@@ -651,14 +651,82 @@
 		</section>
 
 
-		<section class="bg-light-gray">
+		<section class="bg-light-gray portfolio">
 			<div class="container" style="width: 100%;">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">Users</h2>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 							<div class="carousel-inner" role="listbox">
-								<div class="item active">
-									<div class="container first-slide">
+
+
+
+								{% for user in name['users'] %}
+									{% if loop.first %}
+        								<div class="item active">
+											<div class="container">
+												<div class="col-md-4 col-sm-6 portfolio-item">
+													<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
+														<div class="portfolio-hover">
+															<div class="portfolio-hover-content">
+																<i class="fa fa-plus fa-3x"></i>
+															</div>
+														</div>
+														<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+													</a>
+													<div class="portfolio-caption portfolio-caption-gray">
+														<h4>{{user['name']}}</h4>
+													</div>
+												</div>
+											<!-- </div> -->
+		<!-- 								</div> -->
+      								{% else %}
+      									{% if loop.index % 3 == 0 %}
+      										</div></div>
+	      									<div class="item">
+												<div class="container">
+													<div class="col-md-4 col-sm-6 portfolio-item">
+														<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
+															<div class="portfolio-hover">
+																<div class="portfolio-hover-content">
+																	<i class="fa fa-plus fa-3x"></i>
+																</div>
+															</div>
+															<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+														</a>
+														<div class="portfolio-caption portfolio-caption-gray">
+															<h4>{{user['name']}}</h4>
+														</div>
+													</div>
+												<!-- </div> -->
+											<!-- </div> -->
+										{% else %}
+												<div class="col-md-4 col-sm-6 portfolio-item">
+													<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
+														<div class="portfolio-hover">
+															<div class="portfolio-hover-content">
+																<i class="fa fa-plus fa-3x"></i>
+															</div>
+														</div>
+														<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+													</a>
+													<div class="portfolio-caption portfolio-caption-gray">
+														<h4>{{user['name']}}</h4>
+													</div>
+												</div>
+												{% if loop.last %}
+													</div></div>
+												{% endif %}
+										{% endif %}
+      								{% endif %}
+
+								{% endfor %}
+								<!-- <div class="item active">
+									<div class="container">
 										<div>
 											<h1>Example headline.</h1>
 											<p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
@@ -667,7 +735,7 @@
 									</div>
 								</div>
 								<div class="item">
-									<div class="container second-slide">
+									<div class="container">
 										<div>
 											<h1>Another example headline.</h1>
 											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
@@ -676,14 +744,14 @@
 									</div>
 								</div>
 								<div class="item">
-									<div class="container third-slide">
+									<div class="container">
 										<div>
 											<h1>One more for good measure.</h1>
 											<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
 											<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="background: none;">
 								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #6441A4"></span>
@@ -696,9 +764,18 @@
 
 							<!-- Indicators -->
 							<ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-								<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
-								<li data-target="#myCarousel" data-slide-to="1" class="">2</li>
-								<li data-target="#myCarousel" data-slide-to="2" class="">3</li>
+
+
+								{% for user in name['users'] %}
+									{% if loop.first %}
+										<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
+									{% else %}
+										<li data-target="#myCarousel" data-slide-to="{{loop.index}}" class="">{{loop.index+1}}</li>
+									{% endif %}
+								{% endfor %}
+								<!-- <li data-target="#myCarousel" data-slide-to="0" class="active">1</li> -->
+								<!-- <li data-target="#myCarousel" data-slide-to="1" class="">2</li> -->
+								<!-- <li data-target="#myCarousel" data-slide-to="2" class="">3</li> -->
 							</ol>
 						</div>
 					</div>
