@@ -212,6 +212,22 @@ def handle_user_filter_form():
 
     return render_site(users_filter=int(views), games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
+@application.route('/filter/teams')
+def handle_team_filter_form():
+    members = request.args.get('members')
+    if members == None:
+        return redirect('/')
+
+    return render_site(users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
+@application.route('/sort/users/<type_sort>')
+def handle_user_sort_az_form(type_sort):
+    type_sort = type_sort
+    if type_sort == None:
+        return redirect('/')
+
+    return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
+
 
 def get_name_by_id(_id, what_kind):
     if what_kind == 'user':
@@ -247,12 +263,17 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             user['name'] = q.name
             user['image_url'] = q.image_url
             users.append(user)
+        if users_sort == 'a-z':
+            users = sorted(users, key=lambda k: k['name'])
+        if users_sort == 'z-a':
+            users = sorted(users, key=lambda k: k['name'])
+            users = list(reversed(users))
         db.session.close()
     except Exception as e:
         print(str(e))
         db.session.rollback()
     #games
-    try:   
+    try:  
         query_db = Game.query
         for q in query_db:
             game = {}
@@ -265,8 +286,11 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
         print(str(e))
         db.session.rollback()
     #teams
-    try:   
-        query_db = Team.query
+    try:  
+        if teams_filter:
+            query_db = Team.query.filter(len(Team.user_ids) > teams_filter)
+        else:
+            query_db = Team.query
         for q in query_db:
             team = {}
             team['id'] = q.id
