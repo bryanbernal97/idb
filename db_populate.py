@@ -91,12 +91,8 @@ def lookup_user(parent_db, user_id):
 						game_json = game_json[0]
 						game_id = game_json.get('id')
 						if game_id and game_id not in games_dict:
-							# games_set.add(game_id)
 							user_db.game_id = game_id
-
-							# print('GOT HERE \n')
 							game_db = Game()
-							# print('CREATED A GAME \n')
 							game_db.id = game_id
 							game_db.user_ids = [user_db.id]
 
@@ -108,16 +104,11 @@ def lookup_user(parent_db, user_id):
 							game_db.name = game_json.get('name')
 							game_db.description = game_json.get('deck')
 							genres = []
-							# need a new request for genres
 							giantbomb_game_api_url = 'http://www.giantbomb.com/api/game/' + str(game_db.id) + '?api_key=0ac0037d403fff412c9e9ac9e60a23acc5b2e736&format=json'
 							game_response = requests.get(giantbomb_game_api_url, headers={'user-agent' : 'streamGlean'})
-							# print('GAME RESPONSE: ' + str(game_response) + '\n')
 							if game_response:
 								game_response = game_response.json().get('results')
-								# game_response = game_response.get('results').json()
-								# print('GAME JSON: ' + str(game_response) + '\n')
 								genres_response = game_response.get('genres')
-								# print('GENRES RESPONSE: ' + str(genres_response))
 								if genres_response:
 									for genre_dict in game_response.get('genres'):
 										genres.append(genre_dict.get('name'))
@@ -125,42 +116,40 @@ def lookup_user(parent_db, user_id):
 							platforms = []
 							game_platforms = game_json.get('platforms')
 							if (game_platforms and isinstance(game_platforms, Iterable)):
-								for platform_dict in game_json.get('platforms'):
+								for platform_dict in game_platforms:
 									platforms.append(platform_dict.get('name'))
 							game_db.platforms = platforms
 							game_db.release_date = game_json.get('original_release_date')
 							rating = game_json.get('original_game_rating')
-							# print('RATING: ' + str(rating) + '\n')
 							if rating:
 								for d in rating:
 									if 'ESRB' in d.get('name'):
 										actual_rating = d.get('name').replace('ESRB: ', '')
-										print('ACTUAL RATING: ' + '\n' + str(actual_rating))
 										game_db.rating = actual_rating
 							game_image = game_json.get('image')
 							if game_image:
 								game_image_small_url = game_image.get('small_url')
 								if game_image_small_url:
 									game_db.image_url = game_image_small_url
+								else:
+									game_db.image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png' # This is Twitch's default logo
 
-							# print('GAME DB: ' + str(game_db) + '\n')
 							games_dict[game_db.id] = game_db
 						elif game_id:
 							game_db = games_dict[game_id]
 							if user_db.id not in game_db.user_ids:
 								game_db.user_ids += [user_db.id]
 							if isinstance(parent_db, Team):
-								if parent_db.id not in game_db.team_ids:
-									game_db.team_ids += [parent_db.id]
+								if game_db.team_ids:
+									if parent_db.id not in game_db.team_ids:
+										game_db.team_ids += [parent_db.id]
 							elif isinstance(parent_db, Community):
-								if parent_db.id not in game_db.community_ids:
-									game_db.community_ids += [parent_db.id]
-							# print('GAME DB: ' + str(game_db) + '\n')
+								if game_db.community_ids:
+									if parent_db.id not in game_db.community_ids:
+										game_db.community_ids += [parent_db.id]
 					
 
-		# print('USER DB: ' + str(user_db) + '\n')
 		users_dict[user_db.id] = user_db
-		# print('UPDATING USER DICT: ' + str(users_dict))
 		return user_db.game_id
 	else:
 		user_db = users_dict[user_id]
@@ -171,7 +160,6 @@ def lookup_user(parent_db, user_id):
 				user_db.team_ids = [parent_db.id]
 		elif isinstance(parent_db, Community):
 			user_db.community_id = parent_db.id
-		# print('USER DB: ' + str(user_db) + '\n')
 
 
 def lookup_teams(users_d, games_d):
@@ -179,10 +167,7 @@ def lookup_teams(users_d, games_d):
 	global users_dict
 	global games_dict
 
-	# print('users_d: ' + str(users_d) + '\n')
 	json = requests.get(teams_api_url, headers=headers).json()
-
-	# users_d['hey'] = 'this sucks balls'
 
 	for t in json.get('teams'):
 		team_api_url = teams_api_url + str(t.get('name'))
@@ -192,6 +177,8 @@ def lookup_teams(users_d, games_d):
 		team_db.id = team.get('_id')
 		team_db.info = team.get('info')
 		team_db.image_url = team.get('logo')
+		if team_db.image_url == None:
+			team_db.image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png' # This is Twitch's default logo
 		team_db.created = team.get('created_at')
 		team_db.updated = team.get('updated_at')
 		user_ids = []
@@ -201,24 +188,18 @@ def lookup_teams(users_d, games_d):
 			user_id = user.get('_id')
 			user_ids.append(user_id)
 			game_id = lookup_user(team_db, user_id)
-			# print('users_dict: ' + str(users_dict) + '\n')
+
 			for k in users_dict:
 				users_d[k] = users_dict[k]
-			# print('users_d: ' + str(users_d) + '\n')
+
 			if game_id != None:
 				game_ids.append(game_id)
-			# games_d = dict(games_dict)
+
 			for key in games_dict:
 				games_d[key] = games_dict[key]
 
-		# print('done with a for loop')
 		team_db.user_ids = user_ids
 		team_db.game_ids = game_ids
-
-		# print('user_dict: ' + str(users_dict))
-		# users_d['ab'] = 'defghi'
-		# users_d = dict(users_dict)
-		# games_d = dict(games_dict)
 
 		try:     
 			db.session.add(team_db)
@@ -258,6 +239,8 @@ def lookup_communities(users_d, games_d):
 		community_db.language = language
 		community_db.rules = community_json.get('rules')
 		community_db.image_url = community_json.get('avatar_image_url')
+		if community_db.image_url == None:
+			community_db.image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png' # This is Twitch's default logo
 		owner_id = community_json.get('owner_id')
 		community_db.owner_id = owner_id
 		game_id = lookup_user(community_db, owner_id)
@@ -311,36 +294,18 @@ def populate_users():
 def populate_teams():
 	global users_dict
 	global games_dict
-	# print('users dict empty: ' + str(users_dict) + '\n')
 	with Manager() as manager:
 		users = manager.dict(users_dict)
 		games = manager.dict(games_dict)
-		# print('users: ' + str(users) + '\n')
 		p = Process(target=lookup_teams, args=(users, games))
 		p.start()
 
-		# Wait 10 seconds for foo
-		time.sleep(30)
-
-		# print('users: ' + str(users) + '\n')
-		# print('users_dict: ' + str(users_dict) + '\n')
-		# Terminate foo
+		time.sleep(120)
 		p.terminate()
-
-		# print('users: ' + str(users) + '\n')
-
-		# Cleanup
 		p.join()
 
-		# print('users: ' + str(users) + '\n')
 		users_dict = dict(users.copy())
 		games_dict = dict(games.copy())
-		# for k in users:
-		# 	users_dict[k] = users[k]
-		# for key in games:
-		# 	games_dict[key] = games[key]
-		# users_dict = users
-		# games_dict = games
 
 def populate_communities():
 	global users_dict
@@ -351,18 +316,14 @@ def populate_communities():
 		p = Process(target=lookup_communities, args=(users, games))
 		p.start()
 
-		# Wait 10 seconds for foo
-		time.sleep(30)
+		time.sleep(120)
 
-		# Terminate foo
 		p.terminate()
 
-		# Cleanup
 		p.join()
 
 		users_dict = dict(users.copy())
 		games_dict = dict(games.copy())
-		# print('users: ' + str(users))
 
 
 
