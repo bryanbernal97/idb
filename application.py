@@ -4,6 +4,7 @@ from flask import request
 from flask import redirect
 from application import db
 from application.models import User, Team, Game, Community
+from sqlalchemy.sql.expression import func
 
 import datetime
 import requests
@@ -288,7 +289,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
     #teams
     try:  
         if teams_filter:
-            query_db = Team.query.filter(len(Team.user_ids) > teams_filter)
+            query_db = Team.query.filter(func.array_length(Team.user_ids,1) > teams_filter)
         else:
             query_db = Team.query
         for q in query_db:
@@ -319,7 +320,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top, user_filter=users_filter)
+    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter)
     
 
 """
