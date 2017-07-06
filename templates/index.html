@@ -719,7 +719,7 @@
 								{% for user in name['users'] %}
 									{% if loop.first %}
         								<div class="item active">
-											<div class="container">
+											<div class="container first-slide">
 												<div class="col-md-4 col-sm-6 portfolio-item">
 													<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
 														<div class="portfolio-hover">
@@ -733,12 +733,10 @@
 														<h4>{{user['name']}}</h4>
 													</div>
 												</div>
-											<!-- </div> -->
-		<!-- 								</div> -->
       								{% elif (loop.index-1) % 3 == 0 %}
       										</div></div>
 	      									<div class="item">
-												<div class="container">
+												<div class="container second-slide">
 													<div class="col-md-4 col-sm-6 portfolio-item">
 														<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
 															<div class="portfolio-hover">
@@ -752,8 +750,6 @@
 															<h4>{{user['name']}}</h4>
 														</div>
 													</div>
-												<!-- </div> -->
-											<!-- </div> -->
 									{% else %}
 											<div class="col-md-4 col-sm-6 portfolio-item">
 												<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
@@ -790,7 +786,7 @@
 									{% if loop.first %}
 										<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
 									{% elif (loop.index-1) % 3 == 0 %}
-										<li data-target="#myCarousel" data-slide-to="{{loop.index - 1}}" class="">{{loop.index // 3 + 1}}</li>
+										<li data-target="#myCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
 									{% endif %}
 								{% endfor %}
 							</ol>
@@ -799,6 +795,9 @@
 				</div>
 			</div>
 		</section>
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 		<!-- jQuery -->
 		<script src="/static/vendor/jquery/jquery.min.js"></script>
