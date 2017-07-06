@@ -285,9 +285,7 @@ def get_name_by_id(_id, what_kind):
 def handle_user_filter_form():
     # community = request.form['community']
     # need to query the user table in the database with a filter of community = community
-    community = request.args.get('community')
-    print('community: ' + community)
-    string_to_display = 'The community selected in the filter for users was: ' + community
+    views = request.args.get('views')
     top = {}
     users = []
     communities = []
@@ -295,7 +293,7 @@ def handle_user_filter_form():
     games = []
     #users
     try:   
-        query_db = User.query
+        query_db = User.query.filter(User.views > int(views))
         for q in query_db:
             user = {}
             user['id'] = q.id
