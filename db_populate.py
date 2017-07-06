@@ -129,6 +129,14 @@ def lookup_user(parent_db, user_id):
 									platforms.append(platform_dict.get('name'))
 							game_db.platforms = platforms
 							game_db.release_date = game_json.get('original_release_date')
+							rating = game_json.get('original_game_rating')
+							# print('RATING: ' + str(rating) + '\n')
+							if rating:
+								for d in rating:
+									if 'ESRB' in d.get('name'):
+										actual_rating = d.get('name').replace('ESRB: ', '')
+										# print('ACTUAL RATING: ' + '\n' + str(actual_rating))
+										game_db.rating = actual_rating
 							game_image = game_json.get('image')
 							if game_image:
 								game_image_small_url = game_image.get('small_url')

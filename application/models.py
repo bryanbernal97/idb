@@ -59,6 +59,7 @@ class Game (BaseModel, db.Model):
     platforms = db.Column(db.ARRAY(db.TEXT))
     release_date = db.Column(db.DateTime)
     image_url = db.Column(db.TEXT)
+    rating = db.Column(db.String)
 
     # Connections to other models
     user_ids = db.Column(db.ARRAY(db.String))
