@@ -120,22 +120,10 @@
 					</div>
 					<button type="submit" class="btn btn-default">Filter</button>
 				</form>
-				{% if is_filter %}
-					<p>Applied Filter: >{{filter}}</p>
+				{% if user_filter %}
+					<p>Applied Filter: >{{user_filter}}</p>
 					<a href="/#users" class="btn btn-default" role="button">Remove Filter</a>
 				{% endif %}
-				<!-- <form action="/games/filter">
-					<h5>
-					<label class="radio-inline">
-						<input type="radio" name="optradio">Most Followers
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="optradio">Most Views
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="optradio">Date Created
-					</label>
-				</form> -->
 				<br>
 				<div class="dropdown">
 				<button class="dropbtn">SORT <span class="caret"></span></button>

@@ -18,69 +18,7 @@ application.debug = True
 # print a nice greeting.
 @application.route('/')
 def say_hello():
-    top = {}
-    users = []
-    communities = []
-    teams = []
-    games = []
-    #users
-    try:   
-        query_db = User.query
-        for q in query_db:
-            user = {}
-            user['id'] = q.id
-            user['name'] = q.name
-            user['image_url'] = q.image_url
-            users.append(user)
-        db.session.close()
-    except Exception as e:
-        print(str(e))
-        db.session.rollback()
-    #games
-    try:   
-        query_db = Game.query
-        for q in query_db:
-            game = {}
-            game['id'] = q.id
-            game['name'] = q.name
-            game['image_url'] = q.image_url
-            games.append(game)
-        db.session.close()
-    except Exception as e:
-        print(str(e))
-        db.session.rollback()
-    #teams
-    try:   
-        query_db = Team.query
-        for q in query_db:
-            team = {}
-            team['id'] = q.id
-            team['name'] = q.name
-            team['image_url'] = q.image_url
-            teams.append(team)
-        db.session.close()
-    except Exception as e:
-        print(str(e))
-        db.session.rollback()
-    #communities
-    try:   
-        query_db = Community.query
-        for q in query_db:
-            community = {}
-            community['id'] = q.id
-            community['name'] = q.name
-            community['image_url'] = q.image_url
-            communities.append(community)
-        db.session.close()
-    except Exception as e:
-        print(str(e))
-        db.session.rollback()
-
-    top['users'] = users
-    top['communities'] = communities
-    top['games'] = games
-    top['teams'] = teams
-    return render_template('index.html', name=top)
+    return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 @application.route('/users/<wow>')
 def show_users(wow):
@@ -265,6 +203,16 @@ def get_community(wow):
     community['game_id'] = q.game_id
     return jsonify({'community': community})
 
+
+@application.route('/filter/users')
+def handle_user_filter_form():
+    views = request.args.get('views')
+    if views == None:
+        return redirect('/')
+
+    return render_site(users_filter=int(views), games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
+
 def get_name_by_id(_id, what_kind):
     if what_kind == 'user':
         q = User.query.get(_id)
@@ -281,21 +229,18 @@ def get_name_by_id(_id, what_kind):
     return None
 
 
-@application.route('/filter/users')
-def handle_user_filter_form():
-    # community = request.form['community']
-    # need to query the user table in the database with a filter of community = community
-    views = request.args.get('views')
-    if views == None:
-        return redirect('/')
+def render_site(users_filter, games_filter, teams_filter, communities_filter, users_sort, games_sort, teams_sort, communities_sort):
     top = {}
     users = []
     communities = []
     teams = []
     games = []
     #users
-    try:   
-        query_db = User.query.filter(User.views > int(views))
+    try:
+        if users_filter:
+            query_db = User.query.filter(User.views > users_filter)
+        else:
+            query_db = User.query
         for q in query_db:
             user = {}
             user['id'] = q.id
@@ -350,7 +295,8 @@ def handle_user_filter_form():
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top, is_filter=True, filter=views)
+    return render_template('index.html', name=top, user_filter=users_filter)
+    
 
 """
 @application.route('/testWrite')
