@@ -297,6 +297,8 @@
 						<h2 class="section-heading">teams</h2>
 					</div>
 				</div>
+
+				<!-- Teams Filter -->
 				<form class="form-inline" action="/filter/teams#teams" style="text-align: center;">
 
 					<div class="form-group">
@@ -386,12 +388,22 @@
 						<h2 class="section-heading">communities</h2>
 					</div>
 				</div>
-				<p>Filter:</p>
-				<form>
-					<label class="radio-inline">
-						<input type="radio" name="optradio">Game
-					</label>
+				
+				<!-- Communities Filter -->
+				<form class="form-inline" action="/filter/communities#communities" style="text-align: center;">
+
+					<div class="form-group">
+<!-- 					    <label for="community"><h5 style="padding-right: 10px;">Has Non-Default Image:&#9;</h5></label>
+ -->					    <h5><label class="checkbox-inline"><input type="checkbox" name="has-image" value="True">Has Non-Default Image</label></h5>
+					</div>
+					<button type="submit" class="btn btn-default" style="margin-left: 5px;">Filter</button>
 				</form>
+				{% if communities_filter %}
+					<p>Applied Filter: Has Non-Default Image</p>
+					<a href="/#communities" class="btn btn-default" role="button">Remove Filter</a>
+					<br><br>
+				{% endif %}
+
 				<br>
 				<div class="dropdown">
 					<button class="dropbtn">SORT <span class="caret"></span></button>

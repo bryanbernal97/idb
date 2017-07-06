@@ -233,6 +233,17 @@ def handle_team_filter_form():
 
     return render_site(users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
+@application.route('/filter/communities')
+def handle_communities_filter_form():
+    image_filter = False
+    has_image = request.args.get('has-image')
+    if has_image == None:
+        return redirect('/')
+    else:
+        image_filter = True
+
+    return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=image_filter, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
 @application.route('/sort/<model_type>/<type_sort>')
 def handle_sort_az(type_sort, model_type):
     if type_sort == None:
@@ -332,7 +343,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
         print(str(e))
         db.session.rollback()
     #communities
-    try:   
+    try:
         query_db = Community.query
         for q in query_db:
             community = {}
@@ -340,10 +351,12 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             community['name'] = q.name
             community_image = q.image_url
             if community_image == '':
-                community['image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+                if not communities_filter:
+                    community['image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+                    communities.append(community)
             else:
                 community['image_url'] = q.image_url
-            communities.append(community)
+                communities.append(community)
         if communities_sort == 'a-z':
             communities = sorted(communities, key=lambda k: k['name'])
         if communities_sort == 'z-a':
@@ -358,22 +371,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter, games_filter=games_filter, user_sort=users_sort)
-    
-
-"""
-@application.route('/testWrite')
-def testing_db_write():
-    notes = str(datetime.datetime.now())
-    data_entered = Data(notes=notes)
-    try:     
-        db.session.add(data_entered)
-        db.session.commit()        
-        db.session.close()
-    except:
-        db.session.rollback()
-    return render_template('cloud9.html')
-"""
+    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter, games_filter=games_filter, user_sort=users_sort, communities_filter=communities_filter)
 
 
 # run the app.
