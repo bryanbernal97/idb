@@ -758,7 +758,7 @@
 							<ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
 								{% for user in name['users'] %}
 									{% if loop.first %}
-										<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
+										<li data-target="#thisCarousel" data-slide-to="0" class="active">1</li>
 									{% elif loop.index % 3 == 0 and not loop.last %}
 										<li data-target="#thisCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
 									{% endif %}
