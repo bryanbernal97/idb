@@ -288,13 +288,14 @@
 					<div class="form-group">
 					    <label for="community"><h5 style="padding-right: 10px;">Number of members:&#9;</h5></label>
 					    <label class="radio-inline"> <input type="radio" name="members" id="five" value="5"> > 5 </label>
-				        <label class="radio-inline" style="padding-right: 10px;"> <input type="radio" name="members" id="ten" value="10"> > 10 </label>
+				        <label class="radio-inline" style="padding-right: 10px;"> <input type="radio" name="members" id="ten" value="15"> > 15 </label>
 					</div>
 					<button type="submit" class="btn btn-default">Filter</button>
 				</form>
 				{% if team_filter %}
-					<p>Applied Filter: >{{team_filter}}</p>
+					<p>Applied Filter: > {{team_filter}}</p>
 					<a href="/#teams" class="btn btn-default" role="button">Remove Filter</a>
+					<br><br>
 				{% endif %}
 				<br>
 				<div class="dropdown">
