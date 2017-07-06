@@ -112,6 +112,7 @@
 					</div>
 				</div>
 
+				<!-- Users Filter -->
 				<form class="form-inline" action="/filter/users#users" style="text-align: center;">
 
 					<div class="form-group">
@@ -126,7 +127,10 @@
 					<a href="/#users" class="btn btn-default" role="button">Remove Filter</a>
 					<br><br>
 				{% endif %}
+				
 				<br>
+
+				<!-- Users Sort -->
 				<div class="dropdown">
 					<button class="dropbtn">SORT <span class="caret"></span></button>
 						<div class="dropdown-content">
@@ -199,15 +203,25 @@
 						<h2 class="section-heading">games</h2>
 					</div>
 				</div>
-				<p>Filter:</p>
-				<form>
-					<label class="radio-inline">
-						<input type="radio" name="optradio">Most Popular
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="optradio">Rating
-					</label>
+
+				<!-- Games Filter -->
+				<form class="form-inline" action="/filter/games#games" style="text-align: center;">
+
+					<div class="form-group">
+					    <label for="num_views"><h5 style="padding-right: 10px;">Rating:&#9;</h5></label>
+					    <label class="radio-inline"> <input type="radio" name="rating" value="E"> E </label>
+				        <label class="radio-inline" style="padding-right: 10px;"> <input type="radio" name="rating" value="E10+"> E10+ </label>
+				       	<label class="radio-inline" style="padding-right: 10px;"> <input type="radio" name="rating" value="T"> T </label>
+				       	<label class="radio-inline" style="padding-right: 10px;"> <input type="radio" name="rating" value="M"> M </label>
+					</div>
+					<button type="submit" class="btn btn-default">Filter</button>
 				</form>
+				{% if games_filter %}
+					<p>Applied Rating Filter: {{games_filter}}</p>
+					<a href="/#games" class="btn btn-default" role="button">Remove Filter</a>
+					<br><br>
+				{% endif %}
+
 				<br>
 				<div class="dropdown">
 					<button class="dropbtn">SORT <span class="caret"></span></button>
@@ -514,6 +528,7 @@
 						<p>Website templates</p>
 						<p>Site API creation</p>
 						<p>Connecting back-end to front-end</p>
+						<p>Sorting and filtering</p>
 					</div>
 					<div class="col-sm-4 team-col"> <!--Tonya -->
 						<h5>Major Responsibilites</h5>
