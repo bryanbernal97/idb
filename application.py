@@ -286,6 +286,8 @@ def handle_user_filter_form():
     # community = request.form['community']
     # need to query the user table in the database with a filter of community = community
     views = request.args.get('views')
+    if views == None:
+        return redirect('/')
     top = {}
     users = []
     communities = []
@@ -348,7 +350,7 @@ def handle_user_filter_form():
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top)
+    return render_template('index.html', name=top, is_filter=True, filter=views)
 
 """
 @application.route('/testWrite')
