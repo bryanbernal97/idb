@@ -833,11 +833,12 @@ body {
     z-index: 10000;
 }
 
-/* Links inside the dropdown */
+/* Text inside the dropdown */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     display: block;
     z-index: 3;
 }
