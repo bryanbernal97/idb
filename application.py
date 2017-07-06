@@ -60,6 +60,7 @@ def show_games(wow):
     game = {}
     game['name'] = q.name
     game['description'] = q.description
+    game['rating'] = q.rating
     game['genres'] = q.genres
     game['platforms'] = q.platforms
     game['release_date'] = q.release_date

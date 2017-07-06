@@ -126,6 +126,13 @@
                     </h3>
                     {% endif %}
 
+                    {% if name['rating'] %}
+                    <h3>
+                        Rated:
+                        <small class="text-muted">{{name['rating']}}</small>
+                    </h3>
+                    {% endif %}
+
                     {% if name['genres'] %}
                     <h3>
                         Genres:
