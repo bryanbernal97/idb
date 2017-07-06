@@ -135,7 +135,7 @@ def lookup_user(parent_db, user_id):
 								for d in rating:
 									if 'ESRB' in d.get('name'):
 										actual_rating = d.get('name').replace('ESRB: ', '')
-										# print('ACTUAL RATING: ' + '\n' + str(actual_rating))
+										print('ACTUAL RATING: ' + '\n' + str(actual_rating))
 										game_db.rating = actual_rating
 							game_image = game_json.get('image')
 							if game_image:

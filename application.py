@@ -171,6 +171,7 @@ def get_game(wow):
     game['image_url'] = q.image_url
     game['user_ids'] = q.user_ids
     game['team_ids'] = q.team_ids
+    game['rating'] = q.rating
     game['team_names'] = {}
     if game['team_ids']:
         for _id in game['team_ids']:
@@ -213,6 +214,16 @@ def handle_user_filter_form():
         return redirect('/')
 
     return render_site(users_filter=int(views), games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
+
+@application.route('/filter/games')
+def handle_game_filter_form():
+    rating = request.args.get('rating')
+    if rating == None:
+        return redirect('/')
+
+    return render_site(users_filter=None, games_filter=rating, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
 
 @application.route('/filter/teams')
 def handle_team_filter_form():
@@ -280,7 +291,10 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
         db.session.rollback()
     #games
     try:  
-        query_db = Game.query
+        if games_filter:
+            query_db = Game.query.filter(Game.rating == games_filter)
+        else:
+            query_db = Game.query
         for q in query_db:
             game = {}
             game['id'] = q.id
@@ -340,7 +354,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter, user_sort=users_sort)
+    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter, games_filter=games_filter, user_sort=users_sort)
     
 
 """
