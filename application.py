@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 from application import db
 from application.models import User, Team, Game, Community
 
@@ -277,6 +278,13 @@ def get_name_by_id(_id, what_kind):
     print(_id)
     q = Team.query.get(_id)
     return None
+
+
+@application.route('/filter/users?community=<community>')
+def handle_user_filter_form():
+    community = request.form['community']
+    # need to query the user table in the database with a filter of community = community
+    return print('community: ' + str(community))
 
 """
 @application.route('/testWrite')
