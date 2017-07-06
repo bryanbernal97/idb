@@ -781,18 +781,7 @@ body {
   margin:0 auto;
 }
 
-.dropdown {
-  z-index: 1000
-}
-.dropdown2 {
-  z-index: 1000
-}
-.dropdown3 {
-  z-index: 1000
-}
-.dropdown4 {
-  z-index: 1000
-}
+
 
 .carousel-indicators-numbers li {
   text-indent: 0;
@@ -812,5 +801,54 @@ body {
   width: 30px;
   height: 30px;
   background-color: #6441A4;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #6441A4;
+    color: white;
+    padding: 6px 16px 6px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 10000;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10000;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    z-index: 10000;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #cccccc;
 }
 

@@ -280,11 +280,11 @@ def get_name_by_id(_id, what_kind):
     return None
 
 
-@application.route('/filter/users?community=<community>')
+'''@application.route('/filter/users?community=<community>')
 def handle_user_filter_form():
     community = request.form['community']
     # need to query the user table in the database with a filter of community = community
-    return print('community: ' + str(community))
+    return print("community: " + str(community))'''
 
 """
 @application.route('/testWrite')
