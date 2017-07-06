@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import redirect
 from application import db
 from application.models import User, Team, Game, Community
 
@@ -285,8 +286,71 @@ def handle_user_filter_form():
     # community = request.form['community']
     # need to query the user table in the database with a filter of community = community
     community = request.args.get('community')
+    print('community: ' + community)
     string_to_display = 'The community selected in the filter for users was: ' + community
-    return string_to_display
+    top = {}
+    users = []
+    communities = []
+    teams = []
+    games = []
+    #users
+    try:   
+        query_db = User.query
+        for q in query_db:
+            user = {}
+            user['id'] = q.id
+            user['name'] = q.name
+            user['image_url'] = q.image_url
+            users.append(user)
+        db.session.close()
+    except Exception as e:
+        print(str(e))
+        db.session.rollback()
+    #games
+    try:   
+        query_db = Game.query
+        for q in query_db:
+            game = {}
+            game['id'] = q.id
+            game['name'] = q.name
+            game['image_url'] = q.image_url
+            games.append(game)
+        db.session.close()
+    except Exception as e:
+        print(str(e))
+        db.session.rollback()
+    #teams
+    try:   
+        query_db = Team.query
+        for q in query_db:
+            team = {}
+            team['id'] = q.id
+            team['name'] = q.name
+            team['image_url'] = q.image_url
+            teams.append(team)
+        db.session.close()
+    except Exception as e:
+        print(str(e))
+        db.session.rollback()
+    #communities
+    try:   
+        query_db = Community.query
+        for q in query_db:
+            community = {}
+            community['id'] = q.id
+            community['name'] = q.name
+            community['image_url'] = q.image_url
+            communities.append(community)
+        db.session.close()
+    except Exception as e:
+        print(str(e))
+        db.session.rollback()
+
+    top['users'] = users
+    top['communities'] = communities
+    top['games'] = games
+    top['teams'] = teams
+    return render_template('index.html', name=top)
 
 """
 @application.route('/testWrite')
