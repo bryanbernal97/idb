@@ -162,7 +162,7 @@ def lookup_user(parent_db, user_id):
 			user_db.community_id = parent_db.id
 
 
-def lookup_teams(users_d, games_d):
+def lookup_teams():
 
 	global users_dict
 	global games_dict
@@ -189,14 +189,14 @@ def lookup_teams(users_d, games_d):
 			user_ids.append(user_id)
 			game_id = lookup_user(team_db, user_id)
 
-			for k in users_dict:
-				users_d[k] = users_dict[k]
+			# for k in users_dict:
+			# 	users_d[k] = users_dict[k]
 
 			if game_id != None:
 				game_ids.append(game_id)
 
-			for key in games_dict:
-				games_d[key] = games_dict[key]
+			# for key in games_dict:
+			# 	games_d[key] = games_dict[key]
 
 		team_db.user_ids = user_ids
 		team_db.game_ids = game_ids
@@ -212,7 +212,7 @@ def lookup_teams(users_d, games_d):
 		# print('TEAM DB: ' + str(team_db) + '\n')
 
 
-def lookup_communities(users_d, games_d):
+def lookup_communities():
 
 	global users_dict
 	global games_dict
@@ -239,6 +239,8 @@ def lookup_communities(users_d, games_d):
 		community_db.language = language
 		community_db.rules = community_json.get('rules')
 		community_db.image_url = community_json.get('avatar_image_url')
+
+		# TODO: Also check against empty string
 		if community_db.image_url == None:
 			community_db.image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png' # This is Twitch's default logo
 		owner_id = community_json.get('owner_id')
@@ -247,13 +249,13 @@ def lookup_communities(users_d, games_d):
 
 		if game_id != None:
 			community_db.game_id = game_id
-		for k in users_dict:
-			users_d[k] = users_dict[k]
-		# print('users_d: ' + str(users_d) + '\n')
-		# games_d = dict(games_dict)
-		for key in games_dict:
-			games_d[key] = games_dict[key]
-		# print('COMMUNITY DB: ' + str(community_db) + '\n')
+		
+		# for k in users_dict:
+		# 	users_d[k] = users_dict[k]
+
+		# for key in games_dict:
+		# 	games_d[key] = games_dict[key]
+
 		try:     
 			db.session.add(community_db)
 			db.session.commit()        
@@ -292,38 +294,40 @@ def populate_users():
 
 
 def populate_teams():
-	global users_dict
-	global games_dict
-	with Manager() as manager:
-		users = manager.dict(users_dict)
-		games = manager.dict(games_dict)
-		p = Process(target=lookup_teams, args=(users, games))
-		p.start()
+	# global users_dict
+	# global games_dict
+	# with Manager() as manager:
+	# 	users = manager.dict(users_dict)
+	# 	games = manager.dict(games_dict)
+	# 	p = Process(target=lookup_teams, args=(users, games))
+	# 	p.start()
 
-		time.sleep(120)
-		p.terminate()
-		p.join()
+	# 	time.sleep(120)
+	# 	p.terminate()
+	# 	p.join()
 
-		users_dict = dict(users.copy())
-		games_dict = dict(games.copy())
+	# 	users_dict = dict(users.copy())
+	# 	games_dict = dict(games.copy())
+	lookup_teams()
 
 def populate_communities():
-	global users_dict
-	global games_dict
-	with Manager() as manager:
-		users = manager.dict(users_dict)
-		games = manager.dict(games_dict)
-		p = Process(target=lookup_communities, args=(users, games))
-		p.start()
+	# global users_dict
+	# global games_dict
+	# with Manager() as manager:
+	# 	users = manager.dict(users_dict)
+	# 	games = manager.dict(games_dict)
+	# 	p = Process(target=lookup_communities, args=(users, games))
+	# 	p.start()
 
-		time.sleep(120)
+	# 	time.sleep(120)
 
-		p.terminate()
+	# 	p.terminate()
 
-		p.join()
+	# 	p.join()
 
-		users_dict = dict(users.copy())
-		games_dict = dict(games.copy())
+	# 	users_dict = dict(users.copy())
+	# 	games_dict = dict(games.copy())
+	lookup_communities()
 
 
 

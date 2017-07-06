@@ -338,7 +338,11 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             community = {}
             community['id'] = q.id
             community['name'] = q.name
-            community['image_url'] = q.image_url
+            community_image = q.image_url
+            if community_image == '':
+                community['image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+            else:
+                community['image_url'] = q.image_url
             communities.append(community)
         if communities_sort == 'a-z':
             communities = sorted(communities, key=lambda k: k['name'])
