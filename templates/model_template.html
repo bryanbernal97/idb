@@ -183,7 +183,7 @@
 
                     {% if name['user_ids'] %}
                     <h3>
-                        Players:
+                        Streamers:
                         {% for user in name['user_ids'] %}
                             {% if name['user_names'][user] %}
                             <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{name['user_names'][user]}}</a></small>
