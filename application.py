@@ -171,6 +171,7 @@ def get_game(wow):
     game['image_url'] = q.image_url
     game['user_ids'] = q.user_ids
     game['team_ids'] = q.team_ids
+    game['rating'] = q.rating
     game['team_names'] = {}
     if game['team_ids']:
         for _id in game['team_ids']:
