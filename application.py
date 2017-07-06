@@ -220,14 +220,18 @@ def handle_team_filter_form():
 
     return render_site(users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
-@application.route('/sort/users/<type_sort>')
-def handle_user_sort_az_form(type_sort):
-    type_sort = type_sort
+@application.route('/sort/<model_type>/<type_sort>')
+def handle_sort_az(type_sort, model_type):
     if type_sort == None:
         return redirect('/')
-
-    return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
-
+    if model_type == 'users':
+        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
+    elif model_type == 'games':
+        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
+    elif model_type == 'teams':
+        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
+    elif model_type == 'communities':
+        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
 
 def get_name_by_id(_id, what_kind):
     if what_kind == 'user':
@@ -281,6 +285,11 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             game['name'] = q.name
             game['image_url'] = q.image_url
             games.append(game)
+        if games_sort == 'a-z':
+            games = sorted(games, key=lambda k: k['name'])
+        if games_sort == 'z-a':
+            games = sorted(games, key=lambda k: k['name'])
+            games = list(reversed(games))
         db.session.close()
     except Exception as e:
         print(str(e))
@@ -297,6 +306,11 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             team['name'] = q.name
             team['image_url'] = q.image_url
             teams.append(team)
+        if teams_sort == 'a-z':
+            teams = sorted(teams, key=lambda k: k['name'])
+        if teams_sort == 'z-a':
+            teams = sorted(teams, key=lambda k: k['name'])
+            teams = list(reversed(teams))
         db.session.close()
     except Exception as e:
         print(str(e))
@@ -310,6 +324,11 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             community['name'] = q.name
             community['image_url'] = q.image_url
             communities.append(community)
+        if communities_sort == 'a-z':
+            communities = sorted(communities, key=lambda k: k['name'])
+        if communities_sort == 'z-a':
+            communities = sorted(communities, key=lambda k: k['name'])
+            communities = list(reversed(communities))
         db.session.close()
     except Exception as e:
         print(str(e))
