@@ -735,8 +735,7 @@
 												</div>
 											<!-- </div> -->
 		<!-- 								</div> -->
-      								{% else %}
-      									{% if loop.index-1 % 3 == 0 %}
+      								{% elif (loop.index-1) % 3 == 0 %}
       										</div></div>
 	      									<div class="item">
 												<div class="container">
@@ -755,24 +754,23 @@
 													</div>
 												<!-- </div> -->
 											<!-- </div> -->
-										{% else %}
-												<div class="col-md-4 col-sm-6 portfolio-item">
-													<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
-														<div class="portfolio-hover">
-															<div class="portfolio-hover-content">
-																<i class="fa fa-plus fa-3x"></i>
-															</div>
+									{% else %}
+											<div class="col-md-4 col-sm-6 portfolio-item">
+												<a href="{{'/users/' ~ user['id']}}" class="portfolio-link" data-toggle="modal">
+													<div class="portfolio-hover">
+														<div class="portfolio-hover-content">
+															<i class="fa fa-plus fa-3x"></i>
 														</div>
-														<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
-													</a>
-													<div class="portfolio-caption portfolio-caption-gray">
-														<h4>{{user['name']}}</h4>
 													</div>
+													<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
+												</a>
+												<div class="portfolio-caption portfolio-caption-gray">
+													<h4>{{user['name']}}</h4>
 												</div>
-												{% if loop.last %}
-													</div></div>
-												{% endif %}
-										{% endif %}
+											</div>
+											{% if loop.last %}
+												</div></div>
+											{% endif %}
       								{% endif %}
 
 								{% endfor %}
@@ -791,8 +789,8 @@
 								{% for user in name['users'] %}
 									{% if loop.first %}
 										<li data-target="#myCarousel" data-slide-to="0" class="active">1</li>
-									{% else %}
-										<li data-target="#myCarousel" data-slide-to="{{loop.index-1}}" class="">{{loop.index}}</li>
+									{% elif (loop.index-1) % 3 == 0 %}
+										<li data-target="#myCarousel" data-slide-to="{{loop.index - 1}}" class="">{{loop.index // 3 + 1}}</li>
 									{% endif %}
 								{% endfor %}
 							</ol>
