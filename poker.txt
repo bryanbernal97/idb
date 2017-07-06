@@ -1,75 +1,50 @@
-PlanITpoker Phase I
+PlanITpoker Phase 2
 Group 2
-19 June, 2017
+05 July, 2017
 
-As a caveat, we had a difficult time writing user stories for this phase. 
-Because of the static and incomplete nature of the site, a lot of our stories
-were implemented quickly through the data we scraped from the Twitch API. For example,
-if a user wanted to find out the communities a particular streamer was a part of, due to
-the thorough and robust interface Twitch provides, it was relatively simple to add it to
-the site. 
+1. Populate database
+        Estimated time: 5 hours
+        Actual time: 18 hours
+        
+        Arguably one of the more difficult aspects of this phase for us; spent a long time debugging
+        the code and changing other files to fix errors.
 
-While we can individually describe each story and how long it took to complete them, for
-the sake of not repeating the same reasons over and over again, I will group several stories
-together and write out the assumptions and estimates for the entirety of them.
+2. Create carousel to scroll through the queried list of Users, Games, Communities, and Teams
+        Estimated time: 5 hours 
+        Actual time: 4 hours
 
-
-User Stories
-==============================================
-
-1.As a user, I want to see which streamers are involved in a community.
-
-    Estimates: 1/2, 1/2, 0, 1/2
-    Consensus: 1/2 or 30 mintutes
-    Actual: 3/4 when considering it part of the total time taken
-
-    We wanted to start with this one because, as shown above, one person had a different idea of
-    how long it would take to implement. They figured because it's just scraped data, it would
-    probably only take a few seconds to get it up on the actual website. The rest of us discussed
-    it and said our reasoning was that, along with the other information we want available to our site,
-    the time it'll take to learn how to scrape data, use Twitch's API, and get it correctly formatted 
-    would probably take a handful of hours. Therefore, on this one particular story, most of us split up
-    the total time it would take and deemed this one "1/2".
-
-    So for the rest of this list, which includes:
-
-    2. As a user, I want to see all the members of a particular team.
-    3. As a user, I want to look at a game's page and see all the streamers who have played it.
-    4. As a user, I want to find a list of communities so I can join the ones that fit my interests.
-    5. A user can see what games a particular streamer has played before.
-    6. A user can see how popular a certain community is through view counts and subscriptions.
-    7. A user can see how popular a streamer is by their views and subscriptions.
-    8. A user can view whether or not a streamer has the mature flag up.
-
-    we all estimated 1/2 for each story. Total time was more like 3/4-ish for each, but there wasnt a card
-    for that value. The entirety of the time was perhaps 7 hours.
-
-9. As a developer, I want to have a static mock-up of the website so I can begin planning
-necessary implementation.
-
-    After some thought, this story might have been too "high-level", but regardless the estimates
-    were all over the place. 
-    
-    Estimates: 2, 10, 13, 20
-    Consensus: 20 (20 hours plus or minus some)
-    Actual: ~20
-    
-    One of our members actually had some experience in web development and told us 20 hours seemed
-    fair. It allows some leeway to get some of us unexperienced folk up to speed when learning what
-    exactly we needed to do and how to do it. In the end, it took perhaps a little less than the 20
-    estimated hours, but that was much better than assuming it would have taken 10 and doubling that.
-    
-10. User can see the bios and contact information for the developers of the webstie so they can hire
-them for a lot of money.
-
-    Estimates: 1/2, 1, 1, 1
-    Consensus: 1
-    Actual: ~1
-    
-    Time spent waiting is still time spent, so we all kind of gave the estimate of an hour so everyone
-    can come up with a fitting and short bio while deciding on a proper photo. Actually adding it to
-    the site didn't take long.
-    
-    We also decided on this as a legitimate use case because Professor Downing seems particular about us
-    learning skills useful for actual jobs, so having our bios on the site can be a good way to show off our
-    work.
+3. Implement Pagination
+        Estimated time: 5 hours
+        Actual time: 10 hours
+        
+4. Implement filtering and sorting
+        Estimated time: 2 hours
+        Actual time: 13 hours
+        
+        Both numbers 3 and 4 kind of went hand-in-hand. It seemed straight-forward enough once
+        we had the populated database, but making it work with the front-end was more challenging
+        than expected.
+        
+5. Integrate React with our current code
+        Estimated time: 10 hours
+        Actual time: 15 hours
+        
+6. Create a UML diagram 
+        Estimated time: 1 hour
+        Actual time: 1 hour
+        
+7. Create main models using SQLAlchemy
+        Estimated time: 3 hours
+        Actual time: 5 hours
+        
+8.  Update Technical Report with the process of getting a database and the use of new tools.
+        Estimated time: 2 hours
+        Actual time: 2 hours
+        
+9.  Implement Restful API
+        Estimated time: 4 hours
+        Actual time: 8 hours
+        
+10. Make UI tweaks on the homepage for a more pleasant viewing experience
+        Estimated time: 2 hours
+        Actual time: 3 hours
