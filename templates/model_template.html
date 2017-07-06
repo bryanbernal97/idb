@@ -129,14 +129,20 @@
                     {% if name['genres'] %}
                     <h3>
                         Genres:
-                        <small class="text-muted">{{name['genres']}}</small>
+                        {% for genre in name['genres'] %}
+                        <br />
+                        <small class="text-muted">{{genre}}</small>
+                        {% endfor %}
                     </h3>
                     {% endif %}
 
                     {% if name['platforms'] %}
                     <h3>
                         Platforms:
-                        <small class="text-muted">{{name['platforms']}}</small>
+                        {% for platform in name['platforms'] %}
+                        <br />
+                        <small class="text-muted">{{platform}}</small>
+                        {% endfor %}
                     </h3>
                     {% endif %}
 
