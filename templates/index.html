@@ -36,7 +36,7 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
 					</button>
-					<a class="navbar-brand page-scroll" href="#page-top">streamGlean</a>
+					<a class="navbar-brand page-scroll" href="/">streamGlean</a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -123,6 +123,10 @@
 					</div>
 					<button type="submit" class="btn btn-default">Filter</button>
 				</form>
+				{% if is_filter %}
+					<p>Applied Filter: >{{filter}}</p>
+					<a href="/#users" class="btn btn-default" role="button">Remove Filter</a>
+				{% endif %}
 				<!-- <form action="/games/filter">
 					<h5>
 					<label class="radio-inline">
