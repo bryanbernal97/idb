@@ -320,7 +320,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter)
+    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter, user_sort=users_sort)
     
 
 """
