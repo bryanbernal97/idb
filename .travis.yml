@@ -19,7 +19,6 @@ install:
     - pip install requests
     - pip install iso639
     - pip install psycopg2
-    - pip install -e .
 
 before_script:
     - uname -a
