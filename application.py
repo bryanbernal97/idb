@@ -5,6 +5,7 @@ from flask import redirect
 from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
+import flask_restless
 
 import datetime
 import requests
@@ -15,6 +16,16 @@ gb_id = '/?api_key=d483af9dcc46474051b451953aa550322df2b793&format=json'
 # Create the Flask app
 application = Flask(__name__)
 application.debug = True
+
+# Create the Flask-Restless API manager.
+manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
+
+# Create API endpoints, which will be available at /api/<tablename> by
+# default. Allowed HTTP methods can be specified as well.
+manager.create_api(User, methods=['GET'])
+manager.create_api(Team, methods=['GET'])
+manager.create_api(Game, methods=['GET'])
+manager.create_api(Community, methods=['GET'])
 
 # print a nice greeting.
 @application.route('/')
@@ -133,78 +144,6 @@ def show_communities(wow):
         community['owner'] = get_name_by_id(q.owner_id, 'user')
 
     return render_template('model_template.html', name = community)
-
-@application.route('/api/v0/user/<wow>', methods=['GET'])
-def get_user(wow):
-    id_num = Integer.parseInt(wow)
-    q = User.query.get(id_num)
-    user = {}
-    user['name'] = q.name
-    user['description'] = q.description
-    user['language'] = q.language
-    user['views'] = q.views
-    user['followers'] = q.followers
-    user['url'] = q.url
-    user['created'] = q.created
-    user['updated'] = q.updated
-    user['image_url'] = q.image_url
-    user['game_id'] = q.game_id
-    user['community_id'] = q.community_id
-    user['team_ids'] = q.team_ids
-    user['team_names'] = {}
-    if user['team_ids']:
-        for _id in user['team_ids']:
-            user['team_names'][_id] = get_name_by_id(_id, 'team')
-
-    return jsonify({'user': user})
-
-@application.route('/api/v0/game/<wow>', methods=['GET'])
-def get_game(wow):
-    id_num = Integer.parseInt(wow)
-    q = Game.query.get(id_num)
-    game = {}
-    game['name'] = q.name
-    game['description'] = q.description
-    game['genres'] = q.genres
-    game['platforms'] = q.platforms
-    game['release_date'] = q.release_date
-    game['image_url'] = q.image_url
-    game['user_ids'] = q.user_ids
-    game['team_ids'] = q.team_ids
-    game['rating'] = q.rating
-    game['team_names'] = {}
-    if game['team_ids']:
-        for _id in game['team_ids']:
-            game['team_names'][_id] = get_name_by_id(_id, 'team')
-    game['community_ids'] = q.community_ids
-    return jsonify({'game': game})
-
-@application.route('/api/v0/team/<wow>', methods=['GET'])
-def get_team(wow):
-    q = Team.query.get(id_num)
-    team = {}
-    team['name'] = q.name
-    team['info'] = q.info
-    team['created'] = q.created
-    team['updated'] = q.updated
-    team['image_url'] = q.image_url
-    team['user_ids'] = q.user_ids
-    team['game_ids'] = q.game_ids
-    return jsonify({'team': team})
-
-@application.route('/api/v0/community/<wow>', methods=['GET'])
-def get_community(wow):
-    id_num = Integer.parseInt(wow)
-    q = Community.query.get(id_num)
-    community = {}
-    community['name'] = q.name
-    community['description'] = q.description
-    community['language'] = q.language
-    community['rules'] = q.rules
-    community['image_url'] = q.image_url
-    community['owner_id'] = q.owner_id
-    community['game_id'] = q.game_id
-    return jsonify({'community': community})
 
 
 @application.route('/filter/users')
