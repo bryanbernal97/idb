@@ -249,7 +249,10 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
             game = {}
             game['id'] = q.id
             game['name'] = q.name
-            game['image_url'] = q.image_url
+            image = q.image_url
+            if not image:
+                image = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png' # Twitch's default image
+            game['image_url'] = image
             games.append(game)
         if games_sort == 'a-z':
             games = sorted(games, key=lambda k: k['name'])
