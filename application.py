@@ -48,6 +48,11 @@ def show_all_teams():
     return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)    
 
 
+@application.route('/communities')
+def show_all_communities():
+    return render_site(template='communities.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)    
+
+
 @application.route('/users/<wow>')
 def show_users(wow):
     q = User.query.get(wow)
@@ -197,7 +202,7 @@ def handle_communities_filter_form():
     else:
         image_filter = True
 
-    return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=image_filter, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='communities.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=image_filter, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 @application.route('/sort/<model_type>/<type_sort>')
 def handle_sort_az(type_sort, model_type):
@@ -210,7 +215,7 @@ def handle_sort_az(type_sort, model_type):
     elif model_type == 'teams':
         return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
     elif model_type == 'communities':
-        return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
+        return render_site(template='communities.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
 
 def get_name_by_id(_id, what_kind):
     if what_kind == 'user':
