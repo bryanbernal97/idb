@@ -30,7 +30,13 @@ manager.create_api(Community, methods=['GET'])
 # print a nice greeting.
 @application.route('/')
 def say_hello():
-    return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
+
+@application.route('/users')
+def show_all_users():
+    return render_site(template='users.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
 
 @application.route('/users/<wow>')
 def show_users(wow):
@@ -152,7 +158,7 @@ def handle_user_filter_form():
     if views == None:
         return redirect('/')
 
-    return render_site(users_filter=int(views), games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='users.html', users_filter=int(views), games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 
 @application.route('/filter/games')
@@ -161,7 +167,7 @@ def handle_game_filter_form():
     if rating == None:
         return redirect('/')
 
-    return render_site(users_filter=None, games_filter=rating, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='index.html', users_filter=None, games_filter=rating, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 
 @application.route('/filter/teams')
@@ -170,7 +176,7 @@ def handle_team_filter_form():
     if members == None:
         return redirect('/')
 
-    return render_site(users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 @application.route('/filter/communities')
 def handle_communities_filter_form():
@@ -181,20 +187,20 @@ def handle_communities_filter_form():
     else:
         image_filter = True
 
-    return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=image_filter, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=image_filter, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 @application.route('/sort/<model_type>/<type_sort>')
 def handle_sort_az(type_sort, model_type):
     if type_sort == None:
         return redirect('/')
     if model_type == 'users':
-        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
+        return render_site(template='users.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
     elif model_type == 'games':
-        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
+        return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
     elif model_type == 'teams':
-        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
+        return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
     elif model_type == 'communities':
-        return render_site(users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
+        return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
 
 def get_name_by_id(_id, what_kind):
     if what_kind == 'user':
@@ -212,7 +218,7 @@ def get_name_by_id(_id, what_kind):
     return None
 
 
-def render_site(users_filter, games_filter, teams_filter, communities_filter, users_sort, games_sort, teams_sort, communities_sort):
+def render_site(template, users_filter, games_filter, teams_filter, communities_filter, users_sort, games_sort, teams_sort, communities_sort):
     top = {}
     users = []
     communities = []
@@ -313,7 +319,7 @@ def render_site(users_filter, games_filter, teams_filter, communities_filter, us
     top['communities'] = communities
     top['games'] = games
     top['teams'] = teams
-    return render_template('index.html', name=top, user_filter=users_filter, team_filter=teams_filter, games_filter=games_filter, user_sort=users_sort, communities_filter=communities_filter)
+    return render_template(template, name=top, user_filter=users_filter, team_filter=teams_filter, games_filter=games_filter, user_sort=users_sort, communities_filter=communities_filter)
 
 
 # run the app.
