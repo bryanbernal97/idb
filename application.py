@@ -43,6 +43,11 @@ def show_all_games():
     return render_site(template='games.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 
+@application.route('/teams')
+def show_all_teams():
+    return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)    
+
+
 @application.route('/users/<wow>')
 def show_users(wow):
     q = User.query.get(wow)
@@ -181,7 +186,7 @@ def handle_team_filter_form():
     if members == None:
         return redirect('/')
 
-    return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 @application.route('/filter/communities')
 def handle_communities_filter_form():
@@ -203,7 +208,7 @@ def handle_sort_az(type_sort, model_type):
     elif model_type == 'games':
         return render_site(template='games.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
     elif model_type == 'teams':
-        return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
+        return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
     elif model_type == 'communities':
         return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
 
