@@ -38,6 +38,11 @@ def show_all_users():
     return render_site(template='users.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 
+@application.route('/games')
+def show_all_games():
+    return render_site(template='games.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+
+
 @application.route('/users/<wow>')
 def show_users(wow):
     q = User.query.get(wow)
@@ -167,7 +172,7 @@ def handle_game_filter_form():
     if rating == None:
         return redirect('/')
 
-    return render_site(template='index.html', users_filter=None, games_filter=rating, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_site(template='games.html', users_filter=None, games_filter=rating, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
 
 
 @application.route('/filter/teams')
@@ -196,7 +201,7 @@ def handle_sort_az(type_sort, model_type):
     if model_type == 'users':
         return render_site(template='users.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
     elif model_type == 'games':
-        return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
+        return render_site(template='games.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
     elif model_type == 'teams':
         return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
     elif model_type == 'communities':
@@ -235,7 +240,8 @@ def render_site(template, users_filter, games_filter, teams_filter, communities_
             user['id'] = q.id
             user['name'] = q.name
             user['image_url'] = q.image_url
-            users.append(user)
+            if user['name']:
+                users.append(user)
         if users_sort == 'a-z':
             users = sorted(users, key=lambda k: k['name'])
         if users_sort == 'z-a':
