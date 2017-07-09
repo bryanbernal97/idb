@@ -41,7 +41,7 @@
 					<div class="col-lg-12 text-center">
 						<div id="gameCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 							<div class="carousel-inner" role="listbox">
-								{% for game in name['games'] %}
+								{% for game in games %}
 									{% if loop.first %}
         								<div class="item active">
 											<div class="container first-slide">
@@ -81,7 +81,7 @@
 
 							<!-- Indicators -->
 							<ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-								{% for game in name['games'] %}
+								{% for game in games %}
 									{% if loop.first %}
 										<li data-target="#gameCarousel" data-slide-to="0" class="active">1</li>
 									{% elif loop.index % 3 == 0 and not loop.last %}

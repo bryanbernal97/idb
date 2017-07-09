@@ -29,28 +29,27 @@ manager.create_api(Community, methods=['GET'])
 
 # print a nice greeting.
 @application.route('/')
-def say_hello():
-    return render_site(template='index.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
-
+def show_home_page():
+    return render_template('index.html')
 
 @application.route('/users')
 def show_all_users():
-    return render_site(template='users.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_users(users_filter=None, users_sort=None)
 
 
 @application.route('/games')
 def show_all_games():
-    return render_site(template='games.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_games(games_filter=None, games_sort=None)
 
 
 @application.route('/teams')
 def show_all_teams():
-    return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)    
+    return render_teams(teams_filter=None, teams_sort=None)    
 
 
 @application.route('/communities')
 def show_all_communities():
-    return render_site(template='communities.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)    
+    return render_communities(communities_filter=None, communities_sort=None)    
 
 
 @application.route('/users/<wow>')
@@ -173,7 +172,7 @@ def handle_user_filter_form():
     if views == None:
         return redirect('/')
 
-    return render_site(template='users.html', users_filter=int(views), games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_users(users_filter=int(views), users_sort=None)
 
 
 @application.route('/filter/games')
@@ -182,7 +181,7 @@ def handle_game_filter_form():
     if rating == None:
         return redirect('/')
 
-    return render_site(template='games.html', users_filter=None, games_filter=rating, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_games(games_filter=rating, games_sort=None)
 
 
 @application.route('/filter/teams')
@@ -191,7 +190,7 @@ def handle_team_filter_form():
     if members == None:
         return redirect('/')
 
-    return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=int(members), communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_teams(teams_filter=int(members), teams_sort=None)
 
 @application.route('/filter/communities')
 def handle_communities_filter_form():
@@ -202,20 +201,20 @@ def handle_communities_filter_form():
     else:
         image_filter = True
 
-    return render_site(template='communities.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=image_filter, users_sort=None, games_sort=None, teams_sort=None, communities_sort=None)
+    return render_communities(communities_filter=image_filter, communities_sort=None)
 
 @application.route('/sort/<model_type>/<type_sort>')
 def handle_sort_az(type_sort, model_type):
     if type_sort == None:
         return redirect('/')
     if model_type == 'users':
-        return render_site(template='users.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=type_sort, games_sort=None, teams_sort=None, communities_sort=None)
+        return render_users(users_filter=None, users_sort=type_sort)
     elif model_type == 'games':
-        return render_site(template='games.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=type_sort, teams_sort=None, communities_sort=None)
+        return render_games(games_filter=None, games_sort=type_sort)
     elif model_type == 'teams':
-        return render_site(template='teams.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=type_sort, communities_sort=None)
+        return render_teams(teams_filter=None, teams_sort=type_sort)
     elif model_type == 'communities':
-        return render_site(template='communities.html', users_filter=None, games_filter=None, teams_filter=None, communities_filter=None, users_sort=None, games_sort=None, teams_sort=None, communities_sort=type_sort)
+        return render_communities(communities_filter=None, communities_sort=type_sort)
 
 def get_name_by_id(_id, what_kind):
     if what_kind == 'user':
@@ -233,12 +232,8 @@ def get_name_by_id(_id, what_kind):
     return None
 
 
-def render_site(template, users_filter, games_filter, teams_filter, communities_filter, users_sort, games_sort, teams_sort, communities_sort):
-    top = {}
+def render_users(users_filter, users_sort):
     users = []
-    communities = []
-    teams = []
-    games = []
     #users
     try:
         if users_filter:
@@ -261,7 +256,10 @@ def render_site(template, users_filter, games_filter, teams_filter, communities_
     except Exception as e:
         print(str(e))
         db.session.rollback()
-    #games
+    return render_template('users.html', users=users, user_filter=users_filter)
+
+def render_games(games_filter, games_sort):
+    games = []
     try:  
         if games_filter:
             query_db = Game.query.filter(Game.rating == games_filter)
@@ -285,7 +283,11 @@ def render_site(template, users_filter, games_filter, teams_filter, communities_
     except Exception as e:
         print(str(e))
         db.session.rollback()
-    #teams
+    return render_template('games.html', games=games, games_filter=games_filter)
+
+
+def render_teams(teams_filter, teams_sort):
+    teams = []
     try:  
         if teams_filter:
             query_db = Team.query.filter(func.array_length(Team.user_ids,1) > teams_filter)
@@ -306,7 +308,11 @@ def render_site(template, users_filter, games_filter, teams_filter, communities_
     except Exception as e:
         print(str(e))
         db.session.rollback()
-    #communities
+    return render_template('teams.html', teams=teams, team_filter=teams_filter)
+
+
+def render_communities(communities_filter, communities_sort):
+    communities = []
     try:
         query_db = Community.query
         for q in query_db:
@@ -330,12 +336,7 @@ def render_site(template, users_filter, games_filter, teams_filter, communities_
     except Exception as e:
         print(str(e))
         db.session.rollback()
-
-    top['users'] = users
-    top['communities'] = communities
-    top['games'] = games
-    top['teams'] = teams
-    return render_template(template, name=top, user_filter=users_filter, team_filter=teams_filter, games_filter=games_filter, user_sort=users_sort, communities_filter=communities_filter)
+    return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
 
 # run the app.
