@@ -101,6 +101,134 @@ class TestApi(TestCase):
         # Test API GET method api/community/(int:id) with an invalid id
 
 
+    def test_get_user_search_match(self):
+        # Test API GET method api/user?q=<searchjson> with a match
+
+
+    def test_get_user_search_no_match(self):
+        # Test API GET method api/user?q=<searchjson> with no result match
+
+
+    def test_get_game_search_match(self):
+        # Test API GET method api/game?q=<searchjson> with a match
+
+
+    def test_get_game_search_no_match(self):
+        # Test API GET method api/game?q=<searchjson> with no result match
+
+
+    def test_get_team_search_match(self):
+        # Test API GET method api/team?q=<searchjson> with a match
+
+
+    def test_get_team_search_no_match(self):
+        # Test API GET method api/team?q=<searchjson> with no result match
+
+
+    def test_get_community_search_match(self):
+        # Test API GET method api/community?q=<searchjson> with a match
+
+
+    def test_get_community_search_no_match(self):
+        # Test API GET method api/community?q=<searchjson> with no result match
+
+
+    def test_post_user_valid(self):
+        # Test API POST method api/user
+
+
+    def test_post_user_invalid(self):
+        # Test API POST method api/user
+
+
+    def test_post_game_valid(self):
+        # Test API POST method api/game
+
+
+    def test_post_game_invalid(self):
+        # Test API POST method api/game
+
+
+    def test_post_team_valid(self):
+        # Test API POST method api/team
+
+
+    def test_post_team_invalid(self):
+        # Test API POST method api/team
+
+
+    def test_post_community_valid(self):
+        # Test API POST method api/community
+
+
+    def test_post_community_invalid(self):
+        # Test API POST method api/community
+
+
+    def test_delete_user_valid(self):
+        # Test API DELETE method api/user
+
+
+    def test_delete_user_invalid(self):
+        # Test API DELETE method api/user
+
+
+    def test_delete_game_valid(self):
+        # Test API DELETE method api/game
+
+
+    def test_delete_game_invalid(self):
+        # Test API DELETE method api/game
+
+
+    def test_delete_team_valid(self):
+        # Test API DELETE method api/team
+
+
+    def test_delete_team_invalid(self):
+        # Test API DELETE method api/team
+
+
+    def test_delete_community_valid(self):
+        # Test API DELETE method api/community
+
+
+    def test_delete_community_invalid(self):
+        # Test API DELETE method api/community
+
+
+    def test_update_user_valid(self):
+        # Test API PUT method api/user
+
+
+    def test_update_user_invalid(self):
+        # Test API PUT method api/user
+
+
+    def test_update_game_valid(self):
+        # Test API PUT method api/game
+
+
+    def test_update_game_invalid(self):
+        # Test API PUT method api/game
+
+
+    def test_update_team_valid(self):
+        # Test API PUT method api/team
+
+
+    def test_update_team_invalid(self):
+        # Test API PUT method api/team
+
+
+    def test_update_community_valid(self):
+        # Test API PUT method api/community
+
+
+    def test_update_community_invalid(self):
+        # Test API PUT method api/community
+
+
 class TestDatabase(TestCase):
 
     def test_get_user(self) :
