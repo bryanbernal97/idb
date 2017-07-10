@@ -339,15 +339,20 @@ def render_communities(communities_filter, communities_sort):
         db.session.rollback()
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
-#@application.route('/search/<query>')
-#@application.route('/search/<query>/<int:page>')
-#@application.route('/search/<query>/<int:page>')
-#def search(query):
+
+@application.route('/search')
+def search(query):
     #Returns JSON formatted search results
 
-#    query = User.query.whoosh_search("FennekFox")
+    #Separated results in case it's more convenient...depends on how we do the search results page I guess
+    user_search_result = User.query.whoosh_search(query).all()
+    game_search_result = Game.query.whoosh_search(query).all()
+    team_search_result = Team.query.whoosh_search(query).all()
+    community_search_result = Community.query.whoosh_search(query).all()
 
- #   return flask.Response(response=str(result), mimetype='application/json')
+    return render_template('search_template.html', user_search_resut=user_search_result, 
+        game_search_result=game_search_result, team_search_result=user_search_query, 
+        community_search_query=community_search_query)
 
 # run the app.
 if __name__ == "__main__":
