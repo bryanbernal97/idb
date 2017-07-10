@@ -58,7 +58,7 @@
 					</form>
 				</div>
 				-->
-
+				<!--
 				<div data-reactid=".0.0.0.2">
 					<div class= "dropdown open" data-reactid=".0.0.0.2.0">
 						<div class="form-group" data-reactid=".0.0.0.2.0.$0">
@@ -89,7 +89,14 @@
 						</ul>
 						</div>
 
+					-->
+					<center>
+						<form action"./results.php" method="get">
+							<input type="text" name="input" size="50" />
+							<input type="submit" value="search" />
 
+						</form>
+					</center>
 
 
 
@@ -137,6 +144,8 @@
 
 
 		{% block content %}
+		<script src="/static/js/index.js"></script>
+		<script src="/static/css/index.css"></script>
 
 		{% endblock %}
 
@@ -162,8 +171,13 @@
 		<!-- React -->
 		<script src="https://unpkg.com/react@15/dist/react.js"></script> 
 		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+		<!-- Search Bar -->
+		<script src="/static/js/DropdownInput.js"></script> 
+		<script src="/static/js/jest-preprocessor.js"></script> 
 		
 		{% block scripts %}
+
 
 		{% endblock %}
 
