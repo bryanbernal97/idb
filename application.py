@@ -23,10 +23,10 @@ manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
 
 # Create API endpoints, which will be available at /api/<tablename> by
 # default. Allowed HTTP methods can be specified as well.
-manager.create_api(User, methods=['GET'])
-manager.create_api(Team, methods=['GET'])
-manager.create_api(Game, methods=['GET'])
-manager.create_api(Community, methods=['GET'])
+manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 # print a nice greeting.
 @application.route('/')

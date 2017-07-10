@@ -6,6 +6,9 @@ from application.models import User, Team, Game, Community
 import json
 
 class TestApi(TestCase):
+    '''
+        Tests the API endpoints and their methods.
+    '''
 
     user_url = 'http://streamglean.me/api/user'
     team_url = 'http://streamglean.me/api/team'
@@ -64,6 +67,40 @@ class TestApi(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(int(response.json()['num_results']), num_communities)
+
+
+
+    def test_get_single_user_valid(self):
+        # Test API GET method api/user/(int:id) with valid id
+
+
+    def test_get_single_user_invalid(self):
+        # Test API GET method api/user/(int:id) with an invalid id
+
+
+    def test_get_single_game_valid(self):
+        # Test API GET method api/game/(int:id) with valid id
+
+
+    def test_get_single_game_invalid(self):
+        # Test API GET method api/game/(int:id) with an invalid id
+
+
+    def test_get_single_team_valid(self):
+        # Test API GET method api/team/(int:id) with valid id
+
+
+    def test_get_single_team_invalid(self):
+        # Test API GET method api/team/(int:id) with an invalid id
+
+
+    def test_get_single_community_valid(self):
+        # Test API GET method api/community/(int:id) with valid id
+
+
+    def test_get_single_community_invalid(self):
+        # Test API GET method api/community/(int:id) with an invalid id
+
 
 class TestDatabase(TestCase):
 
