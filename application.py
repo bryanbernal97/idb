@@ -56,6 +56,7 @@ def show_all_communities():
 def show_users(wow):
     q = User.query.get(wow)
     user = {}
+    user['_id'] = wow
     user['name'] = q.name
     user['description'] = q.description
     user['language'] = q.language
@@ -71,10 +72,14 @@ def show_users(wow):
     user['game_id'] = q.game_id
     if user['game_id']:
         user['game'] = get_name_by_id(q.game_id, 'game')
+    else:
+        user['game'] = "None"
     
     user['community_id'] = q.community_id
     if user['community_id']:
         user['community'] = get_name_by_id(q.community_id, 'community')
+    else:
+        user['community'] = "None"
     
 
     user['team_ids'] = q.team_ids
@@ -82,6 +87,8 @@ def show_users(wow):
     if user['team_ids']:
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
+    else:
+        user['team_names'] = "None"
 
     return render_template('model_template.html', name = user)
 
@@ -115,7 +122,7 @@ def show_games(wow):
         for _id in game['community_ids']:
             game['community_names'][_id] = get_name_by_id(_id, 'community')
 
-    return render_template('model_template.html', name = game)
+    return render_template('game_model.html', name = game)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
@@ -247,15 +254,15 @@ def render_users(users_filter, users_sort):
             user['image_url'] = q.image_url
             if user['name']:
                 users.append(user)
-        if users_sort == 'a-z':
-            users = sorted(users, key=lambda k: k['name'])
-        if users_sort == 'z-a':
-            users = sorted(users, key=lambda k: k['name'])
-            users = list(reversed(users))
         db.session.close()
     except Exception as e:
         print(str(e))
         db.session.rollback()
+    if users_sort == 'a-z':
+        users = sorted(users, key=lambda k: k['name'])
+    if users_sort == 'z-a':
+        users = sorted(users, key=lambda k: k['name'])
+        users = list(reversed(users))
     return render_template('users.html', users=users, user_filter=users_filter)
 
 def render_games(games_filter, games_sort):
