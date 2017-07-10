@@ -90,12 +90,13 @@ def show_users(wow):
     else:
         user['team_names'] = "None"
 
-    return render_template('model_template.html', name = user)
+    return render_template('game_model.html', name = user)
 
 @application.route('/games/<wow>')
 def show_games(wow):
     q = Game.query.get(wow)
     game = {}
+    game['_id'] = wow
     game['name'] = q.name
     game['description'] = q.description
     game['rating'] = q.rating
@@ -111,11 +112,13 @@ def show_games(wow):
     if game['user_ids']:
         for _id in game['user_ids']:
             game['user_names'][_id] = get_name_by_id(_id, 'user')
+
     game['team_ids'] = q.team_ids
     game['team_names'] = {}
     if game['team_ids']:
         for _id in game['team_ids']:
             game['team_names'][_id] = get_name_by_id(_id, 'team')
+
     game['community_ids'] = q.community_ids
     game['community_names'] = {}
     if game['community_ids']:
@@ -148,7 +151,7 @@ def show_teams(wow):
         for _id in team['game_ids']:
             team['game_names'][_id] = get_name_by_id(_id, 'game')
 
-    return render_template('model_template.html', name = team)
+    return render_template('teams_model.html', name = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
