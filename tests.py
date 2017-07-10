@@ -69,7 +69,6 @@ class TestApi(TestCase):
         self.assertEqual(int(response.json()['num_results']), num_communities)
 
 
-
     def test_get_single_user_valid(self):
         # Test API GET method api/user/(int:id) with valid id
 
