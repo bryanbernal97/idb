@@ -1,6 +1,5 @@
 from application import db
 
-
 class BaseModel(db.Model):
     """Base data model for all objects"""
     __abstract__ = True
@@ -27,6 +26,7 @@ class BaseModel(db.Model):
 
 class User (BaseModel, db.Model):
     __tablename__ = 'user'
+    __searchable__ = ['name', 'description', 'language']
 
     id = db.Column(db.String, primary_key = True)
 
@@ -49,6 +49,7 @@ class User (BaseModel, db.Model):
 
 class Game (BaseModel, db.Model):
     __tablename__ = 'game'
+    __searchable__ = ['name', 'description', 'genres', 'platforms', 'rating']
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -69,6 +70,7 @@ class Game (BaseModel, db.Model):
 
 class Team (BaseModel, db.Model):
     __tablename__ = 'team'
+    __searchable__ = ['name', 'info']
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -86,6 +88,7 @@ class Team (BaseModel, db.Model):
 
 class Community (BaseModel, db.Model):
     __tablename__ = 'community'
+    __searchable__ = ['name', 'description', 'language', 'rules']
 
     id = db.Column(db.String(128), primary_key = True)
 

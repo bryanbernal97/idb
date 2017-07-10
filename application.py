@@ -6,6 +6,7 @@ from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
 import flask_restless
+import flask_whooshalchemy as wa
 
 import datetime
 import requests
@@ -26,6 +27,12 @@ manager.create_api(User, methods=['GET'])
 manager.create_api(Team, methods=['GET'])
 manager.create_api(Game, methods=['GET'])
 manager.create_api(Community, methods=['GET'])
+
+# Allow indexing on models
+wa.whoosh_index(application, User)
+wa.whoosh_index(application, Game)
+wa.whoosh_index(application, Team)
+wa.whoosh_index(application, Community)
 
 # print a nice greeting.
 @application.route('/')
@@ -338,6 +345,15 @@ def render_communities(communities_filter, communities_sort):
         db.session.rollback()
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
+#@application.route('/search/<query>')
+#@application.route('/search/<query>/<int:page>')
+#@application.route('/search/<query>/<int:page>')
+#def search(query, page=0, limit=10):
+    #Returns JSON formatted search results
+
+#    query = db.
+
+#    return flask.Response(response=str(result), mimetype='application/json')
 
 # run the app.
 if __name__ == "__main__":
