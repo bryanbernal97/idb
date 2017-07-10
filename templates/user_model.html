@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ID -->
+<section id={{name['_id']}}>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    
+                    <!-- Picture -->
+                    <img src={{name['image_url']}}>
+
+                    <!-- Name -->
+                    <h3>
+                        Name:
+                        <small class="text-muted">{{name['name']}}</small>
+                    </h3>
+
+                    <!-- Description -->
+                    <h3>
+                        Description:
+                            <small class="text-muted">{{name['description']}}</small>
+                    </h3>
+
+                    <!-- Language -->
+                    <h3>
+                        Language:
+                        <small class="text-muted">{{name['language']}}</small>
+                    </h3>
+
+                    <!-- Views -->
+                    <h3>
+                        Views:
+                        <small class="text-muted">{{name['views']}}</small>
+                    </h3>
+
+                    <!-- Followers -->
+                    <h3>
+                        Followers:
+                        <small class="text-muted">{{name['followers']}}</small>
+                    </h3>
+                    
+                    <!-- URL -->
+                    <h3>
+                        URL:
+                        <small class="text-muted"><a href={{name['url']}}>{{name['url']}}</a></small>
+                    </h3>
+
+                    <!-- Game -->
+                    <h3>
+                        Game:
+                        {% if name['game_id'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game_id'])}}">{{name['game']}}</a></small>
+                        {% else %}
+                        <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Community -->
+                    <h3>
+                        Community:
+                        {% if name['community_id'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_communities', wow=name['community_id'])}}">{{name['community']}}</a></small>
+                        {% else %}
+                        <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+
+                    <!-- Teams -->
+                    <h3>
+                        Teams:
+                        {% if name['team_ids'] %}
+                            {% for team in name['team_ids'] %}
+                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{name['team_names'][team]}}</a></small>
+                            {% endfor %}
+                        {% else %}
+                            <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Created -->
+                    <h3>
+                        Created:
+                        <small class="text-muted">{{name['created']}}</small>
+                    </h3>
+
+                    <!-- Updated -->
+                    <h3>
+                        Updated:
+                        <small class="text-muted">{{name['updated']}}</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

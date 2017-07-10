@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ID -->
+<section id={{name['_id']}}>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    
+                    <!-- Picture -->
+                    <img src={{name['image_url']}}>
+
+                    <!-- Name -->
+                    <h3>
+                        Name:
+                        <small class="text-muted">{{name['name']}}</small>
+                    </h3>
+
+                    <!-- Description -->
+                    <h3>
+                        Description:
+                            <small class="text-muted">{{name['description']}}</small>
+                    </h3>
+
+                    <!-- Language -->
+                    <h3>
+                        Language:
+                        <small class="text-muted">{{name['language']}}</small>
+                    </h3>
+
+                    <!-- Rules -->
+                    <h3>
+                        Rules:
+                        <small class="text-muted">{{name['rules']}}</small>
+                    </h3>
+
+                    <!-- Game -->
+                    <h3>
+                        Game:
+                        {% if name['game_id'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game_id'])}}">{{name['game']}}</a></small>
+                        {% else %}
+                        <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Owner -->
+                    <h3>
+                        Owner:
+                        {% if name['game_id'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_users', wow=name['owner_id'])}}">{{name['owner']}}</a></small>
+                        {% else %}
+                        <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

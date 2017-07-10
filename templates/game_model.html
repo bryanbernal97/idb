@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ID -->
+<section id={{name['_id']}}>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    
+                    <!-- Picture -->
+                    <img src={{name['image_url']}}>
+
+                    <!-- Name -->
+                    <h3>
+                        Name:
+                        <small class="text-muted">{{name['name']}}</small>
+                    </h3>
+
+                    <!-- Description -->
+                    <h3>
+                        Description:
+                            <small class="text-muted">{{name['description']}}</small>
+                    </h3>
+
+                   <!-- Rating -->
+                    <h3>
+                        Rated:
+                        <small class="text-muted">{{name['rating']}}</small>
+                    </h3>
+
+                    <!-- Genres -->
+                    <h3>
+                        Genres:
+                        {% for genre in name['genres'] %}
+                        <br />
+                        <small class="text-muted">{{genre}}</small>
+                        {% endfor %}
+                    </h3>
+
+                    <!-- Platforms -->
+                    <h3>
+                        Platforms:
+                        {% for platform in name['platforms'] %}
+                        <br />
+                        <small class="text-muted">{{platform}}</small>
+                        {% endfor %}
+                    </h3>
+
+                    <!-- Release Date -->
+                    <h3>
+                        Release Date:
+                        <small class="text-muted">{{name['release_date']}}</small>
+                    </h3>
+
+                    <!-- Streamers -->
+                    <h3>
+                        Streamers:
+                        {% if name['user_ids'] %}
+                            {% for user in name['user_ids'] %}
+                                <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{name['user_names'][user]}}</a></small>
+                            {% endfor %}
+                        {% else %}
+                            <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Teams -->
+                    <h3>
+                        Teams:
+                        {% if name['team_ids'] %}
+                            {% for team in name['team_ids'] %}
+                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{name['team_names'][team]}}</a></small>
+                            {% endfor %}
+                        {% else %}
+                            <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Communities -->
+                    <h3>
+                        Communities:
+                        {% if name['community_ids'] %}
+                            {% for community in name['community_ids'] %}
+                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=community)}}"><br />{{name['community_names'][community]}}</a></small>
+                            {% endfor %}
+                        {% else %}
+                            <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
