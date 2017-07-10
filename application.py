@@ -28,12 +28,6 @@ manager.create_api(Team, methods=['GET'])
 manager.create_api(Game, methods=['GET'])
 manager.create_api(Community, methods=['GET'])
 
-# Allow indexing on models
-wa.whoosh_index(application, User)
-wa.whoosh_index(application, Game)
-wa.whoosh_index(application, Team)
-wa.whoosh_index(application, Community)
-
 # print a nice greeting.
 @application.route('/')
 def show_home_page():
@@ -348,12 +342,12 @@ def render_communities(communities_filter, communities_sort):
 #@application.route('/search/<query>')
 #@application.route('/search/<query>/<int:page>')
 #@application.route('/search/<query>/<int:page>')
-#def search(query, page=0, limit=10):
+#def search(query):
     #Returns JSON formatted search results
 
-#    query = db.
+#    query = User.query.whoosh_search("FennekFox")
 
-#    return flask.Response(response=str(result), mimetype='application/json')
+ #   return flask.Response(response=str(result), mimetype='application/json')
 
 # run the app.
 if __name__ == "__main__":

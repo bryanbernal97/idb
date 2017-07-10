@@ -1,4 +1,5 @@
-from application import db
+from application import db, application
+import flask_whooshalchemy as wa
 
 class BaseModel(db.Model):
     """Base data model for all objects"""
@@ -49,7 +50,7 @@ class User (BaseModel, db.Model):
 
 class Game (BaseModel, db.Model):
     __tablename__ = 'game'
-    __searchable__ = ['name', 'description', 'genres', 'platforms', 'rating']
+    __searchable__ = ['name', 'description', 'rating']
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -102,3 +103,10 @@ class Community (BaseModel, db.Model):
     # Connection to other models
     game_id = db.Column(db.Integer)
     owner_id = db.Column(db.String)
+
+
+# Allow indexing on models
+wa.whoosh_index(application, User)
+wa.whoosh_index(application, Game)
+wa.whoosh_index(application, Team)
+wa.whoosh_index(application, Community)
