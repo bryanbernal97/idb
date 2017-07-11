@@ -74,8 +74,8 @@ class Game (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'rating']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(Game, self).__init__()
+    def __init__(self, *args):
+        super(Game, self).__init__(*args)
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -99,8 +99,8 @@ class Team (BaseModel, db.Model):
     __searchable__ = ['name', 'info']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(Team, self).__init__()
+    def __init__(self, *args):
+        super(Team, self).__init__(*args)
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -121,8 +121,8 @@ class Community (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'language', 'rules']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(Community, self).__init__()
+    def __init__(self, *args):
+        super(Community, self).__init__(*args)
 
     id = db.Column(db.String(128), primary_key = True)
 
