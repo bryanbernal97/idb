@@ -181,7 +181,14 @@ class TestApi(TestCase):
 
     def test_get_user_search_no_match(self):
         # Test API GET method api/user?q=<searchjson> with no result match
-        self.assertTrue(True)
+        filters = [dict(name='language', op='ilike', val='made up language')]
+        params = dict(q=json.dumps(dict(filters=filters)))
+        response = requests.get(self.user_url, params=params, headers=self.headers)
+        json_response = json.loads(response.text)
+        
+        # Make sure API call searches and matches the test user just entered into the db above
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response.get('num_results'), 0)
 
 
     def test_get_game_search_match(self):
