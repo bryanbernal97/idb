@@ -1137,7 +1137,32 @@ class TestApi(TestCase):
 
     def test_update_community_invalid(self):
         # Test API PUT method api/community
-        self.assertTrue(True)
+
+        test_id = -1
+        new_test_name = 'NEW API TEST UPDATE COMMUNITY INVALID'
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = Community.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        update = {'name': new_test_name}
+
+        # Update the user through the API
+        response = requests.put(self.community_url + '/' + str(test_id), data=json.dumps(update), headers=self.headers)
+
+        self.assertEqual(response.status_code, 404)
+
+        # Make sure db instance still does not have instance with test_id
+        try:
+            query = Community.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
 class TestDatabase(TestCase):
