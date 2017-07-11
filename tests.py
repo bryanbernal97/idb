@@ -256,7 +256,19 @@ class TestApi(TestCase):
 
     def test_get_single_community_invalid(self):
         # Test API GET method api/community/(int:id) with an invalid id
-        self.assertTrue(False)
+
+        test_id = '-1'
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = Community.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        response = requests.get(self.community_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 404)
 
 
     def test_get_user_search_match(self):
