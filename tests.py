@@ -298,7 +298,7 @@ class TestApi(TestCase):
         # Make sure API call searches and matches the test user just entered into the db above
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_response.get('num_results'), 1)
-        self.assertEqual(json_response.get('objects')[0].get('id'), '-1')
+        self.assertEqual(json_response.get('objects')[0].get('id'), test_id)
         self.assertEqual(json_response.get('objects')[0].get('name'), test_name)
         self.assertEqual(json_response.get('objects')[0].get('language'), test_language)
 
@@ -433,7 +433,43 @@ class TestApi(TestCase):
 
     def test_get_community_search_match(self):
         # Test API GET method api/community?q=<searchjson> with a match
-        self.assertTrue(True)
+
+        valid_community = None
+        test_id = '-1'
+        test_name = 'API TEST GET COMMUNITY THROUGH SEARCH'
+        test_language = 'Made Up Language'
+
+        # Insert test user into database to get using the API
+        valid_community = Community()
+        valid_community.id = test_id
+        valid_community.name = test_name
+        valid_community.language = test_language
+        try:
+            db.session.add(valid_community)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        filters = [dict(name='language', op='ilike', val='made up language')]
+        params = dict(q=json.dumps(dict(filters=filters)))
+        response = requests.get(self.community_url, params=params, headers=self.headers)
+        json_response = json.loads(response.text)
+        
+        # Make sure API call searches and matches the test user just entered into the db above
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response.get('num_results'), 1)
+        self.assertEqual(json_response.get('objects')[0].get('id'), test_id)
+        self.assertEqual(json_response.get('objects')[0].get('name'), test_name)
+        self.assertEqual(json_response.get('objects')[0].get('language'), test_language)
+
+        # Delte the test user that was inserted earlier in this
+        try:
+            db.session.delete(valid_community)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_get_community_search_no_match(self):
