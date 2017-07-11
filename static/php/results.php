@@ -1,5 +1,3 @@
-<!-- This is a file that is not currently being used, just testing stuff in it -->
-
 <!DOCTYPE html>
 <html lang="EN">
 <head>
@@ -12,7 +10,7 @@
 
 <center>
 <form action"./results.php" method="get">
-	<input type="text" name="input" size="50" />
+	<input type="text" name="input" size="50" <?php echo $_GET ['input'];?>/>
 
 	<input type="submit" value="search" />
 
