@@ -105,6 +105,15 @@ class TestApi(TestCase):
     def test_get_single_user_invalid(self):
         # Test API GET method api/user/(int:id) with an invalid (not found) id
         test_id = '-1'
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = User.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
         response = requests.get(self.user_url+'/'+str(test_id), headers=self.headers)
         self.assertEqual(response.status_code, 404)
 
@@ -410,7 +419,9 @@ class TestApi(TestCase):
 
         # Delete the test instance for cleanup
         try:
-            updated_user = User.query.filter_by(id='-1').first()
+            updated_user_query = User.query.filter_by(id='-1')
+            self.assertEqual(updated_user_query.count(), 1) # Make sure update did not create duplicate entry
+            updated_user = updated_user_query.first()
             db.session.delete(updated_user)
             db.session.commit()
             db.session.close()
@@ -419,8 +430,34 @@ class TestApi(TestCase):
 
 
     def test_update_user_invalid(self):
-        # Test API PUT method api/user
-        self.assertTrue(True)
+        # Test API PUT method api/user with an invalid (not found) id
+
+        test_id = '-1'
+        new_test_name = 'NEW API TEST UPDATE USER INVALID'
+        new_test_views = 2
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = User.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        update = {'name': new_test_name, 'views': new_test_views}
+
+        # Update the user through the API
+        response = requests.put(self.user_url + '/' + test_id, data=json.dumps(update), headers=self.headers)
+
+        self.assertEqual(response.status_code, 404)
+
+        # Make sure db instance still does not have instance with test_id
+        try:
+            query = User.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_update_game_valid(self):
