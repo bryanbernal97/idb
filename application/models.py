@@ -146,8 +146,18 @@ class Community (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'language', 'rules']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self, *args):
+    def __init__(self, id=None, name=None, description=None, language=None, rules=None,
+        image_url=None, game_id=None, owner_id=None, *args):
+
         super(Community, self).__init__(*args)
+        self.id = id
+        self.name = name
+        self.description = description
+        self.language = language
+        self.rules = rules
+        self.image_url = image_url
+        self.game_id = game_id
+        self.owner_id = owner_id
 
     id = db.Column(db.String(128), primary_key = True)
 
