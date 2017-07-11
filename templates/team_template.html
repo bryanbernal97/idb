@@ -28,7 +28,7 @@
                         Streamers:
                         {% if team['user_ids'] %}
                             {% for _id in team['user_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{team['user_teams'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_users', wow=_id)}}"><br />{{team['user_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
@@ -40,7 +40,7 @@
                         Games:
                         {% if team['game_ids'] %}
                             {% for _id in team['game_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}"><br />{{team['game_teams'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_games', wow=_id)}}"><br />{{team['game_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
