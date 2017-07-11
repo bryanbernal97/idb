@@ -141,7 +141,42 @@ class TestApi(TestCase):
 
     def test_get_user_search_match(self):
         # Test API GET method api/user?q=<searchjson> with a match
-        self.assertTrue(True)
+        valid_user = None
+        test_id = '-1'
+        test_name = 'API TEST GET USER THROUGH SEARCH'
+        test_language = 'Made Up Language'
+
+        # Insert test user into database to get using the API
+        valid_user = User()
+        valid_user.id = test_id
+        valid_user.name = test_name
+        valid_user.language = test_language
+        try:
+            db.session.add(valid_user)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        filters = [dict(name='language', op='ilike', val='made up language')]
+        params = dict(q=json.dumps(dict(filters=filters)))
+        response = requests.get(self.user_url, params=params, headers=self.headers)
+        json_response = json.loads(response.text)
+        
+        # Make sure API call searches and matches the test user just entered into the db above
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response.get('num_results'), 1)
+        self.assertEqual(json_response.get('objects')[0].get('id'), '-1')
+        self.assertEqual(json_response.get('objects')[0].get('name'), test_name)
+        self.assertEqual(json_response.get('objects')[0].get('language'), test_language)
+
+        # Delte the test user that was inserted earlier in this
+        try:
+            db.session.delete(valid_user)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_get_user_search_no_match(self):
