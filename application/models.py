@@ -75,9 +75,22 @@ class Game (BaseModel, db.Model):
 
     # Changed the constructor for Python 2 compatibility
     def __init__(self, id=None, name=None, description=None, genres=None, platforms=None,
-        release_date=None, image_url=None, rating=None, image_url=None, rating=None,
-        user_ids=None, team_ids=None, community_ids=None, *args):
+        release_date=None, image_url=None, rating=None, user_ids=None, team_ids=None,
+        community_ids=None, *args):
+        
         super(Game, self).__init__(*args)
+        self.id = id
+        self.name = name
+        self.description = description
+        self.genres = genres
+        self.platforms = platforms
+        self.release_date = release_date
+        self.image_url = image_url
+        self.rating = rating
+        self.user_ids = user_ids
+        self.team_ids = team_ids
+        self.community_ids = community_ids
+
 
     id = db.Column(db.Integer, primary_key = True)
 
