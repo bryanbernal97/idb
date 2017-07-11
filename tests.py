@@ -228,14 +228,16 @@ class TestApi(TestCase):
 
         new_user = {'id': test_id, 'name': test_name}
 
+        # Enter the test instance into the db through the API call
         response = requests.post(self.user_url, data=json.dumps(new_user), headers=self.headers)
 
         self.assertEqual(response.status_code, 201)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), test_name)
 
+        # Delete the test instance for cleanup
         try:
             valid_user = User.query.filter_by(id='-1').first()
-            json_response = json.loads(response.text)
-            self.assertEqual(json_response.get('name'), test_name)
             db.session.delete(valid_user)
             db.session.commit()
             db.session.close()
@@ -281,7 +283,34 @@ class TestApi(TestCase):
 
     def test_delete_user_valid(self):
         # Test API DELETE method api/user
-        self.assertTrue(True)
+
+        valid_user = None
+        test_id = '-1'
+        test_name = 'API TEST GET USER'
+
+        # Insert test user into database to get using the API
+        valid_user = User()
+        valid_user.id = test_id
+        valid_user.name = test_name
+        try:
+            db.session.add(valid_user)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Delete the db instance through an API call
+        response = requests.delete(self.user_url+'/'+str(test_id), headers=self.headers)
+
+        self.assertEqual(response.status_code, 204)
+
+        # Make sure db instance is no longer in db
+        try:
+            query = User.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_delete_user_invalid(self):
