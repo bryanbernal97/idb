@@ -377,7 +377,45 @@ class TestApi(TestCase):
 
     def test_update_user_valid(self):
         # Test API PUT method api/user
-        self.assertTrue(True)
+
+        valid_user = None
+        test_id = '-1'
+        test_name = 'API TEST UPDATE USER'
+
+        # Insert test user into database to get using the API
+        valid_user = User()
+        valid_user.id = test_id
+        valid_user.name = test_name
+        try:
+            db.session.add(valid_user)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+
+        new_test_name = 'NEW API TEST UPDATE USER'
+        new_test_views = 2
+
+        update = {'name': new_test_name, 'views': new_test_views}
+
+        # Update the user through the API
+        response = requests.put(self.user_url + '/' + test_id, data=json.dumps(update), headers=self.headers)
+
+        # Make sure instance was updated
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), new_test_name)
+        self.assertEqual(json_response.get('views'), new_test_views)
+
+        # Delete the test instance for cleanup
+        try:
+            updated_user = User.query.filter_by(id='-1').first()
+            db.session.delete(updated_user)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_update_user_invalid(self):
