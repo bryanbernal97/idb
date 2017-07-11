@@ -754,7 +754,20 @@ class TestApi(TestCase):
 
     def test_delete_game_invalid(self):
         # Test API DELETE method api/game
-        self.assertTrue(True)
+
+        test_id = -1
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = Game.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Try to make call to API to delete user with that invalid id
+        response = requests.delete(self.game_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 404)
 
 
     def test_delete_team_valid(self):
