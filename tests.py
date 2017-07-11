@@ -651,7 +651,24 @@ class TestApi(TestCase):
 
     def test_post_community_invalid(self):
         # Test API POST method api/community
-        self.assertTrue(True)
+
+        test_id = '-1'
+        test_name = 'API TEST POST COMMUNITY INVALID'
+
+        new_community = {'id': test_id, 'invalid_field': test_name}
+
+        # Enter the test instance into the db through the API call
+        response = requests.post(self.community_url, data=json.dumps(new_community), headers=self.headers)
+
+        self.assertEqual(response.status_code, 400)
+
+        # Make sure the test instance for was not entered into the database
+        try:
+            query = Community.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_delete_user_valid(self):
