@@ -604,7 +604,24 @@ class TestApi(TestCase):
 
     def test_post_team_invalid(self):
         # Test API POST method api/team
-        self.assertTrue(True)
+
+        test_id = -1
+        test_name = 'API TEST POST TEAM INVALID'
+
+        new_team = {'id': test_id, 'invalid_field': test_name}
+
+        # Enter the test instance into the db through the API call
+        response = requests.post(self.team_url, data=json.dumps(new_team), headers=self.headers)
+
+        self.assertEqual(response.status_code, 400)
+
+        # Make sure the test instance for was not entered into the database
+        try:
+            query = Team.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_post_community_valid(self):
