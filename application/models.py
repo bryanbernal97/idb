@@ -31,10 +31,24 @@ class User (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'language']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self, id='-1', name=None, *args):
+    def __init__(self, id='-1', name=None, description=None, language=None, views=None,
+        followers=None, url=None, created=None, updated=None, image_url=None, game_id=None,
+        community_id=None, team_ids=None, *args):
+
         super(User, self).__init__(*args)
-        self.name = name
         self.id = id
+        self.name = name
+        self.description = description
+        self.language = language
+        self.views = views
+        self.followers = followers
+        self.url = url
+        self.created = created
+        self.updated = updated
+        self.image_url = image_url
+        self.game_id = game_id
+        self.community_id = community_id
+        self.team_ids = team_ids
 
     id = db.Column(db.String, primary_key = True)
 

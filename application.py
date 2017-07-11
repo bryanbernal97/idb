@@ -66,7 +66,10 @@ def show_users(wow):
     user['url'] = q.url
     user['created'] = q.created
     user['updated'] = q.updated
-    user['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    user['image_url'] = image_url
 
     # Connections
 
@@ -97,7 +100,10 @@ def show_games(wow):
     game['genres'] = q.genres
     game['platforms'] = q.platforms
     game['release_date'] = q.release_date
-    game['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    game['image_url'] = image_url
 
     # Connections
 
@@ -127,7 +133,10 @@ def show_teams(wow):
     team['info'] = q.info
     team['created'] = q.created
     team['updated'] = q.updated
-    team['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    team['image_url'] = image_url
 
     # Connections
 
@@ -153,7 +162,10 @@ def show_communities(wow):
     community['description'] = q.description
     community['language'] = q.language
     community['rules'] = q.rules
-    community['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    community['image_url'] = image_url
 
     # Connections
 
@@ -246,7 +258,10 @@ def render_users(users_filter, users_sort):
             user = {}
             user['id'] = q.id
             user['name'] = q.name
-            user['image_url'] = q.image_url
+            image_url = q.image_url
+            if not image_url:
+                image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+            user['image_url'] = image_url
             if user['name']:
                 users.append(user)
         if users_sort == 'a-z':
@@ -299,7 +314,10 @@ def render_teams(teams_filter, teams_sort):
             team = {}
             team['id'] = q.id
             team['name'] = q.name
-            team['image_url'] = q.image_url
+            image_url = q.image_url
+            if not image_url:
+                image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+            team['image_url'] = image_url
             teams.append(team)
         if teams_sort == 'a-z':
             teams = sorted(teams, key=lambda k: k['name'])
