@@ -341,13 +341,13 @@ def render_communities(communities_filter, communities_sort):
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
 
-@application.route('/search', methods = ['POST'])
+@application.route('/search', methods = ['GET', 'POST'])
 def search():
-    input = request.args.get('input')
-    return redirect(url_for('search_results', search_result = input))
+    search_string = request.args.get('search_string')
+    return redirect(url_for('search_results', search_string = search_string))
 
-@application.route('/search_results/<input>')
-def search_results(input):
+@application.route('/search_results/<search_string>')
+def search_results(search_string):
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
     #user_search_result = User.query.whoosh_search(input).all()
     #game_search_result = Game.query.whoosh_search(input).all()
@@ -356,13 +356,13 @@ def search_results(input):
 
 
     # Adds all results into one list
-    search_result = []
-    search_result += User.query.whoosh_search(input).all()
-    search_result += Game.query.whoosh_search(input).all()
-    search_result += Team.query.whoosh_search(input).all()
-    search_result += Community.query.whoosh_search(input).all()
+    search_results = []
+    search_results += User.query.whoosh_search(search_string).all()
+    search_results += Game.query.whoosh_search(search_string).all()
+    search_results += Team.query.whoosh_search(search_string).all()
+    search_results += Community.query.whoosh_search(search_string).all()
 
-    return render_template('search_results.html', input=input, search_result=search_result)
+    return render_template('search_results.html', search_string=search_string, search_results=search_results)
 
 
 # run the app.
