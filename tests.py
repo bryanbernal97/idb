@@ -1021,7 +1021,45 @@ class TestApi(TestCase):
 
     def test_update_team_valid(self):
         # Test API PUT method api/team
-        self.assertTrue(True)
+
+        valid_team = None
+        test_id = -1
+        test_name = 'API TEST UPDATE TEAM'
+
+        # Insert test user into database to get using the API
+        valid_team = Team()
+        valid_team.id = test_id
+        valid_team.name = test_name
+        try:
+            db.session.add(valid_team)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+
+        new_test_name = 'NEW API TEST UPDATE TEAM'
+
+        update = {'name': new_test_name}
+
+        # Update the user through the API
+        response = requests.put(self.team_url + '/' + str(test_id), data=json.dumps(update), headers=self.headers)
+
+        # Make sure instance was updated
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), new_test_name)
+
+        # Delete the test instance for cleanup
+        try:
+            updated_query = Team.query.filter_by(id=test_id)
+            self.assertEqual(updated_query.count(), 1) # Make sure update did not create duplicate entry
+            updated_team = updated_query.first()
+            db.session.delete(updated_team)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_update_team_invalid(self):
