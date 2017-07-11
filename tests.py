@@ -581,7 +581,7 @@ class TestApi(TestCase):
         # Test API POST method api/team
 
         test_id = -1
-        test_name = 'API TEST TEAM GAME'
+        test_name = 'API TEST POST TEAM'
 
         new_team = {'id': test_id, 'name': test_name}
 
@@ -626,7 +626,27 @@ class TestApi(TestCase):
 
     def test_post_community_valid(self):
         # Test API POST method api/community
-        self.assertTrue(True)
+
+        test_id = '-1'
+        test_name = 'API TEST POST COMMUNITY'
+
+        new_community = {'id': test_id, 'name': test_name}
+
+        # Enter the test instance into the db through the API call
+        response = requests.post(self.community_url, data=json.dumps(new_community), headers=self.headers)
+
+        self.assertEqual(response.status_code, 201)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), test_name)
+
+        # Delete the test instance for cleanup
+        try:
+            query = Community.query.filter_by(id='-1').first()
+            db.session.delete(query)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_post_community_invalid(self):
