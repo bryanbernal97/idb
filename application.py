@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import url_for
 from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
@@ -84,7 +85,7 @@ def show_users(wow):
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
 
-    return render_template('user_model.html', name = user)
+    return render_template('user_template.html', user = user)
 
 @application.route('/games/<wow>')
 def show_games(wow):
@@ -116,7 +117,7 @@ def show_games(wow):
         for _id in game['community_ids']:
             game['community_names'][_id] = get_name_by_id(_id, 'community')
 
-    return render_template('game_model.html', name = game)
+    return render_template('game_template.html', game = game)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
@@ -142,7 +143,7 @@ def show_teams(wow):
         for _id in team['game_ids']:
             team['game_names'][_id] = get_name_by_id(_id, 'game')
 
-    return render_template('team_model.html', name = team)
+    return render_template('team_template.html', team = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
@@ -164,7 +165,7 @@ def show_communities(wow):
     if community['owner_id']:
         community['owner'] = get_name_by_id(q.owner_id, 'user')
 
-    return render_template('community_model.html', name = community)
+    return render_template('community_template.html', community = community)
 
 
 @application.route('/filter/users')
@@ -340,19 +341,29 @@ def render_communities(communities_filter, communities_sort):
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
 
-@application.route('/search')
-def search(query):
-    #Returns JSON formatted search results
+@application.route('/search', methods = ['GET', 'POST'])
+def search():
+    search_string = request.args.get('search_string')
+    return redirect(url_for('search_results', search_string = search_string))
 
+@application.route('/search_results/<search_string>')
+def search_results(search_string):
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
-    user_search_result = User.query.whoosh_search(query).all()
-    game_search_result = Game.query.whoosh_search(query).all()
-    team_search_result = Team.query.whoosh_search(query).all()
-    community_search_result = Community.query.whoosh_search(query).all()
+    #user_search_result = User.query.whoosh_search(input).all()
+    #game_search_result = Game.query.whoosh_search(input).all()
+    #team_search_result = Team.query.whoosh_search(input).all()
+    #community_search_result = Community.query.whoosh_search(input).all()
 
-    return render_template('search_template.html', user_search_resut=user_search_result, 
-        game_search_result=game_search_result, team_search_result=user_search_query, 
-        community_search_query=community_search_query)
+
+    # Adds all results into one list
+    search_results = []
+    search_results += User.query.whoosh_search(search_string).all()
+    search_results += Game.query.whoosh_search(search_string).all()
+    search_results += Team.query.whoosh_search(search_string).all()
+    search_results += Community.query.whoosh_search(search_string).all()
+
+    return render_template('search_results_template.html', search_string=search_string, search_results=search_results)
+
 
 # run the app.
 if __name__ == "__main__":
