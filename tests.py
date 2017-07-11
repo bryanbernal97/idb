@@ -120,7 +120,36 @@ class TestApi(TestCase):
 
     def test_get_single_game_valid(self):
         # Test API GET method api/game/(int:id) with valid id
-        self.assertTrue(True)
+
+        valid_game = None
+        test_id = -1
+        test_name = 'API TEST GET GAME'
+
+        # Insert test user into database to get using the API
+        valid_game = Game()
+        valid_game.id = test_id
+        valid_game.name = test_name
+        try:
+            db.session.add(valid_game)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Make sure API call gets and matches the test user just entered into the db above
+        response = requests.get(self.game_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('id'), test_id)
+        self.assertEqual(json_response.get('name'), test_name)
+
+        # Delte the test user that was inserted earlier in this
+        try:
+            db.session.delete(valid_game)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_get_single_game_invalid(self):
