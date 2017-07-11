@@ -341,18 +341,29 @@ def render_communities(communities_filter, communities_sort):
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
 
-@application.route('/search')
+@application.route('/search', methods = ['POST'])
 def search():
-    #Returns JSON formatted search results
     input = request.args.get('input')
-    print(input)
-    #Separated results in case it's more convenient...depends on how we do the search results page I guess
-    qb = User.query
-    instance = qb.filter_by(name = input).first()
-    print(instance.name)
-    #community_search_result = Community.query.whoosh_search(query).all()
+    return redirect(url_for('search_results', search_result = input))
 
-    return redirect(url_for('show_users', wow=instance.id))
+@application.route('/search_results/<input>')
+def search_results(input):
+    #Separated results in case it's more convenient...depends on how we do the search results page I guess
+    #user_search_result = User.query.whoosh_search(input).all()
+    #game_search_result = Game.query.whoosh_search(input).all()
+    #team_search_result = Team.query.whoosh_search(input).all()
+    #community_search_result = Community.query.whoosh_search(input).all()
+
+
+    # Adds all results into one list
+    search_result = []
+    search_result += User.query.whoosh_search(input).all()
+    search_result += Game.query.whoosh_search(input).all()
+    search_result += Team.query.whoosh_search(input).all()
+    search_result += Community.query.whoosh_search(input).all()
+
+    return render_template('search_results.html', input=input, search_result=search_result)
+
 
 # run the app.
 if __name__ == "__main__":
