@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ID -->
+<section id={{name['_id']}}>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    
+                    <!-- Picture -->
+                    <img src={{name['image_url']}}>
+
+                    <!-- Name -->
+                    <h3>
+                        Name:
+                        <small class="text-muted">{{name['name']}}</small>
+                    </h3>
+
+                    <!-- Info -->
+                    <h3>
+                        Info:
+                            <small class="text-muted">{{name['info']}}</small>
+                    </h3>
+
+                    <!-- Streamers -->
+                    <h3>
+                        Streamers:
+                        {% if name['user_ids'] %}
+                            {% for user in name['user_ids'] %}
+                                <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{name['user_names'][user]}}</a></small>
+                            {% endfor %}
+                        {% else %}
+                            <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Games -->
+                    <h3>
+                        Games:
+                        {% if name['game_ids'] %}
+                            {% for game in name['game_ids'] %}
+                                <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}"><br />{{name['game_names'][game]}}</a></small>
+                            {% endfor %}
+                        {% else %}
+                            <small class="text-muted">None</small>
+                        {% endif %}
+                    </h3>
+
+                    <!-- Created -->
+                    <h3>
+                        Created:
+                        <small class="text-muted">{{name['created']}}</small>
+                    </h3>
+
+                    <!-- Updated -->
+                    <h3>
+                        Updated:
+                        <small class="text-muted">{{name['updated']}}</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

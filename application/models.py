@@ -1,12 +1,13 @@
-from application import db
-
+from application import db, application
+import flask_whooshalchemy as wa
 
 class BaseModel(db.Model):
     """Base data model for all objects"""
     __abstract__ = True
 
+    # Changed constructor for Python 2 compatibility
     def __init__(self, *args):
-        super().__init__(*args)
+        super(BaseModel, self).__init__(*args)
 
     def __repr__(self):
         """Define a base way to print models"""
@@ -27,6 +28,11 @@ class BaseModel(db.Model):
 
 class User (BaseModel, db.Model):
     __tablename__ = 'user'
+    __searchable__ = ['name', 'description', 'language']
+
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(User, self).__init__()
 
     id = db.Column(db.String, primary_key = True)
 
@@ -49,6 +55,11 @@ class User (BaseModel, db.Model):
 
 class Game (BaseModel, db.Model):
     __tablename__ = 'game'
+    __searchable__ = ['name', 'description', 'rating']
+
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(Game, self).__init__()
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -69,6 +80,11 @@ class Game (BaseModel, db.Model):
 
 class Team (BaseModel, db.Model):
     __tablename__ = 'team'
+    __searchable__ = ['name', 'info']
+
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(Team, self).__init__()
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -86,6 +102,11 @@ class Team (BaseModel, db.Model):
 
 class Community (BaseModel, db.Model):
     __tablename__ = 'community'
+    __searchable__ = ['name', 'description', 'language', 'rules']
+
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(Community, self).__init__()
 
     id = db.Column(db.String(128), primary_key = True)
 
@@ -99,3 +120,10 @@ class Community (BaseModel, db.Model):
     # Connection to other models
     game_id = db.Column(db.Integer)
     owner_id = db.Column(db.String)
+
+
+# Allow indexing on models
+wa.whoosh_index(application, User)
+wa.whoosh_index(application, Game)
+wa.whoosh_index(application, Team)
+wa.whoosh_index(application, Community)

@@ -804,7 +804,8 @@ body {
   background-color: #6441A4;
 }
 
-/* Dropdown Button */
+/***************************************************************
+/* Dropdown Sort Button */
 .dropbtn {
     background-color: #6441A4;
     color: white;
@@ -855,4 +856,6 @@ body {
 .dropdown:hover .dropbtn {
     background-color: #cccccc;
 }
+/***************************************************************
+
 

@@ -6,6 +6,7 @@ from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
 import flask_restless
+import flask_whooshalchemy as wa
 
 import datetime
 import requests
@@ -22,10 +23,10 @@ manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
 
 # Create API endpoints, which will be available at /api/<tablename> by
 # default. Allowed HTTP methods can be specified as well.
-manager.create_api(User, methods=['GET'])
-manager.create_api(Team, methods=['GET'])
-manager.create_api(Game, methods=['GET'])
-manager.create_api(Community, methods=['GET'])
+manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 # print a nice greeting.
 @application.route('/')
@@ -159,7 +160,7 @@ def show_teams(wow):
     else:
         team['game_names'] = "None"
 
-    return render_template('teams_model.html', name = team)
+    return render_template('team_model.html', name = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
@@ -360,6 +361,20 @@ def render_communities(communities_filter, communities_sort):
         db.session.rollback()
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
+
+@application.route('/search')
+def search(query):
+    #Returns JSON formatted search results
+
+    #Separated results in case it's more convenient...depends on how we do the search results page I guess
+    user_search_result = User.query.whoosh_search(query).all()
+    game_search_result = Game.query.whoosh_search(query).all()
+    team_search_result = Team.query.whoosh_search(query).all()
+    community_search_result = Community.query.whoosh_search(query).all()
+
+    return render_template('search_template.html', user_search_resut=user_search_result, 
+        game_search_result=game_search_result, team_search_result=user_search_query, 
+        community_search_query=community_search_query)
 
 # run the app.
 if __name__ == "__main__":
