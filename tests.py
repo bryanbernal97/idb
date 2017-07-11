@@ -165,18 +165,59 @@ class TestApi(TestCase):
         except:
             db.session.rollback()
 
-        response = requests.get(self.user_url+'/'+str(test_id), headers=self.headers)
+        response = requests.get(self.game_url+'/'+str(test_id), headers=self.headers)
         self.assertEqual(response.status_code, 404)
 
 
     def test_get_single_team_valid(self):
         # Test API GET method api/team/(int:id) with valid id
-        self.assertTrue(False)
+
+        valid_team = None
+        test_id = -1
+        test_name = 'API TEST GET TEAM'
+
+        # Insert test user into database to get using the API
+        valid_team = Team()
+        valid_team.id = test_id
+        valid_team.name = test_name
+        try:
+            db.session.add(valid_team)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Make sure API call gets and matches the test user just entered into the db above
+        response = requests.get(self.team_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('id'), test_id)
+        self.assertEqual(json_response.get('name'), test_name)
+
+        # Delte the test user that was inserted earlier in this
+        try:
+            db.session.delete(valid_team)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_get_single_team_invalid(self):
         # Test API GET method api/team/(int:id) with an invalid id
-        self.assertTrue(False)
+
+        test_id = -1
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = Team.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        response = requests.get(self.team_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 404)
 
 
     def test_get_single_community_valid(self):
