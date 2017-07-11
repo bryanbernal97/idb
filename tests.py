@@ -245,10 +245,25 @@ class TestApi(TestCase):
             db.session.rollback()
 
 
-
     def test_post_user_invalid(self):
-        # Test API POST method api/user
-        self.assertTrue(True)
+        # Test API POST method api/user with an invalid field
+        test_id = '-1'
+        test_name = 'API TEST POST USER INVALID'
+
+        new_user = {'id': test_id, 'invalid_field': test_name}
+
+        # Enter the test instance into the db through the API call
+        response = requests.post(self.user_url, data=json.dumps(new_user), headers=self.headers)
+
+        self.assertEqual(response.status_code, 400)
+
+        # Make sure the test instance for was not entered into the database
+        try:
+            query = User.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_post_game_valid(self):
