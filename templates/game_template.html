@@ -82,7 +82,7 @@
                         Communities:
                         {% if game['community_ids'] %}
                             {% for _id in game['community_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=community)}}"><br />{{game['community_games'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=community)}}"><br />{{game['community_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
