@@ -31,8 +31,10 @@ class User (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'language']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(User, self).__init__()
+    def __init__(self, id='-1', name=None, *args):
+        super(User, self).__init__(*args)
+        self.name = name
+        self.id = id
 
     id = db.Column(db.String, primary_key = True)
 
