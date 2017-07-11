@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import url_for
 from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
@@ -341,18 +342,17 @@ def render_communities(communities_filter, communities_sort):
 
 
 @application.route('/search')
-def search(query):
+def search():
     #Returns JSON formatted search results
-
+    input = request.args.get('input')
+    print(input)
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
-    user_search_result = User.query.whoosh_search(query).all()
-    game_search_result = Game.query.whoosh_search(query).all()
-    team_search_result = Team.query.whoosh_search(query).all()
-    community_search_result = Community.query.whoosh_search(query).all()
+    qb = User.query
+    instance = qb.filter_by(name = input).first()
+    print(instance.name)
+    #community_search_result = Community.query.whoosh_search(query).all()
 
-    return render_template('search_template.html', user_search_resut=user_search_result, 
-        game_search_result=game_search_result, team_search_result=user_search_query, 
-        community_search_query=community_search_query)
+    return redirect(url_for('show_users', wow=instance.id))
 
 # run the app.
 if __name__ == "__main__":
