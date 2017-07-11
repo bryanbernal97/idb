@@ -77,27 +77,19 @@ class TestApi(TestCase):
         valid_user.id = test_id
         valid_user.name = 'API TEST GET USER'
         try:
-            # valid_user = User()
-            # valid_user.id = test_id
-            # valid_user.name = 'API TEST GET USER'
             db.session.add(valid_user)
             db.session.commit()
-            # db.session.close()
-        except Exception as e:
-            print('Exception in test get single user valid: ' + str(e))
+            db.session.close()
+        except:
             db.session.rollback()
 
-
-        # assert valid_user is not None
-
-        response = requests.post(self.user_url+'/'+str(test_id), headers=self.headers)
+        response = requests.get(self.user_url+'/'+str(test_id), headers=self.headers)
 
         try:
             db.session.delete(valid_user)
             db.session.commit()
             db.session.close()
-        except Exception as e:
-            print ('Exception part 2: ' + str(e))
+        except:
             db.session.rollback()
 
         self.assertEqual(response.status_code, 200)
@@ -181,24 +173,25 @@ class TestApi(TestCase):
 
     def test_post_user_valid(self):
         # Test API POST method api/user
+        test_id = '-1'
+        test_name = 'API TEST POST USER'
 
-        # new_user = {
-        #     'id': -1,
-        #     'name': 'API TEST POST USER'
-        # }
+        new_user = {'id': test_id, 'name': test_name}
 
-        # response = requests.post(self.user_url, data=json.dumps(new_user), headers=self.headers)
+        response = requests.post(self.user_url, data=json.dumps(new_user), headers=self.headers)
 
-        # self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
-        # try:
-        #     old_user = User.query.filter_by(id=-1).first()
-        #     db.session.delete(old_user)
-        #     db.session.commit()
-        #     db.session.close()
-        # except:
-        #     db.session.rollback()
-        self.assertTrue(True)
+        try:
+            valid_user = User.query.filter_by(id='-1').first()
+            json_response = json.loads(response.text)
+            self.assertEqual(json_response.get('name'), test_name)
+            db.session.delete(valid_user)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
 
 
     def test_post_user_invalid(self):
