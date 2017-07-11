@@ -222,7 +222,36 @@ class TestApi(TestCase):
 
     def test_get_single_community_valid(self):
         # Test API GET method api/community/(int:id) with valid id
-        self.assertTrue(False)
+
+        valid_community = None
+        test_id = '-1'
+        test_name = 'API TEST GET USER'
+
+        # Insert test user into database to get using the API
+        valid_community = Community()
+        valid_community.id = test_id
+        valid_community.name = test_name
+        try:
+            db.session.add(valid_community)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Make sure API call gets and matches the test user just entered into the db above
+        response = requests.get(self.community_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('id'), test_id)
+        self.assertEqual(json_response.get('name'), test_name)
+
+        # Delte the test user that was inserted earlier in this
+        try:
+            db.session.delete(valid_community)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_get_single_community_invalid(self):
