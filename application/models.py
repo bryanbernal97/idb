@@ -114,8 +114,18 @@ class Team (BaseModel, db.Model):
     __searchable__ = ['name', 'info']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self, *args):
+    def __init__(self, id=None, name=None, info=None, image_url=None, created=None, updated=None,
+        user_ids=None, game_ids=None, *args):
+
         super(Team, self).__init__(*args)
+        self.id = id
+        self.name = name
+        self.info = info
+        self.image_url = image_url
+        self.created = created
+        self.updated = updated
+        self.user_ids = user_ids
+        self.game_ids = game_ids
 
     id = db.Column(db.Integer, primary_key = True)
 
