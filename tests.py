@@ -1094,7 +1094,45 @@ class TestApi(TestCase):
 
     def test_update_community_valid(self):
         # Test API PUT method api/community
-        self.assertTrue(True)
+
+        valid_community = None
+        test_id = '-1'
+        test_name = 'API TEST UPDATE COMMUNITY'
+
+        # Insert test user into database to get using the API
+        valid_community = Community()
+        valid_community.id = test_id
+        valid_community.name = test_name
+        try:
+            db.session.add(valid_community)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+
+        new_test_name = 'NEW API TEST UPDATE COMMUNITY'
+
+        update = {'name': new_test_name}
+
+        # Update the user through the API
+        response = requests.put(self.community_url + '/' + str(test_id), data=json.dumps(update), headers=self.headers)
+
+        # Make sure instance was updated
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), new_test_name)
+
+        # Delete the test instance for cleanup
+        try:
+            updated_query = Community.query.filter_by(id=test_id)
+            self.assertEqual(updated_query.count(), 1) # Make sure update did not create duplicate entry
+            updated_community = updated_query.first()
+            db.session.delete(updated_community)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_update_community_invalid(self):
