@@ -532,7 +532,27 @@ class TestApi(TestCase):
 
     def test_post_game_valid(self):
         # Test API POST method api/game
-        self.assertTrue(True)
+
+        test_id = -1
+        test_name = 'API TEST POST GAME'
+
+        new_game = {'id': test_id, 'name': test_name}
+
+        # Enter the test instance into the db through the API call
+        response = requests.post(self.game_url, data=json.dumps(new_game), headers=self.headers)
+
+        self.assertEqual(response.status_code, 201)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), test_name)
+
+        # Delete the test instance for cleanup
+        try:
+            valid_game = Game.query.filter_by(id='-1').first()
+            db.session.delete(valid_game)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_post_game_invalid(self):
