@@ -3,43 +3,43 @@
 {% block content %}
 
 <!-- ID -->
-<section id={{name['_id']}}>
+<section id={{community['_id']}}>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     
                     <!-- Picture -->
-                    <img src={{name['image_url']}}>
+                    <img src={{community['image_url']}}>
 
                     <!-- Name -->
                     <h3>
                         Name:
-                        <small class="text-muted">{{name['name']}}</small>
+                        <small class="text-muted">{{community['name']}}</small>
                     </h3>
 
                     <!-- Description -->
                     <h3>
                         Description:
-                            <small class="text-muted">{{name['description']}}</small>
+                            <small class="text-muted">{{community['description']}}</small>
                     </h3>
 
                     <!-- Language -->
                     <h3>
                         Language:
-                        <small class="text-muted">{{name['language']}}</small>
+                        <small class="text-muted">{{community['language']}}</small>
                     </h3>
 
                     <!-- Rules -->
                     <h3>
                         Rules:
-                        <small class="text-muted">{{name['rules']}}</small>
+                        <small class="text-muted">{{community['rules']}}</small>
                     </h3>
 
                     <!-- Game -->
                     <h3>
                         Game:
-                        {% if name['game_id'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=name['game_id'])}}">{{name['game']}}</a></small>
+                        {% if community['game_id'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_games', wow=community['game_id'])}}">{{community['game']}}</a></small>
                         {% else %}
                         <small class="text-muted">None</small>
                         {% endif %}
@@ -48,8 +48,8 @@
                     <!-- Owner -->
                     <h3>
                         Owner:
-                        {% if name['game_id'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_users', wow=name['owner_id'])}}">{{name['owner']}}</a></small>
+                        {% if community['game_id'] %}
+                        <small class="text-muted"><a href="{{ url_for('show_users', wow=community['owner_id'])}}">{{community['owner']}}</a></small>
                         {% else %}
                         <small class="text-muted">None</small>
                         {% endif %}

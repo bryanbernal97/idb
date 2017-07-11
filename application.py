@@ -85,7 +85,7 @@ def show_users(wow):
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
 
-    return render_template('user_model.html', name = user)
+    return render_template('user_template.html', user = user)
 
 @application.route('/games/<wow>')
 def show_games(wow):
@@ -117,7 +117,7 @@ def show_games(wow):
         for _id in game['community_ids']:
             game['community_names'][_id] = get_name_by_id(_id, 'community')
 
-    return render_template('game_model.html', name = game)
+    return render_template('game_template.html', game = game)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
@@ -143,7 +143,7 @@ def show_teams(wow):
         for _id in team['game_ids']:
             team['game_names'][_id] = get_name_by_id(_id, 'game')
 
-    return render_template('team_model.html', name = team)
+    return render_template('team_template.html', team = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
@@ -165,7 +165,7 @@ def show_communities(wow):
     if community['owner_id']:
         community['owner'] = get_name_by_id(q.owner_id, 'user')
 
-    return render_template('community_model.html', name = community)
+    return render_template('community_template.html', community = community)
 
 
 @application.route('/filter/users')
