@@ -895,7 +895,7 @@ class TestApi(TestCase):
         update = {'name': new_test_name, 'views': new_test_views}
 
         # Update the user through the API
-        response = requests.put(self.user_url + '/' + test_id, data=json.dumps(update), headers=self.headers)
+        response = requests.put(self.user_url + '/' + str(test_id), data=json.dumps(update), headers=self.headers)
 
         # Make sure instance was updated
         self.assertEqual(response.status_code, 200)
@@ -905,7 +905,7 @@ class TestApi(TestCase):
 
         # Delete the test instance for cleanup
         try:
-            updated_user_query = User.query.filter_by(id='-1')
+            updated_user_query = User.query.filter_by(id=test_id)
             self.assertEqual(updated_user_query.count(), 1) # Make sure update did not create duplicate entry
             updated_user = updated_user_query.first()
             db.session.delete(updated_user)
@@ -933,7 +933,7 @@ class TestApi(TestCase):
         update = {'name': new_test_name, 'views': new_test_views}
 
         # Update the user through the API
-        response = requests.put(self.user_url + '/' + test_id, data=json.dumps(update), headers=self.headers)
+        response = requests.put(self.user_url + '/' + str(test_id), data=json.dumps(update), headers=self.headers)
 
         self.assertEqual(response.status_code, 404)
 
@@ -948,7 +948,45 @@ class TestApi(TestCase):
 
     def test_update_game_valid(self):
         # Test API PUT method api/game
-        self.assertTrue(True)
+
+        valid_game = None
+        test_id = -1
+        test_name = 'API TEST UPDATE GAME'
+
+        # Insert test user into database to get using the API
+        valid_game = Game()
+        valid_game.id = test_id
+        valid_game.name = test_name
+        try:
+            db.session.add(valid_game)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+
+        new_test_name = 'NEW API TEST UPDATE GAME'
+
+        update = {'name': new_test_name}
+
+        # Update the user through the API
+        response = requests.put(self.game_url + '/' + str(test_id), data=json.dumps(update), headers=self.headers)
+
+        # Make sure instance was updated
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.text)
+        self.assertEqual(json_response.get('name'), new_test_name)
+
+        # Delete the test instance for cleanup
+        try:
+            updated_game_query = Game.query.filter_by(id=test_id)
+            self.assertEqual(updated_game_query.count(), 1) # Make sure update did not create duplicate entry
+            updated_game = updated_game_query.first()
+            db.session.delete(updated_game)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_update_game_invalid(self):
