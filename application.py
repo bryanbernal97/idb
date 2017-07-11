@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import url_for
 from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
@@ -66,7 +67,10 @@ def show_users(wow):
     user['url'] = q.url
     user['created'] = q.created
     user['updated'] = q.updated
-    user['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    user['image_url'] = image_url
 
     # Connections
 
@@ -89,7 +93,7 @@ def show_users(wow):
     else:
         user['team_names'] = "None"
 
-    return render_template('user_model.html', name = user)
+    return render_template('user_template.html', user = user)
 
 @application.route('/games/<wow>')
 def show_games(wow):
@@ -102,7 +106,10 @@ def show_games(wow):
     game['genres'] = q.genres
     game['platforms'] = q.platforms
     game['release_date'] = q.release_date
-    game['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    game['image_url'] = image_url
 
     # Connections
 
@@ -130,7 +137,7 @@ def show_games(wow):
     else:
         game['community_names'] = "None"
 
-    return render_template('game_model.html', name = game)
+    return render_template('game_template.html', game = game)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
@@ -140,7 +147,10 @@ def show_teams(wow):
     team['info'] = q.info
     team['created'] = q.created
     team['updated'] = q.updated
-    team['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    team['image_url'] = image_url
 
     # Connections
 
@@ -160,7 +170,7 @@ def show_teams(wow):
     else:
         team['game_names'] = "None"
 
-    return render_template('team_model.html', name = team)
+    return render_template('team_template.html', team = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
@@ -170,7 +180,10 @@ def show_communities(wow):
     community['description'] = q.description
     community['language'] = q.language
     community['rules'] = q.rules
-    community['image_url'] = q.image_url
+    image_url = q.image_url
+    if not image_url:
+        image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+    community['image_url'] = image_url
 
     # Connections
 
@@ -186,7 +199,7 @@ def show_communities(wow):
     else:
         community['owner'] = "None"
 
-    return render_template('community_model.html', name = community)
+    return render_template('community_template.html', community = community)
 
 
 @application.route('/filter/users')
@@ -267,7 +280,10 @@ def render_users(users_filter, users_sort):
             user = {}
             user['id'] = q.id
             user['name'] = q.name
-            user['image_url'] = q.image_url
+            image_url = q.image_url
+            if not image_url:
+                image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+            user['image_url'] = image_url
             if user['name']:
                 users.append(user)
         db.session.close()
@@ -320,7 +336,10 @@ def render_teams(teams_filter, teams_sort):
             team = {}
             team['id'] = q.id
             team['name'] = q.name
-            team['image_url'] = q.image_url
+            image_url = q.image_url
+            if not image_url:
+                image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
+            team['image_url'] = image_url
             teams.append(team)
         if teams_sort == 'a-z':
             teams = sorted(teams, key=lambda k: k['name'])
@@ -362,19 +381,29 @@ def render_communities(communities_filter, communities_sort):
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
 
-@application.route('/search')
-def search(query):
-    #Returns JSON formatted search results
+@application.route('/search', methods = ['GET', 'POST'])
+def search():
+    search_string = request.args.get('search_string')
+    return redirect(url_for('search_results', search_string = search_string))
 
+@application.route('/search_results/<search_string>')
+def search_results(search_string):
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
-    user_search_result = User.query.whoosh_search(query).all()
-    game_search_result = Game.query.whoosh_search(query).all()
-    team_search_result = Team.query.whoosh_search(query).all()
-    community_search_result = Community.query.whoosh_search(query).all()
+    #user_search_result = User.query.whoosh_search(input).all()
+    #game_search_result = Game.query.whoosh_search(input).all()
+    #team_search_result = Team.query.whoosh_search(input).all()
+    #community_search_result = Community.query.whoosh_search(input).all()
 
-    return render_template('search_template.html', user_search_resut=user_search_result, 
-        game_search_result=game_search_result, team_search_result=user_search_query, 
-        community_search_query=community_search_query)
+
+    # Adds all results into one list
+    search_results = []
+    search_results += User.query.whoosh_search(search_string).all()
+    search_results += Game.query.whoosh_search(search_string).all()
+    search_results += Team.query.whoosh_search(search_string).all()
+    search_results += Community.query.whoosh_search(search_string).all()
+
+    return render_template('search_results_template.html', search_string=search_string, search_results=search_results)
+
 
 # run the app.
 if __name__ == "__main__":

@@ -31,10 +31,24 @@ class User (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'language']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self, id='-1', name=None, *args):
+    def __init__(self, id='-1', name=None, description=None, language=None, views=None,
+        followers=None, url=None, created=None, updated=None, image_url=None, game_id=None,
+        community_id=None, team_ids=None, *args):
+
         super(User, self).__init__(*args)
-        self.name = name
         self.id = id
+        self.name = name
+        self.description = description
+        self.language = language
+        self.views = views
+        self.followers = followers
+        self.url = url
+        self.created = created
+        self.updated = updated
+        self.image_url = image_url
+        self.game_id = game_id
+        self.community_id = community_id
+        self.team_ids = team_ids
 
     id = db.Column(db.String, primary_key = True)
 
@@ -60,8 +74,23 @@ class Game (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'rating']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(Game, self).__init__()
+    def __init__(self, id=None, name=None, description=None, genres=None, platforms=None,
+        release_date=None, image_url=None, rating=None, user_ids=None, team_ids=None,
+        community_ids=None, *args):
+        
+        super(Game, self).__init__(*args)
+        self.id = id
+        self.name = name
+        self.description = description
+        self.genres = genres
+        self.platforms = platforms
+        self.release_date = release_date
+        self.image_url = image_url
+        self.rating = rating
+        self.user_ids = user_ids
+        self.team_ids = team_ids
+        self.community_ids = community_ids
+
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -85,8 +114,18 @@ class Team (BaseModel, db.Model):
     __searchable__ = ['name', 'info']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(Team, self).__init__()
+    def __init__(self, id=None, name=None, info=None, image_url=None, created=None, updated=None,
+        user_ids=None, game_ids=None, *args):
+
+        super(Team, self).__init__(*args)
+        self.id = id
+        self.name = name
+        self.info = info
+        self.image_url = image_url
+        self.created = created
+        self.updated = updated
+        self.user_ids = user_ids
+        self.game_ids = game_ids
 
     id = db.Column(db.Integer, primary_key = True)
 
@@ -107,8 +146,18 @@ class Community (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'language', 'rules']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self):
-        super(Community, self).__init__()
+    def __init__(self, id=None, name=None, description=None, language=None, rules=None,
+        image_url=None, game_id=None, owner_id=None, *args):
+
+        super(Community, self).__init__(*args)
+        self.id = id
+        self.name = name
+        self.description = description
+        self.language = language
+        self.rules = rules
+        self.image_url = image_url
+        self.game_id = game_id
+        self.owner_id = owner_id
 
     id = db.Column(db.String(128), primary_key = True)
 
