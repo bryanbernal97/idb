@@ -73,7 +73,7 @@
                         Teams:
                         {% if user['team_ids'] %}
                             {% for _id in user['team_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{user['team_users'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{user['team_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>

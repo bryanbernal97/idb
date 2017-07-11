@@ -6,6 +6,7 @@ from flask import url_for
 from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
+from sqlalchemy import inspect
 import flask_restless
 import flask_whooshalchemy as wa
 
@@ -358,6 +359,10 @@ def render_communities(communities_filter, communities_sort):
         db.session.rollback()
     return render_template('communities.html', communities=communities, communities_filter=communities_filter)
 
+def object_as_dict(obj):
+    return {c.key: getattr(obj, c.key)
+            for c in inspect(obj).mapper.column_attrs}
+
 
 @application.route('/search', methods = ['GET', 'POST'])
 def search():
@@ -371,13 +376,22 @@ def search():
 
 
     # Adds all results into one list
-    search_results = []
-    search_results += User.query.whoosh_search(search_string).all()
-    search_results += Game.query.whoosh_search(search_string).all()
-    search_results += Team.query.whoosh_search(search_string).all()
-    search_results += Community.query.whoosh_search(search_string).all()
+    user_search_results = []
+    game_search_results = []
+    team_search_results = []
+    community_search_results = []
+    for user in User.query.whoosh_search(search_string).all() :
+        user_search_results.append(object_as_dict(user))
+    for game in Game.query.whoosh_search(search_string).all() :
+        game_search_results.append(object_as_dict(game))
+    for team in Team.query.whoosh_search(search_string).all() :
+        team_search_results.append(object_as_dict(team))
+    for community in Community.query.whoosh_search(search_string).all() :
+        community_search_results.append(object_as_dict(community))
 
-    return render_template('search_results_template.html', search_string=search_string, search_results=search_results)
+    print(user_search_results)
+
+    return render_template('search_results_template.html', search_string=search_string, user_search_results=user_search_results, game_search_results=game_search_results, team_search_results=team_search_results, community_search_results=community_search_results)
 
 
 # run the app.

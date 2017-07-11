@@ -5,16 +5,67 @@
 <section id=results>
     <div class="container">
         <div class="row">
-
-            {% for results in search_results %}
-                    <div class="col-med-4">
-                        <h3>Name: {{results['name']}}</h3>
+            <h3>
+                Users Containing {{search_string}}:
+                {% for result in user_search_results %}
+                    <small class="text-muted"><a href="{{ url_for('show_users', wow=result['id'])}}"><br />{{result['name']}}</a></small>
                     </div>
                     <div class="col-med-4">
-                        <img src={{results['image_url']}}>
+                        <img src={{result['image_url']}}>
                     </div>
                 {% endfor %}
         </div>
     </div>
 </section>
+
+<section id=results>
+    <div class="container">
+        <div class="row">
+            <h3>
+                Games Containing {{search_string}}:
+                {% for result in game_search_results %}
+                <br/>
+                    <small class="text-muted"><a href="{{ url_for('show_games', wow=result['id'])}}"><br />{{result['name']}}</a></small>
+                    </div>
+                    <div class="col-med-4">
+                        <img src={{result['image_url']}} width: "50";
+                        height: "50";>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id=results>
+    <div class="container">
+        <div class="row">
+            <h3>
+                Teams Containing {{search_string}}:
+                {% for result in team_search_results %}
+                    <small class="text-muted"><a href="{{ url_for('show_teams', wow=result['id'])}}"><br />{{result['name']}}</a></small>
+                    </div>
+                    <div class="col-med-4">
+                        <img src={{result['image_url']}}>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id=results>
+    <div class="container">
+        <div class="row">
+            <h3>
+                Communities Containing {{search_string}}:
+                {% for result in community_search_results %}
+                    <small class="text-muted"><a href="{{ url_for('show_communities', wow=result['id'])}}"><br />{{result['name']}}</a></small>
+                    </div>
+                    <div class="col-med-4">
+                        <img src={{result['image_url']}}>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</section>
+
 {% endblock %}
