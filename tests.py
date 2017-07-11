@@ -154,27 +154,39 @@ class TestApi(TestCase):
 
     def test_get_single_game_invalid(self):
         # Test API GET method api/game/(int:id) with an invalid id
-        self.assertTrue(True)
+
+        test_id = -1
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = Game.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        response = requests.get(self.user_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 404)
 
 
     def test_get_single_team_valid(self):
         # Test API GET method api/team/(int:id) with valid id
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_single_team_invalid(self):
         # Test API GET method api/team/(int:id) with an invalid id
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_single_community_valid(self):
         # Test API GET method api/community/(int:id) with valid id
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_single_community_invalid(self):
         # Test API GET method api/community/(int:id) with an invalid id
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_user_search_match(self):
@@ -231,32 +243,32 @@ class TestApi(TestCase):
 
     def test_get_game_search_match(self):
         # Test API GET method api/game?q=<searchjson> with a match
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_game_search_no_match(self):
         # Test API GET method api/game?q=<searchjson> with no result match
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_team_search_match(self):
         # Test API GET method api/team?q=<searchjson> with a match
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_team_search_no_match(self):
         # Test API GET method api/team?q=<searchjson> with no result match
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_community_search_match(self):
         # Test API GET method api/community?q=<searchjson> with a match
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_get_community_search_no_match(self):
         # Test API GET method api/community?q=<searchjson> with no result match
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_post_user_valid(self):
@@ -306,32 +318,32 @@ class TestApi(TestCase):
 
     def test_post_game_valid(self):
         # Test API POST method api/game
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_post_game_invalid(self):
         # Test API POST method api/game
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_post_team_valid(self):
         # Test API POST method api/team
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_post_team_invalid(self):
         # Test API POST method api/team
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_post_community_valid(self):
         # Test API POST method api/community
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_post_community_invalid(self):
         # Test API POST method api/community
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_delete_user_valid(self):
@@ -385,32 +397,32 @@ class TestApi(TestCase):
 
     def test_delete_game_valid(self):
         # Test API DELETE method api/game
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_delete_game_invalid(self):
         # Test API DELETE method api/game
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_delete_team_valid(self):
         # Test API DELETE method api/team
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_delete_team_invalid(self):
         # Test API DELETE method api/team
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_delete_community_valid(self):
         # Test API DELETE method api/community
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_delete_community_invalid(self):
         # Test API DELETE method api/community
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_update_user_valid(self):
@@ -491,32 +503,32 @@ class TestApi(TestCase):
 
     def test_update_game_valid(self):
         # Test API PUT method api/game
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_update_game_invalid(self):
         # Test API PUT method api/game
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_update_team_valid(self):
         # Test API PUT method api/team
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_update_team_invalid(self):
         # Test API PUT method api/team
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_update_community_valid(self):
         # Test API PUT method api/community
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
     def test_update_community_invalid(self):
         # Test API PUT method api/community
-        self.assertTrue(True)
+        self.assertTrue(False)
 
 
 class TestDatabase(TestCase):
