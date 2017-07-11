@@ -362,7 +362,7 @@ def search_results(search_string):
     search_results += Team.query.whoosh_search(search_string).all()
     search_results += Community.query.whoosh_search(search_string).all()
 
-    return render_template('search_results.html', search_string=search_string, search_results=search_results)
+    return render_template('search_results_template.html', search_string=search_string, search_results=search_results)
 
 
 # run the app.
