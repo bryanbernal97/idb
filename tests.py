@@ -772,7 +772,34 @@ class TestApi(TestCase):
 
     def test_delete_team_valid(self):
         # Test API DELETE method api/team
-        self.assertTrue(True)
+
+        valid_team = None
+        test_id = -1
+        test_name = 'API TEST DELETE TEAM'
+
+        # Insert test user into database to get using the API
+        valid_team = Team()
+        valid_team.id = test_id
+        valid_team.name = test_name
+        try:
+            db.session.add(valid_team)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Delete the db instance through an API call
+        response = requests.delete(self.team_url+'/'+str(test_id), headers=self.headers)
+
+        self.assertEqual(response.status_code, 204)
+
+        # Make sure db instance is no longer in db
+        try:
+            query = Team.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_delete_team_invalid(self):
