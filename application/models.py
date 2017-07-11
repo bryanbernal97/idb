@@ -74,7 +74,9 @@ class Game (BaseModel, db.Model):
     __searchable__ = ['name', 'description', 'rating']
 
     # Changed the constructor for Python 2 compatibility
-    def __init__(self, *args):
+    def __init__(self, id=None, name=None, description=None, genres=None, platforms=None,
+        release_date=None, image_url=None, rating=None, image_url=None, rating=None,
+        user_ids=None, team_ids=None, community_ids=None, *args):
         super(Game, self).__init__(*args)
 
     id = db.Column(db.Integer, primary_key = True)
