@@ -676,7 +676,7 @@ class TestApi(TestCase):
 
         valid_user = None
         test_id = '-1'
-        test_name = 'API TEST GET USER'
+        test_name = 'API TEST DELETE USER'
 
         # Insert test user into database to get using the API
         valid_user = User()
@@ -722,7 +722,34 @@ class TestApi(TestCase):
 
     def test_delete_game_valid(self):
         # Test API DELETE method api/game
-        self.assertTrue(True)
+
+        valid_game = None
+        test_id = -1
+        test_name = 'API TEST DELETE GAME'
+
+        # Insert test user into database to get using the API
+        valid_game = Game()
+        valid_game.id = test_id
+        valid_game.name = test_name
+        try:
+            db.session.add(valid_game)
+            db.session.commit()
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Delete the db instance through an API call
+        response = requests.delete(self.game_url+'/'+str(test_id), headers=self.headers)
+
+        self.assertEqual(response.status_code, 204)
+
+        # Make sure db instance is no longer in db
+        try:
+            query = Game.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
 
 
     def test_delete_game_invalid(self):
