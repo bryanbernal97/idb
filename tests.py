@@ -366,7 +366,15 @@ class TestApi(TestCase):
 
     def test_get_game_search_no_match(self):
         # Test API GET method api/game?q=<searchjson> with no result match
-        self.assertTrue(True)
+
+        filters = [dict(name='rating', op='ilike', val='made up game rating')]
+        params = dict(q=json.dumps(dict(filters=filters)))
+        response = requests.get(self.game_url, params=params, headers=self.headers)
+        json_response = json.loads(response.text)
+        
+        # Make sure API call searches and matches the test user just entered into the db above
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response.get('num_results'), 0)
 
 
     def test_get_team_search_match(self):
