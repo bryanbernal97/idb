@@ -14,6 +14,7 @@ format:
 	$(AUTOPEP8) -i application.py
 	$(AUTOPEP8) -i db_create.py
 	$(AUTOPEP8) -i db_populate.py
+	$(AUTOPEP8) -i tests.py
 
 test:
 	-$(COVERAGE) run    --branch tests.py >  tests.out 2>&1
