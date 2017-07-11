@@ -362,10 +362,7 @@ def render_communities(communities_filter, communities_sort):
 @application.route('/search', methods = ['GET', 'POST'])
 def search():
     search_string = request.args.get('search_string')
-    return redirect(url_for('search_results', search_string = search_string))
 
-@application.route('/search_results/<search_string>')
-def search_results(search_string):
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
     #user_search_result = User.query.whoosh_search(input).all()
     #game_search_result = Game.query.whoosh_search(input).all()
