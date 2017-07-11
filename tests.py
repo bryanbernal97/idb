@@ -824,7 +824,7 @@ class TestApi(TestCase):
         # Test API DELETE method api/community
 
         valid_community = None
-        test_id = -1
+        test_id = '-1'
         test_name = 'API TEST DELETE COMMUNITY'
 
         # Insert test user into database to get using the API
@@ -854,7 +854,20 @@ class TestApi(TestCase):
 
     def test_delete_community_invalid(self):
         # Test API DELETE method api/community
-        self.assertTrue(True)
+
+        test_id = '-1'
+
+        # Make sure db instance does not have instance with test_id
+        try:
+            query = Community.query.get(test_id)
+            self.assertisNone(query)
+            db.session.close()
+        except:
+            db.session.rollback()
+
+        # Try to make call to API to delete user with that invalid id
+        response = requests.delete(self.community_url+'/'+str(test_id), headers=self.headers)
+        self.assertEqual(response.status_code, 404)
 
 
     def test_update_user_valid(self):
