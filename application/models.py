@@ -5,8 +5,9 @@ class BaseModel(db.Model):
     """Base data model for all objects"""
     __abstract__ = True
 
+    # Changed constructor for Python 2 compatibility
     def __init__(self, *args):
-        super().__init__(*args)
+        super(BaseModel, self).__init__(*args)
 
     def __repr__(self):
         """Define a base way to print models"""
@@ -28,6 +29,10 @@ class BaseModel(db.Model):
 class User (BaseModel, db.Model):
     __tablename__ = 'user'
     __searchable__ = ['name', 'description', 'language']
+
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(User, self).__init__()
 
     id = db.Column(db.String, primary_key = True)
 
@@ -52,6 +57,10 @@ class Game (BaseModel, db.Model):
     __tablename__ = 'game'
     __searchable__ = ['name', 'description', 'rating']
 
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(Game, self).__init__()
+
     id = db.Column(db.Integer, primary_key = True)
 
     # Attributes
@@ -73,6 +82,10 @@ class Team (BaseModel, db.Model):
     __tablename__ = 'team'
     __searchable__ = ['name', 'info']
 
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(Team, self).__init__()
+
     id = db.Column(db.Integer, primary_key = True)
 
     # Attributes
@@ -90,6 +103,10 @@ class Team (BaseModel, db.Model):
 class Community (BaseModel, db.Model):
     __tablename__ = 'community'
     __searchable__ = ['name', 'description', 'language', 'rules']
+
+    # Changed the constructor for Python 2 compatibility
+    def __init__(self):
+        super(Community, self).__init__()
 
     id = db.Column(db.String(128), primary_key = True)
 

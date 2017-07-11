@@ -6,6 +6,9 @@ from application.models import User, Team, Game, Community
 import json
 
 class TestApi(TestCase):
+    '''
+        Tests the API endpoints and their methods.
+    '''
 
     user_url = 'http://streamglean.me/api/user'
     team_url = 'http://streamglean.me/api/team'
@@ -65,6 +68,254 @@ class TestApi(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(int(response.json()['num_results']), num_communities)
 
+
+    def test_get_single_user_valid(self):
+        # Test API GET method api/user/(int:id) with valid id
+        valid_user = None
+        test_id = '-1'
+        valid_user = User()
+        valid_user.id = test_id
+        valid_user.name = 'API TEST GET USER'
+        try:
+            # valid_user = User()
+            # valid_user.id = test_id
+            # valid_user.name = 'API TEST GET USER'
+            db.session.add(valid_user)
+            db.session.commit()
+            # db.session.close()
+        except Exception as e:
+            print('Exception in test get single user valid: ' + str(e))
+            db.session.rollback()
+
+
+        # assert valid_user is not None
+
+        response = requests.post(self.user_url+'/'+str(test_id), headers=self.headers)
+
+        try:
+            db.session.delete(valid_user)
+            db.session.commit()
+            db.session.close()
+        except Exception as e:
+            print ('Exception part 2: ' + str(e))
+            db.session.rollback()
+
+        self.assertEqual(response.status_code, 200)
+        # self.assertTrue(True)
+
+
+    def test_get_single_user_invalid(self):
+        # Test API GET method api/user/(int:id) with an invalid id
+        self.assertTrue(True)
+
+
+    def test_get_single_game_valid(self):
+        # Test API GET method api/game/(int:id) with valid id
+        self.assertTrue(True)
+
+
+    def test_get_single_game_invalid(self):
+        # Test API GET method api/game/(int:id) with an invalid id
+        self.assertTrue(True)
+
+
+    def test_get_single_team_valid(self):
+        # Test API GET method api/team/(int:id) with valid id
+        self.assertTrue(True)
+
+
+    def test_get_single_team_invalid(self):
+        # Test API GET method api/team/(int:id) with an invalid id
+        self.assertTrue(True)
+
+
+    def test_get_single_community_valid(self):
+        # Test API GET method api/community/(int:id) with valid id
+        self.assertTrue(True)
+
+
+    def test_get_single_community_invalid(self):
+        # Test API GET method api/community/(int:id) with an invalid id
+        self.assertTrue(True)
+
+
+    def test_get_user_search_match(self):
+        # Test API GET method api/user?q=<searchjson> with a match
+        self.assertTrue(True)
+
+
+    def test_get_user_search_no_match(self):
+        # Test API GET method api/user?q=<searchjson> with no result match
+        self.assertTrue(True)
+
+
+    def test_get_game_search_match(self):
+        # Test API GET method api/game?q=<searchjson> with a match
+        self.assertTrue(True)
+
+
+    def test_get_game_search_no_match(self):
+        # Test API GET method api/game?q=<searchjson> with no result match
+        self.assertTrue(True)
+
+
+    def test_get_team_search_match(self):
+        # Test API GET method api/team?q=<searchjson> with a match
+        self.assertTrue(True)
+
+
+    def test_get_team_search_no_match(self):
+        # Test API GET method api/team?q=<searchjson> with no result match
+        self.assertTrue(True)
+
+
+    def test_get_community_search_match(self):
+        # Test API GET method api/community?q=<searchjson> with a match
+        self.assertTrue(True)
+
+
+    def test_get_community_search_no_match(self):
+        # Test API GET method api/community?q=<searchjson> with no result match
+        self.assertTrue(True)
+
+
+    def test_post_user_valid(self):
+        # Test API POST method api/user
+
+        # new_user = {
+        #     'id': -1,
+        #     'name': 'API TEST POST USER'
+        # }
+
+        # response = requests.post(self.user_url, data=json.dumps(new_user), headers=self.headers)
+
+        # self.assertEqual(response.status_code, 200)
+
+        # try:
+        #     old_user = User.query.filter_by(id=-1).first()
+        #     db.session.delete(old_user)
+        #     db.session.commit()
+        #     db.session.close()
+        # except:
+        #     db.session.rollback()
+        self.assertTrue(True)
+
+
+    def test_post_user_invalid(self):
+        # Test API POST method api/user
+        self.assertTrue(True)
+
+
+    def test_post_game_valid(self):
+        # Test API POST method api/game
+        self.assertTrue(True)
+
+
+    def test_post_game_invalid(self):
+        # Test API POST method api/game
+        self.assertTrue(True)
+
+
+    def test_post_team_valid(self):
+        # Test API POST method api/team
+        self.assertTrue(True)
+
+
+    def test_post_team_invalid(self):
+        # Test API POST method api/team
+        self.assertTrue(True)
+
+
+    def test_post_community_valid(self):
+        # Test API POST method api/community
+        self.assertTrue(True)
+
+
+    def test_post_community_invalid(self):
+        # Test API POST method api/community
+        self.assertTrue(True)
+
+
+    def test_delete_user_valid(self):
+        # Test API DELETE method api/user
+        self.assertTrue(True)
+
+
+    def test_delete_user_invalid(self):
+        # Test API DELETE method api/user
+        self.assertTrue(True)
+
+
+    def test_delete_game_valid(self):
+        # Test API DELETE method api/game
+        self.assertTrue(True)
+
+
+    def test_delete_game_invalid(self):
+        # Test API DELETE method api/game
+        self.assertTrue(True)
+
+
+    def test_delete_team_valid(self):
+        # Test API DELETE method api/team
+        self.assertTrue(True)
+
+
+    def test_delete_team_invalid(self):
+        # Test API DELETE method api/team
+        self.assertTrue(True)
+
+
+    def test_delete_community_valid(self):
+        # Test API DELETE method api/community
+        self.assertTrue(True)
+
+
+    def test_delete_community_invalid(self):
+        # Test API DELETE method api/community
+        self.assertTrue(True)
+
+
+    def test_update_user_valid(self):
+        # Test API PUT method api/user
+        self.assertTrue(True)
+
+
+    def test_update_user_invalid(self):
+        # Test API PUT method api/user
+        self.assertTrue(True)
+
+
+    def test_update_game_valid(self):
+        # Test API PUT method api/game
+        self.assertTrue(True)
+
+
+    def test_update_game_invalid(self):
+        # Test API PUT method api/game
+        self.assertTrue(True)
+
+
+    def test_update_team_valid(self):
+        # Test API PUT method api/team
+        self.assertTrue(True)
+
+
+    def test_update_team_invalid(self):
+        # Test API PUT method api/team
+        self.assertTrue(True)
+
+
+    def test_update_community_valid(self):
+        # Test API PUT method api/community
+        self.assertTrue(True)
+
+
+    def test_update_community_invalid(self):
+        # Test API PUT method api/community
+        self.assertTrue(True)
+
+
 class TestDatabase(TestCase):
 
     def test_get_user(self) :
@@ -81,7 +332,11 @@ class TestDatabase(TestCase):
 
     def test_get_user_badid(self) :
         id_num = '-1'
-        query = User.query.get(id_num)
+        try:
+            query = User.query.get(id_num)
+            db.session.close()
+        except:
+            db.session.rollback()
         self.assertEqual(query, None)
 
     def test_get_game(self) :
