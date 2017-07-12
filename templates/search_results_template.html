@@ -91,14 +91,27 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in user_search_results %}
+                                    {% for user in user_search_results %}
+                                        {% if loop.first %}
+                                            <li data-target="#userCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#userCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#userCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for user in user_search_results %}
                                         {% if loop.first %}
                                             <li data-target="#userCarousel" data-slide-to="0" class="active">1</li>
                                         {% elif loop.index % 3 == 0 and not loop.last %}
                                             <li data-target="#userCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                         {% endif %}
                                     {% endfor %}
-                                </ol>
+                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -161,6 +174,19 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for game in game_search_results %}
+                                        {% if loop.first %}
+                                            <li data-target="#gameCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#gameCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#gameCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                     {% for team in game_search_results %}
                                         {% if loop.first %}
                                             <li data-target="#gameCarousel" data-slide-to="0" class="active">1</li>
@@ -168,7 +194,7 @@
                                             <li data-target="#gameCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                         {% endif %}
                                     {% endfor %}
-                                </ol>
+                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -231,6 +257,19 @@
 
                             <!-- Indicators -->
                             <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for team in team_search_results %}
+                                        {% if loop.first %}
+                                            <li data-target="#teamCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                            <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                 {% for team in team_search_results %}
                                     {% if loop.first %}
                                         <li data-target="#teamCarousel" data-slide-to="0" class="active">1</li>
@@ -238,7 +277,7 @@
                                         <li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                     {% endif %}
                                 {% endfor %}
-                            </ol>
+                            </ol> -->
                             </div>
                         </div>
                     </div>
@@ -301,6 +340,19 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for community in community_search_results %}
+                                        {% if loop.first %}
+                                            <li data-target="#communityCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                     {% for team in community_search_results %}
                                         {% if loop.first %}
                                             <li data-target="#communityCarousel" data-slide-to="0" class="active">1</li>
@@ -308,7 +360,7 @@
                                             <li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                         {% endif %}
                                     {% endfor %}
-                                </ol>
+                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -372,6 +424,19 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for user in user_search_results_or %}
+                                        {% if loop.first %}
+                                            <li data-target="#oruserCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#oruserCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#oruserCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                     {% for team in user_search_results_or %}
                                         {% if loop.first %}
                                             <li data-target="#orUserCarousel" data-slide-to="0" class="active">1</li>
@@ -379,7 +444,7 @@
                                             <li data-target="#orUserCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                         {% endif %}
                                     {% endfor %}
-                                </ol>
+                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -442,6 +507,19 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for game in game_search_results_or %}
+                                        {% if loop.first %}
+                                            <li data-target="#orGameCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#orGameCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#orGameCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                     {% for team in game_search_results_or %}
                                         {% if loop.first %}
                                             <li data-target="#orGameCarousel" data-slide-to="0" class="active">1</li>
@@ -449,7 +527,7 @@
                                             <li data-target="#orGameCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                         {% endif %}
                                     {% endfor %}
-                                </ol>
+                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -512,6 +590,19 @@
 
                             <!-- Indicators -->
                             <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for team in team_search_results_or %}
+                                        {% if loop.first %}
+                                            <li data-target="#orTeamCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#orTeamCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#orTeamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                            <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                 {% for team in team_search_results_or %}
                                     {% if loop.first %}
                                         <li data-target="#orTeamCarousel" data-slide-to="0" class="active">1</li>
@@ -519,7 +610,7 @@
                                         <li data-target="#orTeamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                     {% endif %}
                                 {% endfor %}
-                            </ol>
+                            </ol> -->
                             </div>
                         </div>
                     </div>
@@ -582,6 +673,19 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+                                    {% for community in community_search_results_or %}
+                                        {% if loop.first %}
+                                            <li data-target="#orCommunityCarousel" data-slide-to="0" class="active">1</li>
+                                        {% elif loop.index % 3 == 0 and not loop.last %}
+                                            {% if (loop.index // 3 > 4) %}
+                                            <li data-target="#orCommunityCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+                                            {% else %}
+                                            <li data-target="#orCommunityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
                                     {% for team in community_search_results_or %}
                                         {% if loop.first %}
                                             <li data-target="#orCommunityCarousel" data-slide-to="0" class="active">1</li>
@@ -589,7 +693,7 @@
                                             <li data-target="#orCommunityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
                                         {% endif %}
                                     {% endfor %}
-                                </ol>
+                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -601,4 +705,3 @@
 {% endblock %}
 
 <script src="base.html"></script>
->>>>>>> f85e3c670cf6a74fb1f905601b5908c0923bf1e1
