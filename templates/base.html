@@ -65,7 +65,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<!-- <div class ="search-bar"> -->
 				<div data-reactid=".0.0.0.2" class="col-sm-3">
-					<div class= "input" data-reactid=".0.0.0.2.0">
+					<div class= "input" size = 30 data-reactid=".0.0.0.2.0">
 						<form class="form-inline navbar-form" action="/search">
 						<div class="form-group" data-reactid=".0.0.0.2.0.$0">
 							<input placeholder="Search..." max="12" type="text" id="search-form" value class="form-control" data-reactid=".0.0.0.2.0.$0.1:$input" name="search_string"/>
@@ -106,11 +106,12 @@
 		<script src="/static/js/agency.min.js"></script>
 
 		<!-- React -->
-		<script src="https://unpkg.com/react@15/dist/react.js"></script> 
-		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+		<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+		<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
 		
 		{% block scripts %}
-
+		<script src="/static/js/index.js"></script>
+		<script src="/static/css/index.css"></script>
 
 		{% endblock %}
 
