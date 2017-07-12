@@ -36,12 +36,35 @@
 
 
 		<!-- Navigation -->
-		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
-			<div class="container">
+		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="padding-left:25px; padding-right:25px;">
+
+			
+			<!-- <div class="container"> -->
+
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header page-scroll">
+				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+				    </button>
+				    <a class="navbar-brand page-scroll" href="/">streamGlean</a>
+
+				</div>
+
+
+				<div data-reactid=".0.0.0.2" class="col-sm-3">
+					<div class= "input" data-reactid=".0.0.0.2.0">
+						<form class="form-inline navbar-form" action="/search">
+						<div class="form-group" data-reactid=".0.0.0.2.0.$0">
+							<input placeholder="Search..." size="50" max="12" type="text" value class="form-control" data-reactid=".0.0.0.2.0.$0.1:$input" name="search_string"/>
+						</div>
+						</form>
+					</div>
+				</div>
+
 				{% block navbar %}
 
 				{% endblock %}
-				<center>
+				<!-- <center>
 					<div data-reactid=".0.0.0.2">
 						<div class= "input" data-reactid=".0.0.0.2.0">
 							<form class="form-inline" action="/search">
@@ -51,9 +74,9 @@
 							</form>
 						</div>
 					</div>
-				</center>
+				</center> -->
 				<!-- /.navbar-collapse -->
-			</div>
+			<!-- </div> -->
 			<!-- /.container-fluid -->
 
 		</nav>
