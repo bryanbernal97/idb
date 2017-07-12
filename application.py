@@ -374,6 +374,9 @@ def search():
     for i in split_search_string:
         wildcard_search_string += '*' + i + '* '
 
+    split_terms = search_string.split()
+    num_terms = len(split_terms)
+
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
     #user_search_result = User.query.whoosh_search(input).all()
     #game_search_result = Game.query.whoosh_search(input).all()
@@ -395,26 +398,28 @@ def search():
     for community in Community.query.whoosh_search(wildcard_search_string).all() :
         community_search_results.append(object_as_dict(community))
 
+    print(len(user_search_results))
     # returns search results using "or" operator
     user_search_results_or = []
     game_search_results_or = []
     team_search_results_or = []
     community_search_results_or = []
-    for user in User.query.whoosh_search(wildcard_search_string, or_=True).all() :
-        user_search_results_or.append(object_as_dict(user))
-    for game in Game.query.whoosh_search(wildcard_search_string, or_=True).all() :
-        game_search_results_or.append(object_as_dict(game))
-    for team in Team.query.whoosh_search(wildcard_search_string, or_=True).all() :
-        team_search_results_or.append(object_as_dict(team))
-    for community in Community.query.whoosh_search(wildcard_search_string, or_=True).all() :
-        community_search_results_or.append(object_as_dict(community))
+    if num_terms > 1 :
+        for user in User.query.whoosh_search(wildcard_search_string, or_=True).all() :
+            user_search_results_or.append(object_as_dict(user))
+        for game in Game.query.whoosh_search(wildcard_search_string, or_=True).all() :
+            game_search_results_or.append(object_as_dict(game))
+        for team in Team.query.whoosh_search(wildcard_search_string, or_=True).all() :
+            team_search_results_or.append(object_as_dict(team))
+        for community in Community.query.whoosh_search(wildcard_search_string, or_=True).all() :
+            community_search_results_or.append(object_as_dict(community))
 
-    print(user_search_results)
+    print(len(user_search_results))
 
-    return render_template('search_results_template.html', search_string=search_string, user_search_results=user_search_results, 
-        game_search_results=game_search_results, team_search_results=team_search_results, community_search_results=community_search_results,
-        user_search_results_or=user_search_results_or, game_search_results_or=game_search_results_or, team_search_results_or=team_search_results_or, 
-        community_search_results_or=community_search_results_or)
+    return render_template('search_results_template.html', num_terms=num_terms, search_string=search_string, split_terms = split_terms, 
+        user_search_results=user_search_results, game_search_results=game_search_results, team_search_results=team_search_results, 
+        community_search_results=community_search_results, user_search_results_or=user_search_results_or, game_search_results_or=game_search_results_or, 
+        team_search_results_or=team_search_results_or, community_search_results_or=community_search_results_or)
 
 
 # run the app.
