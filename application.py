@@ -367,6 +367,7 @@ def object_as_dict(obj):
 @application.route('/search', methods = ['GET', 'POST'])
 def search():
     search_string = request.args.get('search_string')
+    search_string = ('*' + search_string + '*') # enables wildcard search
 
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
     #user_search_result = User.query.whoosh_search(input).all()
