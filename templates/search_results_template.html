@@ -55,7 +55,7 @@
     <div class="container">
         <div class="row">
             <h3>
-                Users Containing {{search_string}}:
+                {{user_search_results|length}} Users Containing {{search_string}}:
                 </div>
                 <hr>
                 <div class="row">
@@ -121,7 +121,7 @@
     <div class="container">
         <div class="row">
             <h3>
-                Games Containing {{search_string}}:
+                {{game_search_results|length}}Games Containing {{search_string}}:
                 </div>
                 <hr>
                 <div class="row">
@@ -188,7 +188,7 @@
         <div class="row">
             <h3>
                 {% if team_search_results %}
-                Teams Containing {{search_string}}:
+                {{team_search_results|length}} Teams Containing {{search_string}}:
                 </div>
                 <hr>
                 <div class="row">
@@ -258,7 +258,7 @@
         <div class="row">
             <h3>
                 {% if community_search_results %}
-                    Communities Containing {{search_string}}:
+                    {{community_search_results|length}} Communities Containing {{search_string}}:
                     <hr>
                     <div class="row">
                         <div class="col-lg-12 text-center">
