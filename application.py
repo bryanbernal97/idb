@@ -368,11 +368,19 @@ def object_as_dict(obj):
 def search():
     search_string = request.args.get('search_string')
     wildcard_search_string = ''
+    and_wildcard_search_string = ''
 
     # Split search string to make each term into a wildcard keyword
+    # only used for OR searches
     split_search_string = search_string.split(' ')
     for i in split_search_string:
         wildcard_search_string += '*' + i + '* '
+
+    # Wildcard search string, only used for AND searches. THere's a long explanation why
+    # but im not going to bother
+    # NVM Scratch that. wildcard searches when connected with AND operators make things really
+    # weird, so don't make it default for this
+#    and_wildcard_search_string = '*' + search_string + '*' + ' ' + search_string
 
     split_terms = search_string.split()
     num_terms = len(split_terms)
@@ -389,13 +397,13 @@ def search():
     game_search_results = []
     team_search_results = []
     community_search_results = []
-    for user in User.query.whoosh_search(wildcard_search_string).all() :
+    for user in User.query.whoosh_search(search_string).all() :
         user_search_results.append(object_as_dict(user))
-    for game in Game.query.whoosh_search(wildcard_search_string).all() :
+    for game in Game.query.whoosh_search(search_string).all() :
         game_search_results.append(object_as_dict(game))
-    for team in Team.query.whoosh_search(wildcard_search_string).all() :
+    for team in Team.query.whoosh_search(search_string).all() :
         team_search_results.append(object_as_dict(team))
-    for community in Community.query.whoosh_search(wildcard_search_string).all() :
+    for community in Community.query.whoosh_search(search_string).all() :
         community_search_results.append(object_as_dict(community))
 
     print(len(user_search_results))
