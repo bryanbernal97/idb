@@ -113,10 +113,23 @@
 									{% if loop.first %}
 										<li data-target="#communityCarousel" data-slide-to="0" class="active">1</li>
 									{% elif loop.index % 3 == 0 and not loop.last %}
+										{% if (loop.index // 3 > 4) %}
+										<li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+										{% else %}
 										<li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+										{% endif %}
 									{% endif %}
 								{% endfor %}
 							</ol>
+							<!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+								{% for community in communities %}
+									{% if loop.first %}
+										<li data-target="#communityCarousel" data-slide-to="0" class="active">1</li>
+									{% elif loop.index % 3 == 0 and not loop.last %}
+										<li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+									{% endif %}
+								{% endfor %}
+							</ol> -->
 						</div>
 					</div>
 				</div>

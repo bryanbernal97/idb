@@ -94,7 +94,7 @@
 													</div>
 													<img src={{user['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
 												</a>
-												<div class="portfolio-caption portfolio-caption-gray">
+												<div class="portfolio-caption portfolio-caption-white">
 													<h4>{{user['name']}}</h4>
 												</div>
 											</div>
@@ -118,7 +118,11 @@
 									{% if loop.first %}
 										<li data-target="#userCarousel" data-slide-to="0" class="active">1</li>
 									{% elif loop.index % 3 == 0 and not loop.last %}
+										{% if (loop.index // 3 > 4) %}
+										<li data-target="#userCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+										{% else %}
 										<li data-target="#userCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+										{% endif %}
 									{% endif %}
 								{% endfor %}
 							</ol>
