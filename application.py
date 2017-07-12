@@ -367,7 +367,12 @@ def object_as_dict(obj):
 @application.route('/search', methods = ['GET', 'POST'])
 def search():
     search_string = request.args.get('search_string')
- #   wc_search_string = ('*' + search_string + '*') # enables wildcard search
+    wildcard_search_string = ''
+
+    # Split search string to make each term into a wildcard keyword
+    split_search_string = search_string.split(' ')
+    for i in split_search_string:
+        wildcard_search_string += '*' + i + '* '
 
     #Separated results in case it's more convenient...depends on how we do the search results page I guess
     #user_search_result = User.query.whoosh_search(input).all()
@@ -381,13 +386,13 @@ def search():
     game_search_results = []
     team_search_results = []
     community_search_results = []
-    for user in User.query.whoosh_search(search_string).all() :
+    for user in User.query.whoosh_search(wildcard_search_string).all() :
         user_search_results.append(object_as_dict(user))
-    for game in Game.query.whoosh_search(search_string).all() :
+    for game in Game.query.whoosh_search(wildcard_search_string).all() :
         game_search_results.append(object_as_dict(game))
-    for team in Team.query.whoosh_search(search_string).all() :
+    for team in Team.query.whoosh_search(wildcard_search_string).all() :
         team_search_results.append(object_as_dict(team))
-    for community in Community.query.whoosh_search(search_string).all() :
+    for community in Community.query.whoosh_search(wildcard_search_string).all() :
         community_search_results.append(object_as_dict(community))
 
     # returns search results using "or" operator
@@ -395,13 +400,13 @@ def search():
     game_search_results_or = []
     team_search_results_or = []
     community_search_results_or = []
-    for user in User.query.whoosh_search(search_string, or_=True).all() :
+    for user in User.query.whoosh_search(wildcard_search_string, or_=True).all() :
         user_search_results_or.append(object_as_dict(user))
-    for game in Game.query.whoosh_search(search_string, or_=True).all() :
+    for game in Game.query.whoosh_search(wildcard_search_string, or_=True).all() :
         game_search_results_or.append(object_as_dict(game))
-    for team in Team.query.whoosh_search(search_string, or_=True).all() :
+    for team in Team.query.whoosh_search(wildcard_search_string, or_=True).all() :
         team_search_results_or.append(object_as_dict(team))
-    for community in Community.query.whoosh_search(search_string, or_=True).all() :
+    for community in Community.query.whoosh_search(wildcard_search_string, or_=True).all() :
         community_search_results_or.append(object_as_dict(community))
 
     print(user_search_results)
