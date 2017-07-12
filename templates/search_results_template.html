@@ -3,7 +3,6 @@
 
 {% block navbar %}
 
-
 <!-- Search Bar 
 <div class="col-md-3">
     <form class="navbar-form" role="search">
@@ -54,7 +53,12 @@
 <section id=results>
     <div class="container">
         <div class="row">
-            <h3>
+            <div class="col-md-4 col-md-offset-4 text-center">
+            <h2 class="text-center">Search Results</h2>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <h4>
                 {{user_search_results|length}} Users Containing {{search_string}}:
                 </div>
                 <hr>
@@ -120,7 +124,7 @@
 <section id=results>
     <div class="container">
         <div class="row">
-            <h3>
+            <h4>
                 {{game_search_results|length}}Games Containing {{search_string}}:
                 </div>
                 <hr>
@@ -186,7 +190,7 @@
 <section id=results>
     <div class="container">
         <div class="row">
-            <h3>
+            <h4>
                 {% if team_search_results %}
                 {{team_search_results|length}} Teams Containing {{search_string}}:
                 </div>
@@ -256,7 +260,7 @@
 <section id=results>
     <div class="container">
         <div class="row">
-            <h3>
+            <h4>
                 {% if community_search_results %}
                     {{community_search_results|length}} Communities Containing {{search_string}}:
                     <hr>
