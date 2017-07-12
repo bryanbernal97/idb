@@ -178,7 +178,7 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in user_search_results %}
+                                    {% for team in game_search_results %}
                                         {% if loop.first %}
                                             <li data-target="#gameCarousel" data-slide-to="0" class="active">1</li>
                                         {% elif loop.index % 3 == 0 and not loop.last %}
@@ -248,7 +248,7 @@
 
                             <!-- Indicators -->
                             <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                {% for team in user_search_results %}
+                                {% for team in team_search_results %}
                                     {% if loop.first %}
                                         <li data-target="#teamCarousel" data-slide-to="0" class="active">1</li>
                                     {% elif loop.index % 3 == 0 and not loop.last %}
@@ -317,7 +317,7 @@
 
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in user_search_results %}
+                                    {% for team in community_search_results %}
                                         {% if loop.first %}
                                             <li data-target="#communityCarousel" data-slide-to="0" class="active">1</li>
                                         {% elif loop.index % 3 == 0 and not loop.last %}

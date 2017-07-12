@@ -105,7 +105,7 @@
                         Streamers:
                         {% if game['user_ids'] %}
                             {% for _id in game['user_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{game['user_names'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_users', wow=_id)}}"><br />{{game['user_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
@@ -117,7 +117,7 @@
                         Teams:
                         {% if game['team_ids'] %}
                             {% for _id in game['team_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{game['team_names'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{game['team_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
@@ -129,7 +129,7 @@
                         Communities:
                         {% if game['community_ids'] %}
                             {% for _id in game['community_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=community)}}"><br />{{game['community_names'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=_id)}}"><br />{{game['community_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
