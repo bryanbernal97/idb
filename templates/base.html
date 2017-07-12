@@ -35,9 +35,12 @@
 	<body id="page-top" class="index">
 
 
-		<!-- Navigation -->
-		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="padding-left:25px; padding-right:25px;">
+		{% block navbar_heading %}
 
+		<!-- Navigation -->
+		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="padding-left:25px; padding-right:25px;background-color:#222222;">
+
+		{% endblock %}
 			
 			<!-- <div class="container"> -->
 
@@ -55,7 +58,7 @@
 					<div class= "input" data-reactid=".0.0.0.2.0">
 						<form class="form-inline navbar-form" action="/search">
 						<div class="form-group" data-reactid=".0.0.0.2.0.$0">
-							<input placeholder="Search..." size="50" max="12" type="text" value class="form-control" data-reactid=".0.0.0.2.0.$0.1:$input" name="search_string"/>
+							<input placeholder="Search..." max="12" type="text" value class="form-control" data-reactid=".0.0.0.2.0.$0.1:$input" name="search_string"/>
 						</div>
 						</form>
 					</div>
