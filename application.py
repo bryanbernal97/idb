@@ -59,6 +59,7 @@ def show_all_communities():
 def show_users(wow):
     q = User.query.get(wow)
     user = {}
+    user['id'] = q.id
     user['name'] = q.name
     user['description'] = q.description
     user['language'] = q.language

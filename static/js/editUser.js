@@ -48,6 +48,14 @@ $("#user-edit-submit").click(function() {
 		console.log('Form changed');
 		// This is where i will make the call to the backend to update the instance
 		// Make the value of the normal fields be the values of the form and alert if the update was a success or failure
+		$("#user-name").text($("#user-name-edit").val());
+		$("#user-description").text($("#user-description-edit").val());
+		$("#user-language").text($("#user-language-edit").val());
+		$("#user-views").text($("#user-views-edit").val());
+		$("#user-followers").text($("#user-followers-edit").val());
+		$("#user-url").text($("#user-url-edit").val());
+		$("#user-created").text($("#user-created-edit").val());
+		$("#user-updated").text($("#user-updated-edit").val());
 	} else {
 		console.log('Form did not change no need to call API');
 	}
