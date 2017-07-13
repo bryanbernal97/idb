@@ -167,7 +167,7 @@
 									</small>
 								{% endfor %}
 								<small>
-									<select class="form-control" id="user-teams-edit" name="user-teams-edit">
+									<select multiple class="form-control" id="user-teams-edit" name="user-teams-edit">
 										<option >None</option>
 										{% for team in teams %}
 											{% if team['id'] in user['team_ids'] %}
