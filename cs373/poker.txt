@@ -53,8 +53,8 @@ Group 2
         general caused us to be confused about a lot of details and we were constantly modifying how
         the function performed. 
         
-10. Implement highlighting/bolding of search term
-        Estimated time: 2 hours
+10. Add react elements
+        Estimated time: 5 hours
         Actual time: 3 hours
         
     
