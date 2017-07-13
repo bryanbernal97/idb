@@ -1,13 +1,5 @@
-.............................................F.......
-======================================================================
-FAIL: test_get_community_badid (__main__.TestDatabase)
+.....................................................
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "tests.py", line 1223, in test_get_community_badid
-    self.assertTrue(False)
-AssertionError: False is not true
+Ran 53 tests in 32.403s
 
-----------------------------------------------------------------------
-Ran 53 tests in 34.016s
-
-FAILED (failures=1)
+OK

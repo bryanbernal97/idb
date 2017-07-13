@@ -1220,7 +1220,6 @@ class TestDatabase(TestCase):
         id_num = '-1'
         query = Community.query.get(id_num)
         self.assertEqual(query, None)
-        self.assertTrue(False)
 
     def test_get_name_by_id(self) :
 
