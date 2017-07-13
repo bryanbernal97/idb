@@ -55,7 +55,9 @@ $("#user-edit-submit").click(function() {
 		$("#user-language").text($("#user-language-edit").val());
 		$("#user-views").text($("#user-views-edit").val());
 		$("#user-followers").text($("#user-followers-edit").val());
-		$("#user-url").text($("#user-url-edit").val());
+		var userUrl = $("#user-url-edit").val();
+		var userUrlHtml = "<a href='" + userUrl + "'>" + userUrl + "</a>";
+		$("#user-url").html(userUrlHtml);
 		var gameID = $("#user-game-edit").val();
 		var gameName = $("#user-game-edit option:selected").text();
 		var gameHref = '/games/' + gameID;
