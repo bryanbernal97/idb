@@ -59,15 +59,19 @@ $("#user-edit-submit").click(function() {
 		var userUrlHtml = "<a href='" + userUrl + "'>" + userUrl + "</a>";
 		$("#user-url").html(userUrlHtml);
 		var gameID = $("#user-game-edit").val();
-		var gameName = $("#user-game-edit option:selected").text();
-		var gameHref = '/games/' + gameID;
-		var gameHTML = "<a href='" + gameHref + "'>" + gameName + "</a>";
-		$("#user-game").html(gameHTML);
+		if (gameID == 'None') {
+			$("#user-game").text('None');
+		} else {
+			var gameName = $("#user-game-edit option:selected").text();
+			var gameHref = '/games/' + gameID;
+			var gameHTML = "<a href='" + gameHref + "'>" + gameName + "</a>";
+			$("#user-game").html(gameHTML);
+		}
 		$("#user-created").text($("#user-created-edit").val());
 		$("#user-updated").text($("#user-updated-edit").val());
-	} else {
-		console.log('Form did not change no need to call API');
-	}
+	} //else {
+	// 	console.log('Form did not change no need to call API');
+	// }
 
 	$("#user-name-edit").hide();
 	$("#user-description-edit").hide();
