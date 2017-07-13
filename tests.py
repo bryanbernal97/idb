@@ -10,10 +10,12 @@ class TestApi(TestCase):
         Tests the API endpoints and their methods.
     '''
 
-    user_url = 'http://streamglean.me/api/user'
-    team_url = 'http://streamglean.me/api/team'
-    game_url = 'http://streamglean.me/api/game'
-    community_url = 'http://streamglean.me/api/community'
+    TEST_ENVIRONMENT = 'http://streamglean.me'
+
+    user_url = TEST_ENVIRONMENT + '/api/user'
+    team_url = TEST_ENVIRONMENT + '/api/team'
+    game_url = TEST_ENVIRONMENT + '/api/game'
+    community_url = TEST_ENVIRONMENT + '/api/community'
     headers = {'content-type': 'application/json'}
 
     
