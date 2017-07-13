@@ -16,9 +16,12 @@ format:
 	$(AUTOPEP8) -i db_populate.py
 	$(AUTOPEP8) -i tests.py
 
-test:
+coverage:
 	-$(COVERAGE) run    --branch tests.py >  tests.out 2>&1
 	cat tests.out
+
+test:
+	python tests.py
 
 versions:
 	which make
