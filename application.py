@@ -65,8 +65,8 @@ def show_users(wow):
     user['views'] = q.views
     user['followers'] = q.followers
     user['url'] = q.url
-    user['created'] = q.created
-    user['updated'] = q.updated
+    user['created'] = q.created.date()
+    user['updated'] = q.updated.date()
     image_url = q.image_url
     if not image_url:
         image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'

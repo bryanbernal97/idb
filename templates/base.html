@@ -92,10 +92,12 @@
 		<!-- React Production Build-->
 		<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
 		<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-		
-		{% block scripts %}
+
+		<!-- Need to rename these to be base.js and base.css (or move to index.html if it's only for index template) -->
 		<script src="/static/js/index.js"></script>
 		<script src="/static/css/index.css"></script>
+		
+		{% block scripts %}
 
 		{% endblock %}
 
