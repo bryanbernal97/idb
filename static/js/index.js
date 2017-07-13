@@ -1,6 +1,4 @@
 //console.log("hiiiiiii I am a seal bark!");
-//var React = 'react';
-//var ReactDOM = 'react-dom';
 var r = React.createElement;
 var outerClass = {class:"col-lg-12 text-center"};
 var innerClass = {class:"text-muted"};
