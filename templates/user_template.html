@@ -162,10 +162,34 @@
 							Teams:
 							{% if user['team_ids'] %}
 								{% for _id in user['team_ids'] %}
-									<small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{user['team_names'][_id]}}</a></small>
+									<small class="text-muted" id="user-teams">
+										<a href="{{ url_for('show_teams', wow=_id)}}"><br />{{user['team_names'][_id]}}</a>
+									</small>
 								{% endfor %}
+								<small>
+									<select class="form-control" id="user-teams-edit" name="user-teams-edit">
+										<option >None</option>
+										{% for team in teams %}
+											{% if team['id'] in user['team_ids'] %}
+												<option value="{{team['id']}}" selected>{{team['name']}}</option>
+											{% else %}
+												<option value="{{team['id']}}">{{team['name']}}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</small>
 							{% else %}
-								<small class="text-muted">None</small>
+								<small class="text-muted" id="user-teams">
+									None
+								</small>
+								<small>
+									<select multiple class="form-control" id="user-teams-edit" name="user-teams-edit">
+										<option selected>None</option>
+										{% for team in teams %}
+											<option value="{{team['id']}}">{{team['name']}}</option>
+										{% endfor %}
+									</select>
+								</small>
 							{% endif %}
 						</h3>
 

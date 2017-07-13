@@ -10,9 +10,18 @@ $("#user-followers-edit").hide();
 $("#user-url-edit").hide();
 $("#user-game-edit").hide();
 $("#user-community-edit").hide();
+$("#user-teams-edit").hide();
 $("#user-created-edit").hide();
 $("#user-updated-edit").hide();
 $("#user-edit-submit").hide();
+
+
+// Make sure cannot select None and other teams for multi select on  user edit form
+$('#user-teams-edit').change(function() {
+	if ($('option:first', this).is(':selected')) {
+		$('option:not(:first)', this).prop('selected', false);
+	}
+});
 
 
 var origForm = $('#edit-user-form').serialize();
@@ -22,7 +31,7 @@ $("#user-edit-button").click(function(){
 	origForm = $('#edit-user-form').serialize();
 	// console.log('original form= ' + origForm);
 
-    $("#user-name").hide();
+	$("#user-name").hide();
 	$("#user-description").hide();
 	$("#user-language").hide();
 	$("#user-views").hide();
@@ -30,12 +39,13 @@ $("#user-edit-button").click(function(){
 	$("#user-url").hide();
 	$("#user-game").hide();
 	$("#user-community").hide();
+	$("#user-teams").hide();
 	$("#user-created").hide();
 	$("#user-updated").hide();
 	$("#user-edit-button").hide();
 
 
-    $("#user-name-edit").show();
+	$("#user-name-edit").show();
 	$("#user-description-edit").show();
 	$("#user-language-edit").show();
 	$("#user-views-edit").show();
@@ -43,6 +53,7 @@ $("#user-edit-button").click(function(){
 	$("#user-url-edit").show();
 	$("#user-game-edit").show();
 	$("#user-community-edit").show();
+	$("#user-teams-edit").show();
 	$("#user-created-edit").show();
 	$("#user-updated-edit").show();
 	$("#user-edit-submit").show();
@@ -87,6 +98,43 @@ $("#user-edit-submit").click(function() {
 			$("#user-community").html(communityHtml);
 		}
 
+		// // Teams formatting as HTML links
+		// var teamIds = $("#user-teams-edit").val();
+		// console.log('TEAM IDS: ' + teamIds);
+		
+		// // teamIds should always have a size of at least 1 because at least 1 option should be selected even if it's the None option
+		// var teamsHTML = ""
+		// if (teamIds.size() == 1 && teamIds[0] == 'None') {
+		// 	$("#user-teams").text('None')
+		// } else {
+		// 	$("#user-teams-edit option:selected").each(function () {
+		// 		var $this = $(this);
+		// 		var teamID = $this.val();
+		// 		var teamName = $this.text();
+		// 	});
+		// }
+
+		var teamIds = $("#user-teams-edit").val();
+		if (teamIds.length == 1 && teamIds[0] == 'None') {
+			$("#user-teams").text('None');
+		} else {
+			// Teams formatting as HTML links
+			var teamsHTML = "";
+			$("#user-teams-edit option:selected").each(function () {
+				var $this = $(this);
+				var teamID = $this.val();
+				var teamName = $this.text();
+				if (teamID == 'None') {
+					$("#user-teams").text('None');
+				} else {
+					var teamHref = '/teams/' + teamID;
+					var teamHTML = "<a href='" + teamHref + "'><br />" + teamName + "</a>";
+					teamsHTML += teamHTML;
+				}
+
+			});
+			$("#user-teams").html(teamsHTML);
+		}
 
 		$("#user-created").text($("#user-created-edit").val());
 		$("#user-updated").text($("#user-updated-edit").val());
@@ -102,6 +150,7 @@ $("#user-edit-submit").click(function() {
 	$("#user-url-edit").hide();
 	$("#user-game-edit").hide();
 	$("#user-community-edit").hide();
+	$("#user-teams-edit").hide();
 	$("#user-created-edit").hide();
 	$("#user-updated-edit").hide();
 	$("#user-edit-submit").hide();
@@ -114,6 +163,7 @@ $("#user-edit-submit").click(function() {
 	$("#user-url").show();
 	$("#user-game").show();
 	$("#user-community").show();
+	$("#user-teams").show();
 	$("#user-created").show();
 	$("#user-updated").show();
 	$("#user-edit-button").show();
