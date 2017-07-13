@@ -13,8 +13,13 @@ $("#user-updated-edit").hide();
 $("#user-edit-submit").hide();
 
 
+var origForm = $('#edit-user-form').serialize();
 
 $("#user-edit-button").click(function(){
+
+	origForm = $('#edit-user-form').serialize();
+	// console.log('original form= ' + origForm);
+
     $("#user-name").hide();
 	$("#user-description").hide();
 	$("#user-language").hide();
@@ -39,8 +44,13 @@ $("#user-edit-button").click(function(){
 
 $("#user-edit-submit").click(function() {
 
-	// This is where i will make the call to the backend to update the instance
-	// Make the value of the form be the value of the normal fields and alert that the update was a success
+	if ($('#edit-user-form').serialize() != origForm) {
+		console.log('Form changed');
+		// This is where i will make the call to the backend to update the instance
+		// Make the value of the normal fields be the values of the form and alert if the update was a success or failure
+	} else {
+		console.log('Form did not change no need to call API');
+	}
 
 	$("#user-name-edit").hide();
 	$("#user-description-edit").hide();

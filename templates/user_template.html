@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 
-					<form>
+					<form id="edit-user-form">
 						
 						<!-- Picture -->
 						<img src={{user['image_url']}}>
@@ -48,42 +48,42 @@
 						<h3>
 							Name:
 							<small id="user-name" class="text-muted">{{user['name']}}</small>
-							<small><input type="text" class="form-control" id="user-name-edit" value="{{user['name']}}"></small>
+							<small><input type="text" class="form-control" id="user-name-edit" name="user-name-edit" value="{{user['name']}}"></small>
 						</h3>
 
 						<!-- Description -->
 						<h3>
 							Description:
 							<small id="user-description" class="text-muted">{{user['description']}}</small>
-							<small><textarea class="form-control" id="user-description-edit">{{user['description']}}</textarea></small>
+							<small><textarea class="form-control" id="user-description-edit" name="user-description-edit">{{user['description']}}</textarea></small>
 						</h3>
 
 						<!-- Language -->
 						<h3>
 							Language:
 							<small id="user-language" class="text-muted">{{user['language']}}</small>
-							<small><input type="text" id="user-language-edit" class="form-control" value="{{user['language']}}"></small>
+							<small><input type="text" id="user-language-edit" name="user-language-edit" class="form-control" value="{{user['language']}}"></small>
 						</h3>
 
 						<!-- Views -->
 						<h3>
 							Views:
 							<small id="user-views" class="text-muted">{{user['views']}}</small>
-							<small><input type="text" id="user-views-edit" class="form-control" value="{{user['views']}}"></small>
+							<small><input type="text" id="user-views-edit" name="user-views-edit" class="form-control" value="{{user['views']}}"></small>
 						</h3>
 
 						<!-- Followers -->
 						<h3>
 							Followers:
 							<small id="user-followers" class="text-muted">{{user['followers']}}</small>
-							<small><input type="text" id="user-followers-edit" class="form-control" value="{{user['followers']}}">
+							<small><input type="text" id="user-followers-edit" name="user-followers-edit" class="form-control" value="{{user['followers']}}">
 						</h3>
 						
 						<!-- URL -->
 						<h3>
 							URL:
 							<small id="user-url" class="text-muted"><a href={{user['url']}}>{{user['url']}}</a></small>
-							<small><input type="url" id="user-url-edit" class="form-control" value="{{user['url']}}>{{user['url']}}"></small>
+							<small><input type="url" id="user-url-edit" name="user-url-edit" class="form-control" value="{{user['url']}}>{{user['url']}}"></small>
 						</h3>
 
 						<!-- Game -->
@@ -125,7 +125,7 @@
 							<small id="user-created" class="text-muted">{{user['created']}}</small>
 							<!-- <small><input type="text" id="user-created-edit" class="form-contrl" value="{{user['created']}}"></small> -->
 							<small>
-								<input class="form-control" type="date" value="{{user['created']}}" id="user-created-edit">
+								<input class="form-control" type="date" value="{{user['created']}}" id="user-created-edit" name="user-created-edit">
 							</small>
 						</h3>
 
@@ -134,7 +134,7 @@
 							Updated:
 							<small id="user-updated" class="text-muted">{{user['updated']}}</small>
 							<small>
-								<input class="form-control" type="date" value="{{user['updated']}}" id="user-updated-edit">
+								<input class="form-control" type="date" value="{{user['updated']}}" id="user-updated-edit" name="user-updated-edit">
 							</small>
 						</h3>
 
