@@ -1,4 +1,8 @@
 //console.log("hiiiiiii I am a seal bark!");
+/**
+  * @jsx React.DOM
+*/
+
 var r = React.createElement;
 var outerClass = {class:"col-lg-12 text-center"};
 var innerClass = {class:"text-muted"};
@@ -7,14 +11,44 @@ ReactDOM.render(
 	r('div', outerClass, null,
 		r('small', innerClass, wallOfText)), document.getElementById('aboutText'));
 
-// var searchNames = ['Sydney', 'Melbourne', 'Brisbane', 
-//     'Adelaide', 'Perth', 'Hobart'];
-// //...
-// <DropdownInput 
-//     options={searchNames}
-//     defaultValue={this.props.initialValue}
-//     menuClassName='dropdown-input'
-//     onSelect={this.handleSelectName}
-//     placeholder='Search...'
-// />
+// var SearchBox = React.createClass({
+//     doSearch:function(){
+//         var query=this.refs.searchInput.getDOMNode().value; // this is the search text
+//         this.props.doSearch(query);
+//     },
+//     render:function(){
+//         return <input type="text" ref="search_string" placeholder="Search..." value={this.props.query} onChange={this.doSearch}/>
+//     }
+// });
 
+// var InstantBox = React.createClass({
+//     doSearch:function(queryText){
+//         console.log(queryText)
+//         //get query result
+//         var queryResult=[];
+//         this.props.data.forEach(function(person){
+//             if(person.name.toLowerCase().indexOf(queryText)!=-1)
+//             queryResult.push(person);
+//         });
+ 
+//         this.setState({
+//             query:queryText,
+//             filteredData: queryResult
+//         })
+//     },
+//     getInitialState:function(){
+//         return{
+//             query:'',
+//             filteredData: this.props.data
+//         }
+//     },
+//     render:function(){
+//         return (
+//             <div className="InstantBox">
+//                 <h2>Void Canvas Instant Search</h2>
+//                 <SearchBox query={this.state.query} doSearch={this.doSearch}/>
+//                 <DisplayTable data={this.state.filteredData}/>
+//             </div>
+//         );
+//     }
+//});
