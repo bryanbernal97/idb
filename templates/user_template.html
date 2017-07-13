@@ -91,10 +91,39 @@
 						<!-- Game -->
 						<h3>
 							Game:
+							
 							{% if user['game_id'] %}
-							<small class="text-muted"><a href="{{ url_for('show_games', wow=user['game_id'])}}">{{user['game']}}</a></small>
+								<small class="text-muted" id="user-game">
+									<a href="{{ url_for('show_games', wow=user['game_id'])}}">{{user['game']}}</a>
+								</small>
+								<small>
+									<select class="form-control" id="user-game-edit" name="user-game-edit">
+										<option >None</option>
+										{% for game in games %}
+											{% if user['game_id'] == game['id'] %}
+												<option value="{{game['id']}}" selected>{{game['name']}}</option>
+											{% else %}
+												<option value="{{game['id']}}">{{game['name']}}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</small>
 							{% else %}
-							<small class="text-muted">None</small>
+								<small class="text-muted" id="user-game">
+									None
+								</small>
+								<small>
+									<select class="form-control" id="user-game-edit" name="user-game-edit">
+										<option selected>None</option>
+										{% for game in games %}
+											<option value="{{game['id']}}">{{game['name']}}</option>
+										{% endfor %}
+								  		<!-- <option>1</option>
+								  		<option>2</option>
+								  		<option>3</option>
+								  		<option>4</option> -->
+									</select>
+								</small>
 							{% endif %}
 						</h3>
 
