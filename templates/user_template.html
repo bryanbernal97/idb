@@ -91,7 +91,6 @@
 						<!-- Game -->
 						<h3>
 							Game:
-							
 							{% if user['game_id'] %}
 								<small class="text-muted" id="user-game">
 									<a href="{{ url_for('show_games', wow=user['game_id'])}}">{{user['game']}}</a>
@@ -118,10 +117,6 @@
 										{% for game in games %}
 											<option value="{{game['id']}}">{{game['name']}}</option>
 										{% endfor %}
-								  		<!-- <option>1</option>
-								  		<option>2</option>
-								  		<option>3</option>
-								  		<option>4</option> -->
 									</select>
 								</small>
 							{% endif %}
@@ -131,9 +126,33 @@
 						<h3>
 							Community:
 							{% if user['community_id'] %}
-							<small class="text-muted"><a href="{{ url_for('show_communities', wow=user['community_id'])}}">{{user['community']}}</a></small>
+								<small class="text-muted" id="user-community">
+									<a href="{{ url_for('show_communities', wow=user['community_id'])}}">{{user['community']}}</a>
+								</small>
+								<small>
+									<select class="form-control" id="user-community-edit" name="user-community-edit">
+										<option >None</option>
+										{% for community in communities %}
+											{% if user['community_id'] == community['id'] %}
+												<option value="{{community['id']}}" selected>{{community['name']}}</option>
+											{% else %}
+												<option value="{{community['id']}}">{{community['name']}}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</small>
 							{% else %}
-							<small class="text-muted">None</small>
+								<small class="text-muted" id="user-community">
+									None
+								</small>
+								<small>
+									<select class="form-control" id="user-community-edit" name="user-community-edit">
+										<option selected>None</option>
+										{% for community in communities %}
+											<option value="{{community['id']}}">{{community['name']}}</option>
+										{% endfor %}
+									</select>
+								</small>
 							{% endif %}
 						</h3>
 

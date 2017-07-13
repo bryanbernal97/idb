@@ -9,6 +9,7 @@ $("#user-views-edit").hide();
 $("#user-followers-edit").hide();
 $("#user-url-edit").hide();
 $("#user-game-edit").hide();
+$("#user-community-edit").hide();
 $("#user-created-edit").hide();
 $("#user-updated-edit").hide();
 $("#user-edit-submit").hide();
@@ -28,6 +29,7 @@ $("#user-edit-button").click(function(){
 	$("#user-followers").hide();
 	$("#user-url").hide();
 	$("#user-game").hide();
+	$("#user-community").hide();
 	$("#user-created").hide();
 	$("#user-updated").hide();
 	$("#user-edit-button").hide();
@@ -40,6 +42,7 @@ $("#user-edit-button").click(function(){
 	$("#user-followers-edit").show();
 	$("#user-url-edit").show();
 	$("#user-game-edit").show();
+	$("#user-community-edit").show();
 	$("#user-created-edit").show();
 	$("#user-updated-edit").show();
 	$("#user-edit-submit").show();
@@ -55,9 +58,13 @@ $("#user-edit-submit").click(function() {
 		$("#user-language").text($("#user-language-edit").val());
 		$("#user-views").text($("#user-views-edit").val());
 		$("#user-followers").text($("#user-followers-edit").val());
+
+		// URL formatting as HTML link
 		var userUrl = $("#user-url-edit").val();
 		var userUrlHtml = "<a href='" + userUrl + "'>" + userUrl + "</a>";
 		$("#user-url").html(userUrlHtml);
+		
+		// Game formatting as HTML link
 		var gameID = $("#user-game-edit").val();
 		if (gameID == 'None') {
 			$("#user-game").text('None');
@@ -67,6 +74,20 @@ $("#user-edit-submit").click(function() {
 			var gameHTML = "<a href='" + gameHref + "'>" + gameName + "</a>";
 			$("#user-game").html(gameHTML);
 		}
+
+
+		// Community formatting as HTML link
+		var communityID = $("#user-community-edit").val();
+		if (communityID == 'None') {
+			$("#user-community").text('None');
+		} else {
+			var communityName = $("#user-community-edit option:selected").text();
+			var communityHref = '/communities/' + communityID;
+			var communityHtml = "<a href='" + communityHref + "'>" + communityName + "</a>";
+			$("#user-community").html(communityHtml);
+		}
+
+
 		$("#user-created").text($("#user-created-edit").val());
 		$("#user-updated").text($("#user-updated-edit").val());
 	} //else {
@@ -80,6 +101,7 @@ $("#user-edit-submit").click(function() {
 	$("#user-followers-edit").hide();
 	$("#user-url-edit").hide();
 	$("#user-game-edit").hide();
+	$("#user-community-edit").hide();
 	$("#user-created-edit").hide();
 	$("#user-updated-edit").hide();
 	$("#user-edit-submit").hide();
@@ -91,6 +113,7 @@ $("#user-edit-submit").click(function() {
 	$("#user-followers").show();
 	$("#user-url").show();
 	$("#user-game").show();
+	$("#user-community").show();
 	$("#user-created").show();
 	$("#user-updated").show();
 	$("#user-edit-button").show();

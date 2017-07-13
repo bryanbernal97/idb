@@ -60,6 +60,8 @@ def show_users(wow):
     q = User.query.get(wow)
     user = {}
     games = []
+    teams = []
+    communities = []
     user['id'] = q.id
     user['name'] = q.name
     user['description'] = q.description
@@ -84,6 +86,16 @@ def show_users(wow):
     game_query = Game.query
     for game in game_query:
         games.append({'name': game.name, 'id': game.id})
+
+    # Get all teams for edit drop down
+    team_query = Team.query
+    for team in team_query:
+        teams.append({'name': team.name, 'id': team.id})
+
+    # Get all communities for edit drop down
+    community_query = Community.query
+    for community in community_query:
+        communities.append({'name': community.name, 'id': community.id})
     
     user['community_id'] = q.community_id
     if user['community_id']:
@@ -96,7 +108,7 @@ def show_users(wow):
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
 
-    return render_template('user_template.html', user = user, games = games)
+    return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)
 
 @application.route('/games/<wow>')
 def show_games(wow):
