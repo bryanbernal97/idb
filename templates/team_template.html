@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="hidden">
+        <a href="#page-top"></a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#about">About</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/users#users">Users</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/games#games">Games</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/teams#teams">Teams</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/communities#communities">Communities</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#team">Our Team</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#resources">Resources</a>
+    </li>
+</ul>
+
+{% endblock %}
+
 {% block content %}
 
 <!-- ID -->
@@ -28,7 +59,7 @@
                         Streamers:
                         {% if team['user_ids'] %}
                             {% for _id in team['user_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{team['user_teams'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_users', wow=_id)}}"><br />{{team['user_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
@@ -40,7 +71,7 @@
                         Games:
                         {% if team['game_ids'] %}
                             {% for _id in team['game_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_games', wow=game)}}"><br />{{team['game_teams'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_games', wow=_id)}}"><br />{{team['game_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>

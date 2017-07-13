@@ -1,5 +1,37 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+	
+<ul class="nav navbar-nav navbar-right">
+	<li class="hidden">
+		<a href="#page-top"></a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#about">About</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/users#users">Users</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/games#games">Games</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="#teams">Teams</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/communities#communities">Communities</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#team">Our Team</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#resources">Resources</a>
+	</li>
+</ul>
+
+{% endblock %}
+
+
 {% block content %}
 
 <!-- Teams Section -->
@@ -57,7 +89,7 @@
 													</div>
 													<img src={{team['image_url']}} style="width:350px;height:350px;" class="img-responsive" alt="">
 												</a>
-												<div class="portfolio-caption portfolio-caption-gray">
+												<div class="portfolio-caption portfolio-caption-white">
 													<h4>{{team['name']}}</h4>
 												</div>
 											</div>
@@ -83,10 +115,23 @@
 									{% if loop.first %}
 										<li data-target="#teamCarousel" data-slide-to="0" class="active">1</li>
 									{% elif loop.index % 3 == 0 and not loop.last %}
+										{% if (loop.index // 3 > 4) %}
+										<li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="hidden">{{loop.index // 3 + 1}}</li>
+										{% else %}
 										<li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+										{% endif %}
 									{% endif %}
 								{% endfor %}
 							</ol>
+							<!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
+								{% for team in teams %}
+									{% if loop.first %}
+										<li data-target="#teamCarousel" data-slide-to="0" class="active">1</li>
+									{% elif loop.index % 3 == 0 and not loop.last %}
+										<li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
+									{% endif %}
+								{% endfor %}
+							</ol> -->
 						</div>
 					</div>
 				</div>

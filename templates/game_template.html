@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="hidden">
+        <a href="#page-top"></a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#about">About</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/users#users">Users</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/games#games">Games</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/teams#teams">Teams</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/communities#communities">Communities</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#team">Our Team</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#resources">Resources</a>
+    </li>
+</ul>
+
+{% endblock %}
+
 {% block content %}
 
 <!-- ID -->
@@ -58,7 +89,7 @@
                         Streamers:
                         {% if game['user_ids'] %}
                             {% for _id in game['user_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_users', wow=user)}}"><br />{{game['user_names'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_users', wow=_id)}}"><br />{{game['user_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
@@ -70,7 +101,7 @@
                         Teams:
                         {% if game['team_ids'] %}
                             {% for _id in game['team_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{game['team_names'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{game['team_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
@@ -82,7 +113,7 @@
                         Communities:
                         {% if game['community_ids'] %}
                             {% for _id in game['community_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=community)}}"><br />{{game['community_games'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=_id)}}"><br />{{game['community_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>

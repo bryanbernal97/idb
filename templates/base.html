@@ -25,123 +25,45 @@
 	<!-- Theme CSS -->
 	<link href="/static/css/agency.css" rel="stylesheet">
 
-	<!-- Custom CSS -->
-	{% block css %}
-
-	{% endblock %}
+	<!-- Custom CSS for Tweaks -->
+	<link href="/static/css/custom_css.css" rel="stylesheet">
 	
 
 	</head>
 	<body id="page-top" class="index">
 
 
+		{% block navbar_heading %}
+
 		<!-- Navigation -->
-		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header page-scroll">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-					</button>
-					<a class="navbar-brand page-scroll" href="/">streamGlean</a>
-				</div>
+		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="padding-left:25px; padding-right:25px;background-color:#222222;">
 
-				<!-- Search Bar 
-				<div class="col-md-3">
-					<form class="navbar-form" role="search">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-						</div>
-					</div>
-					</form>
-				</div>
-				-->
-				<!--
-				<div data-reactid=".0.0.0.2">
-					<div class= "dropdown open" data-reactid=".0.0.0.2.0">
-						<div class="form-group" data-reactid=".0.0.0.2.0.$0">
-							<input placeholder="Search..." max="12" type="text" value class="form-control" data-reactid=".0.0.0.2.0.$0.1:$input">
-						</div>
-						<ul class="dropdown-input dropdown-menu" role="menu" data-reactid=".0.0.0.2.0.$1">
-							<li class role="presentation" data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0">…</li>
-							<a href="#" tabindex="-1" data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0">
-								<span data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.0"></span>
-								<b data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.1"></b>
-								<span data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.2">option1</span>
-							</a>
-							</li>
-							<li class role="presentation" data-reactid=".0.0.0.2.0.$1.$=10=2$1:$1">…</li>
-							<a href="#" tabindex="-1" data-reactid=".0.0.0.2.0.$1.$=10=2$0:$1.0">
-								<span data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.0"></span>
-								<b data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.1"></b>
-								<span data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.2">option2</span>
-							</a>
-							</li>
-							<li class role="presentation" data-reactid=".0.0.0.2.0.$1.$=10=2$2:$2">…</li>
-							<a href="#" tabindex="-1" data-reactid=".0.0.0.2.0.$1.$=10=2$0:$2.0">
-								<span data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.0"></span>
-								<b data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.1"></b>
-								<span data-reactid=".0.0.0.2.0.$1.$=10=2$0:$0.0.2">option3</span>
-							</a>
-							</li>
-						</ul>
-						</div>
+		{% endblock %}
+			
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+			    </button>
+			    <a class="navbar-brand page-scroll" href="/">streamGlean</a>
 
-					-->
-					<!---
-					<center>
-					<form action="/search">
-							<input type="text" name="input" size="50" />
-							<input type="submit" value="search" />
-
-						</form>
-					</center>
-				-->
-
-					<center>
-					<form class="form-inline" action="/search" method="get">
-						<div class="form-group">
-							<input type="text" name="search_string" size="50" />
-							<input type="submit" value="search" />
-						</div>
-					</form>
-					</center>
-
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="hidden">
-							<a href="#page-top"></a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/#about">About</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/users">Users</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/games">Games</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/teams">Teams</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/communities">Communities</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/#team">Our Team</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="/#resources">Resources</a>
-						</li>
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
 			</div>
-			<!-- /.container-fluid -->
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<!-- <div class ="search-bar"> -->
+				<div data-reactid=".0.0.0.2" class="col-sm-3">
+					<div class= "input" size = 30 data-reactid=".0.0.0.2.0">
+						<form class="form-inline navbar-form" action="/search">
+						<div class="form-group" data-reactid=".0.0.0.2.0.$0">
+							<input placeholder="Search..." max="12" type="text" id="search-form" value class="form-control" data-reactid=".0.0.0.2.0.$0.1:$input" name="search_string"/>
+						</div>
+						</form>
+					</div>
+				</div>
+			{% block navbar %}
+			{% endblock %}
+			</div>
+
 		</nav>
 
 
@@ -157,25 +79,23 @@
 		<!-- jQuery -->
 		<script src="/static/vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Bootstrap Core JavaScript -->		
+		<script src="/static/vendor/bootstrap/js/bootstrap.js"></script>
+
 
 		<!-- Plugin JavaScript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
 
-		<!-- Contact Form JavaScript -->
-		<script src="/static/js/jqBootstrapValidation.js"></script>
-		<script src="/static/js/contact_me.js"></script>
-
 		<!-- Theme JavaScript -->
 		<script src="/static/js/agency.min.js"></script>
 
-		<!-- React -->
-		<script src="https://unpkg.com/react@15/dist/react.js"></script> 
-		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+		<!-- React Production Build-->
+		<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+		<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
 		
 		{% block scripts %}
-
+		<script src="/static/js/index.js"></script>
+		<script src="/static/css/index.css"></script>
 
 		{% endblock %}
 

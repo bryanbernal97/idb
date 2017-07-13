@@ -5,6 +5,47 @@
 	<link href="/static/css/index.css">
 {% endblock %}
 
+
+{% block navbar_heading %}
+
+<!-- Navigation -->
+<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="padding-left:25px; padding-right:25px;">
+
+{% endblock %}
+
+
+{% block navbar %}
+
+<ul class="nav navbar-nav navbar-right">
+	<li class="hidden">
+		<a href="#page-top"></a>
+	</li>
+	<li>
+		<a class="page-scroll" href="#about">About</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/users#users">Users</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/games#games">Games</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/teams#teams">Teams</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/communities#communities">Communities</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="#team">Our Team</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="#resources">Resources</a>
+	</li>
+</ul>
+
+{% endblock %}
+
+
 {% block content %}
 
 <!-- Header -->
@@ -29,7 +70,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div id="root"></div>
+					<div id="aboutText"></div>
 				</div>
 			</div>
 		</section>
@@ -87,15 +128,17 @@
 						<p>API scraping and Apiary documentation</p>
 						<p>Front-end design</p>
 						<p>React integration</p>
+						<p>Connecting back-end to front-end</p>
+						<p>Search</p>
 						<p>Phase 1 lead</p>
 					</div>
 					<div class="col-sm-4 team-col"> <!--Hannah -->
 						<h5>Major Responsibilites</h5>
-						<p>AWS and Website development</p>
-						<p>Travis CI Integration</p>
+						<p>AWS and website development</p>
+						<p>Travis CI integration</p>
 						<p>Site API creation</p>
 						<p>Apiary documentation</p>
-						<p>API Unit Testing</p>
+						<p>API Unit testing</p>
 						<p>Database lead</p>
 						<p>Front-end design</p>
 						<p>Sorting and filtering</p>
@@ -109,12 +152,14 @@
 						<p>Site API creation</p>
 						<p>Connecting back-end to front-end</p>
 						<p>Sorting and filtering</p>
+						<p>Search</p>
+						<p>Phase 3 lead</p>
 					</div>
 					<div class="col-sm-4 team-col"> <!--Tonya -->
 						<h5>Major Responsibilites</h5>
 						<p>PlanITpoker and API research</p>
 						<p>UML diagram</p>
-						<p>Database Unit Testing</p>
+						<p>Search</p>
 					</div>
 				</div>
 				<div class="row text-center">

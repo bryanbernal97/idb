@@ -440,6 +440,34 @@ if (typeof jQuery === 'undefined') {
       $nextIndicator && $nextIndicator.addClass('active')
     }
 
+    var next_index = this.getItemIndex($next)
+    var num_indicators = this.$indicators.children().size()
+    var $all_indicators = this.$indicators.children()
+    $.each($all_indicators, function( index, value ) {
+      if (next_index >= 0 && next_index <= 2) {
+        // Next index is one of first 5 indicators (first five indicators should be shown)
+        if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4) {
+          $($all_indicators[index]).removeClass('hidden')
+        } else {
+          $($all_indicators[index]).addClass('hidden')
+        }
+      } else if (next_index >= (num_indicators - 5)) {
+        // Next index is one of last 5 indicators (last 5 elements should be shown)
+        if (index == num_indicators-5 || index == num_indicators-4 || index == num_indicators-3 || index == num_indicators-2 || index == num_indicators-1) {
+          $($all_indicators[index]).removeClass('hidden')
+        } else {
+          $($all_indicators[index]).addClass('hidden')
+        }
+      } else {
+        // Two before next index, next, and two after next should not be hidden
+        if (index == next_index-2 || index == next_index-1 || index == next_index || index == next_index+1 || index == next_index+2) {
+          $($all_indicators[index]).removeClass('hidden')
+        } else {
+          $($all_indicators[index]).addClass('hidden')
+        }
+      }
+    });
+
     var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
     if ($.support.transition && this.$element.hasClass('slide')) {
       $next.addClass(type)

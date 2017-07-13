@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="hidden">
+        <a href="#page-top"></a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#about">About</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/users#users">Users</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/games#games">Games</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/teams#teams">Teams</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/communities#communities">Communities</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#team">Our Team</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#resources">Resources</a>
+    </li>
+</ul>
+
+{% endblock %}
+
 {% block content %}
 
 <!-- ID -->
@@ -73,7 +104,7 @@
                         Teams:
                         {% if user['team_ids'] %}
                             {% for _id in user['team_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=team)}}"><br />{{user['team_users'][_id]}}</a></small>
+                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{user['team_names'][_id]}}</a></small>
                             {% endfor %}
                         {% else %}
                             <small class="text-muted">None</small>
