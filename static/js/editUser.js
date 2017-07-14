@@ -1,7 +1,5 @@
-// console.log('Made it to edit model form')
 
 // Hide form initially
-
 $("#user-name-edit").hide();
 $("#user-description-edit").hide();
 $("#user-language-edit").hide();
@@ -29,7 +27,6 @@ var origForm = $('#edit-user-form').serialize();
 $("#user-edit-button").click(function(){
 
 	origForm = $('#edit-user-form').serialize();
-	// console.log('original form= ' + origForm);
 
 	$("#user-name").hide();
 	$("#user-description").hide();
@@ -98,22 +95,6 @@ $("#user-edit-submit").click(function() {
 			$("#user-community").html(communityHtml);
 		}
 
-		// // Teams formatting as HTML links
-		// var teamIds = $("#user-teams-edit").val();
-		// console.log('TEAM IDS: ' + teamIds);
-		
-		// // teamIds should always have a size of at least 1 because at least 1 option should be selected even if it's the None option
-		// var teamsHTML = ""
-		// if (teamIds.size() == 1 && teamIds[0] == 'None') {
-		// 	$("#user-teams").text('None')
-		// } else {
-		// 	$("#user-teams-edit option:selected").each(function () {
-		// 		var $this = $(this);
-		// 		var teamID = $this.val();
-		// 		var teamName = $this.text();
-		// 	});
-		// }
-
 		var teamIds = $("#user-teams-edit").val();
 		if (teamIds.length == 1 && teamIds[0] == 'None') {
 			$("#user-teams").text('None');
@@ -138,9 +119,7 @@ $("#user-edit-submit").click(function() {
 
 		$("#user-created").text($("#user-created-edit").val());
 		$("#user-updated").text($("#user-updated-edit").val());
-	} //else {
-	// 	console.log('Form did not change no need to call API');
-	// }
+	}
 
 	$("#user-name-edit").hide();
 	$("#user-description-edit").hide();

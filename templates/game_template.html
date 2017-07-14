@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block custom_css %}
+    <link href="/static/css/editGame.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
 {% block navbar %}
 
 <ul class="nav navbar-nav navbar-right">
@@ -38,90 +44,281 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
+
+
+                    <form role="form" id="edit-game-form">
                     
-                    <!-- Picture -->
-                    <img src={{game['image_url']}}>
+                        <!-- Picture -->
+                        <img src={{game['image_url']}}>
 
-                    <!-- Name -->
-                    <h3>
-                        Name:
-                        <small class="text-muted">{{game['name']}}</small>
-                    </h3>
+                        <input type="hidden" id="game-id-edit" name="game-id-edit" value="{{game['id']}}">
 
-                    <!-- Description -->
-                    <h3>
-                        Description:
-                            <small class="text-muted">{{game['description']}}</small>
-                    </h3>
+                        <!-- Name -->
+                        <h3>
+                            Name:<br>
+                            <small id="game-name" class="text-muted">{{game['name']}}</small>
+                            <small><br><input type="text" class="form-control" id="game-name-edit" name="game-name-edit" value="{{game['name']}}"></small>
+                        </h3>
 
-                   <!-- Rating -->
-                    <h3>
-                        Rated:
-                        <small class="text-muted">{{game['rating']}}</small>
-                    </h3>
+                        <!-- Description -->
+                        <h3>
+                            Description:<br>
+                            <small id="game-description" class="text-muted">{{game['description']}}</small>
+                            <small><br><textarea class="form-control" id="game-description-edit" name="game-description-edit">{{game['description']}}</textarea></small>
+                        </h3>
 
-                    <!-- Genres -->
-                    <h3>
-                        Genres:
-                        {% for genre in game['genres'] %}
-                        <br />
-                        <small class="text-muted">{{genre}}</small>
-                        {% endfor %}
-                    </h3>
+                       <!-- Rating -->
+                        <h3>
+                            Rated:<br>
+                            <small id="game-rating" class="text-muted">{{game['rating']}}</small>
+                            <small>
+                                <input type="text" class="form-control" id="game-rating-edit" name="game-rating-edit" value="{{game['rating']}}">
+                            </small>
 
-                    <!-- Platforms -->
-                    <h3>
-                        Platforms:
-                        {% for platform in game['platforms'] %}
-                        <br />
-                        <small class="text-muted">{{platform}}</small>
-                        {% endfor %}
-                    </h3>
+                        </h3>
 
-                    <!-- Release Date -->
-                    <h3>
-                        Release Date:
-                        <small class="text-muted">{{game['release_date']}}</small>
-                    </h3>
+                        <!-- Genres -->
+                        <h3>
+                            Genres:
+                            <small id="game-genres" class="text-muted">
+                                {% for genre in game['genres'] %}
+                                    <br>
+                                    {{genre}}
+                                {% endfor %}
+                            </small>
+                            <small id="game-genres-edit" class="text-muted">
+                                {% for genre in game['genres'] %}
+                                    <br>
+                                    {% if loop.last %}
+                                        <!-- <div id="genres"><input class="form-control" id="field1" name="genres" type="text" value="{{genre}}"/>
+                                        <button id="b1" class="btn add-more" type="button">+</button></div> -->
+                                        <div class="input-group control-group col-md-4 before-add-more-genres" style="display:inline-table;">
+                                            <input type="text" name="genres[]" class="form-control" value="{{genre}}">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-success add-more-genre" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                                </div>
+                                        </div>
 
-                    <!-- Streamers -->
-                    <h3>
-                        Streamers:
-                        {% if game['user_ids'] %}
-                            {% for _id in game['user_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_users', wow=_id)}}"><br />{{game['user_names'][_id]}}</a></small>
-                            {% endfor %}
-                        {% else %}
-                            <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                                        {% if loop.first %}
+                                        <!-- Need hidden copy-genre-fields or the javascript code for add/remove will not work -->
+                                        <div class="copy-genre-fields hide">
+                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
+                                                <input type="text" name="genres[]" class="form-control" value="">
+                                                <div class="input-group-btn"> 
+                                                    <button class="btn btn-danger remove-genre" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <button id="remove{{loop.index}}" class="btn remove-me" type="button">-</button></div> -->
+                                        <div class="copy-genre-fields">
+                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
+                                                <input type="text" name="genres[]" class="form-control" value="{{genre}}">
+                                                <div class="input-group-btn"> 
+                                                    <button class="btn btn-danger remove-genre" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    {% endif %}
+                                    <!-- <br /> -->
+                                {% endfor %}
+                            </small>    
+                        </h3>
 
-                    <!-- Teams -->
-                    <h3>
-                        Teams:
-                        {% if game['team_ids'] %}
-                            {% for _id in game['team_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{game['team_names'][_id]}}</a></small>
-                            {% endfor %}
-                        {% else %}
-                            <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                        <!-- Platforms -->
+                        <h3>
+                            Platforms:
+                            <small id="game-platforms" class="text-muted">
+                                <br>
+                                {% for platform in game['platforms'] %}
+                                    {{platform}}
+                                    <br>
+                                {% endfor %}
+                            </small>
+                            <small id="game-platforms-edit" class="text-muted">
+                                <br>
+                                {% for platform in game['platforms'] %}
+                                    {% if loop.last %}
+                                        <!-- <div id="platforms"><input autocomplete="off" class="input" id="field1" name="platforms[]" type="text" value="{{platform}}"/>
+                                        <button id="b1" class="btn add-more" type="button">+</button></div> -->
+                                        <div class="input-group control-group col-md-4 before-add-more-platforms" style="display:inline-table;">
+                                            <input type="text" name="platforms[]" class="form-control" value="{{platform}}">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-success add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                                </div>
+                                        </div>
+                                        {% if loop.first %}
+                                        <!-- Need hidden copy-platform-fields or the javascript code for add/remove will not work -->
+                                        <div class="copy-platform-fields hide">
+                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
+                                                <input type="text" name="platforms[]" class="form-control" value="">
+                                                <div class="input-group-btn"> 
+                                                    <button class="btn btn-danger remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                </div>
+                                            </div>
+                                            <br class="remove-break">
+                                        </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <!-- <div id="platforms"><input autocomplete="off" class="input" id="field1" name="platforms[]" type="text" value="{{platform}}"/>
+                                        <button id="remove{{loop.index}}" class="btn remove-me" type="button">-</button></div> -->
+                                        <div class="copy-platform-fields">
+                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
+                                                <input type="text" name="platforms[]" class="form-control" value="{{platform}}">
+                                                <div class="input-group-btn"> 
+                                                    <button class="btn btn-danger remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                </div>
+                                            </div>
+                                            <br class="remove-break">
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <!-- <br /> -->
+                                {% endfor %}
+                            </small>  
+                        </h3>
 
-                    <!-- Communities -->
-                    <h3>
-                        Communities:
-                        {% if game['community_ids'] %}
-                            {% for _id in game['community_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_communities', wow=_id)}}"><br />{{game['community_names'][_id]}}</a></small>
-                            {% endfor %}
-                        {% else %}
-                            <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
-                </div>
+                        <!-- Release Date -->
+                        <h3 style="display:inline-table;">
+                            Release Date:<br>
+                            <small class="text-muted" id="game-release-date">{{game['release_date']}}</small>
+                            <small>
+                                <input class="form-control" type="date" value="{{game['release_date']}}" id="game-release-date-edit" name="game-release-date-edit">
+                            </small>
+                        </h3>
+
+                        <!-- Streamers -->
+                        <h3>
+                            Streamers:
+                            {% if game['user_ids'] %}
+                                <small class="text-muted" id="game-streamers">
+                                    {% for _id in game['user_ids'] %}
+                                        <a href="{{ url_for('show_users', wow=_id)}}"><br>{{game['user_names'][_id]}}</a>
+                                    {% endfor %}
+                                </small>
+                                <small>
+                                    <br>
+                                    <div class="btn-group bootstrap-select show-tick col-md-4" id="game-streamers-edit" name="game-streamers-edit">
+                                        <select class="selectpicker form-control" name="game-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                        {% for streamer in streamers %}
+                                            {% if streamer['id'] in game['user_ids'] %}
+                                                <option value="{{streamer['id']}}" selected>{{streamer['name']}}</option>
+                                            {% else %}
+                                                <option value="{{streamer['id']}}">{{streamer['name']}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="game-streamers"><br>None</small>
+                                <small>
+                                    <br>
+                                    <div class="btn-group bootstrap-select show-tick col-md-4" id="game-streamers-edit" name="game-streamers-edit" style="width:none;">
+                                        <select class="selectpicker form-control" name="game-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                            {% for streamer in streamers %}
+                                                <option value="{{streamer['id']}}">{{streamer['name']}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </small>
+                            {% endif %}
+                        </h3>
+
+                        <!-- Teams -->
+                        <h3>
+                            Teams:
+                            {% if game['team_ids'] %}
+                                <small class="text-muted" id="game-teams">
+                                    {% for _id in game['team_ids'] %}
+                                        <a href="{{ url_for('show_teams', wow=_id)}}"><br>{{game['team_names'][_id]}}</a>
+                                    {% endfor %}
+                                </small>
+                                <small>
+                                    <br>
+                                    <div class="btn-group bootstrap-select show-tick col-md-4" id="game-teams-edit" name="game-teams-edit" style="width:none;">
+                                        <select class="selectpicker form-control" name="game-teams-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                        {% for team in teams %}
+                                            {% if team['id'] in game['team_ids'] %}
+                                                <option value="{{team['id']}}" selected>{{team['name']}}</option>
+                                            {% else %}
+                                                <option value="{{team['id']}}">{{team['name']}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="game-teams"><br>None</small>
+                                <small>
+                                    <br>
+                                    <div class="btn-group bootstrap-select show-tick col-md-4" id="game-teams-edit" name="game-teams-edit" style="width:none;">
+                                        <select class="selectpicker form-control" name="game-teams-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                            {% for team in teams %}
+                                                <option value="{{team['id']}}">{{team['name']}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </small>
+                            {% endif %}
+                        </h3>
+
+                        <!-- Communities -->
+                        <h3>
+                            Communities:
+                            {% if game['community_ids'] %}
+                                <small class="text-muted" id="game-communities">
+                                    {% for _id in game['community_ids'] %}
+                                        <a href="{{ url_for('show_communities', wow=_id)}}"><br>{{game['community_names'][_id]}}</a>
+                                    {% endfor %}
+                                </small>
+                                <small><br>
+                                    <div class="btn-group bootstrap-select show-tick col-md-4" id="game-communities-edit" name="game-communities-edit" style="width:none;">
+
+                                        <select class="selectpicker form-control" name="game-communities-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                        {% for community in communities %}
+                                            {% if community['id'] in game['community_ids'] %}
+                                                <option value="{{community['id']}}" selected>{{community['name']}}</option>
+                                            {% else %}
+                                                <option value="{{community['id']}}">{{community['name']}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="game-communities">
+                                    <br>None
+                                </small>
+                                <small><br>
+                                    <div class="btn-group bootstrap-select show-tick col-md-4" id="game-communities-edit" name="game-communities-edit" style="width:none;">
+                                        
+                                        <select class="selectpicker form-control" name="game-communities-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                            {% for community in communities %}
+                                                <option value="{{community['id']}}">{{community['name']}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </small>
+                            {% endif %}
+                        </h3>
+                    <button type="button" id="game-edit-submit" class="btn btn-primary">Submit</button>
+                </form>
+                <button type="button" id="game-edit-button"class="btn btn-default">Edit</button>
             </div>
         </div>
     </section>
 
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+<script src="/static/js/editGame.js"></script>
 {% endblock %}
