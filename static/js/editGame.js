@@ -13,7 +13,7 @@ $(document).ready(function() {
 			var newHtml = html.replace(/value=".*?"/, 'value="' + currentVal + '"');
 			// var newHtml = html.replace('value="*"', 'value="' + currentVal + '"');
 
-			var actualHtml = '<div class="copy-genre-fields-fields">' + newHtml + '</div>';
+			var actualHtml = '<div class="copy-genre-fields">' + newHtml + '</div>';
 
 
 			// Reset value of textbox with add button
@@ -27,7 +27,7 @@ $(document).ready(function() {
 	  
 	// Here it will remove the current value of the remove button which has been pressed
 	$("body").on("click",".remove-genre",function(){ 
-		var outer = $(this).parents(".copy-genre-fields-fields");
+		var outer = $(this).parents(".copy-genre-fields");
 		// console.log(outer.children("br"));
 		outer.children("br").remove();
 		$(this).parents(".control-group").remove();
@@ -155,14 +155,26 @@ $(document).ready(function() {
 
 			var genresHtml = "";
 			$('input[name="genres[]"]').each(function() {
-			    genresHtml += "<br>" + $(this).val();
+				genre = $(this).val();
+				if (genre != '') {
+					genresHtml += "<br>" + $(this).val();
+				}
 			});
+			if (genresHtml == "") {
+				genresHtml = "<br>None";
+			}
 			$("#game-genres").html(genresHtml);
 
 			var platformsHtml = "";
 			$('input[name="platforms[]"]').each(function() {
-			    platformsHtml += "<br>" + $(this).val();
+				platform = $(this).val();
+				if (platform != "") {
+					platformsHtml += "<br>" + $(this).val();
+				}
 			});
+			if (platformsHtml == "") {
+				platformsHtml = "<br>None";
+			}
 			$("#game-platforms").html(platformsHtml);
 
 

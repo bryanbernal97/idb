@@ -87,43 +87,36 @@
                                 {% endfor %}
                             </small>
                             <small id="game-genres-edit" class="text-muted">
+
+                                <!-- Have this hidden div in case there are no entries the add button will need a copy of this -->
+                                <div class="copy-genre-fields hide">
+                                    <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
+                                        <input type="text" name="genres[]" class="form-control" value="">
+                                        <div class="input-group-btn"> 
+                                            <button class="btn btn-default remove-genre" type="button"><i class="glyphicon glyphicon-remove" style="color:#d9534f;"></i></button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
                                 {% for genre in game['genres'] %}
                                     <br>
-                                    {% if loop.last %}
-                                        <!-- <div id="genres"><input class="form-control" id="field1" name="genres" type="text" value="{{genre}}"/>
-                                        <button id="b1" class="btn add-more" type="button">+</button></div> -->
-                                        <div class="input-group control-group col-md-4 before-add-more-genres" style="display:inline-table;">
-                                            <input type="text" name="genres[]" class="form-control" value="{{genre}}">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-success add-more-genre" type="button"><i class="glyphicon glyphicon-plus"></i></button>
-                                                </div>
-                                        </div>
-
-                                        {% if loop.first %}
-                                        <!-- Need hidden copy-genre-fields or the javascript code for add/remove will not work -->
-                                        <div class="copy-genre-fields hide">
-                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
-                                                <input type="text" name="genres[]" class="form-control" value="">
-                                                <div class="input-group-btn"> 
-                                                    <button class="btn btn-danger remove-genre" type="button"><i class="glyphicon glyphicon-remove"></i></button>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </div>
-                                        {% endif %}
-                                    {% else %}
-                                        <button id="remove{{loop.index}}" class="btn remove-me" type="button">-</button></div> -->
-                                        <div class="copy-genre-fields">
+                                    <div class="copy-genre-fields">
                                             <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
                                                 <input type="text" name="genres[]" class="form-control" value="{{genre}}">
                                                 <div class="input-group-btn"> 
-                                                    <button class="btn btn-danger remove-genre" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                    <button class="btn btn-default remove-genre" type="button"><i class="glyphicon glyphicon-remove" style="color:#d9534f;"></i></button>
                                                 </div>
                                             </div>
                                             <br>
                                         </div>
+                                    {% if loop.last %}
+                                        <div class="input-group control-group col-md-4 before-add-more-genres" style="display:inline-table;">
+                                            <input type="text" name="genres[]" class="form-control" value="">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default add-more-genre" type="button"><i class="glyphicon glyphicon-plus" style="color:#4cae4c;"></i></button>
+                                                </div>
+                                        </div>                                        
                                     {% endif %}
-                                    <!-- <br /> -->
                                 {% endfor %}
                             </small>    
                         </h3>
@@ -139,44 +132,36 @@
                                 {% endfor %}
                             </small>
                             <small id="game-platforms-edit" class="text-muted">
+
+                                <!-- Have this hidden div in case there are no entries the add button will need a copy of this -->
+                                <div class="copy-platform-fields hide">
+                                    <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
+                                        <input type="text" name="platforms[]" class="form-control" value="">
+                                        <div class="input-group-btn"> 
+                                            <button class="btn btn-default remove-platform" type="button"><i class="glyphicon glyphicon-remove" style="color:#d9534f;"></i></button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
                                 <br>
                                 {% for platform in game['platforms'] %}
-                                    {% if loop.last %}
-                                        <!-- <div id="platforms"><input autocomplete="off" class="input" id="field1" name="platforms[]" type="text" value="{{platform}}"/>
-                                        <button id="b1" class="btn add-more" type="button">+</button></div> -->
-                                        <div class="input-group control-group col-md-4 before-add-more-platforms" style="display:inline-table;">
+                                    <div class="copy-platform-fields">
+                                        <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
                                             <input type="text" name="platforms[]" class="form-control" value="{{platform}}">
+                                            <div class="input-group-btn"> 
+                                                <button class="btn btn-default remove-platform" type="button"><i class="glyphicon glyphicon-remove" style="color:#d9534f;"></i></button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    {% if loop.last %}
+                                        <div class="input-group control-group col-md-4 before-add-more-platforms" style="display:inline-table;">
+                                            <input type="text" name="platforms[]" class="form-control" value="">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-success add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                                    <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus" style="color:#4cae4c;"></i></button>
                                                 </div>
-                                        </div>
-                                        {% if loop.first %}
-                                        <!-- Need hidden copy-platform-fields or the javascript code for add/remove will not work -->
-                                        <div class="copy-platform-fields hide">
-                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
-                                                <input type="text" name="platforms[]" class="form-control" value="">
-                                                <div class="input-group-btn"> 
-                                                    <button class="btn btn-danger remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
-                                                </div>
-                                            </div>
-                                            <br class="remove-break">
-                                        </div>
-                                        {% endif %}
-                                    {% else %}
-                                        <!-- <div id="platforms"><input autocomplete="off" class="input" id="field1" name="platforms[]" type="text" value="{{platform}}"/>
-                                        <button id="remove{{loop.index}}" class="btn remove-me" type="button">-</button></div> -->
-                                        <div class="copy-platform-fields">
-                                            <div class="control-group input-group col-md-4" style="margin-bottom:10px; display:inline-table;">
-                                                <input type="text" name="platforms[]" class="form-control" value="{{platform}}">
-                                                <div class="input-group-btn"> 
-                                                    <button class="btn btn-danger remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
-                                                </div>
-                                            </div>
-                                            <br class="remove-break">
-                                        </div>
-                                    {% endif %}
-                                    
-                                    <!-- <br /> -->
+                                        </div>                                        
+                                    {% endif %}                                    
                                 {% endfor %}
                             </small>  
                         </h3>
