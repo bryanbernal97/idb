@@ -231,7 +231,7 @@
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick col-md-4" id="game-streamers-edit" name="game-streamers-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="game-streamers-edit" name="game-streamers-edit">
                                     <select class="selectpicker form-control" name="game-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for streamer in streamers %}
                                         {% if game['user_ids'] and streamer['id'] in game['user_ids'] %}
@@ -265,7 +265,7 @@
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick col-md-4" id="game-teams-edit" name="game-teams-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="game-teams-edit" name="game-teams-edit">
                                     <select class="selectpicker form-control" name="game-teams-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for team in teams %}
                                         {% if game['team_ids'] and team['id'] in game['team_ids'] %}
@@ -297,7 +297,7 @@
 
                             <!-- Edit Form Field -->
                             <small><br>
-                                <div class="btn-group bootstrap-select show-tick col-md-4" id="game-communities-edit" name="game-communities-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="game-communities-edit" name="game-communities-edit">
                                     <select class="selectpicker form-control" name="game-communities-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for community in communities %}
                                         {% if game['community_ids'] and community['id'] in game['community_ids'] %}
