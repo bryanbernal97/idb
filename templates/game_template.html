@@ -40,8 +40,7 @@
 
 {% block content %}
 
-<!-- ID -->
-<section id={{game['_id']}}>
+<section class="portfolio bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -49,12 +48,13 @@
 
                     <form role="form" id="edit-game-form">
 
-
                         <!-- Hidden id for edit form used to update database -->
                         <input type="hidden" id="game-id-edit" name="game-id-edit" value="{{game['id']}}">
                     
                         <!-- Picture -->
                         <img src={{game['image_url']}}>
+
+                        <hr style="border-color: white;">
 
                         <!-- Name -->
                         <h3>
@@ -310,6 +310,8 @@
                                 </div>
                             </small>
                         </h3>
+
+                        <hr style="border-color: white;">
 
                     <button type="button" id="game-edit-submit" class="btn btn-primary streamglean-button">Submit</button>
                 </form>
