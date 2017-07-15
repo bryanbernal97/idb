@@ -1,6 +1,11 @@
 $(document).ready(function() {
 
-	// Here first get the contents of the div with name class copy-fields and add it to after "after-add-more" div class.
+/* ********************************************************************************************** */
+/* ******************************* ADD / REMOVE GENRES TEXT BOXES ******************************* */
+/* ********************************************************************************************** */
+
+	// Here first get the contents of the div with name class copy-fields and add it to before
+	// "before-add-more-genres" div class.
 	$(".add-more-genre").click(function(){ 
 		var html = $(".copy-genre-fields").html();
 
@@ -9,16 +14,17 @@ $(document).ready(function() {
 
 		// Only need to add another text box if there is something in the current text box
 		if (currentVal != "") {
+			
 			// Move the value to the new element with remove button
 			var newHtml = html.replace(/value=".*?"/, 'value="' + currentVal + '"');
-			// var newHtml = html.replace('value="*"', 'value="' + currentVal + '"');
 
 			var actualHtml = '<div class="copy-genre-fields">' + newHtml + '</div>';
-
 
 			// Reset value of textbox with add button
 			$(".before-add-more-genres input").val("");
 
+			// Add a new input text box with current value and remove button above the newly empty
+			// input text box with add button
 			$(".before-add-more-genres").before(actualHtml);
 		}
 
@@ -28,14 +34,19 @@ $(document).ready(function() {
 	// Here it will remove the current value of the remove button which has been pressed
 	$("body").on("click",".remove-genre",function(){ 
 		var outer = $(this).parents(".copy-genre-fields");
-		// console.log(outer.children("br"));
 		outer.children("br").remove();
 		$(this).parents(".control-group").remove();
 	});
 
+/* ********************************************************************************************** */
+/* ***************************** ADD / REMOVE PLATFORMS TEXT BOXES ****************************** */
+/* ********************************************************************************************** */
 
-	// Here first get the contents of the div with name class copy-fields and add it to after "after-add-more" div class.
+	// Here first get the contents of the div with name class copy-fields and add it to before
+	// "before-add-more-platforms" div class.
 	$(".add-more-platform").click(function(){ 
+
+		// Inner elements of copy-platform-fields div
 		var html = $(".copy-platform-fields").html();
 		
 		// Get the current value of the textbox with add button
@@ -43,34 +54,35 @@ $(document).ready(function() {
 
 		// Only need to add another text box if there is something in the current text box
 		if (currentVal != "") {
+
 			// Move the value to the new element with remove button
 			var newHtml = html.replace(/value=".*?"/, 'value="' + currentVal + '"');
-			// var newHtml = html.replace('value="(*)"', 'value="' + currentVal + '"');
-
+			
+			// Add the enclosing div back
 			var actualHtml = '<div class="copy-platform-fields">' + newHtml + '</div>';
 
 			// Reset value of textbox with add button
 			$(".before-add-more-platforms input").val("");
 
+			// Add a new input text box with current value and remove button above the newly empty
+			// input text box with add button
 			$(".before-add-more-platforms").before(actualHtml);
 		}
 	});
 	  
 	// Here it will remove the current value of the remove button which has been pressed
 	$("body").on("click",".remove-platform",function(){ 
-		// console.log("This on remove click: " + $(this).parents(".copy-platform-fields").html());
 		var outer = $(this).parents(".copy-platform-fields");
-		// console.log(outer.children("br"));
 		outer.children("br").remove();
-		// console.log("This parents on remove click: " + $(this).parents(".control-group").parents(".copy-platform-fields").children("br").html());
 		$(this).parents(".control-group").remove();
 	});
 
 
+/* ********************************************************************************************** */
+/* ************************************* EDIT FORM HANDLING ************************************* */
+/* ********************************************************************************************** */
 
-
-
-	// Hide form initially
+	// Hide edit form initially
 	$("#game-name-edit").hide();
 	$("#game-description-edit").hide();
 	$("#game-rating-edit").hide();
@@ -81,39 +93,14 @@ $(document).ready(function() {
 	$("#game-teams-edit").hide();
 	$("#game-communities-edit").hide();
 	$("#game-edit-submit").hide();
- 
 
 
-	// // Make sure cannot select None and other streamers for multi select on game edit form
-	// $('#game-streamers-edit select').change(function() {
-	// 	if ($('option:first', this).is(':selected')) {
-	// 		$('option:not(:first)', this).prop('selected', false);
-	// 	}
-	// 	$(this).selectpicker('refresh');
-	// });
-
-
-	// // Make sure cannot select None and other teams for multi select on game edit form
-	// $('#game-teams-edit select').change(function() {
-	// 	if ($('option:first', this).is(':selected')) {
-	// 		$('option:not(:first)', this).prop('selected', false);
-	// 	}
-	// 	$(this).selectpicker('refresh');
-	// });
-
-
-	// // Make sure cannot select None and other communities for multi select on game edit form
-	// $('#game-communities-edit select').change(function() {
-	// 	if ($('option:first', this).is(':selected')) {
-	// 		$('option:not(:first)', this).prop('selected', false);
-	// 	}
-	// 	$(this).selectpicker('refresh');
-	// });
-
-
+	// Serialize form to later check if form has changed. *Only covers form elements with name
+	// attribute.
 	var origForm = $('#edit-game-form').serialize();
 
 
+	// Hide template fields and show form fields when user clicks the edit button
 	$("#game-edit-button").click(function(){
 
 		origForm = $('#edit-game-form').serialize();
@@ -143,15 +130,16 @@ $(document).ready(function() {
 	});
 
 
+	// Update template fields with form values, update database, hide edit form fields,
+	// and show updated template fields with confirmation/failure alert from updating database.
 	$("#game-edit-submit").click(function() {
 
+		// Only need to take action if the form values have changed
 		if ($('#edit-game-form').serialize() != origForm) {
-			// This is where i will make the call to the backend to update the instance
-			// Make the value of the normal fields be the values of the form and alert if the update was a success or failure
-			$("#game-name").text($("#game-name-edit").val());
-			$("#game-description").text($("#game-description-edit").val());
-
-			$("#game-rating").text($("#game-rating-edit").val());
+			
+			$("#game-name").text($("#game-name-edit").val());					// NAME
+			$("#game-description").text($("#game-description-edit").val());		// DESCRIPTION
+			$("#game-rating").text($("#game-rating-edit").val());				// RATING
 
 			var genresHtml = "";
 			$('input[name="genres[]"]').each(function() {
@@ -163,7 +151,7 @@ $(document).ready(function() {
 			if (genresHtml == "") {
 				genresHtml = "<br>None";
 			}
-			$("#game-genres").html(genresHtml);
+			$("#game-genres").html(genresHtml);									// GENRES
 
 			var platformsHtml = "";
 			$('input[name="platforms[]"]').each(function() {
@@ -175,10 +163,10 @@ $(document).ready(function() {
 			if (platformsHtml == "") {
 				platformsHtml = "<br>None";
 			}
-			$("#game-platforms").html(platformsHtml);
+			$("#game-platforms").html(platformsHtml);							// PLATFORMS
 
 
-			$("#game-release-date").text($("#game-release-date-edit").val());
+			$("#game-release-date").text($("#game-release-date-edit").val());	// RELEASE DATE
 
 			// Game streamer links formatting
 			var streamersHTML = "";
@@ -188,13 +176,14 @@ $(document).ready(function() {
 				var streamerID = $this.val();
 				var streamerName = $this.text();
 				var streamerHref = '/users/' + streamerID;
-				var streamerHTML = "<a href='" + streamerHref + "'><br />" + streamerName + "</a>";
+				var streamerHTML = ("<a href='" + streamerHref + "'><br />" +
+					streamerName + "</a>");
 				streamersHTML += streamerHTML;
 			});
 			if (streamersHTML == "") {
 				streamersHTML = "<br>None";
 			}
-			$("#game-streamers").html(streamersHTML);
+			$("#game-streamers").html(streamersHTML);							// STREAMERS (CONNECTION)
 
 			// Game team links formatting
 			var teamsHTML = "";
@@ -209,7 +198,7 @@ $(document).ready(function() {
 			if (teamsHTML == "") {
 				teamsHTML = "<br>None";
 			}
-			$("#game-teams").html(teamsHTML);
+			$("#game-teams").html(teamsHTML);									// TEAMS (CONNECTION)
 
 			// Game community links formatting
 			var communitiesHTML = "";
@@ -218,15 +207,17 @@ $(document).ready(function() {
 				var communityID = $this.val();
 				var communityName = $this.text();
 				var communityHref = '/communities/' + communityID;
-				var communityHTML = "<a href='" + communityHref + "'><br />" + communityName + "</a>";
+				var communityHTML = ("<a href='" + communityHref + "'><br />" +
+					communityName + "</a>");
 				communitiesHTML += communityHTML;
 			});
 			if (communitiesHTML == "") {
 				communitiesHTML = "<br>None";
 			}
-			$("#game-communities").html(communitiesHTML);
+			$("#game-communities").html(communitiesHTML);						// COMMUNITIES (CONNECTION)
 		}
 
+		// Hide edit form fields and show updated template fields
 		$("#game-name-edit").hide();
 		$("#game-description-edit").hide();
 		$("#game-rating-edit").hide();
@@ -249,11 +240,6 @@ $(document).ready(function() {
 		$("#game-communities").show();
 		$("#game-edit-button").show();
 
-
 	});
-
-
-
-
 
 });
