@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}{{game['name']}}{% endblock %}
+
 {% block custom_css %}
     <link href="/static/css/editGame.css" rel="stylesheet">
     <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -309,9 +311,9 @@
                             </small>
                         </h3>
 
-                    <button type="button" id="game-edit-submit" class="btn btn-primary">Submit</button>
+                    <button type="button" id="game-edit-submit" class="btn btn-primary streamglean-button">Submit</button>
                 </form>
-                <button type="button" id="game-edit-button"class="btn btn-primary">Edit</button>
+                <button type="button" id="game-edit-button"class="btn btn-primary streamglean-button">Edit</button>
             </div>
         </div>
     </section>

@@ -137,7 +137,9 @@ $(document).ready(function() {
 		// Only need to take action if the form values have changed
 		if ($('#edit-game-form').serialize() != origForm) {
 			
-			$("#game-name").text($("#game-name-edit").val());					// NAME
+			var newName = $("#game-name-edit").val();
+			$("#site-title").text(newName);										// SITE TITLE
+			$("#game-name").text(newName);										// NAME
 			$("#game-description").text($("#game-description-edit").val());		// DESCRIPTION
 			$("#game-rating").text($("#game-rating-edit").val());				// RATING
 
