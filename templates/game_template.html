@@ -65,7 +65,7 @@
 
                                     <!-- Edit Form Field -->
                                     <small>
-                                            <input type="text" class="form-control" id="game-name-edit" name="game-name-edit" value="{{game['name']}}">
+                                            <input type="text" class="form-control hidden" id="game-name-edit" name="game-name-edit" value="{{game['name']}}">
                                     </small>
                                 </div>
                         </h3>
@@ -79,7 +79,7 @@
                                 <small id="game-description" class="text-muted">{{game['description']}}</small>
 
                                 <!-- Edit Form Field -->
-                                <small><textarea class="form-control" id="game-description-edit" name="game-description-edit">{{game['description']}}</textarea></small>
+                                <small><textarea class="form-control hidden" id="game-description-edit" name="game-description-edit">{{game['description']}}</textarea></small>
                             </div>
                         </h3>
 
@@ -93,7 +93,7 @@
 
                                 <!-- Edit Form Field -->
                                 <small>
-                                    <input type="text" class="form-control" id="game-rating-edit" name="game-rating-edit" value="{{game['rating']}}">
+                                    <input type="text" class="form-control hidden" id="game-rating-edit" name="game-rating-edit" value="{{game['rating']}}">
                                 </small>
                             </div>
                         </h3>
@@ -115,7 +115,7 @@
                             </small>
 
                             <!-- Edit Form Field -->
-                            <small id="game-genres-edit" class="text-muted">
+                            <small id="game-genres-edit" class="text-muted hidden">
 
                                 <!-- Have this hidden div in case there are no entries the add button will need a copy of the interior elements of this -->
                                 <div class="copy-genre-fields hide">
@@ -178,7 +178,7 @@
                             </small>
 
                             <!-- Edit Form Field -->
-                            <small id="game-platforms-edit" class="text-muted">
+                            <small id="game-platforms-edit" class="text-muted hidden">
 
                                 <!-- Have this hidden div in case there are no entries the add button will need a copy of the interior elements of this -->
                                 <div class="copy-platform-fields hide">
@@ -233,7 +233,7 @@
 
                                 <!-- Edit Form Field -->
                                 <small>
-                                    <input class="form-control" type="date" value="{{game['release_date']}}" id="game-release-date-edit" name="game-release-date-edit">
+                                    <input class="form-control hidden" type="date" value="{{game['release_date']}}" id="game-release-date-edit" name="game-release-date-edit">
                                 </small>
                             </div>
                         </h3>
@@ -258,7 +258,7 @@
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="game-streamers-edit" name="game-streamers-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-streamers-edit" name="game-streamers-edit">
                                     <select class="selectpicker form-control" name="game-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for streamer in streamers %}
                                         {% if game['user_ids'] and streamer['id'] in game['user_ids'] %}
@@ -292,7 +292,7 @@
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="game-teams-edit" name="game-teams-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-teams-edit" name="game-teams-edit">
                                     <select class="selectpicker form-control" name="game-teams-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for team in teams %}
                                         {% if game['team_ids'] and team['id'] in game['team_ids'] %}
@@ -324,7 +324,7 @@
 
                             <!-- Edit Form Field -->
                             <small><br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="game-communities-edit" name="game-communities-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-communities-edit" name="game-communities-edit">
                                     <select class="selectpicker form-control" name="game-communities-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for community in communities %}
                                         {% if game['community_ids'] and community['id'] in game['community_ids'] %}
@@ -340,7 +340,7 @@
 
                         <hr style="border-color: white;">
 
-                        <button type="button" id="game-edit-submit" class="btn btn-primary streamglean-button">Submit</button>
+                        <button type="button" id="game-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
                     </form>
                 <button type="button" id="game-edit-button"class="btn btn-primary streamglean-button">Edit</button>
             </div>

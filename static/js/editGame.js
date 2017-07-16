@@ -83,16 +83,16 @@ $(document).ready(function() {
 /* ********************************************************************************************** */
 
 	// Hide edit form initially
-	$("#game-name-edit").hide();
-	$("#game-description-edit").hide();
-	$("#game-rating-edit").hide();
-	$("#game-genres-edit").hide();
-	$("#game-platforms-edit").hide();
-	$("#game-release-date-edit").hide();
-	$("#game-streamers-edit").hide();
-	$("#game-teams-edit").hide();
-	$("#game-communities-edit").hide();
-	$("#game-edit-submit").hide();
+	// $("#game-name-edit").hide();
+	// $("#game-description-edit").hide();
+	// $("#game-rating-edit").hide();
+	// $("#game-genres-edit").hide();
+	// $("#game-platforms-edit").hide();
+	// $("#game-release-date-edit").hide();
+	// $("#game-streamers-edit").hide();
+	// $("#game-teams-edit").hide();
+	// $("#game-communities-edit").hide();
+	// $("#game-edit-submit").hide();
 
 	// Serialize form to later check if form has changed. *Only covers form elements with name
 	// attribute.
@@ -103,28 +103,28 @@ $(document).ready(function() {
 
 		origForm = $('#edit-game-form').serialize();
 
-		$("#game-name").hide();
-		$("#game-description").hide();
-		$("#game-rating").hide();
-		$("#game-genres").hide();
-		$("#game-platforms").hide();
-		$("#game-release-date").hide();
-		$("#game-streamers").hide();
-		$("#game-teams").hide();
-		$("#game-communities").hide();
-		$("#game-edit-button").hide();
+		$("#game-name").addClass('hidden');
+		$("#game-description").addClass('hidden');
+		$("#game-rating").addClass('hidden');
+		$("#game-genres").addClass('hidden');
+		$("#game-platforms").addClass('hidden');
+		$("#game-release-date").addClass('hidden');
+		$("#game-streamers").addClass('hidden');
+		$("#game-teams").addClass('hidden');
+		$("#game-communities").addClass('hidden');
+		$("#game-edit-button").addClass('hidden');
 
 
-		$("#game-name-edit").show();
-		$("#game-description-edit").show();
-		$("#game-rating-edit").show();
-		$("#game-genres-edit").show();
-		$("#game-platforms-edit").show();
-		$("#game-release-date-edit").show();
-		$("#game-streamers-edit").show();
-		$("#game-teams-edit").show();
-		$("#game-communities-edit").show();
-		$("#game-edit-submit").show();
+		$("#game-name-edit").removeClass('hidden');
+		$("#game-description-edit").removeClass('hidden');
+		$("#game-rating-edit").removeClass('hidden');
+		$("#game-genres-edit").removeClass('hidden');
+		$("#game-platforms-edit").removeClass('hidden');
+		$("#game-release-date-edit").removeClass('hidden');
+		$("#game-streamers-edit").removeClass('hidden');
+		$("#game-teams-edit").removeClass('hidden');
+		$("#game-communities-edit").removeClass('hidden');
+		$("#game-edit-submit").removeClass('hidden');
 	});
 
 
@@ -217,27 +217,27 @@ $(document).ready(function() {
 		}
 
 		// Hide edit form fields and show updated template fields
-		$("#game-name-edit").hide();
-		$("#game-description-edit").hide();
-		$("#game-rating-edit").hide();
-		$("#game-genres-edit").hide();
-		$("#game-platforms-edit").hide();
-		$("#game-release-date-edit").hide();
-		$("#game-streamers-edit").hide();
-		$("#game-teams-edit").hide();
-		$("#game-communities-edit").hide();
-		$("#game-edit-submit").hide();
+		$("#game-name-edit").addClass('hidden');
+		$("#game-description-edit").addClass('hidden');
+		$("#game-rating-edit").addClass('hidden');
+		$("#game-genres-edit").addClass('hidden');
+		$("#game-platforms-edit").addClass('hidden');
+		$("#game-release-date-edit").addClass('hidden');
+		$("#game-streamers-edit").addClass('hidden');
+		$("#game-teams-edit").addClass('hidden');
+		$("#game-communities-edit").addClass('hidden');
+		$("#game-edit-submit").addClass('hidden');
 
-		$("#game-name").show();
-		$("#game-description").show();
-		$("#game-rating").show();
-		$("#game-genres").show();
-		$("#game-platforms").show();
-		$("#game-release-date").show();
-		$("#game-streamers").show();
-		$("#game-teams").show();
-		$("#game-communities").show();
-		$("#game-edit-button").show();
+		$("#game-name").removeClass('hidden');
+		$("#game-description").removeClass('hidden');
+		$("#game-rating").removeClass('hidden');
+		$("#game-genres").removeClass('hidden');
+		$("#game-platforms").removeClass('hidden');
+		$("#game-release-date").removeClass('hidden');
+		$("#game-streamers").removeClass('hidden');
+		$("#game-teams").removeClass('hidden');
+		$("#game-communities").removeClass('hidden');
+		$("#game-edit-button").removeClass('hidden');
 
 	});
 
