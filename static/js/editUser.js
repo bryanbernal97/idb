@@ -67,20 +67,6 @@ $(document).ready(function() {
 /* *************************************** FORM HANDLING **************************************** */
 /* ********************************************************************************************** */
 
-	// Hide form initially
-	$("#user-name-edit").hide();
-	$("#user-description-edit").hide();
-	$("#user-language-edit").hide();
-	$("#user-views-edit").hide();
-	$("#user-followers-edit").hide();
-	$("#user-url-edit").hide();
-	$("#user-game-edit").hide();
-	$("#user-community-edit").hide();
-	$("#user-teams-edit").hide();
-	$("#user-created-edit").hide();
-	$("#user-updated-edit").hide();
-	$("#user-edit-submit").hide();
-
 	// Serialize form to later check if form has changed. *Only covers form elements with name
 	// attribute.
 	var origForm = $('#edit-user-form').serialize();
@@ -90,32 +76,32 @@ $(document).ready(function() {
 
 		origForm = $('#edit-user-form').serialize();
 
-		$("#user-name").hide();
-		$("#user-description").hide();
-		$("#user-language").hide();
-		$("#user-views").hide();
-		$("#user-followers").hide();
-		$("#user-url").hide();
-		$("#user-game").hide();
-		$("#user-community").hide();
-		$("#user-teams").hide();
-		$("#user-created").hide();
-		$("#user-updated").hide();
-		$("#user-edit-button").hide();
+		$("#user-name").addClass('hidden');
+		$("#user-description").addClass('hidden');
+		$("#user-language").addClass('hidden');
+		$("#user-views").addClass('hidden');
+		$("#user-followers").addClass('hidden');
+		$("#user-url").addClass('hidden');
+		$("#user-game").addClass('hidden');
+		$("#user-community").addClass('hidden');
+		$("#user-teams").addClass('hidden');
+		$("#user-created").addClass('hidden');
+		$("#user-updated").addClass('hidden');
+		$("#user-edit-button").addClass('hidden');
 
 
-		$("#user-name-edit").show();
-		$("#user-description-edit").show();
-		$("#user-language-edit").show();
-		$("#user-views-edit").show();
-		$("#user-followers-edit").show();
-		$("#user-url-edit").show();
-		$("#user-game-edit").show();
-		$("#user-community-edit").show();
-		$("#user-teams-edit").show();
-		$("#user-created-edit").show();
-		$("#user-updated-edit").show();
-		$("#user-edit-submit").show();
+		$("#user-name-edit").removeClass('hidden');
+		$("#user-description-edit").removeClass('hidden');
+		$("#user-language-edit").removeClass('hidden');
+		$("#user-views-edit").removeClass('hidden');
+		$("#user-followers-edit").removeClass('hidden');
+		$("#user-url-edit").removeClass('hidden');
+		$("#user-game-edit").removeClass('hidden');
+		$("#user-community-edit").removeClass('hidden');
+		$("#user-teams-edit").removeClass('hidden');
+		$("#user-created-edit").removeClass('hidden');
+		$("#user-updated-edit").removeClass('hidden');
+		$("#user-edit-submit").removeClass('hidden');
 	});
 
 	// Update template fields with form values, update database, hide edit form fields,
@@ -197,30 +183,30 @@ $(document).ready(function() {
 
 
 		// Hide edit form fields and show updated template fields
-		$("#user-name-edit").hide();
-		$("#user-description-edit").hide();
-		$("#user-language-edit").hide();
-		$("#user-views-edit").hide();
-		$("#user-followers-edit").hide();
-		$("#user-url-edit").hide();
-		$("#user-game-edit").hide();
-		$("#user-community-edit").hide();
-		$("#user-teams-edit").hide();
-		$("#user-created-edit").hide();
-		$("#user-updated-edit").hide();
-		$("#user-edit-submit").hide();
+		$("#user-name-edit").addClass('hidden');
+		$("#user-description-edit").addClass('hidden');
+		$("#user-language-edit").addClass('hidden');
+		$("#user-views-edit").addClass('hidden');
+		$("#user-followers-edit").addClass('hidden');
+		$("#user-url-edit").addClass('hidden');
+		$("#user-game-edit").addClass('hidden');
+		$("#user-community-edit").addClass('hidden');
+		$("#user-teams-edit").addClass('hidden');
+		$("#user-created-edit").addClass('hidden');
+		$("#user-updated-edit").addClass('hidden');
+		$("#user-edit-submit").addClass('hidden');
 
-		$("#user-name").show();
-		$("#user-description").show();
-		$("#user-language").show();
-		$("#user-views").show();
-		$("#user-followers").show();
-		$("#user-url").show();
-		$("#user-game").show();
-		$("#user-community").show();
-		$("#user-teams").show();
-		$("#user-created").show();
-		$("#user-updated").show();
-		$("#user-edit-button").show();
+		$("#user-name").removeClass('hidden');
+		$("#user-description").removeClass('hidden');
+		$("#user-language").removeClass('hidden');
+		$("#user-views").removeClass('hidden');
+		$("#user-followers").removeClass('hidden');
+		$("#user-url").removeClass('hidden');
+		$("#user-game").removeClass('hidden');
+		$("#user-community").removeClass('hidden');
+		$("#user-teams").removeClass('hidden');
+		$("#user-created").removeClass('hidden');
+		$("#user-updated").removeClass('hidden');
+		$("#user-edit-button").removeClass('hidden');
 	});
 });

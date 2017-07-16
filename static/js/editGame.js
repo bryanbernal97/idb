@@ -82,18 +82,6 @@ $(document).ready(function() {
 /* *************************************** FORM HANDLING **************************************** */
 /* ********************************************************************************************** */
 
-	// Hide edit form initially
-	// $("#game-name-edit").hide();
-	// $("#game-description-edit").hide();
-	// $("#game-rating-edit").hide();
-	// $("#game-genres-edit").hide();
-	// $("#game-platforms-edit").hide();
-	// $("#game-release-date-edit").hide();
-	// $("#game-streamers-edit").hide();
-	// $("#game-teams-edit").hide();
-	// $("#game-communities-edit").hide();
-	// $("#game-edit-submit").hide();
-
 	// Serialize form to later check if form has changed. *Only covers form elements with name
 	// attribute.
 	var origForm = $('#edit-game-form').serialize();
