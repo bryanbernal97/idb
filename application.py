@@ -20,21 +20,15 @@ gb_id = '/?api_key=d483af9dcc46474051b451953aa550322df2b793&format=json'
 application = Flask(__name__)
 application.debug = True
 
-
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'http://dev-env.fkmjb3y3r4.us-west-2.elasticbeanstalk.com'
-    response.headers['Access-Control-Allow-Credentials'] = 'true'
-    return response
-
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
 
 # Create API endpoints, which will be available at /api/<tablename> by
 # default. Allowed HTTP methods can be specified as well.
-manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
-manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
-manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
-manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
+manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 # print a nice greeting.
 @application.route('/')
@@ -65,18 +59,15 @@ def show_all_communities():
 def show_users(wow):
     q = User.query.get(wow)
     user = {}
-    games = []
-    teams = []
-    communities = []
-    user['id'] = q.id
+    user['_id'] = wow
     user['name'] = q.name
     user['description'] = q.description
     user['language'] = q.language
     user['views'] = q.views
     user['followers'] = q.followers
     user['url'] = q.url
-    user['created'] = q.created.date()
-    user['updated'] = q.updated.date()
+    user['created'] = q.created
+    user['updated'] = q.updated
     image_url = q.image_url
     if not image_url:
         image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
@@ -87,25 +78,12 @@ def show_users(wow):
     user['game_id'] = q.game_id
     if user['game_id']:
         user['game'] = get_name_by_id(q.game_id, 'game')
-
-    # Get all games for edit drop down
-    game_query = Game.query
-    for game in game_query:
-        games.append({'name': game.name, 'id': game.id})
-
-    # Get all teams for edit drop down
-    team_query = Team.query
-    for team in team_query:
-        teams.append({'name': team.name, 'id': team.id})
-
-    # Get all communities for edit drop down
-    community_query = Community.query
-    for community in community_query:
-        communities.append({'name': community.name, 'id': community.id})
     
     user['community_id'] = q.community_id
     if user['community_id']:
         user['community'] = get_name_by_id(q.community_id, 'community')
+    else:
+        user['community'] = "None"
     
 
     user['team_ids'] = q.team_ids
@@ -113,23 +91,22 @@ def show_users(wow):
     if user['team_ids']:
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
+    else:
+        user['team_names'] = "None"
 
-    return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)
+    return render_template('user_template.html', user = user)
 
 @application.route('/games/<wow>')
 def show_games(wow):
     q = Game.query.get(wow)
     game = {}
-    users = []
-    teams = []
-    communities = []
-    game['id'] = q.id
+    game['_id'] = wow
     game['name'] = q.name
     game['description'] = q.description
     game['rating'] = q.rating
     game['genres'] = q.genres
     game['platforms'] = q.platforms
-    game['release_date'] = q.release_date.date()
+    game['release_date'] = q.release_date
     image_url = q.image_url
     if not image_url:
         image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
@@ -142,45 +119,35 @@ def show_games(wow):
     if game['user_ids']:
         for _id in game['user_ids']:
             game['user_names'][_id] = get_name_by_id(_id, 'user')
+    else:
+        game['user_names'] = "None"
+
     game['team_ids'] = q.team_ids
     game['team_names'] = {}
     if game['team_ids']:
         for _id in game['team_ids']:
             game['team_names'][_id] = get_name_by_id(_id, 'team')
+    else:
+        game['team_names'] = "None"
+
     game['community_ids'] = q.community_ids
     game['community_names'] = {}
     if game['community_ids']:
         for _id in game['community_ids']:
             game['community_names'][_id] = get_name_by_id(_id, 'community')
+    else:
+        game['community_names'] = "None"
 
-
-    # Get all users for edit drop down
-    users_query = User.query
-    for user in users_query:
-        users.append({'name': user.name, 'id': user.id})
-
-    # Get all teams for edit drop down
-    team_query = Team.query
-    for team in team_query:
-        teams.append({'name': team.name, 'id': team.id})
-
-    # Get all communities for edit drop down
-    community_query = Community.query
-    for community in community_query:
-        communities.append({'name': community.name, 'id': community.id})
-
-    return render_template('game_template.html', game = game, streamers=users, teams=teams, communities=communities)
+    return render_template('game_template.html', game = game)
 
 @application.route('/teams/<wow>')
 def show_teams(wow):
     q = Team.query.get(wow)
     team = {}
-    users = []
-    games = []
     team['name'] = q.name
     team['info'] = q.info
-    team['created'] = q.created.date()
-    team['updated'] = q.updated.date()
+    team['created'] = q.created
+    team['updated'] = q.updated
     image_url = q.image_url
     if not image_url:
         image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
@@ -193,33 +160,23 @@ def show_teams(wow):
     if team['user_ids']:
         for _id in team['user_ids']:
             team['user_names'][_id] = get_name_by_id(_id, 'user')
+    else:
+        team['user_names'] = "None"
 
     team['game_ids'] = q.game_ids
     team['game_names'] = {}
     if team['game_ids']:
         for _id in team['game_ids']:
             team['game_names'][_id] = get_name_by_id(_id, 'game')
+    else:
+        team['game_names'] = "None"
 
-
-    # Get all users for edit drop down
-    users_query = User.query
-    for user in users_query:
-        users.append({'name': user.name, 'id': user.id})
-
-
-    # Get all games for edit drop down
-    games_query = Game.query
-    for game in games_query:
-        games.append({'name': game.name, 'id': game.id})
-
-    return render_template('team_template.html', team = team, streamers=users, games=games)
+    return render_template('team_template.html', team = team)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):
     q = Community.query.get(wow)
     community = {}
-    games = []
-    users = []
     community['name'] = q.name
     community['description'] = q.description
     community['language'] = q.language
@@ -234,22 +191,16 @@ def show_communities(wow):
     community['game_id'] = q.game_id
     if community['game_id']:
         community['game'] = get_name_by_id(q.game_id, 'game')
+    else:
+        community['game'] = "None"
 
     community['owner_id'] = q.owner_id
     if community['owner_id']:
         community['owner'] = get_name_by_id(q.owner_id, 'user')
+    else:
+        community['owner'] = "None"
 
-    # Get all users for edit drop down
-    users_query = User.query
-    for user in users_query:
-        users.append({'name': user.name, 'id': user.id})
-
-    # Get all games for edit drop down
-    games_query = Game.query
-    for game in games_query:
-        games.append({'name': game.name, 'id': game.id})
-
-    return render_template('community_template.html', community = community, users=users, games=games)
+    return render_template('community_template.html', community = community)
 
 
 @application.route('/filter/users')
@@ -336,15 +287,15 @@ def render_users(users_filter, users_sort):
             user['image_url'] = image_url
             if user['name']:
                 users.append(user)
-        if users_sort == 'a-z':
-            users = sorted(users, key=lambda k: k['name'])
-        if users_sort == 'z-a':
-            users = sorted(users, key=lambda k: k['name'])
-            users = list(reversed(users))
         db.session.close()
     except Exception as e:
         print(str(e))
         db.session.rollback()
+    if users_sort == 'a-z':
+        users = sorted(users, key=lambda k: k['name'])
+    if users_sort == 'z-a':
+        users = sorted(users, key=lambda k: k['name'])
+        users = list(reversed(users))
     return render_template('users.html', users=users, user_filter=users_filter)
 
 def render_games(games_filter, games_sort):
