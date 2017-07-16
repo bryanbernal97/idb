@@ -20,15 +20,21 @@ gb_id = '/?api_key=d483af9dcc46474051b451953aa550322df2b793&format=json'
 application = Flask(__name__)
 application.debug = True
 
+
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'http://dev-env.fkmjb3y3r4.us-west-2.elasticbeanstalk.com'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
+    return response
+
 # Create the Flask-Restless API manager.
 manager = flask_restless.APIManager(application, flask_sqlalchemy_db=db)
 
 # Create API endpoints, which will be available at /api/<tablename> by
 # default. Allowed HTTP methods can be specified as well.
-manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT'])
-manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT'])
-manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT'])
-manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
+manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
+manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
+manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
+manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT']).after_request(add_cors_headers)
 
 # print a nice greeting.
 @application.route('/')
