@@ -51,22 +51,22 @@
                         <input type="hidden" id="user-id-edit" name="user-id-edit" value="{{user['id']}}">
 
 						<!-- Picture -->
-						<img src={{user['image_url']}}>
+						<img src="{{user['image_url']}}">
 
                         <hr style="border-color: white;">
 
 						<!-- Name -->
                         <h3>
                             Name:<br>
-                                <div class="input-col-4">
-                                    <!-- Template Field -->
-                                    <small id="user-name" class="text-muted">{{user['name']}}</small>
+                            <div class="input-col-4">
+                                <!-- Template Field -->
+                                <small id="user-name" class="text-muted">{{user['name']}}</small>
 
-                                    <!-- Edit Form Field -->
-                                    <small>
-                                            <input type="text" class="form-control hidden" id="user-name-edit" name="user-name-edit" value="{{user['name']}}">
-                                    </small>
-                                </div>
+                                <!-- Edit Form Field -->
+                                <small>
+                                	<input type="text" class="form-control hidden" id="user-name-edit" name="user-name-edit" value="{{user['name']}}">
+                                </small>
+                            </div>
                         </h3>
 						
                         <!-- Description -->
@@ -267,4 +267,3 @@
 <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="/static/js/editUser.js"></script>
 {% endblock %}
-

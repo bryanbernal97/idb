@@ -2,6 +2,11 @@
 
 {% block title %}{{community['name']}}{% endblock %}
 
+{% block custom_css %}
+    <link href="/static/css/editCommunity.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
 {% block navbar %}
 
 <ul class="nav navbar-nav navbar-right">
@@ -36,62 +41,155 @@
 
 {% block content %}
 
-<!-- ID -->
-<section id={{community['_id']}}>
+<section class="portfolio bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     
-                    <!-- Picture -->
-                    <img src={{community['image_url']}}>
+                    <form role="form" id="edit-community-form">
 
-                    <!-- Name -->
-                    <h3>
-                        Name:
-                        <small class="text-muted">{{community['name']}}</small>
-                    </h3>
+                        <!-- Hidden id for edit form used to update database -->
+                        <input type="hidden" id="community-id-edit" name="community-id-edit" value="{{community['id']}}">
 
-                    <!-- Description -->
-                    <h3>
-                        Description:
-                            <small class="text-muted">{{community['description']}}</small>
-                    </h3>
+                        <!-- Picture -->
+                        <img src="{{community['image_url']}}">
 
-                    <!-- Language -->
-                    <h3>
-                        Language:
-                        <small class="text-muted">{{community['language']}}</small>
-                    </h3>
+                        <hr style="border-color: white;">
 
-                    <!-- Rules -->
-                    <h3>
-                        Rules:
-                        <small class="text-muted">{{community['rules']}}</small>
-                    </h3>
+                        <!-- Name -->
+                        <h3>
+                            Name:<br>
+                            <div class="input-col-4">
+                                <!-- Template Field -->
+                                <small id="community-name" class="text-muted">{{community['name']}}</small>
 
-                    <!-- Game -->
-                    <h3>
-                        Game:
-                        {% if community['game_id'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=community['game_id'])}}">{{community['game']}}</a></small>
-                        {% else %}
-                        <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="text" class="form-control hidden" id="community-name-edit" name="community-name-edit" value="{{community['name']}}">
+                                </small>
+                            </div>
+                        </h3>
 
-                    <!-- Owner -->
-                    <h3>
-                        Owner:
-                        {% if community['game_id'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_users', wow=community['owner_id'])}}">{{community['owner']}}</a></small>
-                        {% else %}
-                        <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                        <!-- Description -->
+                        <h3>
+                            Description:<br>
+                            <div class="input-col-6">
+                                <!-- Template Field -->
+                                <small id="community-description" class="text-muted">{{community['description']}}</small>
 
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <textarea class="form-control hidden" id="community-description-edit" name="community-description-edit">
+                                        {{community['description']}}
+                                    </textarea>
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Language -->
+                        <h3>
+                            Language:<br>
+                            <div class="input-col-4">
+                                <!-- Template Field -->
+                                <small class="text-muted" id="community-language">{{community['language']}}</small>
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="text" class="form-control hidden" id="community-language-edit" name="community-language-edit" value="{{community['language']}}">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Rules -->
+                        <h3>
+                            Rules:<br>
+                            <div class="input-col-6">
+                                <!-- Template Field -->
+                                <small class="text-muted" id="community-rules">{{community['rules']}}</small>
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <textarea class="form-control hidden" id="community-rules-edit" name="community-rules-edit">
+                                        {{community['rules']}}
+                                    </textarea>
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Game -->
+                        <h3>
+                            Game:
+                            <!-- Template Field -->
+                            {% if community['game_id'] %}
+                                <small class="text-muted" id="community-game">
+                                    <a href="{{ url_for('show_games', wow=community['game_id'])}}"><br>{{community['game']}}</a>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="community-game">
+                                    <br>None
+                                </small>
+                            {% endif %}
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="community-game-edit" name="community-game-edit">
+                                    <select class="selectpicker form-control single-select" name="community-game-edit" data-live-search="true" data-dropup-auto="false" multiple>
+                                        {% for game in games %}
+                                            {% if community['game_id'] and game['id'] == community['game_id'] %}
+                                                <option value="{{game['id']}}" selected>{{game['name']}}</option>
+                                            {% else %}
+                                                <option value="{{game['id']}}">{{game['name']}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <!-- Owner -->
+                        <h3>
+                            Owner:
+                            <!-- Template Field -->
+                            {% if community['owner_id'] %}
+                                <small class="text-muted" id="community-owner">
+                                    <a href="{{ url_for('show_users', wow=community['owner_id'])}}"><br>{{community['owner']}}</a>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="community-owner">
+                                    <br>None
+                                </small>
+                            {% endif %}
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="community-owner-edit" name="community-owner-edit">
+                                    <select class="selectpicker form-control single-select" name="community-owner-edit" data-live-search="true" data-dropup-auto="false" multiple>
+                                        {% for user in users %}
+                                            {% if community['owner_id'] and user['id'] == community['owner_id'] %}
+                                                <option value="{{user['id']}}" selected>{{user['name']}}</option>
+                                            {% else %}
+                                                <option value="{{user['id']}}">{{user['name']}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <hr style="border-color: white;">
+
+                        <button type="button" id="community-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                    </form>
+                    <button type="button" id="community-edit-button"class="btn btn-primary streamglean-button">Edit</button>
                 </div>
             </div>
         </div>
     </section>
 
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="/static/js/editCommunity.js"></script>
 {% endblock %}

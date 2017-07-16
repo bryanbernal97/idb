@@ -212,6 +212,8 @@ def show_teams(wow):
 def show_communities(wow):
     q = Community.query.get(wow)
     community = {}
+    games = []
+    users = []
     community['name'] = q.name
     community['description'] = q.description
     community['language'] = q.language
@@ -231,7 +233,17 @@ def show_communities(wow):
     if community['owner_id']:
         community['owner'] = get_name_by_id(q.owner_id, 'user')
 
-    return render_template('community_template.html', community = community)
+    # Get all users for edit drop down
+    users_query = User.query
+    for user in users_query:
+        users.append({'name': user.name, 'id': user.id})
+
+    # Get all games for edit drop down
+    games_query = Game.query
+    for game in games_query:
+        games.append({'name': game.name, 'id': game.id})
+
+    return render_template('community_template.html', community = community, users=users, games=games)
 
 
 @application.route('/filter/users')
