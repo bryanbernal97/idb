@@ -1,0 +1,13 @@
+.input-col-4 {
+	display: inline-table;
+	width: 33.333333%;
+}
+
+.input-col-6 {
+	display: inline-table;
+	width: 50%;
+}
+
+.date-input {
+	display: inline-table;
+}

@@ -169,10 +169,12 @@ def show_games(wow):
 def show_teams(wow):
     q = Team.query.get(wow)
     team = {}
+    users = []
+    games = []
     team['name'] = q.name
     team['info'] = q.info
-    team['created'] = q.created
-    team['updated'] = q.updated
+    team['created'] = q.created.date()
+    team['updated'] = q.updated.date()
     image_url = q.image_url
     if not image_url:
         image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
@@ -192,7 +194,19 @@ def show_teams(wow):
         for _id in team['game_ids']:
             team['game_names'][_id] = get_name_by_id(_id, 'game')
 
-    return render_template('team_template.html', team = team)
+
+    # Get all users for edit drop down
+    users_query = User.query
+    for user in users_query:
+        users.append({'name': user.name, 'id': user.id})
+
+
+    # Get all games for edit drop down
+    games_query = Game.query
+    for game in games_query:
+        games.append({'name': game.name, 'id': game.id})
+
+    return render_template('team_template.html', team = team, streamers=users, games=games)
 
 @application.route('/communities/<wow>')
 def show_communities(wow):

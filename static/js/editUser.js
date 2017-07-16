@@ -153,29 +153,22 @@ $(document).ready(function() {
 				communityHTML = "<br>None";
 			}
 			$("#user-community").html(communityHTML);								// COMMUNITY (CONNECTION)
-			
+	
 
-			var teamIds = $("#user-teams-edit").val();
-			if (teamIds.length == 1 && teamIds[0] == 'None') {
-				$("#user-teams").text('None');
-			} else {
-				// Teams formatting as HTML links
-				var teamsHTML = "";
-				$("#user-teams-edit option:selected").each(function () {
-					var $this = $(this);
-					var teamID = $this.val();
-					var teamName = $this.text();
-					if (teamID == 'None') {
-						$("#user-teams").text('None');
-					} else {
-						var teamHref = '/teams/' + teamID;
-						var teamHTML = "<a href='" + teamHref + "'><br />" + teamName + "</a>";
-						teamsHTML += teamHTML;
-					}
-
-				});
-				$("#user-teams").html(teamsHTML);									// TEAMS (CONNECTION)
+			// User team links formatting
+			var teamsHTML = "";
+			$("#user-teams-edit option:selected").each(function () {
+				var $this = $(this);
+				var teamID = $this.val();
+				var teamName = $this.text();
+				var teamHref = '/teams/' + teamID;
+				var teamHTML = "<a href='" + teamHref + "'><br />" + teamName + "</a>";
+				teamsHTML += teamHTML;
+			});
+			if (teamsHTML == "") {
+				teamsHTML = "<br>None";
 			}
+			$("#user-teams").html(teamsHTML);										// TEAMS (CONNECTION)		
 
 			$("#user-created").text($("#user-created-edit").val());					// CREATED
 			$("#user-updated").text($("#user-updated-edit").val());					// UPDATED
