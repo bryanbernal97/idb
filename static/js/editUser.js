@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	var ENVIRONMENT = 'http://streamglean.me';
+	var ENVIRONMENT = 'http://dev-env.fkmjb3y3r4.us-west-2.elasticbeanstalk.com/';
 	var api_url = ENVIRONMENT + '/api/user/';
 
 /* ********************************************************************************************** */
