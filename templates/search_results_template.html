@@ -104,15 +104,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for user in user_search_results %}
-                                        {% if loop.first %}
-                                            <li data-target="#userCarousel" data-slide-to="0" class="active">1</li>
-                                        {% elif loop.index % 3 == 0 and not loop.last %}
-                                            <li data-target="#userCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -187,15 +178,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in game_search_results %}
-                                        {% if loop.first %}
-                                            <li data-target="#gameCarousel" data-slide-to="0" class="active">1</li>
-                                        {% elif loop.index % 3 == 0 and not loop.last %}
-                                            <li data-target="#gameCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -228,7 +210,7 @@
                                                 <div class="container {loop.index}">
                                     {% endif %}
                                             <div class="col-md-4 col-sm-6 portfolio-item">
-                                                <a href="{{'/users/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
+                                                <a href="{{'/teams/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
                                                     <div class="portfolio-hover">
                                                         <div class="portfolio-hover-content">
                                                             <i class="fa fa-plus fa-3x"></i>
@@ -270,15 +252,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                            <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                {% for team in team_search_results %}
-                                    {% if loop.first %}
-                                        <li data-target="#teamCarousel" data-slide-to="0" class="active">1</li>
-                                    {% elif loop.index % 3 == 0 and not loop.last %}
-                                        <li data-target="#teamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ol> -->
                             </div>
                         </div>
                     </div>
@@ -311,7 +284,7 @@
                                                     <div class="container {loop.index}">
                                         {% endif %}
                                                 <div class="col-md-4 col-sm-6 portfolio-item">
-                                                    <a href="{{'/users/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
+                                                    <a href="{{'/communities/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
                                                         <div class="portfolio-hover">
                                                             <div class="portfolio-hover-content">
                                                                 <i class="fa fa-plus fa-3x"></i>
@@ -353,15 +326,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in community_search_results %}
-                                        {% if loop.first %}
-                                            <li data-target="#communityCarousel" data-slide-to="0" class="active">1</li>
-                                        {% elif loop.index % 3 == 0 and not loop.last %}
-                                            <li data-target="#communityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -437,15 +401,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in user_search_results_or %}
-                                        {% if loop.first %}
-                                            <li data-target="#orUserCarousel" data-slide-to="0" class="active">1</li>
-                                        {% elif loop.index % 3 == 0 and not loop.last %}
-                                            <li data-target="#orUserCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -520,15 +475,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in game_search_results_or %}
-                                        {% if loop.first %}
-                                            <li data-target="#orGameCarousel" data-slide-to="0" class="active">1</li>
-                                        {% elif loop.index % 3 == 0 and not loop.last %}
-                                            <li data-target="#orGameCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol> -->
                             </div>
                         </div>
                     </div>
@@ -561,7 +507,7 @@
                                                 <div class="container {loop.index}">
                                     {% endif %}
                                             <div class="col-md-4 col-sm-6 portfolio-item">
-                                                <a href="{{'/users/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
+                                                <a href="{{'/teams/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
                                                     <div class="portfolio-hover">
                                                         <div class="portfolio-hover-content">
                                                             <i class="fa fa-plus fa-3x"></i>
@@ -603,15 +549,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                            <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                {% for team in team_search_results_or %}
-                                    {% if loop.first %}
-                                        <li data-target="#orTeamCarousel" data-slide-to="0" class="active">1</li>
-                                    {% elif loop.index % 3 == 0 and not loop.last %}
-                                        <li data-target="#orTeamCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ol> -->
                             </div>
                         </div>
                     </div>
@@ -644,7 +581,7 @@
                                                     <div class="container {loop.index}">
                                         {% endif %}
                                                 <div class="col-md-4 col-sm-6 portfolio-item">
-                                                    <a href="{{'/users/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
+                                                    <a href="{{'/communities/' ~ result['id']}}" class="portfolio-link" data-toggle="modal">
                                                         <div class="portfolio-hover">
                                                             <div class="portfolio-hover-content">
                                                                 <i class="fa fa-plus fa-3x"></i>
@@ -686,15 +623,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ol>
-                                <!-- <ol class="carousel-indicators carousel-indicators-numbers" style="position: relative; top: 10px;">
-                                    {% for team in community_search_results_or %}
-                                        {% if loop.first %}
-                                            <li data-target="#orCommunityCarousel" data-slide-to="0" class="active">1</li>
-                                        {% elif loop.index % 3 == 0 and not loop.last %}
-                                            <li data-target="#orCommunityCarousel" data-slide-to="{{loop.index // 3}}" class="">{{loop.index // 3 + 1}}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ol> -->
                             </div>
                         </div>
                     </div>

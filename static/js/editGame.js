@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 
 /* ********************************************************************************************** */
-/* ************************************* EDIT FORM HANDLING ************************************* */
+/* *************************************** FORM HANDLING **************************************** */
 /* ********************************************************************************************** */
 
 	// Hide edit form initially
@@ -94,11 +94,9 @@ $(document).ready(function() {
 	$("#game-communities-edit").hide();
 	$("#game-edit-submit").hide();
 
-
 	// Serialize form to later check if form has changed. *Only covers form elements with name
 	// attribute.
 	var origForm = $('#edit-game-form').serialize();
-
 
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#game-edit-button").click(function(){
@@ -173,7 +171,6 @@ $(document).ready(function() {
 			// Game streamer links formatting
 			var streamersHTML = "";
 			$("#game-streamers-edit option:selected").each(function () {
-				console.log('Inside options for streamers');
 				var $this = $(this);
 				var streamerID = $this.val();
 				var streamerName = $this.text();

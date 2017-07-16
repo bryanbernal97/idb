@@ -45,7 +45,6 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
 
-
                     <form role="form" id="edit-game-form">
 
                         <!-- Hidden id for edit form used to update database -->
@@ -105,10 +104,14 @@
 
                             <!-- Template Field -->
                             <small id="game-genres" class="text-muted">
-                                {% for genre in game['genres'] %}
-                                    <br>
-                                    {{genre}}
-                                {% endfor %}
+                                {% if game['genres'] %}
+                                    {% for genre in game['genres'] %}
+                                        <br>
+                                        {{genre}}
+                                    {% endfor %}
+                                {% else %}
+                                    <br>None
+                                {% endif %}
                             </small>
 
                             <!-- Edit Form Field -->
@@ -124,26 +127,36 @@
                                     </div>
                                     <br>
                                 </div>
-                                {% for genre in game['genres'] %}
-                                    <br>
-                                    <div class="copy-genre-fields">
-                                            <div class="control-group input-group remove-input">
-                                                <input type="text" name="genres[]" class="form-control" value="{{genre}}">
-                                                <div class="input-group-btn"> 
-                                                    <button class="btn btn-default remove-genre" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                {% if game['genres'] %}
+                                    {% for genre in game['genres'] %}
+                                        <br>
+                                        <div class="copy-genre-fields">
+                                                <div class="control-group input-group remove-input">
+                                                    <input type="text" name="genres[]" class="form-control" value="{{genre}}">
+                                                    <div class="input-group-btn"> 
+                                                        <button class="btn btn-default remove-genre" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                                                    </div>
                                                 </div>
+                                                <br>
                                             </div>
-                                            <br>
-                                        </div>
-                                    {% if loop.last %}
-                                        <div class="input-group control-group before-add-more-genres">
-                                            <input type="text" name="genres[]" class="form-control" value="">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-default add-more-genre" type="button"><i class="glyphicon glyphicon-plus"></i></button>
-                                                </div>
-                                        </div>                                        
-                                    {% endif %}
-                                {% endfor %}
+                                        {% if loop.last %}
+                                            <div class="input-group control-group before-add-more-genres">
+                                                <input type="text" name="genres[]" class="form-control" value="">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-default add-more-genre" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                                    </div>
+                                            </div>                                        
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <br>
+                                    <div class="input-group control-group before-add-more-genres">
+                                        <input type="text" name="genres[]" class="form-control" value="">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-default add-more-genre" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                            </div>
+                                    </div> 
+                                {% endif %}
                             </small>    
                         </h3>
 
@@ -154,10 +167,14 @@
                             <!-- Template Field -->
                             <small id="game-platforms" class="text-muted">
                                 <br>
-                                {% for platform in game['platforms'] %}
-                                    {{platform}}
-                                    <br>
-                                {% endfor %}
+                                {% if game['platforms'] %}
+                                    {% for platform in game['platforms'] %}
+                                        {{platform}}
+                                        <br>
+                                    {% endfor %}
+                                {% else %}
+                                    None
+                                {% endif %}
                             </small>
 
                             <!-- Edit Form Field -->
@@ -174,25 +191,35 @@
                                     <br>
                                 </div>
                                 <br>
-                                {% for platform in game['platforms'] %}
-                                    <div class="copy-platform-fields">
-                                        <div class="control-group input-group remove-input">
-                                            <input type="text" name="platforms[]" class="form-control" value="{{platform}}">
-                                            <div class="input-group-btn"> 
-                                                <button class="btn btn-default remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                    {% if loop.last %}
-                                        <div class="input-group control-group before-add-more-platforms">
-                                            <input type="text" name="platforms[]" class="form-control" value="">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+
+                                {% if game['platforms'] %}
+                                    {% for platform in game['platforms'] %}
+                                        <div class="copy-platform-fields">
+                                            <div class="control-group input-group remove-input">
+                                                <input type="text" name="platforms[]" class="form-control" value="{{platform}}">
+                                                <div class="input-group-btn"> 
+                                                    <button class="btn btn-default remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
                                                 </div>
-                                        </div>                                        
-                                    {% endif %}                                    
-                                {% endfor %}
+                                            </div>
+                                            <br>
+                                        </div>
+                                        {% if loop.last %}
+                                            <div class="input-group control-group before-add-more-platforms">
+                                                <input type="text" name="platforms[]" class="form-control" value="">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                                    </div>
+                                            </div>                                        
+                                        {% endif %}                                    
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="input-group control-group before-add-more-platforms">
+                                        <input type="text" name="platforms[]" class="form-control" value="">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                            </div>
+                                    </div> 
+                                {% endif %}
                             </small>  
                         </h3>
 
