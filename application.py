@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask import url_for
+from flask import flash
 from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
@@ -18,6 +19,7 @@ gb_id = '/?api_key=d483af9dcc46474051b451953aa550322df2b793&format=json'
 
 # Create the Flask app
 application = Flask(__name__)
+application.secret_key = 'some_secret'
 application.debug = True
 
 # Create the Flask-Restless API manager.
@@ -29,6 +31,126 @@ manager.create_api(User, methods=['GET', 'POST', 'DELETE', 'PUT'])
 manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT'])
 manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT'])
 manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
+
+@application.route('/updateUser', methods=['POST'])
+def update_user():
+    user_id = request.form.get('user-id-edit')
+    user_name = request.form.get('user-name-edit')
+    user_description = request.form.get('user-description-edit')
+    user_language = request.form.get('user-language-edit')
+    user_views = request.form.get('user-views-edit')
+    user_followers = request.form.get('user-followers-edit')
+    user_url = request.form.get('user-url-edit')
+    user_game = request.form.get('user-game-edit')
+    user_community = request.form.get('user-community-edit')
+    user_teams = request.form.getlist('user-teams-edit')
+    user_created = request.form.get('user-created-edit')
+    user_updated = request.form.get('user-updated-edit')
+
+
+    successful_user_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_community_update = True  # Need to delete this user from old community and add this user to new community
+
+    # UPDATE THE DB HERE
+    q = User.query.get(user_id)
+    old_game = ''
+    old_community = ''
+    try:
+        q.name = user_name
+        q.description = user_description
+        q.language = user_language
+        q.views = user_views
+        q.followers = user_followers
+        q.url = user_url
+        old_game = q.game_id
+        # if (old_game != user_game):
+        #     # Game has been updated so need to update appropriate connections
+        #     if old_game:
+        #         old_game_q = Game.query.get(old_game)
+        #         if old_game_q.user_ids and user_id in old_game_q.user_ids:
+        #             old_game_q.user_ids = old_game_q.user_ids.remove(user_id)
+        #             db.session.commit()
+        #     if user_game:
+        #         new_game_q = Game.query.get(user_game)
+        #         if new_game_q and new_game_q.user_ids:
+        #             print('new_game_q.user_ids: ' + str(new_game_q.user_ids))
+        #             # new_game_q.user_ids = new_game_q.user_ids.append(user_id)
+        #             new_user_ids = new_game_q.user_ids
+        #             new_user_ids.append(user_id)
+        #             print('new user ids: ' + str(new_user_ids))
+        #             new_game_q.user_ids = list(new_user_ids)
+        #             print('new game q user ids updated: ' + str(new_game_q.user_ids))
+        #             db.session.flush()
+        #             db.session.commit()  # WHY IS THIS NOT UPDATING THE DATABASE ENTRY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        #         else:
+        #             new_game_q.user_ids = list(user_id)
+        #             # db.session.commit()
+        q.game_id = user_game
+        old_community = q.community_id
+        # if (old_community != user_community):
+        #     print('community was updated also need to update community')
+        q.community_id = user_community
+        old_teams = q.team_ids
+        if (old_teams and user_teams):
+            # Compare user's teams prior to form submit with form input
+            if (set(old_teams) != set(user_teams)):
+                q.team_ids = list(map(int, user_teams))
+        elif (old_teams):
+            # User had team(s) prior to form submit, but now doesn't
+            q.team_ids = []
+        elif (user_teams):
+            # User had no teams prior to form submit, but now does
+            q.team_ids = list(map(int, user_teams))
+        q.created = datetime.datetime.strptime(user_created, '%Y-%m-%d')
+        q.updated = datetime.datetime.strptime(user_updated, '%Y-%m-%d')
+        db.session.flush()
+        db.session.commit()
+    except Exception as e:
+        print('Exception: ' + str(e))
+        successful_user_update = False
+        db.session.rollback()
+
+
+    if (old_game != user_game):
+        print('game was updated')
+        if old_game:
+            old_game_q = Game.query.get(old_game)
+            try:
+                if old_game_q.user_ids and user_id in old_game_q.user_ids:
+                    old_game_q.user_ids = old_game_q.user_ids.remove(user_id)
+                    print('old_game user ids: ' + str(old_game_q.user_ids))
+                    db.session.commit()
+            except Exception as e:
+                print('OLD GAME exception: ' + str(e))
+                successful_game_update = False
+                db.session.rollback()
+        if user_game:
+            new_game_q = Game.query.get(user_game)
+            try:
+                game_user_ids = new_game_q.user_ids
+                if game_user_ids:
+                    db.session.flush()
+                    new_game_q.user_ids = game_user_ids + [user_id]
+                    print('new game user ids updated should be: ' + str(new_game_q.user_ids))
+                    db.session.commit()
+                else:
+                    new_game_q.user_ids = [user_id]
+                    db.session.commit()
+            except Exception as e:
+                print('Sorry exception: ' + str(e))
+                successful_game_update = False
+                db.session.rollback()
+
+
+    if (successful_user_update and successful_game_update and successful_community_update):
+        flash('Congradulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/users/' + user_id
+    return redirect(redirect_url)
+
 
 # print a nice greeting.
 @application.route('/')

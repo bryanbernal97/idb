@@ -41,11 +41,24 @@
 {% block content %}
 
 <section class="portfolio bg-light-gray">
+
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 
-					<form role="form" id="edit-user-form">
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					  <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+						{% if messages %}
+					  		{% for category, message in messages %}
+					    		<div class="alert alert-{{ category }} alert-dismissible" role="alert">
+					    			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					      				<!-- <strong>Title</strong> --> {{ message }}
+					      		</div>
+					    {% endfor %}
+					  {% endif %}
+					{% endwith %}
+
+					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
 						
 						<!-- Hidden id for edit form used to update database -->
                         <input type="hidden" id="user-id-edit" name="user-id-edit" value="{{user['id']}}">
@@ -176,7 +189,7 @@
                             <small>
                                 <br>
                                 <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="user-community-edit" name="user-community-edit">
-                                    <select class="selectpicker form-control" name="user-teams-edit" data-live-search="true" data-dropup-auto="false" multiple>
+                                    <select class="selectpicker form-control" name="user-community-edit" data-live-search="true" data-dropup-auto="false" multiple>
                                     {% for community in communities %}
                                         {% if user['community_id'] and community['id'] == user['community_id'] %}
                                             <option value="{{community['id']}}" selected>{{community['name']}}</option>
@@ -252,7 +265,7 @@
 
 						<hr style="border-color: white;">
 
-						<button type="button" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
 					</form>
 					<button type="button" id="user-edit-button"class="btn btn-primary streamglean-button">Edit</button>
 				</div>
