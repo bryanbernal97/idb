@@ -584,13 +584,46 @@ def search():
     game_search_results = []
     team_search_results = []
     community_search_results = []
+
     for user in User.query.whoosh_search(search_string).all() :
-        user_search_results.append(object_as_dict(user))
+        user_search_results.append(user)
     for game in Game.query.whoosh_search(search_string).all() :
-        game_search_results.append(object_as_dict(game))
+        game_search_results.append(game)
     for team in Team.query.whoosh_search(search_string).all() :
-        team_search_results.append(object_as_dict(team))
+        team_search_results.append(team)
     for community in Community.query.whoosh_search(search_string).all() :
+        community_search_results.append(community)
+    for user in User.query.whoosh_search(wildcard_search_string).all() :
+        user_search_results.append(user)
+    for game in Game.query.whoosh_search(wildcard_search_string).all() :
+        game_search_results.append(game)
+    for team in Team.query.whoosh_search(wildcard_search_string).all() :
+        team_search_results.append(team)
+    for community in Community.query.whoosh_search(wildcard_search_string).all() :
+        community_search_results.append(community)
+
+    user_search_results = list(set(user_search_results))
+    game_search_results = list(set(game_search_results))
+    team_search_results = list(set(team_search_results))
+    community_search_results = list(set(community_search_results))
+
+    user_search_results2 = user_search_results
+    game_search_results2 = game_search_results
+    team_search_results2 = team_search_results
+    community_search_results2 = community_search_results
+
+    user_search_results = []
+    game_search_results = []
+    team_search_results = []
+    community_search_results = []
+
+    for user in user_search_results2:
+        user_search_results.append(object_as_dict(user))
+    for game in game_search_results2:
+        game_search_results.append(object_as_dict(game))
+    for team in team_search_results2:
+        team_search_results.append(object_as_dict(team))
+    for community in community_search_results2:
         community_search_results.append(object_as_dict(community))
 
     print(len(user_search_results))
