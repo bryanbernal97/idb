@@ -11,6 +11,7 @@ from sqlalchemy import inspect
 from captcha.image import ImageCaptcha
 import flask_restless
 import flask_whooshalchemy as wa
+import random
 
 import datetime
 import requests
@@ -35,7 +36,6 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 @application.route('/updateUser', methods=['POST'])
 def update_user():
-    captcha_string = request.args.get('captcha-submit')
     user_id = request.form.get('user-id-edit')
     user_name = request.form.get('user-name-edit')
     user_description = request.form.get('user-description-edit')
@@ -48,12 +48,12 @@ def update_user():
     user_teams = request.form.getlist('user-teams-edit')
     user_created = request.form.get('user-created-edit')
     user_updated = request.form.get('user-updated-edit')
-
+    user_captcha = request.form.get('')
 
     successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
     successful_community_update = True  # Need to delete this user from old community and add this user to new community
-    sucessful_teams_update = True       # Need to delete this user from any old teams and add this user to any new teams
+
 
     # UPDATE THE DB HERE
     # q = User.query.get(user_id)
@@ -233,9 +233,17 @@ def show_users(wow):
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
 
+    # Create a random phrase of 5 characters for the captcha, build it
+    # and store it in the user dictionary to eventually be passed into
+    # javascript
+    phrase = ""
+    values = list(range(26))
+    for i in range(5):
+        phrase += chr(97 + random.choice(values))
     image = ImageCaptcha()
-    data = image.generate('1234')
-    image.write('1234', "static/img/out.png", format='png')
+    data = image.generate(phrase)
+    image.write(phrase, "static/img/out.png", format='png')
+    user['captcha_answer'] = phrase;
 
 
     return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)

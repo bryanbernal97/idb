@@ -58,6 +58,8 @@
 					  {% endif %}
 					{% endwith %}
 
+					<div id="user-captcha" data-captcha="{{ user['captcha_answer']}}"></div>
+
 					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
 						
 						<!-- Hidden id for edit form used to update database -->
@@ -273,9 +275,11 @@
 						<br>
 						<br>
 
+<!-- 						<input type="text" id="captcha-string" name="captcha-string" class="form-control hidden" placeholder="Input the phrase above and press enter to edit this page..."> -->
 
 						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
 					</form>
+
 					<button type="button" id="user-edit-button"class="btn btn-primary streamglean-button">Edit</button>
 				</div>
 			</div>
