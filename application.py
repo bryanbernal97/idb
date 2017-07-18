@@ -8,10 +8,8 @@ from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
 from sqlalchemy import inspect
-from captcha.image import ImageCaptcha
 import flask_restless
 import flask_whooshalchemy as wa
-import random
 
 import datetime
 import requests
@@ -48,7 +46,7 @@ def update_user():
     user_teams = request.form.getlist('user-teams-edit')
     user_created = request.form.get('user-created-edit')
     user_updated = request.form.get('user-updated-edit')
-    user_captcha = request.form.get('')
+    # user_captcha = request.form.get('')
 
     successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
@@ -237,14 +235,14 @@ def show_users(wow):
     # Create a random phrase of 5 characters for the captcha, build it
     # and store it in the user dictionary to eventually be passed into
     # javascript
-    phrase = ""
-    values = list(range(26))
-    for i in range(5):
-        phrase += chr(97 + random.choice(values))
-    image = ImageCaptcha()
-    data = image.generate(phrase)
-    image.write(phrase, "static/img/out.png", format='png')
-    user['captcha_answer'] = phrase;
+    # phrase = ""
+    # values = list(range(26))
+    # for i in range(5):
+    #     phrase += chr(97 + random.choice(values))
+    # image = ImageCaptcha()
+    # data = image.generate(phrase)
+    # image.write(phrase, "static/img/out.png", format='png')
+    # user['captcha_answer'] = phrase;
 
 
     return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)
