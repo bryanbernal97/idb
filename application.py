@@ -53,6 +53,7 @@ def update_user():
     successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
     successful_community_update = True  # Need to delete this user from old community and add this user to new community
+    sucessful_teams_update = True       # Need to delete this user from any old teams and add this user to any new teams
 
     # UPDATE THE DB HERE
     # q = User.query.get(user_id)
@@ -145,10 +146,10 @@ def update_user():
     #             db.session.rollback()
 
 
-    # if (successful_user_update and successful_game_update and successful_community_update):
-    #     flash('Congradulations, the user was updated successfuly!', 'success')
-    # else:
-    #     flash('Sorry, something went wrong :(', 'danger')
+    if (successful_user_update and successful_game_update and successful_community_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
 
     redirect_url = '/users/' + user_id
     return redirect(redirect_url)
