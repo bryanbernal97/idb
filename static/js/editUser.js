@@ -74,6 +74,20 @@ $(document).ready(function() {
 	// attribute.
 	var origForm = $('#edit-user-form').serialize();
 
+
+
+	$("#captcha-string").keypress(function(event){ 
+  if(event.keyCode == 13){ 
+    event.preventDefault();
+    if($("#captcha-string").get(0).value == "1234")
+    {
+    	$("#captcha-string").addClass('hidden');
+    	$("#captcha-img").addClass('hidden');
+    	$("#user-edit-button").removeClass('hidden');
+    }
+  }
+});
+
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#user-edit-button").click(function(){
 
@@ -104,9 +118,9 @@ $(document).ready(function() {
 		$("#user-teams-edit").removeClass('hidden');
 		$("#user-created-edit").removeClass('hidden');
 		$("#user-updated-edit").removeClass('hidden');
-		$("#user-edit-submit").removeClass('hidden');
+		//$("#user-edit-submit").removeClass('hidden');
 		$("#captcha-img").removeClass('hidden');
-		$("#captcha-submit").removeClass('hidden');
+		$("#captcha-string").removeClass('hidden');
 	});
 
 	// Update template fields with form values, update database, hide edit form fields,

@@ -35,7 +35,6 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 @application.route('/updateUser', methods=['POST'])
 def update_user():
-    captcha_string = request.args.get('captcha-submit')
     user_id = request.form.get('user-id-edit')
     user_name = request.form.get('user-name-edit')
     user_description = request.form.get('user-description-edit')
@@ -49,10 +48,10 @@ def update_user():
     user_created = request.form.get('user-created-edit')
     user_updated = request.form.get('user-updated-edit')
 
-
     successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
     successful_community_update = True  # Need to delete this user from old community and add this user to new community
+
 
     # UPDATE THE DB HERE
     # q = User.query.get(user_id)
@@ -145,10 +144,10 @@ def update_user():
     #             db.session.rollback()
 
 
-    # if (successful_user_update and successful_game_update and successful_community_update):
-    #     flash('Congradulations, the user was updated successfuly!', 'success')
-    # else:
-    #     flash('Sorry, something went wrong :(', 'danger')
+    if (successful_user_update and successful_game_update and successful_community_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
 
     redirect_url = '/users/' + user_id
     return redirect(redirect_url)
