@@ -53,6 +53,7 @@ def update_user():
     successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
     successful_community_update = True  # Need to delete this user from old community and add this user to new community
+    successful_teams_update = True
 
 
     # UPDATE THE DB HERE
@@ -146,7 +147,7 @@ def update_user():
     #             db.session.rollback()
 
 
-    if (successful_user_update and successful_game_update and successful_community_update):
+    if (successful_user_update and successful_game_update and successful_community_update and successful_teams_update):
         flash('Congratulations, the user was updated successfuly!', 'success')
     else:
         flash('Sorry, something went wrong :(', 'danger')
