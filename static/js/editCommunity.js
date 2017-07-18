@@ -110,7 +110,7 @@ $(document).ready(function() {
 
 	// Update template fields with form values, update database, hide edit form fields,
 	// and show updated template fields with confirmation/failure alert from updating database.
-	$("#community-edit-submit").click(function() {
+	$("#community-edit-submit").click(function(e) {
 
 		// alert('response: ' + grecaptcha.getResponse());
 		// e.preventDefault();
