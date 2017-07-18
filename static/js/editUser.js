@@ -77,50 +77,50 @@ $(document).ready(function() {
 
 
 	$("#captcha-string").keypress(function(event){ 
-  if(event.keyCode == 13){ 
-    event.preventDefault();
-    if($("#captcha-string").get(0).value == "1234")
-    {
-    	$("#captcha-string").addClass('hidden');
-    	$("#captcha-img").addClass('hidden');
-    	$("#user-edit-button").removeClass('hidden');
-    }
-  }
-});
+ 		if(event.keyCode == 13){ 
+    		event.preventDefault();
+    	}
+    	var hey = $('#user-captcha').data('captcha');
+    	if($("#captcha-string").get(0).value == hey)
+    	{
+    		$("#user-name").addClass('hidden');
+			$("#user-description").addClass('hidden');
+			$("#user-language").addClass('hidden');
+			$("#user-views").addClass('hidden');
+			$("#user-followers").addClass('hidden');
+			$("#user-url").addClass('hidden');
+			$("#user-game").addClass('hidden');
+			$("#user-community").addClass('hidden');
+			$("#user-teams").addClass('hidden');
+			$("#user-created").addClass('hidden');
+			$("#user-updated").addClass('hidden');
+			$("#user-edit-button").addClass('hidden');
+			$("#captcha-img").addClass('hidden');
+			$("#captcha-string").addClass('hidden');
+
+
+			$("#user-name-edit").removeClass('hidden');
+			$("#user-description-edit").removeClass('hidden');
+			$("#user-language-edit").removeClass('hidden');
+			$("#user-views-edit").removeClass('hidden');
+			$("#user-followers-edit").removeClass('hidden');
+			$("#user-url-edit").removeClass('hidden');
+			$("#user-game-edit").removeClass('hidden');
+			$("#user-community-edit").removeClass('hidden');
+			$("#user-teams-edit").removeClass('hidden');
+			$("#user-created-edit").removeClass('hidden');
+			$("#user-updated-edit").removeClass('hidden');
+			$("#user-edit-submit").removeClass('hidden');
+    	}
+	});
 
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#user-edit-button").click(function(){
 
 		origForm = $('#edit-user-form').serialize();
-
-		$("#user-name").addClass('hidden');
-		$("#user-description").addClass('hidden');
-		$("#user-language").addClass('hidden');
-		$("#user-views").addClass('hidden');
-		$("#user-followers").addClass('hidden');
-		$("#user-url").addClass('hidden');
-		$("#user-game").addClass('hidden');
-		$("#user-community").addClass('hidden');
-		$("#user-teams").addClass('hidden');
-		$("#user-created").addClass('hidden');
-		$("#user-updated").addClass('hidden');
-		$("#user-edit-button").addClass('hidden');
-
-
-		$("#user-name-edit").removeClass('hidden');
-		$("#user-description-edit").removeClass('hidden');
-		$("#user-language-edit").removeClass('hidden');
-		$("#user-views-edit").removeClass('hidden');
-		$("#user-followers-edit").removeClass('hidden');
-		$("#user-url-edit").removeClass('hidden');
-		$("#user-game-edit").removeClass('hidden');
-		$("#user-community-edit").removeClass('hidden');
-		$("#user-teams-edit").removeClass('hidden');
-		$("#user-created-edit").removeClass('hidden');
-		$("#user-updated-edit").removeClass('hidden');
-		//$("#user-edit-submit").removeClass('hidden');
 		$("#captcha-img").removeClass('hidden');
 		$("#captcha-string").removeClass('hidden');
+		$("#user-edit-button").addClass('hidden');
 	});
 
 	// Update template fields with form values, update database, hide edit form fields,
