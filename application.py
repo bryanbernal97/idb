@@ -35,6 +35,7 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 @application.route('/updateUser', methods=['POST'])
 def update_user():
+    captcha_string = request.args.get('captcha-submit')
     user_id = request.form.get('user-id-edit')
     user_name = request.form.get('user-name-edit')
     user_description = request.form.get('user-description-edit')
@@ -233,7 +234,7 @@ def show_users(wow):
 
     image = ImageCaptcha()
     data = image.generate('1234')
-    image.write('1234', 'out.png')
+    image.write('1234', "static/img/out.png", format='png')
 
 
     return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)

@@ -105,6 +105,8 @@ $(document).ready(function() {
 		$("#user-created-edit").removeClass('hidden');
 		$("#user-updated-edit").removeClass('hidden');
 		$("#user-edit-submit").removeClass('hidden');
+		$("#captcha-img").removeClass('hidden');
+		$("#captcha-submit").removeClass('hidden');
 	});
 
 	// Update template fields with form values, update database, hide edit form fields,
