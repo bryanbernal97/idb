@@ -1,60 +1,53 @@
-PlanITpoker Phase 3
+PlanITpoker Phase 4
 Group 2
-12 July, 2017
+17 July, 2017
 
-1.  Create separate templates for Users, Teams, Communities, and Games
-        Estimated time: 30 minutes
-        Actual time:  ~30 minutes
-
-2.  Write about search implementation and tools used in our technical report
-        Estimated time: 2 hours 
-        Actual time: 1.5 hours
-
-3.  Refine UML diagram
-        Estimated time: 15 minutes
-        Actual time: 5 minutes
-        
-4.   Refine/add more API functions
+1.  Add recaptcha to edit button
         Estimated time: 3 hours
-        Actual time: 5 hours
+        Actual time:  3 hours
+
+2.  Locate database update error
+        Estimated time: 30 minutes 
+        Actual time: 6 hours
+
+        We ran into an interesting time where the correct data was being printed to the console, but not stored into the database at the correct timing. Ended up being a RHS vs LHS issue.
+
+3.  Create editable forms for each model
+        Estimated time: 4 hours
+        Actual time: 6 hours
+
+        Just took longer than expected--no real trouble here.
         
-5.  Implement basic search form
+4.   Connect edited info to all connected models/attributes
+        Estimated time: 2 hours
+        Actual time: 6.5 hours
+
+        Seemed like an easy enough solution, however it proved to take a lot more effort than we thought to do this without slowing the site way down.
+        
+5.  Create searchable games drop down for editing
         Estimated time: 1 hour
-        Actual time: 3 hours
+        Actual time: 1 hour
         
-        The extra time ended up coming from trying out different designs, placement, and
-        effects. We ended up going with a simple search bar in the end.
-        
-6.   Improve UI
-        - Fix nav bar issues
-        - Hide unecessary indicator numbers under carousel
+6.   Implement Recaptcha
         Estimated time: 2 hours
         Actual time: 4 hours
         
-        The two mentioned above ended up being specific points we needed to address, but minor
-        tweaks to the overall site was made also, so the actual time became greater than estimated.
+        We changed the type of recapcha we were implementing a few times, and had trouble updating the image on different pages.
         
-7.   Update unit tests with new API
+7.   Add unit tests for last phase
+        Estimated time: 2 hours
+        Actual time: 1 hour
+        
+8.  Expand react usage
+        Estimated time: 2 hours
+        Actual time: 1 hour
+        
+9.  Refine website style
         Estimated time: 4 hours
-        Actual time: 5 hours
-        
-8.  Create a well-formatted results page that displays data returned from search query
-        Estimated time: 3 hours
-        Actual time: 10 hours
-        
-        Probably unsurprising that we ended up having a lot of issues with making the front-end do
-        the things the way we wanted it to.
-        
-9.  Find and implement a compatible full-text search library
-        Estimated time: 3 hours
-        Actual time: 18 hours
-        
-        Though we had a very basic search working, our inexperience with implementing searching in
-        general caused us to be confused about a lot of details and we were constantly modifying how
-        the function performed. 
-        
-10. Add react elements
-        Estimated time: 5 hours
         Actual time: 3 hours
+
+10. Store edited info in the database
+        Estimated time: 1 hour
+        Actual time: 30 minutes
         
     
