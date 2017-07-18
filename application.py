@@ -69,7 +69,9 @@ def update_user():
                     old_game = Game.query.get(old_game_id)
                     old_game_user_ids = old_game.user_ids
                     if old_game_user_ids and user_id in old_game_user_ids:
+                        db.session.flush()
                         old_game.user_ids = old_game_user_ids.remove(user_id)
+                    # db.session.flush()
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
@@ -80,10 +82,13 @@ def update_user():
                 try:
                     new_game = Game.query.get(new_game_id)
                     new_game_user_ids = new_game.user_ids
+                    db.session.flush()
                     if new_game_user_ids:
                         new_game.user_ids = new_game_user_ids.append(user_id)
                     else:
                         new_game.user_ids = [user_id]
+                    # db.session.flush()
+                    db.session.commit()
                 except Exception as e:
                     db.session.rollback()
                     print('New Game Exception: ' + str(e))
@@ -96,8 +101,10 @@ def update_user():
                 try:
                     old_community = Community.query.get(old_community_id)
                     old_community_owner_id = old_community.owner_id
+                    db.session.flush()
                     if user_id == old_community_owner_id:
                         old_community.owner_id = None
+                    # db.session.flush()
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
@@ -107,7 +114,9 @@ def update_user():
             if new_community_id:
                 try:
                     new_community = Community.query.get(new_community_id)
+                    db.session.flush()
                     new_community.owner_id = user_id
+                    # db.session.flush()
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
@@ -117,14 +126,18 @@ def update_user():
         user.community_id = new_community_id
 
         if (set(old_team_ids) != set(new_team_ids)):
+            print('teams have changed')
             for old_team_id in old_team_ids:
                 if old_team_id not in new_team_ids:
                     # User used to have game but now doesn't need to remove user from that team
+                    print('team: ' + str(old_team_id) + ' was on users list but now its not')
                     try:
                         old_team = Team.query.get(old_team_id)
                         old_team_user_ids = old_team.user_ids
                         if old_team_user_ids and user_id in old_team_user_ids:
+                            db.session.flush()
                             old_team.user_ids = old_team_user_ids.remove(user_id)
+                        # db.session.flush()
                         db.session.commit()
                     except Exception as e:
                         db.session.rollback()
@@ -136,16 +149,19 @@ def update_user():
                     try:
                         new_team = Team.query.get(new_team_id)
                         new_team_user_ids = new_team.user_ids
+                        db.session.flush()
                         if new_team_user_ids:
                             new_team.user_ids = new_team_user_ids.append(user_id)
                         else:
                             new_team.user_ids = [user_id]
+                        # db.session.flush()
                         db.session.commit()
                     except Exception as e:
                         db.session.rollback()
                         print('New Team Exception: ' + str(e))
                         successful_teams_update = False
 
+        db.session.flush()
         user.team_ids = list(map(int, new_team_ids))
         user.name = new_name
         user.description = new_description
@@ -155,6 +171,7 @@ def update_user():
         user.url = new_url
         user.created = datetime.datetime.strptime(new_created, '%Y-%m-%d')
         user.updated = datetime.datetime.strptime(new_updated, '%Y-%m-%d')
+        # db.session.flush()
         db.session.commit()
     except Exception as user_exception:
         db.session.rollback()
