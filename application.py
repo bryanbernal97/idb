@@ -8,7 +8,6 @@ from application import db
 from application.models import User, Team, Game, Community
 from sqlalchemy.sql.expression import func
 from sqlalchemy import inspect
-from captcha.image import ImageCaptcha
 import flask_restless
 import flask_whooshalchemy as wa
 import random
@@ -232,18 +231,6 @@ def show_users(wow):
     if user['team_ids']:
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
-
-    # Create a random phrase of 5 characters for the captcha, build it
-    # and store it in the user dictionary to eventually be passed into
-    # javascript
-    phrase = ""
-    values = list(range(26))
-    for i in range(5):
-        phrase += chr(97 + random.choice(values))
-    image = ImageCaptcha()
-    data = image.generate(phrase)
-    image.write(phrase, "static/img/out.png", format='png')
-    user['captcha_answer'] = phrase;
 
 
     return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)
