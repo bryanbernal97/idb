@@ -51,6 +51,7 @@ def update_user():
     successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
     successful_community_update = True  # Need to delete this user from old community and add this user to new community
+    sucessful_teams_update = True       # Need to delete this user from any old teams and add this user to any new teams
 
 
     # UPDATE THE DB HERE
