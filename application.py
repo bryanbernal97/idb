@@ -153,6 +153,123 @@ def update_user():
     redirect_url = '/users/' + user_id
     return redirect(redirect_url)
 
+@application.route('/updateCommunity', methods=['POST'])
+def update_community():
+    community_id = request.form.get('community-id-edit')
+    community_name = request.form.get('community-name-edit')
+    community_description = request.form.get('community-description-edit')
+    community_language = request.form.get('community-language-edit')
+    community_rules = request.form.get('community-rules-edit')
+    community_game = request.form.get('user-game-edit')
+    community_owner = request.form.get('community-owner-edit')
+
+    # community_captcha = request.form.get('')
+
+    successful_community_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_community_update = True  # Need to delete this user from old community and add this user to new community
+    successful_teams_update = True
+
+
+    # UPDATE THE DB HERE
+    # q = User.query.get(community_id)
+    # old_game = ''
+    # old_community = ''
+    # try:
+    #     q.name = community_name
+    #     q.description = community_description
+    #     q.language = community_language
+    #     q.views = community_views
+    #     q.followers = community_followers
+    #     q.url = community_url
+    #     old_game = q.game_id
+    #     # if (old_game != community_game):
+    #     #     # Game has been updated so need to update appropriate connections
+    #     #     if old_game:
+    #     #         old_game_q = Game.query.get(old_game)
+    #     #         if old_game_q.community_ids and community_id in old_game_q.community_ids:
+    #     #             old_game_q.community_ids = old_game_q.community_ids.remove(community_id)
+    #     #             db.session.commit()
+    #     #     if community_game:
+    #     #         new_game_q = Game.query.get(community_game)
+    #     #         if new_game_q and new_game_q.community_ids:
+    #     #             print('new_game_q.community_ids: ' + str(new_game_q.community_ids))
+    #     #             # new_game_q.community_ids = new_game_q.community_ids.append(community_id)
+    #     #             new_community_ids = new_game_q.community_ids
+    #     #             new_community_ids.append(community_id)
+    #     #             print('new user ids: ' + str(new_community_ids))
+    #     #             new_game_q.community_ids = list(new_community_ids)
+    #     #             print('new game q user ids updated: ' + str(new_game_q.community_ids))
+    #     #             db.session.flush()
+    #     #             db.session.commit()  # WHY IS THIS NOT UPDATING THE DATABASE ENTRY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #     #         else:
+    #     #             new_game_q.community_ids = list(community_id)
+    #     #             # db.session.commit()
+    #     q.game_id = community_game
+    #     old_community = q.community_id
+    #     # if (old_community != community_community):
+    #     #     print('community was updated also need to update community')
+    #     q.community_id = community_community
+    #     old_teams = q.team_ids
+    #     if (old_teams and community_teams):
+    #         # Compare user's teams prior to form submit with form input
+    #         if (set(old_teams) != set(community_teams)):
+    #             q.team_ids = list(map(int, community_teams))
+    #     elif (old_teams):
+    #         # User had team(s) prior to form submit, but now doesn't
+    #         q.team_ids = []
+    #     elif (community_teams):
+    #         # User had no teams prior to form submit, but now does
+    #         q.team_ids = list(map(int, community_teams))
+    #     q.created = datetime.datetime.strptime(community_created, '%Y-%m-%d')
+    #     q.updated = datetime.datetime.strptime(community_updated, '%Y-%m-%d')
+    #     db.session.flush()
+    #     db.session.commit()
+    # except Exception as e:
+    #     print('Exception: ' + str(e))
+    #     successful_community_update = False
+    #     db.session.rollback()
+
+
+    # if (old_game != community_game):
+    #     print('game was updated')
+    #     if old_game:
+    #         old_game_q = Game.query.get(old_game)
+    #         try:
+    #             if old_game_q.community_ids and community_id in old_game_q.community_ids:
+    #                 old_game_q.community_ids = old_game_q.community_ids.remove(community_id)
+    #                 print('old_game user ids: ' + str(old_game_q.community_ids))
+    #                 db.session.commit()
+    #         except Exception as e:
+    #             print('OLD GAME exception: ' + str(e))
+    #             successful_game_update = False
+    #             db.session.rollback()
+    #     if community_game:
+    #         new_game_q = Game.query.get(community_game)
+    #         try:
+    #             game_community_ids = new_game_q.community_ids
+    #             if game_community_ids:
+    #                 db.session.flush()
+    #                 new_game_q.community_ids = game_community_ids + [community_id]                             # The issue was only can set field once and in if statement it was doing something?
+    #                 print('new game user ids updated should be: ' + str(new_game_q.community_ids))
+    #                 db.session.commit()
+    #             else:
+    #                 new_game_q.community_ids = [community_id]
+    #                 db.session.commit()
+    #         except Exception as e:
+    #             print('Sorry exception: ' + str(e))
+    #             successful_game_update = False
+    #             db.session.rollback()
+
+
+    if (successful_community_update and successful_game_update and successful_community_update and successful_teams_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/communities/' + community_id
+    return redirect(redirect_url)
+
 
 # print a nice greeting.
 @application.route('/')

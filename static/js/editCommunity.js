@@ -93,6 +93,7 @@ $(document).ready(function() {
 		$("#community-game-edit").removeClass('hidden');
 		$("#community-owner-edit").removeClass('hidden');
 		$("#community-edit-submit").removeClass('hidden');
+		$("#g-recaptcha").removeClass('hidden');
 	});
 
 
@@ -100,61 +101,67 @@ $(document).ready(function() {
 	// and show updated template fields with confirmation/failure alert from updating database.
 	$("#community-edit-submit").click(function() {
 
-		// Only need to take action if the form values have changed
-		if ($('#edit-community-form').serialize() != origForm) {
-
-			var newName = $("#community-name-edit").val();
-			$("#site-title").text(newName);												// SITE TITLE
-			$("#community-name").text(newName);											// NAME
-			$("#community-description").text($("#community-description-edit").val());	// DESCRIPTION
-			$("#community-language").text($("#community-language-edit").val());			// LANGUAGE
-			$("#community-rules").text($("#community-rules-edit").val());				// RULES
-
-			// Community game link formatting
-			var gameHTML = "";
-			$("#community-game-edit option:selected").each(function () {
-					var $this = $(this);
-					var gameID = $this.val();
-					var gameName = $this.text();
-					var gameHref = '/games/' + gameID;
-					gameHTML = "<a href='" + gameHref + "'><br />" + gameName + "</a>";
-			});
-			if (gameHTML == "") {
-				gameHTML = "<br>None";
-			}
-			$("#community-game").html(gameHTML);										// GAME (CONNECTION)
-
-			// Community owner link formatting
-			var ownerHTML = "";
-			$("#community-owner-edit option:selected").each(function () {
-					var $this = $(this);
-					var ownerID = $this.val();
-					var ownerName = $this.text();
-					var ownerHref = '/users/' + ownerID;
-					ownerHTML = "<a href='" + ownerHref + "'><br />" + ownerName + "</a>";
-			});
-			if (ownerHTML == "") {
-				ownerHTML = "<br>None";
-			}
-			$("#community-owner").html(ownerHTML);										// OWNER (CONNECTION)
-
+		// alert('response: ' + grecaptcha.getResponse());
+		// e.preventDefault();
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
 		}
+		// Only need to take action if the form values have changed
+		// if ($('#edit-community-form').serialize() != origForm) {
 
-		$("#community-name-edit").addClass('hidden');
-		$("#community-description-edit").addClass('hidden');
-		$("#community-language-edit").addClass('hidden');
-		$("#community-rules-edit").addClass('hidden');
-		$("#community-game-edit").addClass('hidden');
-		$("#community-owner-edit").addClass('hidden');
-		$("#community-edit-submit").addClass('hidden');
+		//	var newName = $("#community-name-edit").val();
+		//	$("#site-title").text(newName);												// SITE TITLE
+		//	$("#community-name").text(newName);											// NAME
+		//	$("#community-description").text($("#community-description-edit").val());	// DESCRIPTION
+		//	$("#community-language").text($("#community-language-edit").val());			// LANGUAGE
+		//	$("#community-rules").text($("#community-rules-edit").val());				// RULES
 
-		$("#community-name").removeClass('hidden');
-		$("#community-description").removeClass('hidden');
-		$("#community-language").removeClass('hidden');
-		$("#community-rules").removeClass('hidden');
-		$("#community-game").removeClass('hidden');
-		$("#community-owner").removeClass('hidden');
-		$("#community-edit-button").removeClass('hidden');
+		//	// Community game link formatting
+		//	var gameHTML = "";
+		//	$("#community-game-edit option:selected").each(function () {
+		//			var $this = $(this);
+		//			var gameID = $this.val();
+		//			var gameName = $this.text();
+		//			var gameHref = '/games/' + gameID;
+		//			gameHTML = "<a href='" + gameHref + "'><br />" + gameName + "</a>";
+		//	});
+		//	if (gameHTML == "") {
+		//		gameHTML = "<br>None";
+		//	}
+		//	$("#community-game").html(gameHTML);										// GAME (CONNECTION)
+
+		//	// Community owner link formatting
+		//	var ownerHTML = "";
+		//	$("#community-owner-edit option:selected").each(function () {
+		//			var $this = $(this);
+		//			var ownerID = $this.val();
+		//			var ownerName = $this.text();
+		//			var ownerHref = '/users/' + ownerID;
+		//			ownerHTML = "<a href='" + ownerHref + "'><br />" + ownerName + "</a>";
+		//	});
+		//	if (ownerHTML == "") {
+		//		ownerHTML = "<br>None";
+		//	}
+		//	$("#community-owner").html(ownerHTML);										// OWNER (CONNECTION)
+
+		// }
+
+		// $("#community-name-edit").addClass('hidden');
+		// $("#community-description-edit").addClass('hidden');
+		// $("#community-language-edit").addClass('hidden');
+		// $("#community-rules-edit").addClass('hidden');
+		// $("#community-game-edit").addClass('hidden');
+		// $("#community-owner-edit").addClass('hidden');
+		// $("#community-edit-submit").addClass('hidden');
+
+		// $("#community-name").removeClass('hidden');
+		// $("#community-description").removeClass('hidden');
+		// $("#community-language").removeClass('hidden');
+		// $("#community-rules").removeClass('hidden');
+		// $("#community-game").removeClass('hidden');
+		// $("#community-owner").removeClass('hidden');
+		// $("#community-edit-button").removeClass('hidden');
 
 	});
 
