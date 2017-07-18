@@ -1,7 +1,16 @@
+
+/* ********************************************************************************************** */
+/* ***************************************** RECAPTCHA ****************************************** */
+/* ********************************************************************************************** */
+
+	var onloadCallback = function() {
+        grecaptcha.render('g-recaptcha', {
+          'sitekey' : '6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm'
+        });
+      };
+
 $(document).ready(function() {
 
-	var ENVIRONMENT = 'http://dev-env.fkmjb3y3r4.us-west-2.elasticbeanstalk.com/';
-	var api_user_url = ENVIRONMENT + '/api/user/';
 
 /* ********************************************************************************************** */
 /* ********************************** GAME SELECTOR FORMATTING ********************************** */
@@ -105,14 +114,21 @@ $(document).ready(function() {
 		$("#user-created-edit").removeClass('hidden');
 		$("#user-updated-edit").removeClass('hidden');
 		$("#user-edit-submit").removeClass('hidden');
-		$("#captcha-img").removeClass('hidden');
+		// $("#captcha-img").removeClass('hidden');
+		$("#g-recaptcha").removeClass('hidden');
 		$("#captcha-submit").removeClass('hidden');
 	});
 
 	// Update template fields with form values, update database, hide edit form fields,
 	// and show updated template fields with confirmation/failure alert from updating database.
-	$("#user-edit-submit").click(function() {
+	$("#user-edit-submit").click(function(e) {
 
+		// alert('response: ' + grecaptcha.getResponse());
+		// e.preventDefault();
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
+		}
 		// // Only need to take action if the form values have changed
 		// if ($('#edit-user-form').serialize() != origForm) {
 
