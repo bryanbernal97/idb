@@ -36,15 +36,27 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 @application.route('/addUser', methods=['POST', 'GET'])
 def add_user():
+    if request.method == 'GET':
+        return render_template('add_user.html')
+    else:
 
 @application.route('/addGame', methods=['POST', 'GET'])
 def add_game():
+    if request.method == 'GET':
+        return render_template('add_game.html')
+    else:
 
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
+    if request.method == 'GET':
+        return render_template('add_team.html')
+    else:
 
 @application.route('/addCommunity', methods=['POST', 'GET'])
 def add_community():
+    if request.method == 'GET':
+        return render_template('add_community.html')
+    else:
 
 ####################### UPDATE MODELS ################################
 
