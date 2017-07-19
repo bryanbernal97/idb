@@ -116,157 +116,49 @@ $(document).ready(function() {
 		$("#user-edit-button").addClass('hidden');
 	});
 
-	// Update template fields with form values, update database, hide edit form fields,
-	// and show updated template fields with confirmation/failure alert from updating database.
+
 	$("#user-edit-submit").click(function(e) {
 
-		// alert('response: ' + grecaptcha.getResponse());
-		// e.preventDefault();
-		if(!grecaptcha.getResponse()) {
-		    e.preventDefault();
-		    alert("Please verify the reCAPTCHA!");
+		// Only need to take action if form values have changed, otherwise there is nothing to update.
+		var formSerialized =  $('#edit-user-form').serialize();
+		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
+		if (formSerialized != origForm) {
+			console.log('origForm = ' + origForm);
+			console.log('new form = ' + $('#edit-user-form').serialize());
+			if(!grecaptcha.getResponse()) {
+			    e.preventDefault();
+			    alert("Please verify the reCAPTCHA!");
+			}
+		} else {
+			e.preventDefault();
+			$("#user-name-edit").addClass('hidden');
+			$("#user-description-edit").addClass('hidden');
+			$("#user-language-edit").addClass('hidden');
+			$("#user-views-edit").addClass('hidden');
+			$("#user-followers-edit").addClass('hidden');
+			$("#user-url-edit").addClass('hidden');
+			$("#user-game-edit").addClass('hidden');
+			$("#user-community-edit").addClass('hidden');
+			$("#user-teams-edit").addClass('hidden');
+			$("#user-created-edit").addClass('hidden');
+			$("#user-updated-edit").addClass('hidden');
+			$("#user-edit-submit").addClass('hidden');
+			$("#g-recaptcha").addClass('hidden');
+
+
+			$("#user-name").removeClass('hidden');
+			$("#user-description").removeClass('hidden');
+			$("#user-language").removeClass('hidden');
+			$("#user-views").removeClass('hidden');
+			$("#user-followers").removeClass('hidden');
+			$("#user-url").removeClass('hidden');
+			$("#user-game").removeClass('hidden');
+			$("#user-community").removeClass('hidden');
+			$("#user-teams").removeClass('hidden');
+			$("#user-created").removeClass('hidden');
+			$("#user-updated").removeClass('hidden');
+			$("#user-edit-button").removeClass('hidden');
 		}
-		// // Only need to take action if the form values have changed
-		// if ($('#edit-user-form').serialize() != origForm) {
 
-		// 	var newName = $("#user-name-edit").val();
-		// 	var newDescription = $("#user-description-edit").val();
-		// 	var newLanguage = $("#user-language-edit").val();
-		// 	var newViews = $("#user-views-edit").val();
-		// 	var newFollowers = $("#user-followers-edit").val();
-
-		// 	$("#site-title").text(newName);											// SITE TITLE
-		// 	$("#user-name").text(newName);											// NAME
-		// 	$("#user-description").text(newDescription);							// DESCRIPTION
-		// 	$("#user-language").text(newLanguage);									// LANGUAGE
-		// 	$("#user-views").text(newViews);										// VIEWS
-		// 	$("#user-followers").text(newFollowers);								// FOLLOWERS
-
-		// 	// URL formatting as HTML link
-		// 	var newUrl = $("#user-url-edit").val();
-		// 	var userUrlHtml = "<a href='" + newUrl + "'>" + newUrl + "</a>";
-		// 	$("#user-url").html(userUrlHtml);										// URL
-
-
-		// 	// User game link formatting
-		// 	var gameHTML = "";
-		// 	var newGameID = null;
-		// 	$("#user-game-edit option:selected").each(function () {
-		// 			var $this = $(this);
-		// 			newGameID = $this.val();
-		// 			var gameName = $this.text();
-		// 			var gameHref = '/games/' + newGameID;
-		// 			gameHTML = "<a href='" + gameHref + "'><br />" + gameName + "</a>";
-		// 	});
-		// 	if (gameHTML == "") {
-		// 		gameHTML = "<br>None";
-		// 	}
-		// 	$("#user-game").html(gameHTML);											// GAME (CONNECTION)
-
-
-		// 	// User community link formatting
-		// 	var communityHTML = "";
-		// 	var newCommunityID = null;
-		// 	$("#user-community-edit option:selected").each(function () {
-		// 			var $this = $(this);
-		// 			newCommunityID  = $this.val();
-		// 			var communityName = $this.text();
-		// 			var communityHref = '/communities/' + newCommunityID;
-		// 			communityHTML = "<a href='" + communityHref + "'><br />" + communityName + "</a>";
-		// 	});
-		// 	if (communityHTML == "") {
-		// 		communityHTML = "<br>None";
-		// 	}
-		// 	$("#user-community").html(communityHTML);								// COMMUNITY (CONNECTION)
-	
-
-		// 	// User team links formatting
-		// 	var teamsHTML = "";
-		// 	var newTeamIDS = [];
-		// 	$("#user-teams-edit option:selected").each(function () {
-		// 		var $this = $(this);
-		// 		var teamID = $this.val();
-		// 		newTeamIDS.push(parseInt(teamID));
-		// 		var teamName = $this.text();
-		// 		var teamHref = '/teams/' + teamID;
-		// 		var teamHTML = "<a href='" + teamHref + "'><br />" + teamName + "</a>";
-		// 		teamsHTML += teamHTML;
-		// 	});
-		// 	if (teamsHTML == "") {
-		// 		teamsHTML = "<br>None";
-		// 	}
-		// 	$("#user-teams").html(teamsHTML);										// TEAMS (CONNECTION)		
-
-		// 	var newCreated = $("#user-created-edit").val();
-		// 	var newUpdated = $("#user-updated-edit").val();
-		// 	$("#user-created").text(newCreated);									// CREATED
-		// 	$("#user-updated").text(newUpdated);									// UPDATED
-		// }
-
-		// /* ************************************************************************************** */
-		// /* ********************************** UPDATE DATABASE *********************************** */
-		// /* ************************************************************************************** */
-
-		// var userID = $("#user-id-edit").val();
-		// var updateURL = api_user_url + userID;
-
-		// // Need to make sure that all the available options from the form are on here
-		// var dataObject = {
-		// 	'name': newName,
-		// 	'description': newDescription,
-		// 	'language': newLanguage,
-		// 	'views': newViews,
-		// 	'followers': newFollowers,
-		// 	'url': newUrl,
-		// 	'created': newCreated,
-		// 	'updated': newUpdated,
-		// 	'game_id': newGameID,
-		// 	'community_id': newCommunityID,
-		// 	'team_ids': newTeamIDS
-		// };
-
-		// var headers = {'content-type': 'application/json'};
-
-		// $.ajax({ 
-		// 	url: updateURL,
-		// 	headers: headers,
-		//    	method: "PUT",
-		//    	dataType: "json",
-		//    	data: JSON.stringify(dataObject),
-		//    	success: function(data){        
-		//     	alert("Congratulations, the update was successful!");
-		//    	},
-		//    	error: function(error){        
-		//     	console.log("Error: " + error.responseText); // Make an error message.
-		//    	}
-		// });
-
-
-		// // Hide edit form fields and show updated template fields
-		// $("#user-name-edit").addClass('hidden');
-		// $("#user-description-edit").addClass('hidden');
-		// $("#user-language-edit").addClass('hidden');
-		// $("#user-views-edit").addClass('hidden');
-		// $("#user-followers-edit").addClass('hidden');
-		// $("#user-url-edit").addClass('hidden');
-		// $("#user-game-edit").addClass('hidden');
-		// $("#user-community-edit").addClass('hidden');
-		// $("#user-teams-edit").addClass('hidden');
-		// $("#user-created-edit").addClass('hidden');
-		// $("#user-updated-edit").addClass('hidden');
-		// $("#user-edit-submit").addClass('hidden');
-
-		// $("#user-name").removeClass('hidden');
-		// $("#user-description").removeClass('hidden');
-		// $("#user-language").removeClass('hidden');
-		// $("#user-views").removeClass('hidden');
-		// $("#user-followers").removeClass('hidden');
-		// $("#user-url").removeClass('hidden');
-		// $("#user-game").removeClass('hidden');
-		// $("#user-community").removeClass('hidden');
-		// $("#user-teams").removeClass('hidden');
-		// $("#user-created").removeClass('hidden');
-		// $("#user-updated").removeClass('hidden');
-		// $("#user-edit-button").removeClass('hidden');
 	});
 });

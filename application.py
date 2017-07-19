@@ -133,47 +133,52 @@ def update_user():
 
         user.community_id = new_community_id                                                        # UPDATED USER INSTANCE: COMMUNITY ID
 
-        if (set(old_team_ids) != set(new_team_ids)):
-            # print('teams have changed')
-            for old_team_id in old_team_ids:
-                if old_team_id not in new_team_ids:
-                    # User used to have team but now doesn't so need to remove user from that team
-                    try:
-                        old_team_query = Team.query.filter(Team.id == old_team_id)
-                        old_team = old_team_query.first()
-                        old_team_user_ids = old_team.user_ids
-                        if old_team_user_ids and user_id in old_team_user_ids:
-                            old_team_user_ids.remove(user_id)
+        old_team_ids_set = set()
+        new_team_ids_set = set()
 
-                        old_team_query.update({'user_ids': old_team_user_ids})                      # UPDATED AN OLD TEAM'S INSTANCE
-                        db.session.commit()
-                    except Exception as e:
-                        db.session.rollback()
-                        # print('Old Team Exception: ' + str(e))
-                        successful_teams_update = False
+        if old_team_ids:
+            old_team_ids_set = set(old_team_ids)
+        if new_team_ids:
+            new_team_ids_set = set(new_team_ids)
+        if (old_team_ids_set != new_team_ids_set):
+            if old_team_ids:
+                for old_team_id in old_team_ids:
+                    if old_team_id not in new_team_ids:
+                        # User used to have team but now doesn't so need to remove user from that team
+                        try:
+                            old_team_query = Team.query.filter(Team.id == old_team_id)
+                            old_team = old_team_query.first()
+                            old_team_user_ids = old_team.user_ids
+                            if old_team_user_ids and user_id in old_team_user_ids:
+                                old_team_user_ids.remove(user_id)
 
-            for new_team_id in new_team_ids:
-                if new_team_id not in old_team_ids:
-                    # User did not previously have team but now does so need to add user to that team
-                    try:
-                        new_team_query = Team.query.filter(Team.id == new_team_id)
-                        new_team = new_team_query.first()
-                        new_team_user_ids = new_team.user_ids
-                        # print('new_team_user ids before append: ' + str(new_team_user_ids))
-                        
-                        if new_team_user_ids:
-                            new_team_user_ids.append(user_id)
-                        else:
-                            new_team_user_ids = [user_id]
+                            old_team_query.update({'user_ids': old_team_user_ids})                  # UPDATED AN OLD TEAM'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            # print('Old Team Exception: ' + str(e))
+                            successful_teams_update = False
 
-                        # print('new team user ids after append: ' + str(new_team_user_ids))
-                        # print('about to update team: ' + str(new_team_id) + ' with users: ' + str(new_team_user_ids))
-                        new_team_query.update({'user_ids': new_team_user_ids})                      # UPDATED A NEW TEAM'S INSTANCE
-                        db.session.commit()
-                    except Exception as e:
-                        db.session.rollback()
-                        # print('New Team Exception: ' + str(e))
-                        successful_teams_update = False
+            if new_team_ids:
+                for new_team_id in new_team_ids:
+                    if new_team_id not in old_team_ids:
+                        # User did not previously have team but now does so need to add user to that team
+                        try:
+                            new_team_query = Team.query.filter(Team.id == new_team_id)
+                            new_team = new_team_query.first()
+                            new_team_user_ids = new_team.user_ids
+                            
+                            if new_team_user_ids:
+                                new_team_user_ids.append(user_id)
+                            else:
+                                new_team_user_ids = [user_id]
+
+                            new_team_query.update({'user_ids': new_team_user_ids})                  # UPDATED A NEW TEAM'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            # print('New Team Exception: ' + str(e))
+                            successful_teams_update = False
 
         # db.session.flush()
         user.team_ids = new_team_ids                                                                # UPDATED USER INSTANCE: TEAM IDS
