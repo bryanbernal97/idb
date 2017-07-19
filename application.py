@@ -32,6 +32,22 @@ manager.create_api(Team, methods=['GET', 'POST', 'DELETE', 'PUT'])
 manager.create_api(Game, methods=['GET', 'POST', 'DELETE', 'PUT'])
 manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
+######################## ADD NEW MODELS ##############################
+
+@application.route('/addUser', methods=['POST', 'GET'])
+def add_user():
+
+@application.route('/addGame', methods=['POST', 'GET'])
+def add_game():
+
+@application.route('/addTeam', methods=['POST', 'GET'])
+def add_team():
+
+@application.route('/addCommunity', methods=['POST', 'GET'])
+def add_community():
+
+####################### UPDATE MODELS ################################
+
 @application.route('/updateUser', methods=['POST'])
 def update_user():
     user_id = request.form.get('user-id-edit')

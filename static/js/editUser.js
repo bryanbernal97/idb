@@ -98,6 +98,7 @@ $(document).ready(function() {
 		$("#user-created-edit").removeClass('hidden');
 		$("#user-updated-edit").removeClass('hidden');
 		$("#user-edit-submit").removeClass('hidden');
+		$("#user-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 
 
@@ -121,8 +122,6 @@ $(document).ready(function() {
 		// Only need to take action if form values have changed, otherwise there is nothing to update.
 		var formSerialized =  $('#edit-user-form').serialize();
 		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
-		console.log('formSerialized: ' + formSerialized);
-		console.log('origForm: ' + origForm);
 		e.preventDefault();
 		if (formSerialized != origForm) {
 			console.log('origForm = ' + origForm);
@@ -162,5 +161,17 @@ $(document).ready(function() {
 			$("#user-edit-button").removeClass('hidden');
 		}
 
+	});
+
+	$("#user-delete-button").click(function(e){
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
+		}else{
+			var result = confirm("Are you sure you want to DELETE this User?");
+			if (result) {
+    		//Logic to delete the item
+			}
+		}
 	});
 });

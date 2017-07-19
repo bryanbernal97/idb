@@ -121,6 +121,7 @@ $(document).ready(function() {
 		$("#game-teams-edit").removeClass('hidden');
 		$("#game-communities-edit").removeClass('hidden');
 		$("#game-edit-submit").removeClass('hidden');
+		$("#game-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 	});
 
@@ -145,8 +146,9 @@ $(document).ready(function() {
 			$("#game-teams-edit").addClass('hidden');
 			$("#game-communities-edit").addClass('hidden');
 			$("#game-edit-submit").addClass('hidden');
+			$("#game-delete-button").addClass('hidden');
 			$("#g-recaptcha").addClass('hidden');
-			
+
 			$("#game-name").removeClass('hidden');
 			$("#game-description").removeClass('hidden');
 			$("#game-rating").removeClass('hidden');
@@ -158,7 +160,20 @@ $(document).ready(function() {
 			$("#game-communities").removeClass('hidden');
 			$("#game-edit-button").removeClass('hidden');
 		}
-
 	});
+
+	$("#game-delete-button").click(function(e){
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
+		}else{
+			var result = confirm("Are you sure you want to DELETE this Game?");
+			if (result) {
+    		//Logic to delete the item
+			}
+		}	
+	});
+
+
 
 });
