@@ -136,6 +136,19 @@ $(document).ready(function() {
 		    e.preventDefault();
 		    alert("Please verify the reCAPTCHA!");
 		}
+	});
+
+	$("#game-delete-button").click(function(e){
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
+		}else{
+			var result = confirm("Are you sure you want to DELETE this Game?");
+			if (result) {
+    		//Logic to delete the item
+			}
+		}	
+	});
 		// Only need to take action if the form values have changed
 		//if ($('#edit-game-form').serialize() != origForm) {
 			
@@ -220,6 +233,6 @@ $(document).ready(function() {
 		//	$("#game-communities").html(communitiesHTML);						// COMMUNITIES (CONNECTION)
 		//}
 
-	});
+
 
 });

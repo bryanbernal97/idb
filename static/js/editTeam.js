@@ -68,6 +68,8 @@ $(document).ready(function() {
 			}
 		}
 
+	});
+
 
 		
 		// Only need to take action if the form values have changed
@@ -114,5 +116,4 @@ $(document).ready(function() {
 
 		//}
 
-	});
 });

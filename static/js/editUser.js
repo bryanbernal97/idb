@@ -161,4 +161,16 @@ $(document).ready(function() {
 		}
 
 	});
+
+	$("#user-delete-button").click(function(e){
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
+		}else{
+			var result = confirm("Are you sure you want to DELETE this User?");
+			if (result) {
+    		//Logic to delete the item
+			}
+		}
+	});
 });
