@@ -268,7 +268,7 @@
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-streamers-edit" name="game-streamers-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-streamers-edit">
                                     <select class="selectpicker form-control" name="game-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for streamer in streamers %}
                                         {% if game['user_ids'] and streamer['id'] in game['user_ids'] %}
