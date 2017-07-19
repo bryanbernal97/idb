@@ -104,6 +104,7 @@ $(document).ready(function() {
 		$("#community-game-edit").removeClass('hidden');
 		$("#community-owner-edit").removeClass('hidden');
 		$("#community-edit-submit").removeClass('hidden');
+		$("#community-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 	});
 
@@ -118,6 +119,20 @@ $(document).ready(function() {
 		    e.preventDefault();
 		    alert("Please verify the reCAPTCHA!");
 		}
+
+	});
+
+	$("#community-delete-button").click(function(e){
+		if(!grecaptcha.getResponse()) {
+		    e.preventDefault();
+		    alert("Please verify the reCAPTCHA!");
+		}else{
+			var result = confirm("Are you sure you want to DELETE this Community?");
+			if (result) {
+    		//Logic to delete the item
+			}
+		}	
+	});
 		// Only need to take action if the form values have changed
 		// if ($('#edit-community-form').serialize() != origForm) {
 
@@ -173,8 +188,6 @@ $(document).ready(function() {
 		// $("#community-game").removeClass('hidden');
 		// $("#community-owner").removeClass('hidden');
 		// $("#community-edit-button").removeClass('hidden');
-
-	});
 
 
 });
