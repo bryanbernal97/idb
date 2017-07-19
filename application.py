@@ -34,45 +34,26 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 ######################## ADD NEW MODELS ##############################
 
-@application.route('/addUser', methods=['POST', 'GET'])
-def add_user():
-<<<<<<< HEAD
-    return 0
-
-@application.route('/addGame', methods=['POST', 'GET'])
-def add_game():
-    return 0
-
-@application.route('/addTeam', methods=['POST', 'GET'])
-def add_team():
-    return 0
-
-@application.route('/addCommunity', methods=['POST', 'GET'])
-def add_community():
-    return 0
-=======
-    if request.method == 'GET':
-        return render_template('add_user.html')
-    else:
-
 @application.route('/addGame', methods=['POST', 'GET'])
 def add_game():
     if request.method == 'GET':
         return render_template('add_game.html')
     else:
+        return 0
 
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
     if request.method == 'GET':
         return render_template('add_team.html')
     else:
+        return 0
 
 @application.route('/addCommunity', methods=['POST', 'GET'])
 def add_community():
     if request.method == 'GET':
         return render_template('add_community.html')
     else:
->>>>>>> 408482ae2f30f21a6c0735539aa4fad490c93ba9
+        return 0
 
 ####################### UPDATE MODELS ################################
 
@@ -460,8 +441,7 @@ def update_community():
         new_game_id = int(new_game_id)
     
     new_owner_id = request.form.get('community-owner-edit')
-    if new_owner_id:
-        new_owner_id = int(new_owner_id)
+    print(new_owner_id)
 
     # community_captcha = request.form.get('')
 
@@ -518,24 +498,24 @@ def update_community():
         if old_owner_id != new_owner_id:
             if old_owner_id:
                 try:
-                    old_community = Community.query.get(old_owner_id)
-                    old_community_owner_id = old_community.owner_id
-                    if owner_id == old_community_owner_id:
-                        old_community.owner_id = None                                               # UPDATED OLD COMMUNITY'S INSTANCE
+                    old_owner = User.query.get(old_owner_id)
+                    old_owner_community_id = old_owner.community_id
+                    if community_id == old_owner_community_id:
+                        old_owner.community_id = None                                               # UPDATED OLD COMMUNITY'S INSTANCE
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
-                    # print('Old Community Exception: ' + str(e))
+                    print('Old Community Exception: ' + str(e))
                     successful_owner_update = False
 
             if new_owner_id:
                 try:
-                    new_community = Community.query.get(new_owner_id)
-                    new_community.owner_id = owner_id                                                # UPDATED NEW COMMUNITY'S INSTANCE
+                    new_owner = User.query.get(new_owner_id)
+                    new_owner.community_id = community_id                                                # UPDATED NEW COMMUNITY'S INSTANCE
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
-                    # print('New Community Exception: ' + str(e))
+                    print('New Community Exception: ' + str(e))
                     successful_owner_update = False
 
         community.owner_id = new_owner_id                                          # UPDATED community INSTANCE: COMMUNITY ID
@@ -552,7 +532,8 @@ def update_community():
         print('community Exception: ' + str(community_exception))
         successful_owner_update = False
 
-
+    print("successful_owner_update: " + str(successful_owner_update))
+    print("successful_game_update: " + str(successful_game_update))
     if (successful_owner_update and successful_game_update):
         flash('Congratulations, the community was updated successfuly!', 'success')
     else:
