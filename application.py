@@ -39,24 +39,28 @@ def add_user():
     if request.method == 'GET':
         return render_template('add_user.html')
     else:
+        return render_template('add_user.html')
 
 @application.route('/addGame', methods=['POST', 'GET'])
 def add_game():
     if request.method == 'GET':
         return render_template('add_game.html')
     else:
+        return render_template('add_game.html')
 
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
     if request.method == 'GET':
         return render_template('add_team.html')
     else:
+        return render_template('add_team.html')
 
 @application.route('/addCommunity', methods=['POST', 'GET'])
 def add_community():
     if request.method == 'GET':
         return render_template('add_community.html')
     else:
+        return render_template('add_community.html')
 
 ####################### UPDATE MODELS ################################
 

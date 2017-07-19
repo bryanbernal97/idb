@@ -3,7 +3,7 @@
 {% block title %}{{user['name']}}{% endblock %}
 
 {% block custom_css %}
-    <link href="/static/css/editUser.css" rel="stylesheet">
+    <link href="/static/css/addUser.css" rel="stylesheet">
     <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
 {% endblock %}
 
@@ -46,22 +46,12 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 
-					{% with messages = get_flashed_messages(with_categories=true) %}
-					  <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-						{% if messages %}
-					  		{% for category, message in messages %}
-					    		<div class="alert alert-{{ category }} alert-dismissible" role="alert">
-					    			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					      				<!-- <strong>Title</strong> --> {{ message }}
-					      		</div>
-					    {% endfor %}
-					  {% endif %}
-					{% endwith %}
 
-					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
+					<form role="form" id="add-user-form" action="/addUser" method="POST">
 						
-						<!-- Hidden id for edit form used to update database -->
-                        <input type="hidden" id="user-id-edit" name="user-id-edit" value="{{user['id']}}">
+                        <input type="text" id="user-id-add" name="user-id-add">
+
+                        <input type="url" id="user-image-url-add" name="user-image-url-add">
 
 						<!-- Picture -->
 						<!-- <img src="{{user['image_url']}}"> -->
@@ -285,6 +275,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
-<script src="/static/js/editUser.js"></script>
+<script src="/static/js/addUser.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}
