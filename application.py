@@ -106,34 +106,30 @@ def update_user():
 
         user.game_id = new_game_id                                                                  # UPDATED USER INSTANCE: GAME ID
 
-        # if old_community_id != new_community_id:
-        #     if old_community_id:
-        #         try:
-        #             old_community = Community.query.get(old_community_id)
-        #             old_community_owner_id = old_community.owner_id
-        #             db.session.flush()
-        #             if user_id == old_community_owner_id:
-        #                 old_community.owner_id = None
-        #             # db.session.flush()
-        #             db.session.commit()
-        #         except Exception as e:
-        #             db.session.rollback()
-        #             print('Old Community Exception: ' + str(e))
-        #             successful_community_update = False
+        if old_community_id != new_community_id:
+            if old_community_id:
+                try:
+                    old_community = Community.query.get(old_community_id)
+                    old_community_owner_id = old_community.owner_id
+                    if user_id == old_community_owner_id:
+                        old_community.owner_id = None                                               # UPDATED OLD COMMUNITY'S INSTANCE
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    print('Old Community Exception: ' + str(e))
+                    successful_community_update = False
 
-        #     if new_community_id:
-        #         try:
-        #             new_community = Community.query.get(new_community_id)
-        #             db.session.flush()
-        #             new_community.owner_id = user_id
-        #             # db.session.flush()
-        #             db.session.commit()
-        #         except Exception as e:
-        #             db.session.rollback()
-        #             print('New Community Exception: ' + str(e))
-        #             successful_community_update = False
+            if new_community_id:
+                try:
+                    new_community = Community.query.get(new_community_id)
+                    new_community.owner_id = user_id                                                # UPDATED NEW COMMUNITY'S INSTANCE
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    print('New Community Exception: ' + str(e))
+                    successful_community_update = False
 
-        # user.community_id = new_community_id
+        user.community_id = new_community_id                                                        # UPDATED USER INSTANCE: COMMUNITY ID
 
         # print('old_team_ids = ' + str(set(old_team_ids)))
         # print('new team ids = ' + str(set(new_team_ids)))
