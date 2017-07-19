@@ -279,6 +279,48 @@ def update_user():
     redirect_url = '/users/' + user_id
     return redirect(redirect_url)
 
+@application.route('/updateGame', methods=['POST'])
+def update_game():
+    game_id = request.form.get('game-id-edit')
+    game_name = request.form.get('game-name-edit')
+    game_description = request.form.get('game-description-edit')
+
+    # game_captcha = request.form.get('')
+
+    successful_user_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_team_update = True  # Need to delete this user from old game and add this user to new game
+    successful_community_update = True
+
+    if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/games/' + game_id
+    return redirect(redirect_url)
+
+@application.route('/updateTeam', methods=['POST'])
+def update_team():
+    team_id = request.form.get('team-id-edit')
+    team_name = request.form.get('team-name-edit')
+    team_info = request.form.get('team-info-edit')
+
+    # team_captcha = request.form.get('')
+
+    successful_user_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_team_update = True  # Need to delete this user from old game and add this user to new game
+    successful_community_update = True
+
+    if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/teams/' + team_id
+    return redirect(redirect_url)
+
 @application.route('/updateCommunity', methods=['POST'])
 def update_community():
     community_id = request.form.get('community-id-edit')
@@ -289,17 +331,14 @@ def update_community():
     community_game = request.form.get('user-game-edit')
     community_owner = request.form.get('community-owner-edit')
 
-    print("hi")
-    print(community_id)
-    print("hi2")
     # community_captcha = request.form.get('')
 
-    successful_community_update = True
+    successful_user_update = True
     successful_game_update = True       # Need to delete this user from old game and add this user to new game
     successful_community_update = True  # Need to delete this user from old community and add this user to new community
-    successful_teams_update = True
+    successful_team_update = True
 
-    if (successful_community_update and successful_game_update and successful_community_update and successful_teams_update):
+    if (successful_user_update and successful_game_update and successful_community_update and successful_team_update):
         flash('Congratulations, the user was updated successfuly!', 'success')
     else:
         flash('Sorry, something went wrong :(', 'danger')
@@ -449,6 +488,7 @@ def show_teams(wow):
     team = {}
     users = []
     games = []
+    team['id'] = wow
     team['name'] = q.name
     team['info'] = q.info
     team['created'] = q.created.date()

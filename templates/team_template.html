@@ -45,7 +45,20 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
 
-                    <form role="form" id="edit-team-form">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <!-- <strong>Title</strong> --> {{ message }}
+                                </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+
+                    <form role="form" action= "/updateTeam" id="edit-team-form" method="POST">
+
                     
                         <!-- Hidden id for edit form used to update database -->
                         <input type="hidden" id="team-id-edit" name="team-id-edit" value="{{team['id']}}">
@@ -182,7 +195,7 @@
                         <br>
 
 
-                        <button type="button" id="team-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                        <button type="submit" id="team-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
                     </form>
                     <button type="button" id="team-edit-button"class="btn btn-primary streamglean-button">Edit</button>
                 </div>
@@ -196,4 +209,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="/static/js/editTeam.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}
