@@ -88,6 +88,7 @@ def update_user():
     new_views = request.form.get('user-views-edit')
     new_followers = request.form.get('user-followers-edit')
     new_url = request.form.get('user-url-edit')
+    new_image_url = request.form.get('user-pic-edit')
     
     new_game_id = request.form.get('user-game-edit')
     if new_game_id:
@@ -156,6 +157,7 @@ def update_user():
                         successful_teams_update = (add_user_to_team(user_id, new_team_id) and successful_teams_update)
 
         # db.session.flush()
+        user.image_url = new_image_url
         user.team_ids = new_team_ids                                                                # UPDATED USER INSTANCE: TEAM IDS
         user.name = new_name                                                                        # UPDATED USER INSTANCE: NAME
         user.description = new_description                                                          # UPDATED USER INSTANCE: DESCRIPTION
@@ -184,6 +186,7 @@ def update_user():
 @application.route('/updateGame', methods=['POST'])
 def update_game():
     game_id = int(request.form.get('game-id-edit'))
+    new_image_url = request.form.get('game-pic-edit')
     new_name = request.form.get('game-name-edit')
     new_description = request.form.get('game-description-edit')
     new_rated = request.form.get('game-rating-edit')
@@ -331,6 +334,7 @@ def update_game():
                             print('New Team Exception: ' + str(e))
                             successful_teams_update = False
 
+        game.image_url = new_image_url
         game.team_ids = new_team_ids                                                                # UPDATED GAME INSTANCE: TEAM IDS
         game.name = new_name
         game.description = new_description
@@ -357,6 +361,7 @@ def update_game():
 @application.route('/updateTeam', methods=['POST'])
 def update_team():
     team_id = int(request.form.get('team-id-edit'))
+    new_image_url = request.form.get('team-pic-edit')
     new_name = request.form.get('team-name-edit')
     new_info = request.form.get('team-info-edit')
     new_created = request.form.get('team-created-edit')
@@ -462,6 +467,7 @@ def update_team():
 
         team.game_ids = new_game_ids                                                                # UPDATED TEAM INSTANCE: GAME IDS
 
+        team.image_url = new_image_url
         team.name = new_name                                                                        # UPDATED TEAM INSTANCE: NAME
         team.info = new_info                                                                        # UPDATED TEAM INSTANCE: INFO
         team.created = new_created                                                                  # UPDATED TEAM INSTANCE: CREATED
@@ -483,6 +489,7 @@ def update_team():
 @application.route('/updateCommunity', methods=['POST'])
 def update_community():
     community_id = request.form.get('community-id-edit')
+    new_image_url = request.form.get('community-pic-edit')
     new_name = request.form.get('community-name-edit')
     new_description = request.form.get('community-description-edit')
     new_language = request.form.get('community-language-edit')
@@ -573,6 +580,7 @@ def update_community():
         community.owner_id = new_owner_id                                          # UPDATED community INSTANCE: COMMUNITY ID
 
         # db.session.flush()
+        community.image_url = new_image_url
         community.name = new_name
         community.description = new_description
         community.language = new_language 
@@ -584,8 +592,6 @@ def update_community():
         print('community Exception: ' + str(community_exception))
         successful_owner_update = False
 
-    print("successful_owner_update: " + str(successful_owner_update))
-    print("successful_game_update: " + str(successful_game_update))
     if (successful_owner_update and successful_game_update):
         flash('Congratulations, the community was updated successfuly!', 'success')
     else:

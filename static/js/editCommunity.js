@@ -94,7 +94,7 @@ $(document).ready(function() {
 		$("#community-owner").addClass('hidden');
 		$("#community-edit-button").addClass('hidden');
 
-
+		$("#community-pic-edit").removeClass('hidden');
 		$("#community-name-edit").removeClass('hidden');
 		$("#community-description-edit").removeClass('hidden');
 		$("#community-language-edit").removeClass('hidden');
@@ -122,6 +122,7 @@ $(document).ready(function() {
 		} else {
 			e.preventDefault();
 
+			$("#community-pic-edit").addClass('hidden');
 			$("#community-name-edit").addClass('hidden');
 			$("#community-description-edit").addClass('hidden');
 			$("#community-language-edit").addClass('hidden');
