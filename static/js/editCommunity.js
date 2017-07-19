@@ -104,6 +104,7 @@ $(document).ready(function() {
 		$("#community-game-edit").removeClass('hidden');
 		$("#community-owner-edit").removeClass('hidden');
 		$("#community-edit-submit").removeClass('hidden');
+		$("#community-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 	});
 

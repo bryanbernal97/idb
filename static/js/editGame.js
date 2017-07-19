@@ -124,6 +124,7 @@ $(document).ready(function() {
 		$("#game-teams-edit").removeClass('hidden');
 		$("#game-communities-edit").removeClass('hidden');
 		$("#game-edit-submit").removeClass('hidden');
+		$("#game-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 	});
 

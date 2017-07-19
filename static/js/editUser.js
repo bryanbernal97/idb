@@ -98,6 +98,7 @@ $(document).ready(function() {
 		$("#user-created-edit").removeClass('hidden');
 		$("#user-updated-edit").removeClass('hidden');
 		$("#user-edit-submit").removeClass('hidden');
+		$("#user-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 
 
