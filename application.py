@@ -69,9 +69,11 @@ def update_user():
                     old_game = Game.query.get(old_game_id)
                     old_game_user_ids = old_game.user_ids
                     if old_game_user_ids and user_id in old_game_user_ids:
-                        db.session.flush()
-                        old_game.user_ids = old_game_user_ids.remove(user_id)
+                        print('old game and user id in old game')
+                        # db.session.flush()
+                        old_game_user_ids = old_game_user_ids.remove(user_id)
                     # db.session.flush()
+                    db.session.query(Game).filter(Game.id == old_game_id).update({'user_ids': old_game_user_ids})
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
@@ -82,12 +84,20 @@ def update_user():
                 try:
                     new_game = Game.query.get(new_game_id)
                     new_game_user_ids = new_game.user_ids
-                    db.session.flush()
-                    if new_game_user_ids:
-                        new_game.user_ids = new_game_user_ids.append(user_id)
-                    else:
-                        new_game.user_ids = [user_id]
                     # db.session.flush()
+                    print('new game user_ids: ' + str(new_game_user_ids))
+                    if new_game_user_ids and user_id not in new_game_user_ids:
+                        new_game_user_ids += [user_id]
+                        # print('new game user_ids: ' + str(new_game_user_ids))
+                        # db.session.flush()
+                        new_game_user_ids = list(new_game_user_ids)
+                    elif not new_game_user_ids:
+                        # db.session.flush()
+                        new_game_user_ids = list([user_id])
+                    # db.session.flush()
+                    print('new game instance user ids: ' + str(new_game_user_ids))
+                    # db.session.flush()
+                    db.session.query(Game).filter(Game.id == new_game_id).update({'user_ids': new_game_user_ids})
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
@@ -138,6 +148,7 @@ def update_user():
                             db.session.flush()
                             old_team.user_ids = old_team_user_ids.remove(user_id)
                         # db.session.flush()
+                        print('old team user ids updated: ' + str(old_team.user_ids))
                         db.session.commit()
                     except Exception as e:
                         db.session.rollback()
@@ -146,6 +157,7 @@ def update_user():
 
             for new_team_id in new_team_ids:
                 if new_team_id not in old_team_ids:
+                    print('team: ' + str(new_team_id) + ' was not on users list but now is')
                     try:
                         new_team = Team.query.get(new_team_id)
                         new_team_user_ids = new_team.user_ids
@@ -155,6 +167,7 @@ def update_user():
                         else:
                             new_team.user_ids = [user_id]
                         # db.session.flush()
+                        print('new team user ids updated: ' + str(new_team.user_ids))
                         db.session.commit()
                     except Exception as e:
                         db.session.rollback()
