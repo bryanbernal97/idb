@@ -37,9 +37,30 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 @application.route('/addUser', methods=['POST', 'GET'])
 def add_user():
     if request.method == 'GET':
-        return render_template('add_user.html')
+        games = []
+        teams = []
+        communities = []
+        # Get all games for edit drop down
+        game_query = Game.query
+        for game in game_query:
+            games.append({'name': game.name, 'id': game.id})
+
+        # Get all teams for edit drop down
+        team_query = Team.query
+        for team in team_query:
+            teams.append({'name': team.name, 'id': team.id})
+
+        # Get all communities for edit drop down
+        community_query = Community.query
+        for community in community_query:
+            communities.append({'name': community.name, 'id': community.id})
+
+
+        today = datetime.datetime.now().date()
+        return render_template('add_user.html', games=games, communities=communities, teams=teams, today=today)
     else:
-        return render_template('add_user.html')
+        # do the add to the db here and then render instance page of the added user
+        return redirect('/')
 
 @application.route('/addGame', methods=['POST', 'GET'])
 def add_game():
