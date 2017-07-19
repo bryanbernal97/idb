@@ -110,7 +110,7 @@ $(document).ready(function() {
 		$("#game-communities").addClass('hidden');
 		$("#game-edit-button").addClass('hidden');
 
-
+		$("#game-pic-edit").removeClass('hidden');
 		$("#game-name-edit").removeClass('hidden');
 		$("#game-description-edit").removeClass('hidden');
 		$("#game-rating-edit").removeClass('hidden');
@@ -135,6 +135,7 @@ $(document).ready(function() {
 			    alert("Please verify the reCAPTCHA!");
 			}
 		} else {
+			$("#game-pic-edit").addClass('hidden');
 			$("#game-name-edit").addClass('hidden');
 			$("#game-description-edit").addClass('hidden');
 			$("#game-rating-edit").addClass('hidden');

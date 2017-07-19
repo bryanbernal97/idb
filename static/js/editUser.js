@@ -86,6 +86,7 @@ $(document).ready(function() {
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#user-edit-button").click(function(){
 
+		$("#user-pic-edit").removeClass('hidden');
 		$("#user-name-edit").removeClass('hidden');
 		$("#user-description-edit").removeClass('hidden');
 		$("#user-language-edit").removeClass('hidden');
@@ -129,6 +130,7 @@ $(document).ready(function() {
 			}
 		} else {
 			e.preventDefault();
+			$("#user-pic-edit").addClass('hidden');
 			$("#user-name-edit").addClass('hidden');
 			$("#user-description-edit").addClass('hidden');
 			$("#user-language-edit").addClass('hidden');

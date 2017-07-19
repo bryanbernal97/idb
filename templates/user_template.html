@@ -66,6 +66,16 @@
 						<!-- Picture -->
 						<img src="{{user['image_url']}}">
 
+						<!-- Edit Form Field -->
+						<h3 id='user-pic-edit'class = "hidden">
+							<br>
+							Image URL:<br>
+							<div class="input-col-6">
+							<small><br><input type="url" name="user-pic-edit"class="form-control" value="{{user['image_url']}}"/></small>
+							</div>
+
+						</h3>
+
                         <hr style="border-color: white;">
 
 						<!-- Name -->
@@ -126,6 +136,7 @@
 								<small id="user-followers" class="text-muted">{{user['followers']}}</small>
 
 								<!-- Edit Form Field -->
+
 								<small><input type="number" id="user-followers-edit" name="user-followers-edit" class="form-control hidden" value="{{user['followers']}}"></small>
 							</div>
 						</h3>
@@ -138,7 +149,7 @@
 								<small id="user-url" class="text-muted"><a href={{user['url']}}>{{user['url']}}</a></small>
 
 								<!-- Edit Form Field -->
-								<small><input type="url" id="user-url-edit" name="user-url-edit"class="form-control hidden" value="{{user['url']}}"/></small>
+								<small><input type="url" id="user-url-edit" name="user-url-edit"class="form-control hidden" value="{{user['url']}}"/>Image URL</small>
 							</div>
 						</h3>
 

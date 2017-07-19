@@ -34,6 +34,7 @@ $(document).ready(function() {
 		$("#team-updated").addClass('hidden');
 		$("#team-edit-button").addClass('hidden');
 
+		$("#team-pic-edit").removeClass('hidden');
 		$("#team-name-edit").removeClass('hidden');
 		$("#team-info-edit").removeClass('hidden');
 		$("#team-streamers-edit").removeClass('hidden');
@@ -60,6 +61,7 @@ $(document).ready(function() {
 		} else {
 			e.preventDefault();
 
+			$("#team-pic-edit").addClass('hidden');
 			$("#team-name-edit").addClass('hidden');
 			$("#team-info-edit").addClass('hidden');
 			$("#team-streamers-edit").addClass('hidden');
