@@ -139,6 +139,7 @@ $(document).ready(function() {
 			$("#community-game").removeClass('hidden');
 			$("#community-owner").removeClass('hidden');
 			$("#community-edit-button").removeClass('hidden');
+		}
 
 	});
 
