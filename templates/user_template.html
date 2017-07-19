@@ -1,130 +1,289 @@
 {% extends 'base.html' %}
 
+{% block title %}{{user['name']}}{% endblock %}
+
+{% block custom_css %}
+    <link href="/static/css/editUser.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
 {% block navbar %}
 
 <ul class="nav navbar-nav navbar-right">
-    <li class="hidden">
-        <a href="#page-top"></a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/#about">About</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/users#users">Users</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/games#games">Games</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/teams#teams">Teams</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/communities#communities">Communities</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/#team">Our Team</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="/#resources">Resources</a>
-    </li>
+	<li class="hidden">
+		<a href="#page-top"></a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#about">About</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/users#users">Users</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/games#games">Games</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/teams#teams">Teams</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/communities#communities">Communities</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#team">Our Team</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#resources">Resources</a>
+	</li>
 </ul>
 
 {% endblock %}
 
 {% block content %}
 
-<!-- ID -->
-<section id={{user['_id']}}>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    
-                    <!-- Picture -->
-                    <img src={{user['image_url']}}>
+<section class="portfolio bg-light-gray">
 
-                    <!-- Name -->
-                    <h3>
-                        Name:
-                        <small class="text-muted">{{user['name']}}</small>
-                    </h3>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
 
-                    <!-- Description -->
-                    <h3>
-                        Description:
-                            <small class="text-muted">{{user['description']}}</small>
-                    </h3>
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					  <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+						{% if messages %}
+					  		{% for category, message in messages %}
+					    		<div class="alert alert-{{ category }} alert-dismissible" role="alert">
+					    			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					      				<!-- <strong>Title</strong> --> {{ message }}
+					      		</div>
+					    {% endfor %}
+					  {% endif %}
+					{% endwith %}
 
-                    <!-- Language -->
-                    <h3>
-                        Language:
-                        <small class="text-muted">{{user['language']}}</small>
-                    </h3>
+					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
+						
+						<!-- Hidden id for edit form used to update database -->
+                        <input type="hidden" id="user-id-edit" name="user-id-edit" value="{{user['id']}}">
 
-                    <!-- Views -->
-                    <h3>
-                        Views:
-                        <small class="text-muted">{{user['views']}}</small>
-                    </h3>
+						<!-- Picture -->
+						<img src="{{user['image_url']}}">
 
-                    <!-- Followers -->
-                    <h3>
-                        Followers:
-                        <small class="text-muted">{{user['followers']}}</small>
-                    </h3>
-                    
-                    <!-- URL -->
-                    <h3>
-                        URL:
-                        <small class="text-muted"><a href={{user['url']}}>{{user['url']}}</a></small>
-                    </h3>
+                        <hr style="border-color: white;">
 
-                    <!-- Game -->
-                    <h3>
-                        Game:
-                        {% if user['game_id'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_games', wow=user['game_id'])}}">{{user['game']}}</a></small>
-                        {% else %}
-                        <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+						<!-- Name -->
+                        <h3>
+                            Name:<br>
+                            <div class="input-col-4">
+                                <!-- Template Field -->
+                                <small id="user-name" class="text-muted">{{user['name']}}</small>
 
-                    <!-- Community -->
-                    <h3>
-                        Community:
-                        {% if user['community_id'] %}
-                        <small class="text-muted"><a href="{{ url_for('show_communities', wow=user['community_id'])}}">{{user['community']}}</a></small>
-                        {% else %}
-                        <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                                <!-- Edit Form Field -->
+                                <small>
+                                	<input type="text" class="form-control hidden" id="user-name-edit" name="user-name-edit" value="{{user['name']}}">
+                                </small>
+                            </div>
+                        </h3>
+						
+                        <!-- Description -->
+                        <h3>
+                            Description:<br>
+                            <div class="input-col-6">
+                                <!-- Template Field -->
+                                <small id="user-description" class="text-muted">{{user['description']}}</small>
 
+                                <!-- Edit Form Field -->
+                                <small><textarea class="form-control hidden" id="user-description-edit" name="user-description-edit">{{user['description']}}</textarea></small>
+                            </div>
+                        </h3>
 
-                    <!-- Teams -->
-                    <h3>
-                        Teams:
-                        {% if user['team_ids'] %}
-                            {% for _id in user['team_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_teams', wow=_id)}}"><br />{{user['team_names'][_id]}}</a></small>
-                            {% endfor %}
-                        {% else %}
-                            <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+						<!-- Language -->
+						<h3>
+							Language:<br>
+							<div class="input-col-4">
+                                <!-- Template Field -->
+								<small id="user-language" class="text-muted">{{user['language']}}</small>
 
-                    <!-- Created -->
-                    <h3>
-                        Created:
-                        <small class="text-muted">{{user['created']}}</small>
-                    </h3>
+								<!-- Edit Form Field -->
+								<small><input type="text" id="user-language-edit" name="user-language-edit" class="form-control hidden" value="{{user['language']}}"></small>
+							</div>
+						</h3>
 
-                    <!-- Updated -->
-                    <h3>
-                        Updated:
-                        <small class="text-muted">{{user['updated']}}</small>
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </section>
+						<!-- Views -->
+						<h3>
+							Views:<br>
+							<div class="input-col-4">
+								<!-- Template Field -->
+								<small id="user-views" class="text-muted">{{user['views']}}</small>
 
+								<!-- Edit Form Field -->
+								<small><input type="text" id="user-views-edit" name="user-views-edit" class="form-control hidden" value="{{user['views']}}"></small>
+							</div>
+						</h3>
+
+						<!-- Followers -->
+						<h3>
+							Followers:<br>
+							<div class="input-col-4">
+								<!-- Template Field -->
+								<small id="user-followers" class="text-muted">{{user['followers']}}</small>
+
+								<!-- Edit Form Field -->
+								<small><input type="text" id="user-followers-edit" name="user-followers-edit" class="form-control hidden" value="{{user['followers']}}"></small>
+							</div>
+						</h3>
+						
+						<!-- URL -->
+						<h3>
+							URL:<br>
+							<div class="input-col-4">
+								<!-- Template Field -->
+								<small id="user-url" class="text-muted"><a href={{user['url']}}>{{user['url']}}</a></small>
+
+								<!-- Edit Form Field -->
+								<small><input type="url" id="user-url-edit" name="user-url-edit" class="form-control hidden" value="{{user['url']}}"></small>
+							</div>
+						</h3>
+
+						<!-- Game -->
+						<h3>
+                            Game:
+                            <!-- Template Field -->
+                            {% if user['game_id'] %}
+                                <small class="text-muted" id="user-game">
+                                    <a href="{{ url_for('show_games', wow=user['game_id'])}}"><br>{{user['game']}}</a>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="user-game">
+                                    <br>None
+                                </small>
+                            {% endif %}
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="user-game-edit" name="user-game-edit">
+                                    <select class="selectpicker form-control single-select" name="user-game-edit" data-live-search="true" data-dropup-auto="false" multiple>
+	                                    {% for game in games %}
+	                                        {% if user['game_id'] and game['id'] == user['game_id'] %}
+	                                            <option value="{{game['id']}}" selected>{{game['name']}}</option>
+	                                        {% else %}
+	                                            <option value="{{game['id']}}">{{game['name']}}</option>
+	                                        {% endif %}
+	                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+						<!-- Community -->
+                        <h3>
+                            Community:
+                            <!-- Template Field -->
+                            {% if user['community_id'] %}
+                                <small class="text-muted" id="user-community">
+                                    <a href="{{ url_for('show_communities', wow=user['community_id'])}}"><br>{{user['community']}}</a>
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="user-community">
+                                    <br>None
+                                </small>
+                            {% endif %}
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="user-community-edit" name="user-community-edit">
+                                    <select class="selectpicker form-control" name="user-community-edit" data-live-search="true" data-dropup-auto="false" multiple>
+                                    {% for community in communities %}
+                                        {% if user['community_id'] and community['id'] == user['community_id'] %}
+                                            <option value="{{community['id']}}" selected>{{community['name']}}</option>
+                                        {% else %}
+                                            <option value="{{community['id']}}">{{community['name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+						<!-- Teams -->
+                        <h3>
+                            Teams:
+                            <!-- Template Field -->
+                            {% if user['team_ids'] %}
+                                <small class="text-muted" id="user-teams">
+                                    {% for _id in user['team_ids'] %}
+                                        <a href="{{ url_for('show_teams', wow=_id)}}"><br>{{user['team_names'][_id]}}</a>
+                                    {% endfor %}
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="user-teams">
+                                    <br>None
+                                </small>
+                            {% endif %}
+
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="user-teams-edit" name="user-teams-edit">
+                                    <select class="selectpicker form-control" name="user-teams-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                    {% for team in teams %}
+                                        {% if user['team_ids'] and team['id'] in user['team_ids'] %}
+                                            <option value="{{team['id']}}" selected>{{team['name']}}</option>
+                                        {% else %}
+                                            <option value="{{team['id']}}">{{team['name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+						<!-- Created -->
+						<h3>
+							Created:<br>
+							<div class="date-input">
+								<!-- Template Field -->
+								<small id="user-created" class="text-muted">{{user['created']}}</small>
+
+								<!-- Edit Form Field -->
+								<small>
+									<input class="form-control hidden" type="date" value="{{user['created']}}" id="user-created-edit" name="user-created-edit">
+								</small>
+							</div>
+						</h3>
+
+						<!-- Updated -->
+						<h3>
+							Updated:<br>
+							<div class="date-input">
+								<!-- Template Field -->
+								<small id="user-updated" class="text-muted">{{user['updated']}}</small>
+
+								<!-- Edit Form Field -->
+								<small>
+									<input class="form-control hidden" type="date" value="{{user['updated']}}" id="user-updated-edit" name="user-updated-edit">
+								</small>
+							</div>
+						</h3>
+
+						<hr style="border-color: white;">
+
+						<div id="g-recaptcha" class="g-recaptcha hidden" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
+						<br>
+						<br>
+
+						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+					</form>
+
+					<button type="button" id="user-edit-button"class="btn btn-primary streamglean-button">Edit</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+<script src="/static/js/editUser.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}

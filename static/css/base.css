@@ -1,0 +1,11 @@
+.top-buffer { 
+    margin-top: 20px; 
+}
+
+.streamglean-button {
+	font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  	text-transform: uppercase;
+  	font-weight: 400;
+  	letter-spacing: 1px;
+  	color: white;
+}

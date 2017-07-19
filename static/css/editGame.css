@@ -1,0 +1,36 @@
+.input-col-4 {
+	display: inline-table;
+	width: 33.333333%;
+}
+
+.input-col-6 {
+	display: inline-table;
+	width: 50%;
+}
+
+.date-input {
+	display: inline-table;
+}
+
+.remove-input {
+	display: inline-table;
+	width: 33.3333333%;
+	margin-bottom: 10px;
+}
+
+.remove-input i {
+	color:#d9534f;
+}
+
+.before-add-more-genres, .before-add-more-platforms {
+	width: 33.333333%;
+	display: inline-table;
+}
+
+.before-add-more-genres i {
+	color:#4cae4c;
+}
+
+.before-add-more-platforms i {
+	color:#4cae4c;
+}

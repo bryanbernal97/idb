@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+{% block title %}{{team['name']}}{% endblock %}
+
+{% block custom_css %}
+    <link href="/static/css/editTeam.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
 {% block navbar %}
 
 <ul class="nav navbar-nav navbar-right">
@@ -33,65 +40,174 @@
 
 {% block content %}
 
-<!-- ID -->
-<section id={{team['_id']}}>
+<section class="portfolio bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <!-- <strong>Title</strong> --> {{ message }}
+                                </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+
+                    <form role="form" action= "/updateTeam" id="edit-team-form" method="POST">
+
                     
-                    <!-- Picture -->
-                    <img src={{team['image_url']}}>
+                        <!-- Hidden id for edit form used to update database -->
+                        <input type="hidden" id="team-id-edit" name="team-id-edit" value="{{team['id']}}">
 
-                    <!-- Name -->
-                    <h3>
-                        Name
-                        <small class="text-muted">{{team['name']}}</small>
-                    </h3>
+                        <!-- Picture -->
+                        <img src="{{team['image_url']}}">
 
-                    <!-- Info -->
-                    <h3>
-                        Info:
-                            <small class="text-muted">{{team['info']}}</small>
-                    </h3>
+                        <hr style="border-color: white;">
 
-                    <!-- Streamers -->
-                    <h3>
-                        Streamers:
-                        {% if team['user_ids'] %}
-                            {% for _id in team['user_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_users', wow=_id)}}"><br />{{team['user_names'][_id]}}</a></small>
-                            {% endfor %}
-                        {% else %}
-                            <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                        <!-- Name -->
+                        <h3>
+                            Name:<br>
+                            <div class="input-col-4">
+                                <!-- Template Field -->
+                                <small class="text-muted" id="team-name">{{team['name']}}</small>
 
-                    <!-- Games -->
-                    <h3>
-                        Games:
-                        {% if team['game_ids'] %}
-                            {% for _id in team['game_ids'] %}
-                                <small class="text-muted"><a href="{{ url_for('show_games', wow=_id)}}"><br />{{team['game_names'][_id]}}</a></small>
-                            {% endfor %}
-                        {% else %}
-                            <small class="text-muted">None</small>
-                        {% endif %}
-                    </h3>
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="text" class="form-control hidden" id="team-name-edit" name="team-name-edit" value="{{team['name']}}">
+                                </small>
+                            </div>
+                        </h3>
 
-                    <!-- Created -->
-                    <h3>
-                        Created:
-                        <small class="text-muted">{{team['created']}}</small>
-                    </h3>
+                        <!-- Info -->
+                        <h3>
+                            Info:<br>
+                            <div class="input-col-6">
+                                <!-- Template Field -->
+                                <small class="text-muted" id="team-info">{{team['info']}}</small>
 
-                    <!-- Updated -->
-                    <h3>
-                        Updated:
-                        <small class="text-muted">{{team['updated']}}</small>
-                    </h3>
+                                <!-- Edit Form Field -->
+                                <small><textarea class="form-control hidden" id="team-info-edit" name="team-info-edit">{{team['info']}}</textarea></small>
+                            </div>
+                        </h3>
+
+                        <!-- Streamers -->
+                        <h3>
+                            Streamers:
+                            <!-- Template Field -->
+                            {% if team['user_ids'] %}
+                                <small class="text-muted" id="team-streamers">
+                                    {% for _id in team['user_ids'] %}
+                                        <a href="{{ url_for('show_users', wow=_id)}}"><br>{{team['user_names'][_id]}}</a>
+                                    {% endfor %}
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="team-streamers">
+                                    <br>None
+                                </small>
+                            {% endif %}
+
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="team-streamers-edit" name="team-streamers-edit">
+                                    <select class="selectpicker form-control" name="team-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                    {% for streamer in streamers %}
+                                        {% if team['user_ids'] and streamer['id'] in team['user_ids'] %}
+                                            <option value="{{streamer['id']}}" selected>{{streamer['name']}}</option>
+                                        {% else %}
+                                            <option value="{{streamer['id']}}">{{streamer['name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <!-- Games -->
+                        <h3>
+                            Games:
+                            <!-- Template Field -->
+                            {% if team['game_ids'] %}
+                                <small class="text-muted" id="team-games">
+                                    {% for _id in team['game_ids'] %}
+                                        <a href="{{ url_for('show_games', wow=_id)}}"><br />{{team['game_names'][_id]}}</a>
+                                    {% endfor %}
+                                </small>
+                            {% else %}
+                                <small class="text-muted" id="team-games">
+                                    <br>None
+                                </small>
+                            {% endif %}
+
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="team-games-edit" name="team-games-edit">
+                                    <select class="selectpicker form-control" name="team-games-edit" multiple data-live-search="true" data-dropup-auto="false">
+                                    {% for game in games %}
+                                        {% if team['game_ids'] and game['id'] in team['game_ids'] %}
+                                            <option value="{{game['id']}}" selected>{{game['name']}}</option>
+                                        {% else %}
+                                            <option value="{{game['id']}}">{{game['name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <!-- Created -->
+                        <h3>
+                            Created:<br>
+                            <div class="date-input">
+                                <!-- Template Field -->
+                                <small class="text-muted" id="team-created">{{team['created']}}</small>
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input class="form-control hidden" type="date" value="{{team['created']}}" id="team-created-edit" name="team-created-edit">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Updated -->
+                        <h3>
+                            Updated:<br>
+                            <div class="date-input">
+                                <!-- Template Field -->
+                                <small class="text-muted" id="team-updated">{{team['updated']}}</small>
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input class="form-control hidden" type="date" value="{{team['updated']}}" id="team-updated-edit" name="team-updated-edit">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <hr style="border-color: white;">
+
+                        <div id="g-recaptcha" class="g-recaptcha hidden" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
+                        <br>
+                        <br>
+
+
+                        <button type="submit" id="team-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                    </form>
+                    <button type="button" id="team-edit-button"class="btn btn-primary streamglean-button">Edit</button>
                 </div>
             </div>
         </div>
     </section>
 
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="/static/js/editTeam.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}
