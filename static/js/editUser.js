@@ -121,6 +121,9 @@ $(document).ready(function() {
 		// Only need to take action if form values have changed, otherwise there is nothing to update.
 		var formSerialized =  $('#edit-user-form').serialize();
 		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
+		console.log('formSerialized: ' + formSerialized);
+		console.log('origForm: ' + origForm);
+		e.preventDefault();
 		if (formSerialized != origForm) {
 			console.log('origForm = ' + origForm);
 			console.log('new form = ' + $('#edit-user-form').serialize());
