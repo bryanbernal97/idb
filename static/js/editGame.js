@@ -99,9 +99,6 @@ $(document).ready(function() {
 
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#game-edit-button").click(function(){
-
-		origForm = $('#edit-game-form').serialize();
-
 		$("#game-name").addClass('hidden');
 		$("#game-description").addClass('hidden');
 		$("#game-rating").addClass('hidden');
@@ -129,12 +126,39 @@ $(document).ready(function() {
 	});
 
 
-	// Update template fields with form values, update database, hide edit form fields,
-	// and show updated template fields with confirmation/failure alert from updating database.
 	$("#game-edit-submit").click(function(e) {
-		if(!grecaptcha.getResponse()) {
-		    e.preventDefault();
-		    alert("Please verify the reCAPTCHA!");
+		var formSerialized =  $('#edit-game-form').serialize();
+		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
+
+		if (formSerialized != origForm) {
+			if(!grecaptcha.getResponse()) {
+			    e.preventDefault();
+			    alert("Please verify the reCAPTCHA!");
+			}
+		} else {
+			$("#game-name-edit").addClass('hidden');
+			$("#game-description-edit").addClass('hidden');
+			$("#game-rating-edit").addClass('hidden');
+			$("#game-genres-edit").addClass('hidden');
+			$("#game-platforms-edit").addClass('hidden');
+			$("#game-release-date-edit").addClass('hidden');
+			$("#game-streamers-edit").addClass('hidden');
+			$("#game-teams-edit").addClass('hidden');
+			$("#game-communities-edit").addClass('hidden');
+			$("#game-edit-submit").addClass('hidden');
+			$("#game-delete-button").addClass('hidden');
+			$("#g-recaptcha").addClass('hidden');
+
+			$("#game-name").removeClass('hidden');
+			$("#game-description").removeClass('hidden');
+			$("#game-rating").removeClass('hidden');
+			$("#game-genres").removeClass('hidden');
+			$("#game-platforms").removeClass('hidden');
+			$("#game-release-date").removeClass('hidden');
+			$("#game-streamers").removeClass('hidden');
+			$("#game-teams").removeClass('hidden');
+			$("#game-communities").removeClass('hidden');
+			$("#game-edit-button").removeClass('hidden');
 		}
 	});
 
@@ -149,89 +173,6 @@ $(document).ready(function() {
 			}
 		}	
 	});
-		// Only need to take action if the form values have changed
-		//if ($('#edit-game-form').serialize() != origForm) {
-			
-		//	var newName = $("#game-name-edit").val();
-		//	$("#site-title").text(newName);										// SITE TITLE
-		//	$("#game-name").text(newName);										// NAME
-		//	$("#game-description").text($("#game-description-edit").val());		// DESCRIPTION
-		//	$("#game-rating").text($("#game-rating-edit").val());				// RATING
-
-		//	var genresHtml = "";
-		//	$('input[name="genres[]"]').each(function() {
-		//		genre = $(this).val();
-		//		if (genre != '') {
-		//			genresHtml += "<br>" + $(this).val();
-		//		}
-		//	});
-		//	if (genresHtml == "") {
-		//		genresHtml = "<br>None";
-		//	}
-		//	$("#game-genres").html(genresHtml);									// GENRES
-
-		//	var platformsHtml = "";
-		//	$('input[name="platforms[]"]').each(function() {
-		//		platform = $(this).val();
-		//		if (platform != "") {
-		//			platformsHtml += "<br>" + $(this).val();
-		//		}
-		//	});
-		//	if (platformsHtml == "") {
-		//		platformsHtml = "<br>None";
-		//	}
-		//	$("#game-platforms").html(platformsHtml);							// PLATFORMS
-
-
-		//	$("#game-release-date").text($("#game-release-date-edit").val());	// RELEASE DATE
-
-			// Game streamer links formatting
-		//	var streamersHTML = "";
-		//	$("#game-streamers-edit option:selected").each(function () {
-		//		var $this = $(this);
-		//		var streamerID = $this.val();
-		//		var streamerName = $this.text();
-		//		var streamerHref = '/users/' + streamerID;
-		//		var streamerHTML = ("<a href='" + streamerHref + "'><br />" +
-		//			streamerName + "</a>");
-		//		streamersHTML += streamerHTML;
-		//	});
-		//	if (streamersHTML == "") {
-		//		streamersHTML = "<br>None";
-		//	}
-		//	$("#game-streamers").html(streamersHTML);							// STREAMERS (CONNECTION)
-
-			// Game team links formatting
-		//	var teamsHTML = "";
-		//	$("#game-teams-edit option:selected").each(function () {
-		//		var $this = $(this);
-		//		var teamID = $this.val();
-		//		var teamName = $this.text();
-		//		var teamHref = '/teams/' + teamID;
-		//		var teamHTML = "<a href='" + teamHref + "'><br />" + teamName + "</a>";
-		//		teamsHTML += teamHTML;
-		//	});
-		//	if (teamsHTML == "") {
-		//		teamsHTML = "<br>None";
-		//	}
-		//	$("#game-teams").html(teamsHTML);									// TEAMS (CONNECTION)
-
-			// Game community links formatting
-		//	var communitiesHTML = "";
-		//	$("#game-communities-edit option:selected").each(function () {
-		//		var $this = $(this);
-		//		var communityID = $this.val();
-		//		var communityName = $this.text();
-		//		var communityHref = '/communities/' + communityID;
-		//		var communityHTML = ("<a href='" + communityHref + "'><br />" +
-		//			communityName + "</a>");
-		//		communitiesHTML += communityHTML;
-		//	});
-		//	if (communitiesHTML == "") {
-		//		communitiesHTML = "<br>None";
-		//	}
-		//	$("#game-communities").html(communitiesHTML);						// COMMUNITIES (CONNECTION)
-		//}
 
 
 

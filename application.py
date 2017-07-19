@@ -84,8 +84,8 @@ def update_user():
     # user_captcha = request.form.get('')
 
     successful_user_update = True
-    successful_game_update = True       # Need to delete this user from old game and add this user to new game
-    successful_community_update = True  # Need to delete this user from old community and add this user to new community
+    successful_game_update = True
+    successful_community_update = True
     successful_teams_update = True
 
     try:
@@ -121,7 +121,6 @@ def update_user():
                     new_game = new_game_query.first()
                     new_game_user_ids = new_game.user_ids
 
-                    # Use list() constructor to copy the list so it actually updates
                     if new_game_user_ids and user_id not in new_game_user_ids:
                         new_game_user_ids.append(user_id)
                     elif not new_game_user_ids:
@@ -236,21 +235,179 @@ def update_user():
 
 @application.route('/updateGame', methods=['POST'])
 def update_game():
-    game_id = request.form.get('game-id-edit')
-    game_name = request.form.get('game-name-edit')
-    game_description = request.form.get('game-description-edit')
+    game_id = int(request.form.get('game-id-edit'))
+    new_name = request.form.get('game-name-edit')
+    new_description = request.form.get('game-description-edit')
+    new_rated = request.form.get('game-rating-edit')
+    new_genres = request.form.getlist('genres[]')
+    new_genres = list(filter(None, new_genres))
+    # print('new genres: ' + str(new_genres))
+    new_platforms = request.form.getlist('platforms[]')
+    new_platforms = list(filter(None, new_platforms))
+    # print('new platforms: ' + str(new_platforms))
+    new_release_date = request.form.get('game-release-date-edit')
+    new_user_ids = request.form.getlist('game-streamers-edit')
+    new_team_ids = request.form.getlist('game-teams-edit')
+
+    if new_team_ids:
+        new_team_ids = list(map(int, new_team_ids))
+    
+    new_community_ids = request.form.getlist('game-communities-edit')
 
     successful_user_update = True
-    successful_game_update = True       # Need to delete this user from old game and add this user to new game
-    successful_team_update = True       # Need to delete this user from old game and add this user to new game
+    successful_game_update = True
+    successful_team_update = True
     successful_community_update = True
+
+    try:
+        game = Game.query.get(game_id)
+        old_user_ids = game.user_ids
+        old_team_ids = game.team_ids
+        old_community_ids = game.community_ids
+
+        old_user_ids_set = set()
+        new_user_ids_set = set()
+        if old_user_ids:
+            old_user_ids_set = set(old_user_ids)
+        if new_user_ids:
+            new_user_ids_set = set(new_user_ids)
+
+        if (old_user_ids_set != new_user_ids_set):
+            if old_user_ids:
+                for old_user_id in old_user_ids:
+                    if old_user_id not in new_user_ids:
+                        try:
+                            old_user = User.query.get(old_user_id)
+                            old_user.game_id = None                                                 # UPDATED AN OLD USERS'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            print('Old User Exception: ' + str(e))
+                            successful_user_update = False
+
+            if new_user_ids:
+                print('new_user_ids: ' + str(new_user_ids))
+                print('type of user ids: ' + str(type(new_user_ids)))
+                for new_user_id in new_user_ids:
+                    if new_user_id not in old_user_ids:
+                        # User did not previously have user but now does so need to add game to that user
+                        try:
+                            print('new_user_id: ' + str(new_user_id))
+                            new_user = User.query.get(new_user_id)
+                            print('new_user: ' + str(new_user))
+                            new_user.game_id = game_id                                              # UPDATED A NEW USER'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            print('New User Exception: ' + str(e))
+                            successful_user_update = False
+
+        game.user_ids = new_user_ids                                                                # UPDATED GAME INSTANCE: USER IDS
+
+
+
+        old_community_ids_set = set()
+        new_community_ids_set = set()
+        if old_community_ids:
+            old_community_ids_set = set(old_community_ids)
+        if new_community_ids:
+            new_community_ids_set = set(new_community_ids)
+
+        if (old_community_ids_set != new_community_ids_set):
+            if old_community_ids:
+                for old_community_id in old_community_ids:
+                    if old_community_id not in new_community_ids:
+                        try:
+                            old_community = Community.query.get(old_community_id)
+                            old_community.game_id = None                                            # UPDATED AN OLD COMMUNITY'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            print('Old Community Exception: ' + str(e))
+                            successful_community_update = False
+
+            if new_community_ids:
+                for new_community_id in new_community_ids:
+                    if new_community_id not in old_community_ids:
+                        try:
+                            new_community = Community.query.get(new_community_id)
+                            new_community.game_id = game_id                                         # UPDATED A NEW COMMUNITY'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            print('New Community Exception: ' + str(e))
+                            successful_community_update = False
+
+        game.community_ids = new_community_ids                                                      # UPDATED GAME INSTANCE: COMMUNITY IDS
+
+
+        old_team_ids_set = set()
+        new_team_ids_set = set()
+        if old_team_ids:
+            old_team_ids_set = set(old_team_ids)
+        if new_team_ids:
+            new_team_ids_set = set(new_team_ids)
+
+        if (old_team_ids_set != new_team_ids_set):
+            if old_team_ids:
+                for old_team_id in old_team_ids:
+                    if old_team_id not in new_team_ids:
+                        try:
+                            old_team_query = Team.query.filter(Team.id == old_team_id)
+                            old_team = old_team_query.first()
+                            old_team_game_ids = old_team.game_ids
+                            if old_team_game_ids and game_id in old_team_game_ids:
+                                old_team_game_ids.remove(game_id)
+
+                            old_team_query.update({'game_ids': old_team_game_ids})                  # UPDATED AN OLD TEAM'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            print('Old Team Exception: ' + str(e))
+                            successful_teams_update = False
+
+            if new_team_ids:
+                for new_team_id in new_team_ids:
+                    if new_team_id not in old_team_ids:
+                        # Game did not previously have team but now does so need to add game to that team
+                        try:
+                            new_team_query = Team.query.filter(Team.id == new_team_id)
+                            new_team = new_team_query.first()
+                            new_team_game_ids = new_team.game_ids
+                            
+                            if new_team_game_ids:
+                                new_team_game_ids.append(game_id)
+                            else:
+                                new_team_game_ids = [game_id]
+
+                            new_team_query.update({'game_ids': new_team_game_ids})                  # UPDATED A NEW TEAM'S INSTANCE
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
+                            print('New Team Exception: ' + str(e))
+                            successful_teams_update = False
+
+        game.team_ids = new_team_ids                                                                # UPDATED GAME INSTANCE: TEAM IDS
+        game.name = new_name
+        game.description = new_description
+        game.rated = new_rated
+        game.genres = new_genres
+        game.platforms = new_platforms
+        game.release_date = datetime.datetime.strptime(new_release_date, '%Y-%m-%d')
+
+        db.session.commit()
+    except Exception as err:
+        db.session.rollback()
+        print('Game Exception: ' + str(err))
+        successful_game_update = False
+
 
     if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
         flash('Congratulations, the user was updated successfuly!', 'success')
     else:
         flash('Sorry, something went wrong :(', 'danger')
 
-    redirect_url = '/games/' + game_id
+    redirect_url = '/games/' + str(game_id)
     return redirect(redirect_url)
 
 @application.route('/updateTeam', methods=['POST'])
