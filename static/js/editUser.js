@@ -171,6 +171,8 @@ $(document).ready(function() {
 			var result = confirm("Are you sure you want to DELETE this User?");
 			if (result) {
     		//Logic to delete the item
+			} else {
+				e.preventDefault();
 			}
 		}
 	});

@@ -65,55 +65,12 @@ $(document).ready(function() {
 			var result = confirm("Are you sure you want to DELETE this Team?");
 			if (result) {
     		//Logic to delete the item
+			} else {
+				e.preventDefault();
 			}
 		}
 
 	});
 
-
-		
-		// Only need to take action if the form values have changed
-		//if ($('#edit-team-form').serialize() != origForm) {
-
-		//	var newName = $("#team-name-edit").val();
-		//	$("#site-title").text(newName);											// SITE TITLE
-		//	$("#team-name").text(newName);											// NAME
-		//	$("#team-info").text($("#team-info-edit").val());						// INFO
-
-		//	// Team streamers links formatting
-		//	var streamersHTML = "";
-		//	$("#team-streamers-edit option:selected").each(function () {
-		//		var $this = $(this);
-		//		var streamerID = $this.val();
-		//		var streamerName = $this.text();
-		//		var streamerHref = '/user/' + streamerID;
-		//		var streamerHTML = "<a href='" + streamerHref + "'><br />" + streamerName + "</a>";
-		//		streamersHTML += streamerHTML;
-		//	});
-		//	if (streamersHTML == "") {
-		//		streamersHTML = "<br>None";
-		//	}
-		//	$("#team-streamers").html(streamersHTML);								// STREAMERS (CONNECTION)
-		
-
-		//	// Team games links formatting
-		//	var gamesHTML = "";
-		//	$("#team-games-edit option:selected").each(function () {
-		//		var $this = $(this);
-		//		var gameID = $this.val();
-		//		var gameName = $this.text();
-		//		var gameHref = '/games/' + gameID;
-		//		var gameHTML = "<a href='" + gameHref + "'><br />" + gameName + "</a>";
-		//		gamesHTML += gameHTML;
-		//	});
-		//	if (gamesHTML == "") {
-		//		gamesHTML = "<br>None";
-		//	}
-		//	$("#team-games").html(gamesHTML);										// GAMES (CONNECTION)
-
-		//	$("#team-created").text($("#team-created-edit").val());					// CREATED
-		//	$("#team-updated").text($("#team-updated-edit").val());					// UPDATED
-
-		//}
 
 });
