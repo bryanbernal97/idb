@@ -58,8 +58,6 @@
 					  {% endif %}
 					{% endwith %}
 
-					<div id="user-captcha" data-captcha="{{ user['captcha_answer']}}"></div>
-
 					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
 						
 						<!-- Hidden id for edit form used to update database -->
@@ -267,15 +265,9 @@
 
 						<hr style="border-color: white;">
 
-						<!-- <img class="hidden" src="/static/img/out.png" id="captcha-img">
-
-						<input class="form-control hidden" placeholder="Input what you see above..." type="text hidden" id="captcha-submit" name="captcha-submit"> -->
-
 						<div id="g-recaptcha" class="g-recaptcha hidden" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
 						<br>
 						<br>
-
-<!-- 						<input type="text" id="captcha-string" name="captcha-string" class="form-control hidden" placeholder="Input the phrase above and press enter to edit this page..."> -->
 
 						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
 					</form>

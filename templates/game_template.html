@@ -45,7 +45,19 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
 
-                    <form role="form" id="edit-game-form">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <!-- <strong>Title</strong> --> {{ message }}
+                                </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+
+                    <form role="form" action= "/updateGame" id="edit-game-form" method="POST">
 
                         <!-- Hidden id for edit form used to update database -->
                         <input type="hidden" id="game-id-edit" name="game-id-edit" value="{{game['id']}}">
@@ -338,7 +350,12 @@
 
                         <hr style="border-color: white;">
 
-                        <button type="button" id="game-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                        <div id="g-recaptcha" class="g-recaptcha hidden" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
+                        <br>
+                        <br>
+
+
+                        <button type="submit" id="game-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
                     </form>
                 <button type="button" id="game-edit-button"class="btn btn-primary streamglean-button">Edit</button>
             </div>
@@ -352,4 +369,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="/static/js/editGame.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}

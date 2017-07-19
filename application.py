@@ -292,6 +292,73 @@ def update_user():
     redirect_url = '/users/' + user_id
     return redirect(redirect_url)
 
+@application.route('/updateGame', methods=['POST'])
+def update_game():
+    game_id = request.form.get('game-id-edit')
+    game_name = request.form.get('game-name-edit')
+    game_description = request.form.get('game-description-edit')
+
+    # game_captcha = request.form.get('')
+
+    successful_user_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_team_update = True  # Need to delete this user from old game and add this user to new game
+    successful_community_update = True
+
+    if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/games/' + game_id
+    return redirect(redirect_url)
+
+@application.route('/updateTeam', methods=['POST'])
+def update_team():
+    team_id = request.form.get('team-id-edit')
+    team_name = request.form.get('team-name-edit')
+    team_info = request.form.get('team-info-edit')
+
+    # team_captcha = request.form.get('')
+
+    successful_user_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_team_update = True  # Need to delete this user from old game and add this user to new game
+    successful_community_update = True
+
+    if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/teams/' + team_id
+    return redirect(redirect_url)
+
+@application.route('/updateCommunity', methods=['POST'])
+def update_community():
+    community_id = request.form.get('community-id-edit')
+    community_name = request.form.get('community-name-edit')
+    community_description = request.form.get('community-description-edit')
+    community_language = request.form.get('community-language-edit')
+    community_rules = request.form.get('community-rules-edit')
+    community_game = request.form.get('user-game-edit')
+    community_owner = request.form.get('community-owner-edit')
+
+    # community_captcha = request.form.get('')
+
+    successful_user_update = True
+    successful_game_update = True       # Need to delete this user from old game and add this user to new game
+    successful_community_update = True  # Need to delete this user from old community and add this user to new community
+    successful_team_update = True
+
+    if (successful_user_update and successful_game_update and successful_community_update and successful_team_update):
+        flash('Congratulations, the user was updated successfuly!', 'success')
+    else:
+        flash('Sorry, something went wrong :(', 'danger')
+
+    redirect_url = '/communities/' + community_id
+    return redirect(redirect_url)
+
 
 # print a nice greeting.
 @application.route('/')
@@ -371,19 +438,6 @@ def show_users(wow):
         for _id in user['team_ids']:
             user['team_names'][_id] = get_name_by_id(_id, 'team')
 
-    # Create a random phrase of 5 characters for the captcha, build it
-    # and store it in the user dictionary to eventually be passed into
-    # javascript
-    # phrase = ""
-    # values = list(range(26))
-    # for i in range(5):
-    #     phrase += chr(97 + random.choice(values))
-    # image = ImageCaptcha()
-    # data = image.generate(phrase)
-    # image.write(phrase, "static/img/out.png", format='png')
-    # user['captcha_answer'] = phrase;
-
-
     return render_template('user_template.html', user = user, games = games, communities=communities, teams=teams)
 
 @application.route('/games/<wow>')
@@ -447,6 +501,7 @@ def show_teams(wow):
     team = {}
     users = []
     games = []
+    team['id'] = wow
     team['name'] = q.name
     team['info'] = q.info
     team['created'] = q.created.date()
@@ -490,6 +545,7 @@ def show_communities(wow):
     community = {}
     games = []
     users = []
+    community['id'] = wow
     community['name'] = q.name
     community['description'] = q.description
     community['language'] = q.language
