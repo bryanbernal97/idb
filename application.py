@@ -41,9 +41,13 @@ def update_user():
     new_views = request.form.get('user-views-edit')
     new_followers = request.form.get('user-followers-edit')
     new_url = request.form.get('user-url-edit')
+    
     new_game_id = request.form.get('user-game-edit')
+    if new_game_id:
+        new_game_id = int(new_game_id)
+    
     new_community_id = request.form.get('user-community-edit')
-    new_team_ids = request.form.getlist('user-teams-edit')
+    new_team_ids = list(map(int, request.form.getlist('user-teams-edit')))
     new_created = request.form.get('user-created-edit')
     new_updated = request.form.get('user-updated-edit')
     # user_captcha = request.form.get('')
@@ -66,14 +70,14 @@ def update_user():
         if old_game_id != new_game_id:
             if old_game_id:
                 try:
-                    old_game = Game.query.get(old_game_id)
+                    old_game_query = Game.query.filter(Game.id == old_game_id)
+                    old_game = old_game_query.first()
                     old_game_user_ids = old_game.user_ids
+
                     if old_game_user_ids and user_id in old_game_user_ids:
-                        print('old game and user id in old game')
-                        # db.session.flush()
                         old_game_user_ids = old_game_user_ids.remove(user_id)
-                    # db.session.flush()
-                    db.session.query(Game).filter(Game.id == old_game_id).update({'user_ids': old_game_user_ids})
+
+                    old_game_query.update({'user_ids': old_game_user_ids})                          # UPDATED OLD GAME CONNECTION'S INSTANCE
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
@@ -82,206 +86,112 @@ def update_user():
 
             if new_game_id:
                 try:
-                    new_game = Game.query.get(new_game_id)
+                    new_game_query = Game.query.filter(Game.id == new_game_id)
+                    new_game = new_game_query.first()
                     new_game_user_ids = new_game.user_ids
-                    # db.session.flush()
-                    print('new game user_ids: ' + str(new_game_user_ids))
+
+                    # Use list() constructor to copy the list so it actually updates
                     if new_game_user_ids and user_id not in new_game_user_ids:
                         new_game_user_ids += [user_id]
-                        # print('new game user_ids: ' + str(new_game_user_ids))
-                        # db.session.flush()
                         new_game_user_ids = list(new_game_user_ids)
                     elif not new_game_user_ids:
-                        # db.session.flush()
                         new_game_user_ids = list([user_id])
-                    # db.session.flush()
-                    print('new game instance user ids: ' + str(new_game_user_ids))
-                    # db.session.flush()
-                    db.session.query(Game).filter(Game.id == new_game_id).update({'user_ids': new_game_user_ids})
+
+                    new_game_query.update({'user_ids': new_game_user_ids})                          # UPDATED NEW GAME CONNECTION'S INSTANCE
                     db.session.commit()
                 except Exception as e:
                     db.session.rollback()
                     print('New Game Exception: ' + str(e))
                     successful_game_update = False
 
-        user.game_id = new_game_id
+        user.game_id = new_game_id                                                                  # UPDATED USER INSTANCE: GAME ID
 
-        if old_community_id != new_community_id:
-            if old_community_id:
-                try:
-                    old_community = Community.query.get(old_community_id)
-                    old_community_owner_id = old_community.owner_id
-                    db.session.flush()
-                    if user_id == old_community_owner_id:
-                        old_community.owner_id = None
-                    # db.session.flush()
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    print('Old Community Exception: ' + str(e))
-                    successful_community_update = False
+        # if old_community_id != new_community_id:
+        #     if old_community_id:
+        #         try:
+        #             old_community = Community.query.get(old_community_id)
+        #             old_community_owner_id = old_community.owner_id
+        #             db.session.flush()
+        #             if user_id == old_community_owner_id:
+        #                 old_community.owner_id = None
+        #             # db.session.flush()
+        #             db.session.commit()
+        #         except Exception as e:
+        #             db.session.rollback()
+        #             print('Old Community Exception: ' + str(e))
+        #             successful_community_update = False
 
-            if new_community_id:
-                try:
-                    new_community = Community.query.get(new_community_id)
-                    db.session.flush()
-                    new_community.owner_id = user_id
-                    # db.session.flush()
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    print('New Community Exception: ' + str(e))
-                    successful_community_update = False
+        #     if new_community_id:
+        #         try:
+        #             new_community = Community.query.get(new_community_id)
+        #             db.session.flush()
+        #             new_community.owner_id = user_id
+        #             # db.session.flush()
+        #             db.session.commit()
+        #         except Exception as e:
+        #             db.session.rollback()
+        #             print('New Community Exception: ' + str(e))
+        #             successful_community_update = False
 
-        user.community_id = new_community_id
+        # user.community_id = new_community_id
 
-        if (set(old_team_ids) != set(new_team_ids)):
-            print('teams have changed')
-            for old_team_id in old_team_ids:
-                if old_team_id not in new_team_ids:
-                    # User used to have game but now doesn't need to remove user from that team
-                    print('team: ' + str(old_team_id) + ' was on users list but now its not')
-                    try:
-                        old_team = Team.query.get(old_team_id)
-                        old_team_user_ids = old_team.user_ids
-                        if old_team_user_ids and user_id in old_team_user_ids:
-                            db.session.flush()
-                            old_team.user_ids = old_team_user_ids.remove(user_id)
-                        # db.session.flush()
-                        print('old team user ids updated: ' + str(old_team.user_ids))
-                        db.session.commit()
-                    except Exception as e:
-                        db.session.rollback()
-                        print('Old Team Exception: ' + str(e))
-                        successful_teams_update = False
+        # print('old_team_ids = ' + str(set(old_team_ids)))
+        # print('new team ids = ' + str(set(new_team_ids)))
+        # if (set(old_team_ids) != set(new_team_ids)):
+        #     print('teams have changed')
+        #     for old_team_id in old_team_ids:
+        #         if old_team_id not in new_team_ids:
+        #             # User used to have game but now doesn't need to remove user from that team
+        #             print('team: ' + str(old_team_id) + ' was on users list but now its not')
+        #             try:
+        #                 old_team = Team.query.get(old_team_id)
+        #                 old_team_user_ids = old_team.user_ids
+        #                 if old_team_user_ids and user_id in old_team_user_ids:
+        #                     db.session.flush()
+        #                     old_team.user_ids = old_team_user_ids.remove(user_id)
+        #                 # db.session.flush()
+        #                 print('old team user ids updated: ' + str(old_team.user_ids))
+        #                 db.session.commit()
+        #             except Exception as e:
+        #                 db.session.rollback()
+        #                 print('Old Team Exception: ' + str(e))
+        #                 successful_teams_update = False
 
-            for new_team_id in new_team_ids:
-                if new_team_id not in old_team_ids:
-                    print('team: ' + str(new_team_id) + ' was not on users list but now is')
-                    try:
-                        new_team = Team.query.get(new_team_id)
-                        new_team_user_ids = new_team.user_ids
-                        db.session.flush()
-                        if new_team_user_ids:
-                            new_team.user_ids = new_team_user_ids.append(user_id)
-                        else:
-                            new_team.user_ids = [user_id]
-                        # db.session.flush()
-                        print('new team user ids updated: ' + str(new_team.user_ids))
-                        db.session.commit()
-                    except Exception as e:
-                        db.session.rollback()
-                        print('New Team Exception: ' + str(e))
-                        successful_teams_update = False
+        #     for new_team_id in new_team_ids:
+        #         if new_team_id not in old_team_ids:
+        #             print('team: ' + str(new_team_id) + ' was not on users list but now is')
+        #             try:
+        #                 new_team = Team.query.get(new_team_id)
+        #                 new_team_user_ids = new_team.user_ids
+        #                 db.session.flush()
+        #                 if new_team_user_ids:
+        #                     new_team.user_ids = new_team_user_ids.append(user_id)
+        #                 else:
+        #                     new_team.user_ids = [user_id]
+        #                 # db.session.flush()
+        #                 print('new team user ids updated: ' + str(new_team.user_ids))
+        #                 db.session.commit()
+        #             except Exception as e:
+        #                 db.session.rollback()
+        #                 print('New Team Exception: ' + str(e))
+        #                 successful_teams_update = False
 
-        db.session.flush()
-        user.team_ids = list(map(int, new_team_ids))
-        user.name = new_name
-        user.description = new_description
-        user.language = new_language
-        user.views = new_views
-        user.followers = new_followers
-        user.url = new_url
-        user.created = datetime.datetime.strptime(new_created, '%Y-%m-%d')
-        user.updated = datetime.datetime.strptime(new_updated, '%Y-%m-%d')
+        # db.session.flush()
+        # user.team_ids = new_team_ids
+        user.name = new_name                                                                        # UPDATED USER INSTANCE: NAME
+        user.description = new_description                                                          # UPDATED USER INSTANCE: DESCRIPTION
+        user.language = new_language                                                                # UPDATED USER INSTANCE: LANGUAGE
+        user.views = new_views                                                                      # UPDATED USER INSTACNE: VIEWS
+        user.followers = new_followers                                                              # UPDATED USER INSTANCE: FOLLOWERS
+        user.url = new_url                                                                          # UPDATED USER INSTANCE: URL
+        user.created = datetime.datetime.strptime(new_created, '%Y-%m-%d')                          # UPDATED USER INSTANCE: CREATED
+        user.updated = datetime.datetime.strptime(new_updated, '%Y-%m-%d')                          # UPDATED USER INSTANCE: UPDATED
         # db.session.flush()
         db.session.commit()
     except Exception as user_exception:
         db.session.rollback()
         print('User Exception: ' + str(user_exception))
         successful_user_update = False
-        # q.team_ids = list(map(int, new_team_ids))
-
-
-    # UPDATE THE DB HERE
-    # q = User.query.get(user_id)
-    # old_game = ''
-    # old_community = ''
-    # try:
-    #     q.name = user_name
-    #     q.description = user_description
-    #     q.language = user_language
-    #     q.views = user_views
-    #     q.followers = user_followers
-    #     q.url = user_url
-    #     old_game = q.game_id
-    #     # if (old_game != user_game):
-    #     #     # Game has been updated so need to update appropriate connections
-    #     #     if old_game:
-    #     #         old_game_q = Game.query.get(old_game)
-    #     #         if old_game_q.user_ids and user_id in old_game_q.user_ids:
-    #     #             old_game_q.user_ids = old_game_q.user_ids.remove(user_id)
-    #     #             db.session.commit()
-    #     #     if user_game:
-    #     #         new_game_q = Game.query.get(user_game)
-    #     #         if new_game_q and new_game_q.user_ids:
-    #     #             print('new_game_q.user_ids: ' + str(new_game_q.user_ids))
-    #     #             # new_game_q.user_ids = new_game_q.user_ids.append(user_id)
-    #     #             new_user_ids = new_game_q.user_ids
-    #     #             new_user_ids.append(user_id)
-    #     #             print('new user ids: ' + str(new_user_ids))
-    #     #             new_game_q.user_ids = list(new_user_ids)
-    #     #             print('new game q user ids updated: ' + str(new_game_q.user_ids))
-    #     #             db.session.flush()
-    #     #             db.session.commit()  # WHY IS THIS NOT UPDATING THE DATABASE ENTRY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    #     #         else:
-    #     #             new_game_q.user_ids = list(user_id)
-    #     #             # db.session.commit()
-    #     q.game_id = user_game
-    #     old_community = q.community_id
-    #     # if (old_community != user_community):
-    #     #     print('community was updated also need to update community')
-    #     q.community_id = user_community
-    #     old_teams = q.team_ids
-    #     if (old_teams and user_teams):
-    #         # Compare user's teams prior to form submit with form input
-    #         if (set(old_teams) != set(user_teams)):
-    #             q.team_ids = list(map(int, user_teams))
-    #     elif (old_teams):
-    #         # User had team(s) prior to form submit, but now doesn't
-    #         q.team_ids = []
-    #     elif (user_teams):
-    #         # User had no teams prior to form submit, but now does
-    #         q.team_ids = list(map(int, user_teams))
-    #     q.created = datetime.datetime.strptime(user_created, '%Y-%m-%d')
-    #     q.updated = datetime.datetime.strptime(user_updated, '%Y-%m-%d')
-    #     db.session.flush()
-    #     db.session.commit()
-    # except Exception as e:
-    #     print('Exception: ' + str(e))
-    #     successful_user_update = False
-    #     db.session.rollback()
-
-
-    # if (old_game != user_game):
-    #     print('game was updated')
-    #     if old_game:
-    #         old_game_q = Game.query.get(old_game)
-    #         try:
-    #             if old_game_q.user_ids and user_id in old_game_q.user_ids:
-    #                 old_game_q.user_ids = old_game_q.user_ids.remove(user_id)
-    #                 print('old_game user ids: ' + str(old_game_q.user_ids))
-    #                 db.session.commit()
-    #         except Exception as e:
-    #             print('OLD GAME exception: ' + str(e))
-    #             successful_game_update = False
-    #             db.session.rollback()
-    #     if user_game:
-    #         new_game_q = Game.query.get(user_game)
-    #         try:
-    #             game_user_ids = new_game_q.user_ids
-    #             if game_user_ids:
-    #                 db.session.flush()
-    #                 new_game_q.user_ids = game_user_ids + [user_id]                             # The issue was only can set field once and in if statement it was doing something?
-    #                 print('new game user ids updated should be: ' + str(new_game_q.user_ids))
-    #                 db.session.commit()
-    #             else:
-    #                 new_game_q.user_ids = [user_id]
-    #                 db.session.commit()
-    #         except Exception as e:
-    #             print('Sorry exception: ' + str(e))
-    #             successful_game_update = False
-    #             db.session.rollback()
 
 
     if (successful_user_update and successful_game_update and successful_community_update and successful_teams_update):
