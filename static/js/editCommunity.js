@@ -86,8 +86,6 @@ $(document).ready(function() {
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#community-edit-button").click(function(){
 
-		origForm = $('#edit-community-form').serialize();
-
 		$("#community-name").addClass('hidden');
 		$("#community-description").addClass('hidden');
 		$("#community-language").addClass('hidden');
@@ -113,12 +111,34 @@ $(document).ready(function() {
 	// and show updated template fields with confirmation/failure alert from updating database.
 	$("#community-edit-submit").click(function(e) {
 
-		// alert('response: ' + grecaptcha.getResponse());
-		// e.preventDefault();
-		if(!grecaptcha.getResponse()) {
-		    e.preventDefault();
-		    alert("Please verify the reCAPTCHA!");
-		}
+		// Only need to take action if form values have changed, otherwise there is nothing to update.
+		var formSerialized =  $('#edit-user-form').serialize();
+		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
+		if (formSerialized != origForm) {
+			if(!grecaptcha.getResponse()) {
+			    e.preventDefault();
+			    alert("Please verify the reCAPTCHA!");
+			}
+		} else {
+			e.preventDefault();
+
+			$("#community-name-edit").addClass('hidden');
+			$("#community-description-edit").addClass('hidden');
+			$("#community-language-edit").addClass('hidden');
+			$("#community-rules-edit").addClass('hidden');
+			$("#community-game-edit").addClass('hidden');
+			$("#community-owner-edit").addClass('hidden');
+			$("#community-edit-submit").addClass('hidden');
+			$("#community-delete-button").addClass('hidden');
+			$("#g-recaptcha").addClass('hidden');
+
+			$("#community-name").removeClass('hidden');
+			$("#community-description").removeClass('hidden');
+			$("#community-language").removeClass('hidden');
+			$("#community-rules").removeClass('hidden');
+			$("#community-game").removeClass('hidden');
+			$("#community-owner").removeClass('hidden');
+			$("#community-edit-button").removeClass('hidden');
 
 	});
 

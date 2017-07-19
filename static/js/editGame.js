@@ -129,7 +129,6 @@ $(document).ready(function() {
 	$("#game-edit-submit").click(function(e) {
 		var formSerialized =  $('#edit-game-form').serialize();
 		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
-
 		if (formSerialized != origForm) {
 			if(!grecaptcha.getResponse()) {
 			    e.preventDefault();
