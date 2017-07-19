@@ -58,7 +58,7 @@
 					  {% endif %}
 					{% endwith %}
 
-					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
+					<form role="form" data-toggle="validator" id="edit-user-form" action="/updateUser" method="POST">
 						
 						<!-- Hidden id for edit form used to update database -->
                         <input type="hidden" id="user-id-edit" name="user-id-edit" value="{{user['id']}}">
@@ -114,7 +114,7 @@
 								<small id="user-views" class="text-muted">{{user['views']}}</small>
 
 								<!-- Edit Form Field -->
-								<small><input type="text" id="user-views-edit" name="user-views-edit" class="form-control hidden" value="{{user['views']}}"></small>
+								<small><input type="number" id="user-views-edit" name="user-views-edit" data-error="Bruh, that's not a number" class="form-control hidden" value="{{user['views']}}"></small>
 							</div>
 						</h3>
 
