@@ -36,15 +36,19 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 
 @application.route('/addUser', methods=['POST', 'GET'])
 def add_user():
+    return 0
 
 @application.route('/addGame', methods=['POST', 'GET'])
 def add_game():
+    return 0
 
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
+    return 0
 
 @application.route('/addCommunity', methods=['POST', 'GET'])
 def add_community():
+    return 0
 
 ####################### UPDATE MODELS ################################
 
@@ -265,22 +269,111 @@ def update_team():
 @application.route('/updateCommunity', methods=['POST'])
 def update_community():
     community_id = request.form.get('community-id-edit')
-    community_name = request.form.get('community-name-edit')
-    community_description = request.form.get('community-description-edit')
-    community_language = request.form.get('community-language-edit')
-    community_rules = request.form.get('community-rules-edit')
-    community_game = request.form.get('user-game-edit')
-    community_owner = request.form.get('community-owner-edit')
+    new_name = request.form.get('community-name-edit')
+    new_description = request.form.get('community-description-edit')
+    new_language = request.form.get('community-language-edit')
+    new_rules = request.form.get('community-rules-edit')
+    
+    new_game_id = request.form.get('community-game-edit')
+    if new_game_id:
+        new_game_id = int(new_game_id)
+    
+    new_owner_id = request.form.get('community-owner-edit')
+    if new_owner_id:
+        new_owner_id = int(new_owner_id)
 
     # community_captcha = request.form.get('')
 
-    successful_user_update = True
-    successful_game_update = True       # Need to delete this user from old game and add this user to new game
-    successful_community_update = True  # Need to delete this user from old community and add this user to new community
-    successful_team_update = True
+    successful_owner_update = True
+    successful_game_update = True       # Need to delete this community from old game and add this community to new game
 
-    if (successful_user_update and successful_game_update and successful_community_update and successful_team_update):
-        flash('Congratulations, the user was updated successfuly!', 'success')
+    try:
+        community = Community.query.get(community_id)
+        old_game_id = community.game_id
+        old_owner_id = community.owner_id
+
+        # Update connections
+
+        # Game connection has changed so need to remove community from old game connection instance
+        # and add community to new game connection instance
+        if old_game_id != new_game_id:
+            if old_game_id:
+                try:
+                    old_game_query = Game.query.filter(Game.id == old_game_id)
+                    old_game = old_game_query.first()
+                    old_game_community_ids = old_game.community_ids
+
+                    if old_game_community_ids and community_id in old_game_community_ids:
+                        old_game_community_ids.remove(community_id)
+
+                    old_game_query.update({'community_ids': old_game_community_ids})                          # UPDATED OLD GAME CONNECTION'S INSTANCE
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    # print('Old Game Exception: ' + str(e))
+                    successful_game_update = False
+
+            if new_game_id:
+                try:
+                    new_game_query = Game.query.filter(Game.id == new_game_id)
+                    new_game = new_game_query.first()
+                    new_game_community_ids = new_game.community_ids
+
+                    # Use list() constructor to copy the list so it actually updates
+                    if new_game_community_ids and community_id not in new_game_community_ids:
+                        new_game_community_ids.append(community_id)
+                    elif not new_game_community_ids:
+                        new_game_community_ids = [community_id]
+
+                    new_game_query.update({'community_ids': new_game_community_ids})                          # UPDATED NEW GAME CONNECTION'S INSTANCE
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    # print('New Game Exception: ' + str(e))
+                    successful_game_update = False
+
+        community.game_id = new_game_id                                                                  # UPDATED community INSTANCE: GAME ID
+
+        if old_owner_id != new_owner_id:
+            if old_owner_id:
+                try:
+                    old_community = Community.query.get(old_owner_id)
+                    old_community_owner_id = old_community.owner_id
+                    if owner_id == old_community_owner_id:
+                        old_community.owner_id = None                                               # UPDATED OLD COMMUNITY'S INSTANCE
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    # print('Old Community Exception: ' + str(e))
+                    successful_owner_update = False
+
+            if new_owner_id:
+                try:
+                    new_community = Community.query.get(new_owner_id)
+                    new_community.owner_id = owner_id                                                # UPDATED NEW COMMUNITY'S INSTANCE
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    # print('New Community Exception: ' + str(e))
+                    successful_owner_update = False
+
+        community.owner_id = new_owner_id                                          # UPDATED community INSTANCE: COMMUNITY ID
+
+        # db.session.flush()
+        community.name = new_name
+        community.description = new_description
+        community.language = new_language 
+        community.rules = new_rules
+        # db.session.flush()
+        db.session.commit()
+    except Exception as community_exception:
+        db.session.rollback()
+        print('community Exception: ' + str(community_exception))
+        successful_owner_update = False
+
+
+    if (successful_owner_update and successful_game_update):
+        flash('Congratulations, the community was updated successfuly!', 'success')
     else:
         flash('Sorry, something went wrong :(', 'danger')
 
