@@ -147,28 +147,32 @@ def add_team():
         return render_template('add_team.html', games=games, streamers=streamers, today=today)
     else:
         # do the add to the db here and then render instance page of the added team
-        user_id = request.form.get('user-id-add')
+        team_id = request.form.get('team-id-add')
         team_image_url = request.form.get('team-image-url-add')
         name = request.form.get('team-name-add')
         info = request.form.get('team-info-add')
         url = request.form.get('team-url-add')
-        game_id = request.form.get('team-game-add')
-        if game_id:
-            game_id = int(game_id)
+        game_ids = request.form.getlist('team-game-add')
+        if game_ids:
+            game_ids = list(map(int, game_ids))
         #community_id = request.form.get('team-community-add')
         #team_ids = request.form.getlist('user-teams-add')
-        team_id = request.form.get('team-id-add')
+        # team_id = request.form.get('team-id-add')
+
+        user_ids = request.form.getlist('team-streamers-add')
 
         #if team_ids:
             #team_ids = list(map(int, team_ids))
 
         success = True
 
-        if game_id:
-            success = (add_team_to_game(team_id, game_id) and success)
+        if game_ids:
+            for game_id in game_ids:
+                success = (add_team_to_game(team_id, game_id) and success)
 
-        if user_id:
-            success = (add_team_to_user(team_id, community_id) and success)
+        if user_ids:
+            for user_id in user_ids:
+                success = (add_team_to_user(team_id, user_id) and success)
 
         created = request.form.get('team-created-add')
         updated = request.form.get('team-updated-add')
@@ -180,7 +184,8 @@ def add_team():
             team.name = name
             team.info = info
             team.url = url
-            team.game_id = game_id
+            team.game_ids = game_ids
+            team.user_ids = user_ids
             #team.team_ids = team_ids
             team.created = datetime.datetime.strptime(created, '%Y-%m-%d')
             team.updated = datetime.datetime.strptime(updated, '%Y-%m-%d')
@@ -196,7 +201,7 @@ def add_team():
         else:
             flash('Sorry, something went wrong :(', 'danger')
         
-        redirect_url = '/teams/' + user_id
+        redirect_url = '/teams/' + team_id
         return redirect(redirect_url)
 
 
