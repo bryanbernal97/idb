@@ -509,8 +509,8 @@ def delete_user(user_id):
 def update_game():
 
     action = request.form.get('action')
-
-    game_id = request.form.get('game-id-edit')
+    
+    game_id = int(request.form.get('game-id-edit'))
 
     if (action == 'Delete'):
         delete_success = delete_game(game_id)
@@ -642,20 +642,23 @@ def delete_game(game_id):
     success = True
     try:
         game = Game.query.get(game_id)
-        old_user_id = game.user_ids
-        old_community_id = game.community_id
+        old_user_ids = game.user_ids
+        old_community_ids = game.community_ids
         old_team_ids = game.team_ids
-        if old_user_id:
-            success = (remove_game_from_user(game_id, old_user_id) and success)
-        if old_community_id:
-            success = (remove_game_from_community(game_id, old_community_id) and success)
+        if old_user_ids:
+            for old_user_id in old_user_ids:
+                success = (remove_game_from_user(game_id, old_user_id) and success)
+        if old_community_ids:
+            for old_community_id in old_community_ids:
+                success = (remove_game_from_community(game_id, old_community_id) and success)
         if old_team_ids:
             for team_id in old_team_ids:
-                success = (remove_game_from_team(game_id, team_ids) and success)
+                success = (remove_game_from_team(game_id, team_id) and success)
         db.session.delete(game)
         db.session.commit()
-    except:
+    except Exception as e:
         db.session.rollback()
+        print('Delete game exception: ' + str(e))
         success = False
     return success
 
