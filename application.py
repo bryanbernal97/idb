@@ -756,19 +756,19 @@ def update_community():
         # and add community to new game connection instance
         if old_game_id != new_game_id:
             if old_game_id:
-                successful_game_update = (remove_game_from_community(community_id, old_game_id) and successful_game_update)
+                successful_game_update = (remove_community_from_game(community_id, old_game_id) and successful_game_update)
 
             if new_game_id:
-                successful_game_update = (add_game_to_community(community_id, new_game_id) and successful_game_update)
+                successful_game_update = (add_community_to_game(community_id, new_game_id) and successful_game_update)
 
         community.game_id = new_game_id                                                                  # UPDATED community INSTANCE: GAME ID
 
         if old_owner_id != new_owner_id:
             if old_owner_id:
-                successful_owner_update = (remove_owner_from_community(community_id, old_owner_id) and successful_owner_update)
+                successful_owner_update = (remove_community_from_user(community_id, old_owner_id) and successful_owner_update)
 
             if new_owner_id:
-                successful_owner_update = (add_owner_to_community(community_id, new_owner_id) and successful_owner_update)
+                successful_owner_update = (add_community_to_user(community_id, new_owner_id) and successful_owner_update)
 
         community.owner_id = new_owner_id                                          # UPDATED community INSTANCE: COMMUNITY ID
 
@@ -1489,7 +1489,7 @@ def add_community_to_game(community_id, game_id):
         return False
 
 
-def remove_owner_from_community(community_id, owner_id):
+def remove_community_from_user(community_id, owner_id):
     try:
         old_owner = User.query.get(owner_id)
         old_owner_community_id = old_owner.community_id
@@ -1503,7 +1503,7 @@ def remove_owner_from_community(community_id, owner_id):
         return False
 
 
-def add_owner_to_community(community_id, owner_id):
+def add_community_to_user(community_id, owner_id):
     try:
         new_owner = User.query.get(owner_id)
         new_owner.community_id = community_id
