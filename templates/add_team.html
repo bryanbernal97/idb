@@ -118,10 +118,9 @@
                             <!-- add Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="team-games-add" name="team-games-add">
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="team-games-add">
                                     <select class="selectpicker form-control" name="team-games-add" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for game in games %}
-
                                             <option value="{{game['id']}}">{{game['name']}}</option>
                                     {% endfor %}
                                 </select>
