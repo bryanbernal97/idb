@@ -10,6 +10,7 @@ from sqlalchemy.sql.expression import func
 from sqlalchemy import inspect
 import flask_restless
 import flask_whooshalchemy as wa
+import json
 
 import datetime
 import requests
@@ -37,9 +38,17 @@ manager.create_api(Community, methods=['GET', 'POST', 'DELETE', 'PUT'])
 @application.route('/addUser', methods=['POST', 'GET'])
 def add_user():
     if request.method == 'GET':
+        user_ids = []
         games = []
         teams = []
         communities = []
+
+        # Get all users for form validation
+        users_query = User.query
+        for user in users_query:
+            user_ids.append(user.id)
+
+
         # Get all games for edit drop down
         game_query = Game.query
         for game in game_query:
@@ -57,7 +66,7 @@ def add_user():
 
 
         today = datetime.datetime.now().date()
-        return render_template('add_user.html', games=games, communities=communities, teams=teams, today=today)
+        return render_template('add_user.html', games=games, communities=communities, teams=teams, today=today, user_ids=json.dumps(user_ids))
     else:
         # do the add to the db here and then render instance page of the added user
         user_id = request.form.get('user-id-add')

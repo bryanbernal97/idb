@@ -27,7 +27,14 @@
 	    			return "Please enter a URL that points to an image"; // this message will not be used because data-error is set on elements
     			}
 	    		// }
+	    	},
+	    	'uniqueID': function($el) {
+	    		var id = $el.val();
+	    		if (ids.indexOf(id) != -1) {
+	    			return "Sorry, that ID is already taken";
+    			}
 	    	}
+	    	
 		}
 	});
 

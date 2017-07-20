@@ -60,7 +60,7 @@
                                 <!-- Edit Form Field -->
                                 <small>
                                 	<div class="form-group">
-                                		<input class="form-control" id="user-id-add" name="user-id-add" required>
+                                		<input class="form-control" id="user-id-add" name="user-id-add" data-uniqueID={{user_ids}} required>
                                 		<span class="help-block with-errors"></span>
                                 	</div>
                                 </small>
@@ -74,7 +74,10 @@
 
                                 <!-- Edit Form Field -->
                                 <small>
-                                	<input type="text" class="form-control" id="user-name-add" name="user-name-add" required>
+                                	<div class="form-group">
+	                                	<input type="text" class="form-control" id="user-name-add" name="user-name-add" required>
+	                                	<span class="help-block with-errors"></span>
+	                                </div>
                                 </small>
                             </div>
                         </h3>
@@ -250,6 +253,9 @@
 <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+<script>
+var ids = {{user_ids|safe}};
+</script>
 <script src="/static/js/addUser.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}
