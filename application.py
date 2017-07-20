@@ -129,17 +129,256 @@ def add_user():
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
     if request.method == 'GET':
-        return render_template('add_team.html')
+        games = []
+        streamers = []
+
+         # Get all users for edit drop down
+        users_query = User.query
+        for user in users_query:
+            streamers.append({'name': user.name, 'id': user.id})
+
+        # Get all games for edit drop down
+        game_query = Game.query
+        for game in game_query:
+            games.append({'name': game.name, 'id': game.id})
+
+
+        today = datetime.datetime.now().date()
+        return render_template('add_team.html', games=games, streamers=streamers, today=today)
     else:
-        return render_template('add_team.html')
+        # do the add to the db here and then render instance page of the added team
+        team_id = request.form.get('team-id-add')
+        team_image_url = request.form.get('team-image-url-add')
+        name = request.form.get('team-name-add')
+        info = request.form.get('team-info-add')
+        url = request.form.get('team-url-add')
+        game_ids = request.form.getlist('team-game-add')
+        if game_ids:
+            game_ids = list(map(int, game_ids))
+        #community_id = request.form.get('team-community-add')
+        #team_ids = request.form.getlist('user-teams-add')
+        # team_id = request.form.get('team-id-add')
+
+        user_ids = request.form.getlist('team-streamers-add')
+
+        #if team_ids:
+            #team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if game_ids:
+            for game_id in game_ids:
+                success = (add_team_to_game(team_id, game_id) and success)
+
+        if user_ids:
+            for user_id in user_ids:
+                success = (add_team_to_user(team_id, user_id) and success)
+
+        created = request.form.get('team-created-add')
+        updated = request.form.get('team-updated-add')
+
+        try:
+            team = Team()
+            team.id = team_id
+            team.image_url = user_image_url
+            team.name = name
+            team.info = info
+            team.url = url
+            team.game_ids = game_ids
+            team.user_ids = user_ids
+            #team.team_ids = team_ids
+            team.created = datetime.datetime.strptime(created, '%Y-%m-%d')
+            team.updated = datetime.datetime.strptime(updated, '%Y-%m-%d')
+            db.session.add(team)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/teams/' + team_id
+        return redirect(redirect_url)
 
 
 @application.route('/addCommunity', methods=['POST', 'GET'])
 def add_community():
     if request.method == 'GET':
-        return render_template('add_community.html')
+        games = []
+        users = []
+        # Get all games for edit drop down
+        game_query = Game.query
+        for game in game_query:
+            games.append({'name': game.name, 'id': game.id})
+
+        # Get all users for edit drop down
+        users_query = User.query
+        for user in users_query:
+            users.append({'name': user.name, 'id': user.id})
+
+        today = datetime.datetime.now().date()
+        return render_template('add_community.html', games=games, users=users, today=today)
     else:
-        return render_template('add_community.html')
+        # do the add to the db here and then render instance page of the added user
+        community_id = request.form.get('community-id-add')
+        community_image_url = request.form.get('community-image-url-add')
+        name = request.form.get('community-name-add')
+        description = request.form.get('community-description-add')
+        language = request.form.get('community-language-add')
+        rules = request.form.get('community-rules-add')
+        url = request.form.get('community-url-add')
+        game_id = request.form.get('community-game-add')
+        if game_id:
+            game_id = int(game_id)
+        owner_id = request.form.get('community-community-add')
+        # if owner_id:
+        #     user_id = int(user_id)
+        #team_ids = request.form.getlist('user-teams-add')
+        #if team_ids:
+            #team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if game_id:
+            success = (add_community_to_game(community_id, game_id) and success)
+
+        if owner_id:
+            success = (add_community_to_user(community_id, owner_id) and success)
+
+        created = request.form.get('community-created-add')
+        updated = request.form.get('community-updated-add')
+
+        try:
+            community = Community()
+            community.id = community_id
+            community.image_url = community_image_url
+            community.name = name
+            community.description = description
+            community.language = language
+            community.rules = rules
+            community.url = url
+            community.game_id = game_id
+            community.owner_id = owner_id
+            # community.team_ids = team_ids
+            community.created = datetime.datetime.strptime(created, '%Y-%m-%d')
+            community.updated = datetime.datetime.strptime(updated, '%Y-%m-%d')
+            db.session.add(community)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/communities/' + community_id
+        return redirect(redirect_url)
+
+@application.route('/addGame', methods=['POST', 'GET'])
+def add_game():
+    if request.method == 'GET':
+        # platforms = []
+        streamers = []
+        # genres = []
+        teams = []
+        communities = []
+        # # Get all games for edit drop down
+        # platform_query = Platform.query
+        # for platform in platform_query:
+        #     platforms.append({'name': platform.name, 'id': platform.id})
+
+        # Get all streamers for edit drop down
+        users_query = User.query
+        for user in users_query:
+            streamers.append({'name': user.name, 'id': user.id})
+
+        # # Get all genres for edit drop down
+        # genre_query = Genre.query
+        # for genre in genre_query:
+        #     genres.append({'name': genre.name, 'id': genre.id})
+
+        # Get all teams for edit drop down
+        team_query = Team.query
+        for team in team_query:
+            teams.append({'name': team.name, 'id': team.id})
+
+        # Get all communities for edit drop down
+        community_query = Community.query
+        for community in community_query:
+            communities.append({'name': community.name, 'id': community.id})
+
+        today = datetime.datetime.now().date()
+        return render_template('add_game.html', streamers=streamers, communities=communities, teams=teams, today=today)
+    else:
+        # do the add to the db here and then render instance page of the added user
+        game_id = request.form.get('game-id-add')
+        if game_id:
+            game_id = int(game_id)
+        game_image_url = request.form.get('game-image-url-add')
+        name = request.form.get('game-name-add')
+        description = request.form.get('user-description-add')
+        rated = request.form.get('game-rating-add')
+        genres = request.form.getlist('genres[]')
+        platforms = request.form.getlist('platforms[]')
+        release_date = request.form.get('game-release-date-add')
+        
+        user_ids = request.form.getlist('game-user-add')
+
+        community_ids = request.form.getlist('game-community-add')
+        
+        team_ids = request.form.getlist('game-teams-add')
+        if team_ids:
+            team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if user_ids:
+            for user_id in user_ids:
+                success = (add_game_to_user(game_id, user_id) and success)
+
+        if community_ids:
+            for community_id in community_ids:
+                success = (add_game_to_community(game_id, community_id) and success)
+
+        if team_ids:
+            for team_id in team_ids:
+                success = (add_game_to_team(game_id, team_id) and success)
+
+
+        try:
+            game = Game()
+            game.id = game_id
+            game.image_url = user_image_url
+            game.name = name
+            game.description = description
+            game.rated = rated
+            game.platforms = platforms
+            game.genres = genres
+            game.user_ids = user_ids
+            game.community_ids = community_ids
+            game.team_ids = team_ids
+            game.release_date = datetime.datetime.strptime(release_date, '%Y-%m-%d')
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/games/' + game_id
+        return redirect(redirect_url)
 
 ####################### UPDATE MODELS ################################
 
@@ -325,27 +564,13 @@ def update_game():
             if old_user_ids:
                 for old_user_id in old_user_ids:
                     if old_user_id not in new_user_ids:
-                        try:
-                            old_user = User.query.get(old_user_id)
-                            old_user.game_id = None                                                 # UPDATED AN OLD USERS'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('Old User Exception: ' + str(e))
-                            successful_user_update = False
+                        successful_user_update = (remove_game_from_user(game_id, old_user_id) and successful_user_update)
 
             if new_user_ids:
                 for new_user_id in new_user_ids:
                     if new_user_id not in old_user_ids:
                         # User did not previously have user but now does so need to add game to that user
-                        try:
-                            new_user = User.query.get(new_user_id)
-                            new_user.game_id = game_id                                              # UPDATED A NEW USER'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('New User Exception: ' + str(e))
-                            successful_user_update = False
+                        successful_user_update = (add_game_to_user(game_id, new_user_id) and successful_user_update)
 
         game.user_ids = new_user_ids                                                                # UPDATED GAME INSTANCE: USER IDS
 
@@ -362,26 +587,12 @@ def update_game():
             if old_community_ids:
                 for old_community_id in old_community_ids:
                     if old_community_id not in new_community_ids:
-                        try:
-                            old_community = Community.query.get(old_community_id)
-                            old_community.game_id = None                                            # UPDATED AN OLD COMMUNITY'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('Old Community Exception: ' + str(e))
-                            successful_community_update = False
+                        successful_community_update = (remove_game_from_community(game_id, old_community_id) and successful_community_update)
 
             if new_community_ids:
                 for new_community_id in new_community_ids:
                     if new_community_id not in old_community_ids:
-                        try:
-                            new_community = Community.query.get(new_community_id)
-                            new_community.game_id = game_id                                         # UPDATED A NEW COMMUNITY'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('New Community Exception: ' + str(e))
-                            successful_community_update = False
+                        successful_community_update = (add_game_to_community(game_id, new_community_id) and successful_community_update)
 
         game.community_ids = new_community_ids                                                      # UPDATED GAME INSTANCE: COMMUNITY IDS
 
@@ -397,40 +608,13 @@ def update_game():
             if old_team_ids:
                 for old_team_id in old_team_ids:
                     if old_team_id not in new_team_ids:
-                        try:
-                            old_team_query = Team.query.filter(Team.id == old_team_id)
-                            old_team = old_team_query.first()
-                            old_team_game_ids = old_team.game_ids
-                            if old_team_game_ids and game_id in old_team_game_ids:
-                                old_team_game_ids.remove(game_id)
-
-                            old_team_query.update({'game_ids': old_team_game_ids})                  # UPDATED AN OLD TEAM'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('Old Team Exception: ' + str(e))
-                            successful_teams_update = False
+                        successful_teams_update = (remove_game_from_team(game_id, old_team_id) and successful_teams_update)
 
             if new_team_ids:
                 for new_team_id in new_team_ids:
                     if new_team_id not in old_team_ids:
                         # Game did not previously have team but now does so need to add game to that team
-                        try:
-                            new_team_query = Team.query.filter(Team.id == new_team_id)
-                            new_team = new_team_query.first()
-                            new_team_game_ids = new_team.game_ids
-                            
-                            if new_team_game_ids:
-                                new_team_game_ids.append(game_id)
-                            else:
-                                new_team_game_ids = [game_id]
-
-                            new_team_query.update({'game_ids': new_team_game_ids})                  # UPDATED A NEW TEAM'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('New Team Exception: ' + str(e))
-                            successful_teams_update = False
+                        successful_teams_update = (add_game_to_team(game_id, new_team_id) and successful_teams_update)
 
         game.image_url = new_image_url
         game.team_ids = new_team_ids                                                                # UPDATED GAME INSTANCE: TEAM IDS
@@ -490,35 +674,13 @@ def update_team():
             if old_user_ids:
                 for old_user_id in old_user_ids:
                     if old_user_id not in new_user_ids:
-                        try:
-                            old_user_query = User.query.filter(User.id == old_user_id)
-                            old_user = old_user_query.first()
-                            old_user_team_ids = old_user.team_ids
-                            if team_id in old_user_team_ids:
-                                old_user_team_ids.remove(team_id)  
-                            old_user_query.update({'team_ids': old_user_team_ids})                  # UPDATED AN OLD USER'S INSTANCE                              
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('Old User Exception: ' + str(e))
-                            successful_user_update = False
+                        successful_user_update = (remove_team_from_user(team_id, old_user_id) and successful_user_update)
 
             if new_user_ids:
                 for new_user_id in new_user_ids:
                     if new_user_id not in old_user_ids:
                         # User did not previously have user but now does so need to add game to that user
-                        try:
-                            new_user_query = User.query.filter(User.id == new_user_id)
-                            new_user = new_user_query.first()
-                            new_user_team_ids = new_user.team_ids
-                            if team_id not in new_user_team_ids:
-                                new_user_team_ids.append(team_id)
-                            new_user_query.update({'team_ids': new_user_team_ids})                  # UPDATED A NEW USER'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('New User Exception: ' + str(e))
-                            successful_user_update = False
+                        successful_user_update = (add_team_to_user(team_id, new_user_id) and successful_user_update)
 
         team.user_ids = new_user_ids                                                                # UPDATED TEAM INSTANCE: USER IDS
 
@@ -533,35 +695,13 @@ def update_team():
             if old_game_ids:
                 for old_game_id in old_game_ids:
                     if old_game_id not in new_game_ids:
-                        try:
-                            old_game_query = Game.query.filter(Game.id == old_game_id)
-                            old_game = old_game_query.first()
-                            old_game_team_ids = old_game.team_ids
-                            if team_id in old_game_team_ids:
-                                old_game_team_ids.remove(team_id)  
-                            old_game_query.update({'team_ids': old_game_team_ids})                  # UPDATED AN OLD GAME'S INSTANCE                              
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('Old Game Exception: ' + str(e))
-                            successful_game_update = False
+                        successful_game_update = (remove_team_from_game(team_id, old_game_id) and successful_game_update)
 
             if new_game_ids:
                 for new_game_id in new_game_ids:
                     if new_game_id not in old_game_ids:
                         # User did not previously have user but now does so need to add game to that user
-                        try:
-                            new_game_query = Game.query.filter(Game.id == new_game_id)
-                            new_game = new_game_query.first()
-                            new_game_team_ids = new_game.team_ids
-                            if team_id not in new_game_team_ids:
-                                new_game_team_ids.append(team_id)
-                            new_game_query.update({'team_ids': new_game_team_ids})                  # UPDATED A NEW GAME'S INSTANCE
-                            db.session.commit()
-                        except Exception as e:
-                            db.session.rollback()
-                            print('New Game Exception: ' + str(e))
-                            successful_game_update = False
+                        successful_game_update = (add_team_to_game(team_id, new_game_id) and successful_game_update)
 
         team.game_ids = new_game_ids                                                                # UPDATED TEAM INSTANCE: GAME IDS
 
@@ -616,64 +756,19 @@ def update_community():
         # and add community to new game connection instance
         if old_game_id != new_game_id:
             if old_game_id:
-                try:
-                    old_game_query = Game.query.filter(Game.id == old_game_id)
-                    old_game = old_game_query.first()
-                    old_game_community_ids = old_game.community_ids
-
-                    if old_game_community_ids and community_id in old_game_community_ids:
-                        old_game_community_ids.remove(community_id)
-
-                    old_game_query.update({'community_ids': old_game_community_ids})                          # UPDATED OLD GAME CONNECTION'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    # print('Old Game Exception: ' + str(e))
-                    successful_game_update = False
+                successful_game_update = (remove_community_from_game(community_id, old_game_id) and successful_game_update)
 
             if new_game_id:
-                try:
-                    new_game_query = Game.query.filter(Game.id == new_game_id)
-                    new_game = new_game_query.first()
-                    new_game_community_ids = new_game.community_ids
-
-                    # Use list() constructor to copy the list so it actually updates
-                    if new_game_community_ids and community_id not in new_game_community_ids:
-                        new_game_community_ids.append(community_id)
-                    elif not new_game_community_ids:
-                        new_game_community_ids = [community_id]
-
-                    new_game_query.update({'community_ids': new_game_community_ids})                          # UPDATED NEW GAME CONNECTION'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    # print('New Game Exception: ' + str(e))
-                    successful_game_update = False
+                successful_game_update = (add_community_to_game(community_id, new_game_id) and successful_game_update)
 
         community.game_id = new_game_id                                                                  # UPDATED community INSTANCE: GAME ID
 
         if old_owner_id != new_owner_id:
             if old_owner_id:
-                try:
-                    old_owner = User.query.get(old_owner_id)
-                    old_owner_community_id = old_owner.community_id
-                    if community_id == old_owner_community_id:
-                        old_owner.community_id = None                                               # UPDATED OLD COMMUNITY'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    print('Old Community Exception: ' + str(e))
-                    successful_owner_update = False
+                successful_owner_update = (remove_community_from_user(community_id, old_owner_id) and successful_owner_update)
 
             if new_owner_id:
-                try:
-                    new_owner = User.query.get(new_owner_id)
-                    new_owner.community_id = community_id                                                # UPDATED NEW COMMUNITY'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    print('New Community Exception: ' + str(e))
-                    successful_owner_update = False
+                successful_owner_update = (add_community_to_user(community_id, new_owner_id) and successful_owner_update)
 
         community.owner_id = new_owner_id                                          # UPDATED community INSTANCE: COMMUNITY ID
 
@@ -1204,6 +1299,220 @@ def add_user_to_team(user_id, team_id):
         db.session.rollback()
         return False
 
+
+def remove_game_from_user(game_id, user_id):
+    try:
+        old_user = User.query.get(user_id)
+        if (old_user.game_id == game_id):
+            old_user.game_id = None
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove game from user Exception: ' + str(e))
+        return False
+
+
+def add_game_to_user(game_id, user_id):
+    try:
+        new_user = User.query.get(user_id)
+        new_user.game_id = game_id
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add game to user Exception: ' + str(e))
+        return False
+
+
+def remove_game_from_community(game_id, community_id):
+    try:
+        old_community = Community.query.get(community_id)
+        old_community.game_id = None
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('remove game from community Exception: ' + str(e))
+        return False
+
+
+def add_game_to_community(game_id, community_id):
+    try:
+        new_community = Community.query.get(community_id)
+        new_community.game_id = game_id
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add game to community Exception: ' + str(e))
+        return False
+
+
+def remove_game_from_team(game_id, team_id):
+    try:
+        old_team_query = Team.query.filter(Team.id == team_id)
+        old_team = old_team_query.first()
+        old_team_game_ids = old_team.game_ids
+        if old_team_game_ids and game_id in old_team_game_ids:
+            old_team_game_ids.remove(game_id)
+
+        old_team_query.update({'game_ids': old_team_game_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove game from team Exception: ' + str(e))
+        return False
+
+
+def add_game_to_team(game_id, team_id):
+    try:
+        new_team_query = Team.query.filter(Team.id == team_id)
+        new_team = new_team_query.first()
+        new_team_game_ids = new_team.game_ids
+        
+        if new_team_game_ids:
+            new_team_game_ids.append(game_id)
+        else:
+            new_team_game_ids = [game_id]
+
+        new_team_query.update({'game_ids': new_team_game_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add game to team Exception: ' + str(e))
+        return False
+
+
+def remove_team_from_user(team_id, user_id):
+    try:
+        old_user_query = User.query.filter(User.id == user_id)
+        old_user = old_user_query.first()
+        old_user_team_ids = old_user.team_ids
+        if team_id in old_user_team_ids:
+            old_user_team_ids.remove(team_id)  
+        old_user_query.update({'team_ids': old_user_team_ids})                             
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove team from user Exception: ' + str(e))
+        return False
+
+
+def add_team_to_user(team_id, user_id):
+    try:
+        new_user_query = User.query.filter(User.id == user_id)
+        new_user = new_user_query.first()
+        new_user_team_ids = new_user.team_ids
+        if team_id not in new_user_team_ids:
+            new_user_team_ids.append(team_id)
+        new_user_query.update({'team_ids': new_user_team_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add team to user exception: ' + str(e))
+        return False
+
+
+def remove_team_from_game(team_id, game_id):
+    try:
+        old_game_query = Game.query.filter(Game.id == game_id)
+        old_game = old_game_query.first()
+        old_game_team_ids = old_game.team_ids
+        if team_id in old_game_team_ids:
+            old_game_team_ids.remove(team_id)  
+        old_game_query.update({'team_ids': old_game_team_ids})                           
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove team from game Exception: ' + str(e))
+        return False
+
+
+def add_team_to_game(team_id, game_id):
+    try:
+        new_game_query = Game.query.filter(Game.id == game_id)
+        new_game = new_game_query.first()
+        new_game_team_ids = new_game.team_ids
+        if team_id not in new_game_team_ids:
+            new_game_team_ids.append(team_id)
+        new_game_query.update({'team_ids': new_game_team_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add team to game exception: ' + str(e))
+        return False
+
+
+def remove_community_from_game(community_id, game_id):
+    try:
+        old_game_query = Game.query.filter(Game.id == game_id)
+        old_game = old_game_query.first()
+        old_game_community_ids = old_game.community_ids
+
+        if old_game_community_ids and community_id in old_game_community_ids:
+            old_game_community_ids.remove(community_id)
+
+        old_game_query.update({'community_ids': old_game_community_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove community from game Exception: ' + str(e))
+        return False
+
+
+def add_community_to_game(community_id, game_id):
+    try:
+        new_game_query = Game.query.filter(Game.id == game_id)
+        new_game = new_game_query.first()
+        new_game_community_ids = new_game.community_ids
+
+        # Use list() constructor to copy the list so it actually updates
+        if new_game_community_ids and community_id not in new_game_community_ids:
+            new_game_community_ids.append(community_id)
+        elif not new_game_community_ids:
+            new_game_community_ids = [community_id]
+
+        new_game_query.update({'community_ids': new_game_community_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add community to game exception: ' + str(e))
+        return False
+
+
+def remove_community_from_user(community_id, owner_id):
+    try:
+        old_owner = User.query.get(owner_id)
+        old_owner_community_id = old_owner.community_id
+        if community_id == old_owner_community_id:
+            old_owner.community_id = None
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove owner from community Exception: ' + str(e))
+        return False
+
+
+def add_community_to_user(community_id, owner_id):
+    try:
+        new_owner = User.query.get(owner_id)
+        new_owner.community_id = community_id
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add owner to community Exception: ' + str(e))
+        return False
 
 @application.route('/search', methods = ['GET', 'POST'])
 def search():
