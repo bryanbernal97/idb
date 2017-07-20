@@ -315,18 +315,6 @@ def add_game():
 
         success = True
 
-        # print('game id: ' + str(game_id))
-        # print('game image url: ' + game_image_url)
-        # print('game name: ' + name)
-        # print('game description: ' + description)
-        # print('game rating: ' + rated)
-        # print('genres: ' + str(genres))
-        # print('platforms: ' + str(platforms))
-        # print('release_date: ' + release_date)
-        # print('user ids: ' + str(user_ids))
-        # print('community_ids: ' + str(community_ids))
-        # print('team ids: ' + str(team_ids))
-
         if user_ids:
             for user_id in user_ids:
                 success = (add_game_to_user(game_id, user_id) and success)
