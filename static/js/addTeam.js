@@ -15,7 +15,7 @@ $(document).ready(function() {
 /* ******************************************* SUBMIT ******************************************* */
 /* ********************************************************************************************** */
 
-	$("#user-add-submit").click(function(e) {
+	$("#team-add-submit").click(function(e) {
 		if(!grecaptcha.getResponse()) {
 		    e.preventDefault();
 		    alert("Please verify the reCAPTCHA!");
