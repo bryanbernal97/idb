@@ -195,7 +195,7 @@ def add_team():
             success = False
 
         if (success):
-            flash('Congratulations, the user was added successfuly!', 'success')
+            flash('Congratulations, the team was added successfuly!', 'success')
             redirect_url = '/teams/' + str(team_id)
         else:
             flash('Sorry, something went wrong :(', 'danger')
@@ -259,7 +259,7 @@ def add_community():
             success = False
 
         if (success):
-            flash('Congratulations, the user was added successfuly!', 'success')
+            flash('Congratulations, the community was added successfuly!', 'success')
             redirect_url = '/communities/' + community_id
         else:
             flash('Sorry, something went wrong :(', 'danger')
@@ -348,7 +348,7 @@ def add_game():
             success = False
 
         if (success):
-            flash('Congratulations, the user was added successfuly!', 'success')
+            flash('Congratulations, the game was added successfuly!', 'success')
             redirect_url = '/games/' + str(game_id)
         else:
             flash('Sorry, something went wrong :(', 'danger')
