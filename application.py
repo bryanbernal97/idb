@@ -120,10 +120,11 @@ def add_user():
 
         if (success):
             flash('Congratulations, the user was added successfuly!', 'success')
+            redirect_url = '/users/' + user_id
         else:
             flash('Sorry, something went wrong :(', 'danger')
+            redirect_url = '/users'
         
-        redirect_url = '/users/' + user_id
         return redirect(redirect_url)
 
 @application.route('/addTeam', methods=['POST', 'GET'])
@@ -148,21 +149,18 @@ def add_team():
     else:
         # do the add to the db here and then render instance page of the added team
         team_id = request.form.get('team-id-add')
+        if team_id:
+            team_id = int(team_id)
         team_image_url = request.form.get('team-image-url-add')
         name = request.form.get('team-name-add')
         info = request.form.get('team-info-add')
         url = request.form.get('team-url-add')
-        game_ids = request.form.getlist('team-game-add')
+        game_ids = request.form.getlist('team-games-add')
+        # print('team game ids: ' + str(game_ids))
         if game_ids:
             game_ids = list(map(int, game_ids))
-        #community_id = request.form.get('team-community-add')
-        #team_ids = request.form.getlist('user-teams-add')
-        # team_id = request.form.get('team-id-add')
 
         user_ids = request.form.getlist('team-streamers-add')
-
-        #if team_ids:
-            #team_ids = list(map(int, team_ids))
 
         success = True
 
@@ -180,7 +178,7 @@ def add_team():
         try:
             team = Team()
             team.id = team_id
-            team.image_url = user_image_url
+            team.image_url = team_image_url
             team.name = name
             team.info = info
             team.url = url
@@ -198,10 +196,11 @@ def add_team():
 
         if (success):
             flash('Congratulations, the user was added successfuly!', 'success')
+            redirect_url = '/teams/' + str(team_id)
         else:
             flash('Sorry, something went wrong :(', 'danger')
+            redirect_url = '/teams'
         
-        redirect_url = '/teams/' + team_id
         return redirect(redirect_url)
 
 
@@ -275,10 +274,11 @@ def add_community():
 
         if (success):
             flash('Congratulations, the user was added successfuly!', 'success')
+            redirect_url = '/communities/' + community_id
         else:
             flash('Sorry, something went wrong :(', 'danger')
+            redirect_url = '/communities'
         
-        redirect_url = '/communities/' + community_id
         return redirect(redirect_url)
 
 @application.route('/addGame', methods=['POST', 'GET'])
@@ -355,7 +355,7 @@ def add_game():
         try:
             game = Game()
             game.id = game_id
-            game.image_url = user_image_url
+            game.image_url = game_image_url
             game.name = name
             game.description = description
             game.rated = rated
@@ -374,10 +374,11 @@ def add_game():
 
         if (success):
             flash('Congratulations, the user was added successfuly!', 'success')
+            redirect_url = '/games/' + str(game_id)
         else:
             flash('Sorry, something went wrong :(', 'danger')
+            redirect_url = '/games'
         
-        redirect_url = '/games/' + game_id
         return redirect(redirect_url)
 
 ####################### UPDATE MODELS ################################
@@ -738,7 +739,7 @@ def update_community():
         new_game_id = int(new_game_id)
     
     new_owner_id = request.form.get('community-owner-edit')
-    print(new_owner_id)
+    # print(new_owner_id)
 
     # community_captcha = request.form.get('')
 
@@ -787,10 +788,11 @@ def update_community():
 
     if (successful_owner_update and successful_game_update):
         flash('Congratulations, the community was updated successfuly!', 'success')
+        redirect_url = '/communities/' + community_id
     else:
         flash('Sorry, something went wrong :(', 'danger')
+        redirect_url = '/communities'
 
-    redirect_url = '/communities/' + community_id
     return redirect(redirect_url)
 
 
