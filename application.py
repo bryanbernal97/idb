@@ -870,17 +870,20 @@ def delete_community(community_id):
     success = True
     try:
         community = Community.query.get(community_id)
-        old_game_ids = community.game_ids
-        old_user_ids = community.user_ids
+        old_game_id = community.game_id
+        if old_game_id:
+            old_game_id = int(old_game_id)
+        old_owner_id = community.owner_id
         #old_team_ids = user.team_ids
-        if old_game_ids:
-            success = (remove_community_from_game(community_id, old_game_ids) and success)
-        if old_user_ids:
-            success = (remove_community_from_user(community_id, old_user_ids) and success)
+        if old_game_id:
+            success = (remove_community_from_game(community_id, old_game_id) and success)
+        if old_owner_id:
+            success = (remove_community_from_user(community_id, old_owner_id) and success)
         db.session.delete(community)
         db.session.commit()
-    except:
+    except Exception as e:
         db.session.rollback()
+        print('Delete community exception: ' + str(e))
         success = False
     return success
 
