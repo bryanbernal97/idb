@@ -60,7 +60,71 @@ def add_user():
         return render_template('add_user.html', games=games, communities=communities, teams=teams, today=today)
     else:
         # do the add to the db here and then render instance page of the added user
-        return redirect('/')
+        user_id = request.form.get('user-id-add')
+        user_image_url = request.form.get('user-image-url-add')
+        name = request.form.get('user-name-add')
+        description = request.form.get('user-description-add')
+        language = request.form.get('user-language-add')
+        views = request.form.get('user-views-add')
+        if views:
+            views = int(views)
+        followers = request.form.get('user-followers-add')
+        if followers:
+            followers = int(followers)
+        url = request.form.get('user-url-add')
+        game_id = request.form.get('user-game-add')
+        if game_id:
+            game_id = int(game_id)
+        community_id = request.form.get('user-community-add')
+        team_ids = request.form.getlist('user-teams-add')
+
+        if team_ids:
+            team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if game_id:
+            success = (add_user_to_game(user_id, game_id) and success)
+
+        if community_id:
+            success = (add_user_to_community(user_id, community_id) and success)
+
+        if team_ids:
+            for team_id in team_ids:
+                success = (add_user_to_team(user_id, team_id) and success)
+
+        created = request.form.get('user-created-add')
+        updated = request.form.get('user-updated-add')
+
+        try:
+            user = User()
+            user.id = user_id
+            user.image_url = user_image_url
+            user.name = name
+            user.description = description
+            user.language = language
+            user.views = views
+            user.followers = followers
+            user.url = url
+            user.game_id = game_id
+            user.community_id = community_id
+            user.team_ids = team_ids
+            user.created = datetime.datetime.strptime(created, '%Y-%m-%d')
+            user.updated = datetime.datetime.strptime(updated, '%Y-%m-%d')
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/users/' + user_id
+        return redirect(redirect_url)
 
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
@@ -674,8 +738,14 @@ def show_users(wow):
     user['views'] = q.views
     user['followers'] = q.followers
     user['url'] = q.url
-    user['created'] = q.created.date()
-    user['updated'] = q.updated.date()
+    created = q.created
+    if created:
+        created = created.date()
+    updated = q.updated
+    if updated:
+        updated = updated.date()
+    user['created'] = created
+    user['updated'] = updated
     image_url = q.image_url
     if not image_url:
         image_url = 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_70x70.png'
