@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Community{% endblock %}
+
+{% block custom_css %}
+    <link href="/static/css/addCommunity.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
+{% block navbar %}
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="hidden">
+        <a href="#page-top"></a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#about">About</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/users#users">Users</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/games#games">Games</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/teams#teams">Teams</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/communities#communities">Communities</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#team">Our Team</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="/#resources">Resources</a>
+    </li>
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="portfolio bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    
+                    <form role="form" action= "/addCommunity" id="add-community-form" method="POST">
+
+                        <!-- Picture -->
+                        <!-- <img src="{{community['image_url']}}"> -->
+
+                        <hr style="border-color: white;">
+
+                        <h3>
+                            ID:<br>
+                            <div class="input-col-4">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="text" class="form-control" id="community-id-add" name="community-id-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <h3>
+                            Image URL:<br>
+                            <div class="input-col-4">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="url" class="form-control" id="community-image-url-add" name="community-image-url-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Name -->
+                        <h3>
+                            Name:<br>
+                            <div class="input-col-4">
+                                <!-- add Form Field -->
+                                <small>
+                                    <input type="text" class="form-control" id="community-name-add" name="community-name-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Description -->
+                        <h3>
+                            Description:<br>
+                            <div class="input-col-6">
+                                <!-- add Form Field -->
+                                <small>
+                                    <textarea class="form-control" id="community-description-add" name="community-description-add"></textarea>
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Language -->
+                        <h3>
+                            Language:<br>
+                            <div class="input-col-4">
+                                <!-- add Form Field -->
+                                <small>
+                                    <input type="text" class="form-control" id="community-language-add" name="community-language-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Rules -->
+                        <h3>
+                            Rules:<br>
+                            <div class="input-col-6">
+                                <!-- add Form Field -->
+                                <small>
+                                    <textarea class="form-control" id="community-rules-add" name="community-rules-add"></textarea>
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Game -->
+                        <h3>
+                            Game:
+                            <!-- add Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="community-game-add" name="community-game-add">
+                                    <select class="selectpicker form-control single-select" name="community-game-add" data-live-search="true" data-dropup-auto="false" multiple>
+                                        {% for game in games %}
+                                                <option value="{{game['id']}}">{{game['name']}}</option>
+                                        {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <!-- Owner -->
+                        <h3>
+                            Owner:
+                            <!-- add Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="community-owner-add" name="community-owner-add">
+                                    <select class="selectpicker form-control single-select" name="community-owner-add" data-live-search="true" data-dropup-auto="false" multiple>
+                                        {% for user in users %}
+                                                <option value="{{user['id']}}">{{user['name']}}</option>
+                                        {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <hr style="border-color: white;">
+
+                        <div id="g-recaptcha" class="g-recaptcha" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
+                        <br>
+                        <br>
+                        <row>
+                        <button type="submit" id="community-add-submit" class="btn btn-primary streamglean-button">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="/static/js/addCommunity.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
+{% endblock %}
