@@ -149,7 +149,7 @@
 								<small id="user-url" class="text-muted"><a href={{user['url']}}>{{user['url']}}</a></small>
 
 								<!-- Edit Form Field -->
-								<small><input type="url" id="user-url-edit" name="user-url-edit"class="form-control hidden" value="{{user['url']}}"/>Image URL</small>
+								<small><input type="url" id="user-url-edit" name="user-url-edit"class="form-control hidden" value="{{user['url']}}"/></small>
 							</div>
 						</h3>
 
@@ -280,8 +280,8 @@
 						<br>
 						<br>
 
-						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
-						<button type="button" id="team-delete-button" class="btn btn-primary streamglean-button hidden">Delete Team</button>
+						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden" name="action" value="Submit">Submit</button>
+						<button type="submit" id="user-delete-button" class="btn btn-primary streamglean-button hidden" name="action" value="Delete">Delete User</button>
 					</form>
 
 					<button type="button" id="user-edit-button"class="btn btn-primary streamglean-button">Edit</button>
