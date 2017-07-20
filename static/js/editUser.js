@@ -143,6 +143,7 @@ $(document).ready(function() {
 			$("#user-created-edit").addClass('hidden');
 			$("#user-updated-edit").addClass('hidden');
 			$("#user-edit-submit").addClass('hidden');
+			$("#user-delete-button").addClass('hidden');
 			$("#g-recaptcha").addClass('hidden');
 
 

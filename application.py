@@ -81,107 +81,141 @@ def add_community():
 
 @application.route('/updateUser', methods=['POST'])
 def update_user():
+
+    action = request.form.get('action')
+
     user_id = request.form.get('user-id-edit')
-    new_name = request.form.get('user-name-edit')
-    new_description = request.form.get('user-description-edit')
-    new_language = request.form.get('user-language-edit')
-    new_views = request.form.get('user-views-edit')
-    new_followers = request.form.get('user-followers-edit')
-    new_url = request.form.get('user-url-edit')
-    new_image_url = request.form.get('user-pic-edit')
-    
-    new_game_id = request.form.get('user-game-edit')
-    if new_game_id:
-        new_game_id = int(new_game_id)
-    
-    new_community_id = request.form.get('user-community-edit')
 
-    new_team_ids = request.form.getlist('user-teams-edit')
-    if new_team_ids:
-        new_team_ids = list(map(int, new_team_ids))
-    new_created = request.form.get('user-created-edit')
-    new_updated = request.form.get('user-updated-edit')
-    # user_captcha = request.form.get('')
+    if (action == 'Delete'):
+        delete_success = delete_user(user_id)
+        if delete_success:
+            flash('Congratulations, the user was deleted successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        return redirect('/users')
+    else:
 
-    successful_user_update = True
-    successful_game_update = True
-    successful_community_update = True
-    successful_teams_update = True
+        new_name = request.form.get('user-name-edit')
+        new_description = request.form.get('user-description-edit')
+        new_language = request.form.get('user-language-edit')
+        new_views = request.form.get('user-views-edit')
+        new_followers = request.form.get('user-followers-edit')
+        new_url = request.form.get('user-url-edit')
+        new_image_url = request.form.get('user-pic-edit')
+        
+        new_game_id = request.form.get('user-game-edit')
+        if new_game_id:
+            new_game_id = int(new_game_id)
+        
+        new_community_id = request.form.get('user-community-edit')
 
+        new_team_ids = request.form.getlist('user-teams-edit')
+        if new_team_ids:
+            new_team_ids = list(map(int, new_team_ids))
+        new_created = request.form.get('user-created-edit')
+        new_updated = request.form.get('user-updated-edit')
+        # user_captcha = request.form.get('')
+
+        successful_user_update = True
+        successful_game_update = True
+        successful_community_update = True
+        successful_teams_update = True
+
+        try:
+            user = User.query.get(user_id)
+            old_game_id = user.game_id
+            old_community_id = user.community_id
+            old_team_ids = user.team_ids
+
+            # Update connections
+
+            # Game connection has changed so need to remove user from old game connection instance
+            # and add user to new game connection instance
+            if old_game_id != new_game_id:
+                if old_game_id:
+                    successful_game_update = (remove_user_from_game(user_id, old_game_id) and successful_game_update)
+
+                if new_game_id:
+                    successful_game_update = (add_user_to_game(user_id, new_game_id) and successful_game_update)
+
+            user.game_id = new_game_id                                                                  # UPDATED USER INSTANCE: GAME ID
+
+            if old_community_id != new_community_id:
+                if old_community_id:
+                    successful_community_update = (remove_user_from_community(user_id, old_community_id) and successful_community_update)
+
+                if new_community_id:
+                    successful_community_update = (add_user_to_community(user_id, new_community_id) and successful_community_update)
+
+            user.community_id = new_community_id                                                        # UPDATED USER INSTANCE: COMMUNITY ID
+
+            old_team_ids_set = set()
+            new_team_ids_set = set()
+
+            if old_team_ids:
+                old_team_ids_set = set(old_team_ids)
+            if new_team_ids:
+                new_team_ids_set = set(new_team_ids)
+            if (old_team_ids_set != new_team_ids_set):
+                if old_team_ids:
+                    for old_team_id in old_team_ids:
+                        if old_team_id not in new_team_ids:
+                            # User used to have team but now doesn't so need to remove user from that team
+                            successful_teams_update = (remove_user_from_team(user_id, old_team_id) and successful_teams_update)
+
+                if new_team_ids:
+                    for new_team_id in new_team_ids:
+                        if new_team_id not in old_team_ids:
+                            # User did not previously have team but now does so need to add user to that team
+                            successful_teams_update = (add_user_to_team(user_id, new_team_id) and successful_teams_update)
+
+            # db.session.flush()
+            user.image_url = new_image_url
+            user.team_ids = new_team_ids                                                                # UPDATED USER INSTANCE: TEAM IDS
+            user.name = new_name                                                                        # UPDATED USER INSTANCE: NAME
+            user.description = new_description                                                          # UPDATED USER INSTANCE: DESCRIPTION
+            user.language = new_language                                                                # UPDATED USER INSTANCE: LANGUAGE
+            user.views = new_views                                                                      # UPDATED USER INSTACNE: VIEWS
+            user.followers = new_followers                                                              # UPDATED USER INSTANCE: FOLLOWERS
+            user.url = new_url                                                                          # UPDATED USER INSTANCE: URL
+            user.created = datetime.datetime.strptime(new_created, '%Y-%m-%d')                          # UPDATED USER INSTANCE: CREATED
+            user.updated = datetime.datetime.strptime(new_updated, '%Y-%m-%d')                          # UPDATED USER INSTANCE: UPDATED
+            # db.session.flush()
+            db.session.commit()
+        except Exception as user_exception:
+            db.session.rollback()
+            print('User Exception: ' + str(user_exception))
+            successful_user_update = False
+
+
+        if (successful_user_update and successful_game_update and successful_community_update and successful_teams_update):
+            flash('Congratulations, the user was updated successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+
+        redirect_url = '/users/' + user_id
+        return redirect(redirect_url)
+
+def delete_user(user_id):
+    success = True
     try:
         user = User.query.get(user_id)
         old_game_id = user.game_id
         old_community_id = user.community_id
         old_team_ids = user.team_ids
-
-        # Update connections
-
-        # Game connection has changed so need to remove user from old game connection instance
-        # and add user to new game connection instance
-        if old_game_id != new_game_id:
-            if old_game_id:
-                successful_game_update = (remove_user_from_game(user_id, old_game_id) and successful_game_update)
-
-            if new_game_id:
-                successful_game_update = (add_user_to_game(user_id, new_game_id) and successful_game_update)
-
-        user.game_id = new_game_id                                                                  # UPDATED USER INSTANCE: GAME ID
-
-        if old_community_id != new_community_id:
-            if old_community_id:
-                successful_community_update = (remove_user_from_community(user_id, old_community_id) and successful_community_update)
-
-            if new_community_id:
-                successful_community_update = (add_user_to_community(user_id, new_community_id) and successful_community_update)
-
-        user.community_id = new_community_id                                                        # UPDATED USER INSTANCE: COMMUNITY ID
-
-        old_team_ids_set = set()
-        new_team_ids_set = set()
-
+        if old_game_id:
+            success = (remove_user_from_game(user_id, old_game_id) and success)
+        if old_community_id:
+            success = (remove_user_from_community(user_id, old_community_id) and success)
         if old_team_ids:
-            old_team_ids_set = set(old_team_ids)
-        if new_team_ids:
-            new_team_ids_set = set(new_team_ids)
-        if (old_team_ids_set != new_team_ids_set):
-            if old_team_ids:
-                for old_team_id in old_team_ids:
-                    if old_team_id not in new_team_ids:
-                        # User used to have team but now doesn't so need to remove user from that team
-                        successful_teams_update = (remove_user_from_team(user_id, old_team_id) and successful_teams_update)
-
-            if new_team_ids:
-                for new_team_id in new_team_ids:
-                    if new_team_id not in old_team_ids:
-                        # User did not previously have team but now does so need to add user to that team
-                        successful_teams_update = (add_user_to_team(user_id, new_team_id) and successful_teams_update)
-
-        # db.session.flush()
-        user.image_url = new_image_url
-        user.team_ids = new_team_ids                                                                # UPDATED USER INSTANCE: TEAM IDS
-        user.name = new_name                                                                        # UPDATED USER INSTANCE: NAME
-        user.description = new_description                                                          # UPDATED USER INSTANCE: DESCRIPTION
-        user.language = new_language                                                                # UPDATED USER INSTANCE: LANGUAGE
-        user.views = new_views                                                                      # UPDATED USER INSTACNE: VIEWS
-        user.followers = new_followers                                                              # UPDATED USER INSTANCE: FOLLOWERS
-        user.url = new_url                                                                          # UPDATED USER INSTANCE: URL
-        user.created = datetime.datetime.strptime(new_created, '%Y-%m-%d')                          # UPDATED USER INSTANCE: CREATED
-        user.updated = datetime.datetime.strptime(new_updated, '%Y-%m-%d')                          # UPDATED USER INSTANCE: UPDATED
-        # db.session.flush()
+            for team_id in old_team_ids:
+                success = (remove_user_from_team(user_id, team_id) and success)
+        db.session.delete(user)
         db.session.commit()
-    except Exception as user_exception:
+    except:
         db.session.rollback()
-        print('User Exception: ' + str(user_exception))
-        successful_user_update = False
-
-
-    if (successful_user_update and successful_game_update and successful_community_update and successful_teams_update):
-        flash('Congratulations, the user was updated successfuly!', 'success')
-    else:
-        flash('Sorry, something went wrong :(', 'danger')
-
-    redirect_url = '/users/' + user_id
-    return redirect(redirect_url)
+        success = False
+    return success
 
 @application.route('/updateGame', methods=['POST'])
 def update_game():
@@ -1005,15 +1039,18 @@ def remove_user_from_game(user_id, game_id):
     try:
         game_query = Game.query.filter(Game.id == game_id)
         game = game_query.first()
-        game_user_ids = game.user_ids
 
-        if game_user_ids and user_id in game_user_ids:
-            game_user_ids.remove(user_id)
+        if game:
+            game_user_ids = game.user_ids
 
-        game_query.update({'user_ids': game_user_ids})                          
-        db.session.commit()
+            if game_user_ids and user_id in game_user_ids:
+                game_user_ids.remove(user_id)
+
+            game_query.update({'user_ids': game_user_ids})                          
+            db.session.commit()
         return True
     except Exception as e:
+        print('remove user from game exception: ' + str(e))
         db.session.rollback()
         return False
 
@@ -1038,14 +1075,15 @@ def add_user_to_game(user_id, game_id):
 def remove_user_from_community(user_id, community_id):
     try:
         old_community = Community.query.get(community_id)
-        old_community_owner_id = old_community.owner_id
-        if user_id == old_community_owner_id:
-            old_community.owner_id = None
-        db.session.commit()
+        if old_community:
+            old_community_owner_id = old_community.owner_id
+            if user_id == old_community_owner_id:
+                old_community.owner_id = None
+            db.session.commit()
         return True
     except Exception as e:
         db.session.rollback()
-        # print('Old Community Exception: ' + str(e))
+        print('Remove user from Community Exception: ' + str(e))
         return False
 
 
@@ -1064,14 +1102,16 @@ def remove_user_from_team(user_id, team_id):
     try:
         old_team_query = Team.query.filter(Team.id == team_id)
         old_team = old_team_query.first()
-        old_team_user_ids = old_team.user_ids
-        if old_team_user_ids and user_id in old_team_user_ids:
-            old_team_user_ids.remove(user_id)
+        if old_team:
+            old_team_user_ids = old_team.user_ids
+            if old_team_user_ids and user_id in old_team_user_ids:
+                old_team_user_ids.remove(user_id)
 
-        old_team_query.update({'user_ids': old_team_user_ids})
-        db.session.commit()
+            old_team_query.update({'user_ids': old_team_user_ids})
+            db.session.commit()
         return True
     except Exception as e:
+        print('Remove user from team exception: ' + str(e))
         db.session.rollback()
         return False
 
