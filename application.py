@@ -759,48 +759,16 @@ def update_community():
                 successful_game_update = (remove_game_from_community(community_id, old_game_id) and successful_game_update)
 
             if new_game_id:
-                try:
-                    new_game_query = Game.query.filter(Game.id == new_game_id)
-                    new_game = new_game_query.first()
-                    new_game_community_ids = new_game.community_ids
-
-                    # Use list() constructor to copy the list so it actually updates
-                    if new_game_community_ids and community_id not in new_game_community_ids:
-                        new_game_community_ids.append(community_id)
-                    elif not new_game_community_ids:
-                        new_game_community_ids = [community_id]
-
-                    new_game_query.update({'community_ids': new_game_community_ids})                          # UPDATED NEW GAME CONNECTION'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    # print('New Game Exception: ' + str(e))
-                    successful_game_update = False
+                successful_game_update = (add_game_to_community(community_id, new_game_id) and successful_game_update)
 
         community.game_id = new_game_id                                                                  # UPDATED community INSTANCE: GAME ID
 
         if old_owner_id != new_owner_id:
             if old_owner_id:
-                try:
-                    old_owner = User.query.get(old_owner_id)
-                    old_owner_community_id = old_owner.community_id
-                    if community_id == old_owner_community_id:
-                        old_owner.community_id = None                                               # UPDATED OLD COMMUNITY'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    print('Old Community Exception: ' + str(e))
-                    successful_owner_update = False
+                successful_owner_update = (remove_owner_from_community(community_id, old_owner_id) and successful_owner_update)
 
             if new_owner_id:
-                try:
-                    new_owner = User.query.get(new_owner_id)
-                    new_owner.community_id = community_id                                                # UPDATED NEW COMMUNITY'S INSTANCE
-                    db.session.commit()
-                except Exception as e:
-                    db.session.rollback()
-                    print('New Community Exception: ' + str(e))
-                    successful_owner_update = False
+                successful_owner_update = (add_owner_to_community(community_id, new_owner_id) and successful_owner_update)
 
         community.owner_id = new_owner_id                                          # UPDATED community INSTANCE: COMMUNITY ID
 
@@ -1497,6 +1465,53 @@ def remove_community_from_game(community_id, game_id):
     except Exception as e:
         db.session.rollback()
         print('Remove community from game Exception: ' + str(e))
+        return False
+
+
+def add_community_to_game(community_id, game_id):
+    try:
+        new_game_query = Game.query.filter(Game.id == game_id)
+        new_game = new_game_query.first()
+        new_game_community_ids = new_game.community_ids
+
+        # Use list() constructor to copy the list so it actually updates
+        if new_game_community_ids and community_id not in new_game_community_ids:
+            new_game_community_ids.append(community_id)
+        elif not new_game_community_ids:
+            new_game_community_ids = [community_id]
+
+        new_game_query.update({'community_ids': new_game_community_ids})
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add community to game exception: ' + str(e))
+        return False
+
+
+def remove_owner_from_community(community_id, owner_id):
+    try:
+        old_owner = User.query.get(owner_id)
+        old_owner_community_id = old_owner.community_id
+        if community_id == old_owner_community_id:
+            old_owner.community_id = None
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Remove owner from community Exception: ' + str(e))
+        return False
+
+
+def add_owner_to_community(community_id, owner_id):
+    try:
+        new_owner = User.query.get(owner_id)
+        new_owner.community_id = community_id
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print('Add owner to community Exception: ' + str(e))
         return False
 
 @application.route('/search', methods = ['GET', 'POST'])
