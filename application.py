@@ -315,17 +315,17 @@ def add_game():
 
         success = True
 
-        print('game id: ' + str(game_id))
-        print('game image url: ' + game_image_url)
-        print('game name: ' + name)
-        print('game description: ' + description)
-        print('game rating: ' + rated)
-        print('genres: ' + str(genres))
-        print('platforms: ' + str(platforms))
-        print('release_date: ' + release_date)
-        print('user ids: ' + str(user_ids))
-        print('community_ids: ' + str(community_ids))
-        print('team ids: ' + str(team_ids))
+        # print('game id: ' + str(game_id))
+        # print('game image url: ' + game_image_url)
+        # print('game name: ' + name)
+        # print('game description: ' + description)
+        # print('game rating: ' + rated)
+        # print('genres: ' + str(genres))
+        # print('platforms: ' + str(platforms))
+        # print('release_date: ' + release_date)
+        # print('user ids: ' + str(user_ids))
+        # print('community_ids: ' + str(community_ids))
+        # print('team ids: ' + str(team_ids))
 
         if user_ids:
             for user_id in user_ids:
@@ -352,7 +352,7 @@ def add_game():
             game.community_ids = community_ids
             game.team_ids = team_ids
             game.release_date = datetime.datetime.strptime(release_date, '%Y-%m-%d')
-            db.session.add(user)
+            db.session.add(game)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
