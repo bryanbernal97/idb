@@ -8,6 +8,29 @@
         });
       };
 
+
+    function isImageURL(url) {
+    	return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+	}
+
+	$('#add-user-form').validator({
+	    custom: {
+	        'positive': function($el) { 
+	        	var num = $el.val();
+	        	if(num < 0) {
+	        		return "Please enter a non-negative number"; // this message will not be used because data-error is set on elements
+	        	}
+	    	},
+	    	'imageURL': function($el) {
+	    		var url = $el.val();
+	    		if (!isImageURL(url)) {
+	    			return "Please enter a URL that points to an image"; // this message will not be used because data-error is set on elements
+    			}
+	    		// }
+	    	}
+		}
+	});
+
 $(document).ready(function() {
 
 
