@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New User{% endblock %}
+
+{% block custom_css %}
+    <link href="/static/css/addTeam.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
+{% block navbar %}
+
+<ul class="nav navbar-nav navbar-right">
+	<li class="hidden">
+		<a href="#page-top"></a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#about">About</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/users#users">Users</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/games#games">Games</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/teams#teams">Teams</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/communities#communities">Communities</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#team">Our Team</a>
+	</li>
+	<li>
+		<a class="page-scroll" href="/#resources">Resources</a>
+	</li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="portfolio bg-light-gray">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+
+
+					<form role="form" id="add-team-form" action="/addTeam" method="POST">
+						
+
+
+                        <hr style="border-color: white;">
+
+                        <h3>
+                            ID:<br>
+                            <div class="input-col-4">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                	<input type="text" class="form-control" id="team-id-add" name="team-id-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Edit Form Field -->
+                        <h3 id='team-pic-add'class = "hidden">
+                            <br>
+                            Image URL:<br>
+                            <div class="input-col-6">
+                            <small><br><input type="url" name="team-pic-add"class="form-control" value="{{team['image_url']}}"/></small>
+                            </div>
+
+                        </h3>
+
+                        <hr style="border-color: white;">
+
+                        <!-- Name -->
+                        <h3>
+                            Name:<br>
+                            <div class="input-col-4">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="text" class="form-control" id="team-name-add" name="team-name-add" value="{{team['name']}}">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Info -->
+                        <h3>
+                            Info:<br>
+                            <div class="input-col-6">
+
+                                <!-- Edit Form Field -->
+                                <small><textarea class="form-control" id="team-info-add" name="team-info-add">{{team['info']}}</textarea></small>
+                            </div>
+                        </h3>
+
+                        <!-- Streamers -->
+                        <h3>
+                            Streamers:
+
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="team-streamers-add" name="team-streamers-add">
+                                    <select class="selectpicker form-control" name="team-streamers-add" multiple data-live-search="true" data-dropup-auto="false">
+                                    {% for streamer in streamers %}
+                                        {% if team['user_ids'] and streamer['id'] in team['user_ids'] %}
+                                            <option value="{{streamer['id']}}" selected>{{streamer['name']}}</option>
+                                        {% else %}
+                                            <option value="{{streamer['id']}}">{{streamer['name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <!-- Games -->
+                        <h3>
+                            Games:
+
+                            <!-- Edit Form Field -->
+                            <small>
+                                <br>
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="team-games-add" name="team-games-add">
+                                    <select class="selectpicker form-control" name="team-games-add" multiple data-live-search="true" data-dropup-auto="false">
+                                    {% for game in games %}
+                                        {% if team['game_ids'] and game['id'] in team['game_ids'] %}
+                                            <option value="{{game['id']}}" selected>{{game['name']}}</option>
+                                        {% else %}
+                                            <option value="{{game['id']}}">{{game['name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                </div>
+                            </small>
+                        </h3>
+
+                        <!-- Created -->
+                        <h3>
+                            Created:<br>
+                            <div class="date-input">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input class="form-control" type="date" value="{{team['created']}}" id="team-created-add" name="team-created-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <!-- Updated -->
+                        <h3>
+                            Updated:<br>
+                            <div class="date-input">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input class="form-control" type="date" value="{{team['updated']}}" id="team-updated-add" name="team-updated-add">
+                                </small>
+                            </div>
+                        </h3>
+
+                        <hr style="border-color: white;">
+
+                        <div id="g-recaptcha" class="g-recaptcha" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
+						<br>
+						<br>
+						<row>
+						<button type="submit" id="team-add-submit" class="btn btn-primary streamglean-button">Submit</button>
+						</row>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+<script src="/static/js/addUser.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
+{% endblock %}

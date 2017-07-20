@@ -449,7 +449,7 @@ def update_game():
 
 
     if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
-        flash('Congratulations, the game was updated successfuly!', 'success')
+        flash('Congratulations, the user was updated successfuly!', 'success')
     else:
         flash('Sorry, something went wrong :(', 'danger')
 
@@ -577,7 +577,7 @@ def update_team():
         successful_team_update = False
 
     if (successful_user_update and successful_game_update and successful_team_update and successful_community_update):
-        flash('Congratulations, the team was updated successfuly!', 'success')
+        flash('Congratulations, the user was updated successfuly!', 'success')
     else:
         flash('Sorry, something went wrong :(', 'danger')
 
