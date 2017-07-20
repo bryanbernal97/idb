@@ -515,7 +515,7 @@ def update_game():
     if (action == 'Delete'):
         delete_success = delete_game(game_id)
         if delete_success:
-            flash('Congratulations, the user was deleted successfuly!', 'success')
+            flash('Congratulations, the game was deleted successfuly!', 'success')
         else:
             flash('Sorry, something went wrong :(', 'danger')
         return redirect('/games')
@@ -672,7 +672,7 @@ def update_team():
     if (action == 'Delete'):
         delete_success = delete_team(team_id)
         if delete_success:
-            flash('Congratulations, the user was deleted successfuly!', 'success')
+            flash('Congratulations, the team was deleted successfuly!', 'success')
         else:
             flash('Sorry, something went wrong :(', 'danger')
         return redirect('/teams')
