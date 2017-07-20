@@ -1240,6 +1240,62 @@ class TestDatabase(TestCase):
 
         self.assertEqual(query, "Playerunknown's Battlegrounds")
 
+    ###############
+
+    def test_get_game_badid_2(self) :
+        id_num = '-10'
+        query = Game.query.get(id_num)
+        self.assertEqual(query, None)
+
+    def test_get_team_2(self) :
+        id_num = 14
+        query = Team.query.get(id_num)
+        self.assertEqual(query.id, id_num)
+        self.assertEqual(query.name, 'CrossCounterTV')
+
+    def test_get_team_badid_2(self) :
+        id_num = '-10'
+        query = Team.query.get(id_num)
+        self.assertEqual(query, None)
+
+    def test_get_community_2(self) :
+        id_num = 'a4ef36c2-5c1c-4f2c-be5f-f136a707aeea'
+        query = Community.query.get(id_num)
+        self.assertEqual(query.id, id_num)
+        self.assertEqual(query.name, 'ZeratoR')
+
+    def test_get_community_badid_2(self) :
+        id_num = '-10'
+        query = Community.query.get(id_num)
+        self.assertEqual(query, None)
+
+    def test_get_game_badid_3(self) :
+        id_num = '-14'
+        query = Game.query.get(id_num)
+        self.assertEqual(query, None)
+
+    def test_get_team_3(self) :
+        id_num = 21
+        query = Team.query.get(id_num)
+        self.assertEqual(query.id, id_num)
+        self.assertEqual(query.name, 'The Crew')
+
+    def test_get_team_badid_3(self) :
+        id_num = '-14'
+        query = Team.query.get(id_num)
+        self.assertEqual(query, None)
+
+    def test_get_community_3(self) :
+        id_num = '93bf25e7-54fe-4052-bb29-15331dc9806c'
+        query = Community.query.get(id_num)
+        self.assertEqual(query.id, id_num)
+        self.assertEqual(query.name, 'VarietyDE')
+
+    def test_get_community_badid_3(self) :
+        id_num = '-14'
+        query = Community.query.get(id_num)
+        self.assertEqual(query, None)
+
 
 if __name__ == "__main__":
     main()
