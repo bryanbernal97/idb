@@ -141,36 +141,12 @@
                                     </div>
                                     <br>
                                 </div>
-                                <br>
-
-                                {% if game['platforms'] %}
-                                    {% for platform in game['platforms'] %}
-                                        <div class="copy-platform-fields">
-                                            <div class="control-group input-group remove-input">
-                                                <input type="text" name="platforms[]" class="form-control" value="">
-                                                <div class="input-group-btn"> 
-                                                    <button class="btn btn-default remove-platform" type="button"><i class="glyphicon glyphicon-remove"></i></button>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </div>
-                                        {% if loop.last %}
-                                            <div class="input-group control-group before-add-more-platforms">
-                                                <input type="text" name="platforms[]" class="form-control" value="">
-                                                    <div class="input-group-btn">
-                                                        <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
-                                                    </div>
-                                            </div>                                        
-                                        {% endif %}                                    
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="input-group control-group before-add-more-platforms">
-                                        <input type="text" name="platforms[]" class="form-control" value="">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
-                                            </div>
-                                    </div> 
-                                {% endif %}
+                                <div class="input-group control-group before-add-more-platforms">
+                                    <input type="text" name="platforms[]" class="form-control" value="">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default add-more-platform" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                                    </div>
+                                </div> 
                             </small>  
                         </h3>
 
