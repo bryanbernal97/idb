@@ -129,17 +129,247 @@ def add_user():
 @application.route('/addTeam', methods=['POST', 'GET'])
 def add_team():
     if request.method == 'GET':
-        return render_template('add_team.html')
+        games = []
+        streamers = []
+
+         # Get all users for edit drop down
+        users_query = User.query
+        for user in users_query:
+        streamers.append({'name': user.name, 'id': user.id})
+
+        # Get all games for edit drop down
+        game_query = Game.query
+        for game in game_query:
+            games.append({'name': game.name, 'id': game.id})
+
+
+        today = datetime.datetime.now().date()
+        return render_template('add_team.html', games=games, streamers=streamers, today=today)
     else:
-        return render_template('add_team.html')
+        # do the add to the db here and then render instance page of the added team
+        user_id = request.form.get('user-id-add')
+        team_image_url = request.form.get('team-image-url-add')
+        name = request.form.get('team-name-add')
+        info = request.form.get('team-info-add')
+        url = request.form.get('team-url-add')
+        game_id = request.form.get('team-game-add')
+        if game_id:
+            game_id = int(game_id)
+        #community_id = request.form.get('team-community-add')
+        #team_ids = request.form.getlist('user-teams-add')
+        team_id = request.form.get('team-id-add')
+
+        #if team_ids:
+            #team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if game_id:
+            success = (add_team_to_game(team_id, game_id) and success)
+
+        if user_id:
+            success = (add_team_to_user(team_id, community_id) and success)
+
+        created = request.form.get('team-created-add')
+        updated = request.form.get('team-updated-add')
+
+        try:
+            team = Team()
+            team.id = team_id
+            team.image_url = user_image_url
+            team.name = name
+            team.info = info
+            team.url = url
+            team.game_id = game_id
+            #team.team_ids = team_ids
+            team.created = datetime.datetime.strptime(created, '%Y-%m-%d')
+            team.updated = datetime.datetime.strptime(updated, '%Y-%m-%d')
+            db.session.add(team)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/teams/' + user_id
+        return redirect(redirect_url)
 
 
 @application.route('/addCommunity', methods=['POST', 'GET'])
 def add_community():
     if request.method == 'GET':
-        return render_template('add_community.html')
+        games = []
+        users = []
+        # Get all games for edit drop down
+        game_query = Game.query
+        for game in game_query:
+            games.append({'name': game.name, 'id': game.id})
+
+        # Get all users for edit drop down
+        users_query = User.query
+        for user in users_query:
+        streamers.append({'name': user.name, 'id': user.id})
+
+        today = datetime.datetime.now().date()
+        return render_template('add_community.html', games=games, users=users, today=today)
     else:
-        return render_template('add_community.html')
+        # do the add to the db here and then render instance page of the added user
+        community_id = request.form.get('community-id-add')
+        community_image_url = request.form.get('community-image-url-add')
+        name = request.form.get('community-name-add')
+        description = request.form.get('community-description-add')
+        language = request.form.get('community-language-add')
+        rules = request.form.get('community-rules-add')
+        url = request.form.get('community-url-add')
+        game_id = request.form.get('community-game-add')
+        if game_id:
+            game_id = int(game_id)
+        user_id = request.form.get('community-community-add')
+        if user_id:
+            user_id = int(user_id)
+        #team_ids = request.form.getlist('user-teams-add')
+        #if team_ids:
+            #team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if game_id:
+            success = (add_community_to_game(community_id, game_id) and success)
+
+        if user_id:
+            success = (add_community_to_user(community_id, user_id) and success)
+
+        created = request.form.get('community-created-add')
+        updated = request.form.get('community-updated-add')
+
+        try:
+            community = Community()
+            community.id = user_id
+            community.image_url = user_image_url
+            community.name = name
+            community.description = description
+            community.language = language
+            community.views = views
+            community.followers = followers
+            community.url = url
+            community.game_id = game_id
+            community.community_id = community_id
+            community.team_ids = team_ids
+            community.created = datetime.datetime.strptime(created, '%Y-%m-%d')
+            community.updated = datetime.datetime.strptime(updated, '%Y-%m-%d')
+            db.session.add(community)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/communities/' + user_id
+        return redirect(redirect_url)
+
+@application.route('/addGame', methods=['POST', 'GET'])
+def add_game():
+    if request.method == 'GET':
+        platforms = []
+        streamers = []
+        genres = []
+        teams = []
+        communities = []
+        # Get all games for edit drop down
+        platform_query = Platform.query
+        for platform in platform_query:
+            platforms.append({'name': platform.name, 'id': platform.id})
+
+        # Get all streamers for edit drop down
+        users_query = User.query
+        for user in users_query:
+        streamers.append({'name': user.name, 'id': user.id})
+
+        # Get all genres for edit drop down
+        genre_query = Genre.query
+        for genre in genre_query:
+            genres.append({'name': genre.name, 'id': genre.id})
+
+        # Get all teams for edit drop down
+        team_query = Team.query
+        for team in team_query:
+            teams.append({'name': team.name, 'id': team.id})
+
+        # Get all communities for edit drop down
+        community_query = Community.query
+        for community in community_query:
+            communities.append({'name': community.name, 'id': community.id})
+
+        today = datetime.datetime.now().date()
+        return render_template('add_game.html', platforms=platforms, streamers=streamers, genres=genres, communities=communities, teams=teams, today=today)
+    else:
+        # do the add to the db here and then render instance page of the added user
+        game_id = request.form.get('game-id-add')
+        game_image_url = request.form.get('game-image-url-add')
+        name = request.form.get('game-name-add')
+        description = request.form.get('user-description-add')
+        rated = request.form.get('game-rating-add')
+        genre = request.form.get('game-genre-add')
+        platform = request.form.get('game-platforms-add')
+        release_date = request.form.get('game-release-date-add')
+        user_id = request.form.get('game-user-add')
+        if user_id:
+            user_id = int(user_id)
+        community_id = request.form.get('game-community-add')
+        team_ids = request.form.getlist('game-teams-add')
+        if team_ids:
+            team_ids = list(map(int, team_ids))
+
+        success = True
+
+        if user_id:
+            success = (add_game_to_user(game_id, user_id) and success)
+
+        if community_id:
+            success = (add_game_to_community(game_id, community_id) and success)
+
+        if team_ids:
+            for team_id in team_ids:
+                success = (add_game_to_team(game_id, team_id) and success)
+
+
+        try:
+            game = Game()
+            game.id = game_id
+            game.image_url = user_image_url
+            game.name = name
+            game.description = description
+            game.rated = rated
+            game.platform = platform
+            game.genre = genre
+            game.user_id = user_id
+            game.community_id = community_id
+            game.team_ids = team_ids
+            game.release_date = datetime.datetime.strptime(release_date, '%Y-%m-%d')
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(str(e))
+            success = False
+
+        if (success):
+            flash('Congratulations, the user was added successfuly!', 'success')
+        else:
+            flash('Sorry, something went wrong :(', 'danger')
+        
+        redirect_url = '/games/' + game_id
+        return redirect(redirect_url)
 
 ####################### UPDATE MODELS ################################
 
