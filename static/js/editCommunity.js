@@ -86,8 +86,6 @@ $(document).ready(function() {
 	// Hide template fields and show form fields when user clicks the edit button
 	$("#community-edit-button").click(function(){
 
-		origForm = $('#edit-community-form').serialize();
-
 		$("#community-name").addClass('hidden');
 		$("#community-description").addClass('hidden');
 		$("#community-language").addClass('hidden');
@@ -96,7 +94,7 @@ $(document).ready(function() {
 		$("#community-owner").addClass('hidden');
 		$("#community-edit-button").addClass('hidden');
 
-
+		$("#community-pic-edit").removeClass('hidden');
 		$("#community-name-edit").removeClass('hidden');
 		$("#community-description-edit").removeClass('hidden');
 		$("#community-language-edit").removeClass('hidden');
@@ -104,6 +102,7 @@ $(document).ready(function() {
 		$("#community-game-edit").removeClass('hidden');
 		$("#community-owner-edit").removeClass('hidden');
 		$("#community-edit-submit").removeClass('hidden');
+		$("#community-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
 	});
 
@@ -112,68 +111,51 @@ $(document).ready(function() {
 	// and show updated template fields with confirmation/failure alert from updating database.
 	$("#community-edit-submit").click(function(e) {
 
-		// alert('response: ' + grecaptcha.getResponse());
-		// e.preventDefault();
+		// Only need to take action if form values have changed, otherwise there is nothing to update.
+		var formSerialized =  $('#edit-user-form').serialize();
+		formSerialized = formSerialized.substring(0, formSerialized.lastIndexOf('&')); // Gets rid of g-recaptcha form field that wasn't there before edit was hit
+		if (formSerialized != origForm) {
+			if(!grecaptcha.getResponse()) {
+			    e.preventDefault();
+			    alert("Please verify the reCAPTCHA!");
+			}
+		} else {
+			e.preventDefault();
+
+			$("#community-pic-edit").addClass('hidden');
+			$("#community-name-edit").addClass('hidden');
+			$("#community-description-edit").addClass('hidden');
+			$("#community-language-edit").addClass('hidden');
+			$("#community-rules-edit").addClass('hidden');
+			$("#community-game-edit").addClass('hidden');
+			$("#community-owner-edit").addClass('hidden');
+			$("#community-edit-submit").addClass('hidden');
+			$("#community-delete-button").addClass('hidden');
+			$("#g-recaptcha").addClass('hidden');
+
+			$("#community-name").removeClass('hidden');
+			$("#community-description").removeClass('hidden');
+			$("#community-language").removeClass('hidden');
+			$("#community-rules").removeClass('hidden');
+			$("#community-game").removeClass('hidden');
+			$("#community-owner").removeClass('hidden');
+			$("#community-edit-button").removeClass('hidden');
+		}
+
+	});
+
+	$("#community-delete-button").click(function(e){
 		if(!grecaptcha.getResponse()) {
 		    e.preventDefault();
 		    alert("Please verify the reCAPTCHA!");
-		}
-		// Only need to take action if the form values have changed
-		// if ($('#edit-community-form').serialize() != origForm) {
-
-		//	var newName = $("#community-name-edit").val();
-		//	$("#site-title").text(newName);												// SITE TITLE
-		//	$("#community-name").text(newName);											// NAME
-		//	$("#community-description").text($("#community-description-edit").val());	// DESCRIPTION
-		//	$("#community-language").text($("#community-language-edit").val());			// LANGUAGE
-		//	$("#community-rules").text($("#community-rules-edit").val());				// RULES
-
-		//	// Community game link formatting
-		//	var gameHTML = "";
-		//	$("#community-game-edit option:selected").each(function () {
-		//			var $this = $(this);
-		//			var gameID = $this.val();
-		//			var gameName = $this.text();
-		//			var gameHref = '/games/' + gameID;
-		//			gameHTML = "<a href='" + gameHref + "'><br />" + gameName + "</a>";
-		//	});
-		//	if (gameHTML == "") {
-		//		gameHTML = "<br>None";
-		//	}
-		//	$("#community-game").html(gameHTML);										// GAME (CONNECTION)
-
-		//	// Community owner link formatting
-		//	var ownerHTML = "";
-		//	$("#community-owner-edit option:selected").each(function () {
-		//			var $this = $(this);
-		//			var ownerID = $this.val();
-		//			var ownerName = $this.text();
-		//			var ownerHref = '/users/' + ownerID;
-		//			ownerHTML = "<a href='" + ownerHref + "'><br />" + ownerName + "</a>";
-		//	});
-		//	if (ownerHTML == "") {
-		//		ownerHTML = "<br>None";
-		//	}
-		//	$("#community-owner").html(ownerHTML);										// OWNER (CONNECTION)
-
-		// }
-
-		// $("#community-name-edit").addClass('hidden');
-		// $("#community-description-edit").addClass('hidden');
-		// $("#community-language-edit").addClass('hidden');
-		// $("#community-rules-edit").addClass('hidden');
-		// $("#community-game-edit").addClass('hidden');
-		// $("#community-owner-edit").addClass('hidden');
-		// $("#community-edit-submit").addClass('hidden');
-
-		// $("#community-name").removeClass('hidden');
-		// $("#community-description").removeClass('hidden');
-		// $("#community-language").removeClass('hidden');
-		// $("#community-rules").removeClass('hidden');
-		// $("#community-game").removeClass('hidden');
-		// $("#community-owner").removeClass('hidden');
-		// $("#community-edit-button").removeClass('hidden');
-
+		}else{
+			var result = confirm("Are you sure you want to DELETE this Community?");
+			if (result) {
+    		//Logic to delete the item
+			} else {
+				e.preventDefault();
+			}
+		}	
 	});
 
 

@@ -58,13 +58,23 @@
 					  {% endif %}
 					{% endwith %}
 
-					<form role="form" id="edit-user-form" action="/updateUser" method="POST">
+					<form role="form" data-toggle="validator" id="edit-user-form" action="/updateUser" method="POST">
 						
 						<!-- Hidden id for edit form used to update database -->
                         <input type="hidden" id="user-id-edit" name="user-id-edit" value="{{user['id']}}">
 
 						<!-- Picture -->
 						<img src="{{user['image_url']}}">
+
+						<!-- Edit Form Field -->
+						<h3 id='user-pic-edit'class = "hidden">
+							<br>
+							Image URL:<br>
+							<div class="input-col-6">
+							<small><br><input type="url" name="user-pic-edit"class="form-control" value="{{user['image_url']}}"/></small>
+							</div>
+
+						</h3>
 
                         <hr style="border-color: white;">
 
@@ -114,7 +124,7 @@
 								<small id="user-views" class="text-muted">{{user['views']}}</small>
 
 								<!-- Edit Form Field -->
-								<small><input type="text" id="user-views-edit" name="user-views-edit" class="form-control hidden" value="{{user['views']}}"></small>
+								<small><input type="number" id="user-views-edit" name="user-views-edit" class="form-control hidden" data-error="Bruh, that email address is invalid"value="{{user['views']}}"></small>
 							</div>
 						</h3>
 
@@ -126,7 +136,8 @@
 								<small id="user-followers" class="text-muted">{{user['followers']}}</small>
 
 								<!-- Edit Form Field -->
-								<small><input type="text" id="user-followers-edit" name="user-followers-edit" class="form-control hidden" value="{{user['followers']}}"></small>
+
+								<small><input type="number" id="user-followers-edit" name="user-followers-edit" class="form-control hidden" value="{{user['followers']}}"></small>
 							</div>
 						</h3>
 						
@@ -138,7 +149,7 @@
 								<small id="user-url" class="text-muted"><a href={{user['url']}}>{{user['url']}}</a></small>
 
 								<!-- Edit Form Field -->
-								<small><input type="url" id="user-url-edit" name="user-url-edit" class="form-control hidden" value="{{user['url']}}"></small>
+								<small><input type="url" id="user-url-edit" name="user-url-edit"class="form-control hidden" value="{{user['url']}}"/></small>
 							</div>
 						</h3>
 
@@ -269,7 +280,8 @@
 						<br>
 						<br>
 
-						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+						<button type="submit" id="user-edit-submit" class="btn btn-primary streamglean-button hidden" name="action" value="Submit">Submit</button>
+						<button type="submit" id="user-delete-button" class="btn btn-primary streamglean-button hidden" name="action" value="Delete">Delete User</button>
 					</form>
 
 					<button type="button" id="user-edit-button"class="btn btn-primary streamglean-button">Edit</button>

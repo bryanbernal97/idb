@@ -65,6 +65,16 @@
                         <!-- Picture -->
                         <img src="{{game['image_url']}}">
 
+                        <!-- Edit Form Field -->
+                        <h3 id='game-pic-edit'class = "hidden">
+                            <br>
+                            Image URL:<br>
+                            <div class="input-col-6">
+                            <small><br><input type="url" name="game-pic-edit"class="form-control" value="{{game['image_url']}}"/></small>
+                            </div>
+
+                        </h3>
+
                         <hr style="border-color: white;">
 
                         <!-- Name -->
@@ -268,7 +278,7 @@
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-streamers-edit" name="game-streamers-edit">
+                                <div class="btn-group bootstrap-select show-tick input-col-4 hidden" id="game-streamers-edit">
                                     <select class="selectpicker form-control" name="game-streamers-edit" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for streamer in streamers %}
                                         {% if game['user_ids'] and streamer['id'] in game['user_ids'] %}
@@ -354,8 +364,10 @@
                         <br>
                         <br>
 
-
+                        <row>
                         <button type="submit" id="game-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                        <button type="button" id="game-delete-button" class="btn btn-primary streamglean-button hidden">Delete Game</button>
+                        </row>
                     </form>
                 <button type="button" id="game-edit-button"class="btn btn-primary streamglean-button">Edit</button>
             </div>

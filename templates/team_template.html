@@ -66,6 +66,16 @@
                         <!-- Picture -->
                         <img src="{{team['image_url']}}">
 
+                        <!-- Edit Form Field -->
+                        <h3 id='team-pic-edit'class = "hidden">
+                            <br>
+                            Image URL:<br>
+                            <div class="input-col-6">
+                            <small><br><input type="url" name="team-pic-edit"class="form-control" value="{{team['image_url']}}"/></small>
+                            </div>
+
+                        </h3>
+
                         <hr style="border-color: white;">
 
                         <!-- Name -->
@@ -194,8 +204,10 @@
                         <br>
                         <br>
 
-
+                        <row>
                         <button type="submit" id="team-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                        <button type="button" id="team-delete-button" class="btn btn-primary streamglean-button hidden">Delete Team</button>
+                        </row>
                     </form>
                     <button type="button" id="team-edit-button"class="btn btn-primary streamglean-button">Edit</button>
                 </div>

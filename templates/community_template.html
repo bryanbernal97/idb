@@ -66,6 +66,16 @@
                         <!-- Picture -->
                         <img src="{{community['image_url']}}">
 
+                        <!-- Edit Form Field -->
+                        <h3 id='community-pic-edit'class = "hidden">
+                            <br>
+                            Image URL:<br>
+                            <div class="input-col-6">
+                            <small><br><input type="url" name="community-pic-edit"class="form-control" value="{{community['image_url']}}"/></small>
+                            </div>
+
+                        </h3>
+
                         <hr style="border-color: white;">
 
                         <!-- Name -->
@@ -193,8 +203,10 @@
                         <div id="g-recaptcha" class="g-recaptcha hidden" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
                         <br>
                         <br>
-
+                        <row>
                         <button type="submit" id="community-edit-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                        <button type="button" id="community-delete-button" class="btn btn-primary streamglean-button hidden">Delete Community</button>
+                        </row>
                     </form>
                     <button type="button" id="community-edit-button"class="btn btn-primary streamglean-button">Edit</button>
                 </div>
