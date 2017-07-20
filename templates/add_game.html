@@ -47,20 +47,18 @@
 
                     <form role="form" action= "/addGame" id="add-game-form" method="POST">
 
-                        <!-- Picture -->
-                        <!-- <img src="{{game['image_url']}}"> -->
-
-                        <!-- add Form Field -->
-                        <h3 id='game-pic-add'>
-                            <br>
-                            Image URL:<br>
-                            <div class="input-col-6">
-                            <small><br><input type="url" name="game-pic-add" class="form-control"/></small>
-                            </div>
-
-                        </h3>
-
                         <hr style="border-color: white;">
+
+                        <h3>
+                            ID:<br>
+                            <div class="input-col-4">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <input type="text" class="form-control" id="game-id-add" name="game-id-add">
+                                </small>
+                            </div>
+                        </h3>
 
                         <!-- Name -->
                         <h3>
@@ -73,6 +71,16 @@
                                         <input type="text" class="form-control" id="game-name-add" name="game-name-add">
                                     </small>
                                 </div>
+                        </h3>
+
+                        <!-- add Form Field -->
+                        <h3 id='game-pic-add'>
+                            <br>
+                            Image URL:<br>
+                            <div class="input-col-4">
+                            <small><input type="url" name="game-pic-add" class="form-control"/></small>
+                            </div>
+
                         </h3>
 
                         <!-- Description -->
@@ -100,7 +108,7 @@
 
                         <!-- Genres -->
                         <h3>
-                            Genres:
+                            Genres:<br>
 
                             <!-- add Form Field -->
                             <small id="game-genres-add" class="text-muted">
@@ -126,7 +134,7 @@
 
                         <!-- Platforms -->
                         <h3>
-                            Platforms:
+                            Platforms:<br>
 
                             <!-- add Form Field -->
                             <small id="game-platforms-add" class="text-muted">
@@ -157,7 +165,7 @@
 
                                 <!-- add Form Field -->
                                 <small>
-                                    <input class="form-control" type="date" value="" id="game-release-date-add" name="game-release-date-add">
+                                    <input class="form-control" type="date" value="{{today}}" id="game-release-date-add" name="game-release-date-add">
                                 </small>
                             </div>
                         </h3>

@@ -295,23 +295,37 @@ def add_game():
         game_id = request.form.get('game-id-add')
         if game_id:
             game_id = int(game_id)
-        game_image_url = request.form.get('game-image-url-add')
+        game_image_url = request.form.get('game-pic-add')
         name = request.form.get('game-name-add')
-        description = request.form.get('user-description-add')
+        description = request.form.get('game-description-add')
         rated = request.form.get('game-rating-add')
         genres = request.form.getlist('genres[]')
+        genres = list(filter(None, genres))
         platforms = request.form.getlist('platforms[]')
+        platforms = list(filter(None, platforms))
         release_date = request.form.get('game-release-date-add')
         
-        user_ids = request.form.getlist('game-user-add')
+        user_ids = request.form.getlist('game-streamers-add')
 
-        community_ids = request.form.getlist('game-community-add')
+        community_ids = request.form.getlist('game-communities-add')
         
         team_ids = request.form.getlist('game-teams-add')
         if team_ids:
             team_ids = list(map(int, team_ids))
 
         success = True
+
+        print('game id: ' + str(game_id))
+        print('game image url: ' + game_image_url)
+        print('game name: ' + name)
+        print('game description: ' + description)
+        print('game rating: ' + rated)
+        print('genres: ' + str(genres))
+        print('platforms: ' + str(platforms))
+        print('release_date: ' + release_date)
+        print('user ids: ' + str(user_ids))
+        print('community_ids: ' + str(community_ids))
+        print('team ids: ' + str(team_ids))
 
         if user_ids:
             for user_id in user_ids:
@@ -324,7 +338,6 @@ def add_game():
         if team_ids:
             for team_id in team_ids:
                 success = (add_game_to_team(game_id, team_id) and success)
-
 
         try:
             game = Game()
