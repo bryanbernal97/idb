@@ -135,7 +135,7 @@ def add_team():
          # Get all users for edit drop down
         users_query = User.query
         for user in users_query:
-        streamers.append({'name': user.name, 'id': user.id})
+            streamers.append({'name': user.name, 'id': user.id})
 
         # Get all games for edit drop down
         game_query = Game.query
@@ -218,7 +218,7 @@ def add_community():
         # Get all users for edit drop down
         users_query = User.query
         for user in users_query:
-        users.append({'name': user.name, 'id': user.id})
+            users.append({'name': user.name, 'id': user.id})
 
         today = datetime.datetime.now().date()
         return render_template('add_community.html', games=games, users=users, today=today)
@@ -297,7 +297,7 @@ def add_game():
         # Get all streamers for edit drop down
         users_query = User.query
         for user in users_query:
-        streamers.append({'name': user.name, 'id': user.id})
+            streamers.append({'name': user.name, 'id': user.id})
 
         # # Get all genres for edit drop down
         # genre_query = Genre.query
