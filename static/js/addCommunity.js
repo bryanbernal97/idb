@@ -43,7 +43,6 @@ $(document).ready(function() {
 
 	});
 
-
 /* ********************************************************************************************** */
 /* ********************************* OWNER SELECTOR FORMATTING ********************************** */
 /* ********************************************************************************************** */
@@ -56,14 +55,17 @@ $(document).ready(function() {
 		oldSelectedOwner = $(this).text();
 	});
 
-	$('#community-owner-add').change(function() {
+	$('#community-owner-add select').change(function() {
 
 		var bothSelectedOwners = $('option:selected', this).text();
 		var newSelectedOwner = bothSelectedOwners.replace(oldSelectedOwner, '');
 
+		var singleSelected = true;
+
 		$('#community-owner-add option').each(function() {
-			if ($(this).text() == newSelectedOwner) {
+			if ($(this).text() == newSelectedOwner && singleSelected) {
 				this.selected = true;
+				singleSelected = false;
 			} else {
 				this.selected = false;
 			}
@@ -74,6 +76,7 @@ $(document).ready(function() {
 		oldSelectedOwner = newSelectedOwner;
 
 	});
+
 
 	$("#community-add-submit").click(function(e) {
 		if(!grecaptcha.getResponse()) {

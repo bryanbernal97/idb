@@ -3,7 +3,7 @@
 {% block title %}Add New Community{% endblock %}
 
 {% block custom_css %}
-    <link href="/static/css/addUser.css" rel="stylesheet">
+    <link href="/static/css/addCommunity.css" rel="stylesheet">
     <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
 {% endblock %}
 
@@ -105,33 +105,15 @@
 								<small><input type="text" id="community-language-add" name="community-language-add" class="form-control"></small>
 							</div>
 						</h3>
-
-						<!-- Views -->
-						<h3>
-							Views:<br>
-							<div class="input-col-4">
-
-								<!-- Edit Form Field -->
-								<small><input type="text" id="community-views-add" name="community-views-add" class="form-control"></small>
-							</div>
-						</h3>
-
-						<!-- Followers -->
-						<h3>
-							Followers:<br>
-							<div class="input-col-4">
-
-								<!-- Edit Form Field -->
-								<small><input type="text" id="community-followers-add" name="community-followers-add" class="form-control"></small>
-							</div>
-						</h3>
 						
-						<!-- URL -->
+						<!-- Rules -->
 						<h3>
-							URL:<br>
-							<div class="input-col-4">
+							Rules:<br>
+							<div class="input-col-6">
 								<!-- Edit Form Field -->
-								<small><input type="url" id="community-url-add" name="community-url-add" class="form-control"></small>
+                                <small>
+                                    <textarea class="form-control" id="community-rules-add" name="community-rules-add"></textarea>
+                                </small>
 							</div>
 						</h3>
 
@@ -151,62 +133,22 @@
                             </small>
                         </h3>
 
-						<!-- Community -->
+						<!-- Owner -->
                         <h3>
-                            Community:
+                            Owner:
+
                             <!-- Edit Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="community-community-add" name="community-community-add">
-                                    <select class="selectpicker form-control" name="community-community-add" data-live-search="true" data-dropup-auto="false" multiple>
-                                    {% for community in communities %}
-                                            <option value="{{community['id']}}">{{community['name']}}</option>
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="community-owner-add">
+                                    <select class="selectpicker form-control" name="community-owner-add" multiple data-live-search="true" data-dropup-auto="false">
+                                    {% for user in users %}
+                                            <option value="{{user['id']}}">{{user['name']}}</option>
                                     {% endfor %}
                                 </select>
                                 </div>
                             </small>
                         </h3>
-
-						<!-- Teams -->
-                        <h3>
-                            Teams:
-
-                            <!-- Edit Form Field -->
-                            <small>
-                                <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="community-teams-add" name="community-teams-add">
-                                    <select class="selectpicker form-control" name="community-teams-add" multiple data-live-search="true" data-dropup-auto="false">
-                                    {% for team in teams %}
-                                            <option value="{{team['id']}}">{{team['name']}}</option>
-                                    {% endfor %}
-                                </select>
-                                </div>
-                            </small>
-                        </h3>
-
-						<!-- Created -->
-						<h3>
-							Created:<br>
-							<div class="date-input">
-
-								<!-- Edit Form Field -->
-								<small>
-									<input class="form-control" type="date" value="{{today}}" id="community-created-add" name="community-created-add">
-								</small>
-							</div>
-						</h3>
-
-						<!-- Updated -->
-						<h3>
-							Updated:<br>
-							<div class="date-input">
-
-								<!-- Edit Form Field -->
-								<small>
-									<input class="form-control" type="date" value="{{today}}" id="community-updated-add" name="community-updated-add">
-								</small>
-							</div>
-						</h3>
 
 						<hr style="border-color: white;">
 
