@@ -67,10 +67,10 @@ def add_user():
         language = request.form.get('user-language-add')
         views = request.form.get('user-views-add')
         if views:
-            views = int(views)
+            views = int(views.replace(',', ''))
         followers = request.form.get('user-followers-add')
         if followers:
-            followers = int(followers)
+            followers = int(followers.replace(',', ''))
         url = request.form.get('user-url-add')
         game_id = request.form.get('user-game-add')
         if game_id:
