@@ -796,7 +796,7 @@ def update_community():
             flash('Congratulations, the community was deleted successfuly!', 'success')
         else:
             flash('Sorry, something went wrong :(', 'danger')
-        return redirect('/teams')
+        return redirect('/communities')
     else:
         community_id = request.form.get('community-id-edit')
         new_image_url = request.form.get('community-pic-edit')
@@ -1422,8 +1422,9 @@ def add_game_to_user(game_id, user_id):
 def remove_game_from_community(game_id, community_id):
     try:
         old_community = Community.query.get(community_id)
-        old_community.game_id = None
-        db.session.commit()
+        if old_community:
+            old_community.game_id = None
+            db.session.commit()
         return True
     except Exception as e:
         db.session.rollback()
