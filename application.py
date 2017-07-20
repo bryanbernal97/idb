@@ -509,7 +509,7 @@ def delete_user(user_id):
 def update_game():
 
     action = request.form.get('action')
-    
+
     game_id = int(request.form.get('game-id-edit'))
 
     if (action == 'Delete'):
@@ -667,7 +667,7 @@ def update_team():
 
     action = request.form.get('action')
 
-    team_id = request.form.get('team-id-edit')
+    team_id = int(request.form.get('team-id-edit'))
 
     if (action == 'Delete'):
         delete_success = delete_team(team_id)
@@ -767,16 +767,19 @@ def delete_team(team_id):
         old_user_ids = team.user_ids
         #old_team_ids = user.team_ids
         if old_game_ids:
-            success = (remove_team_from_game(team_id, old_game_ids) and success)
+            for game_id in old_game_ids:
+                success = (remove_team_from_game(team_id, game_id) and success)
         if old_user_ids:
-            success = (remove_team_from_user(team_id, old_user_ids) and success)
+            for user_id in old_user_ids:
+                success = (remove_team_from_user(team_id, user_id) and success)
         #if old_team_ids:
             #for team_id in old_team_ids:
                 #success = (remove_user_from_team(user_id, team_id) and success)
         db.session.delete(team)
         db.session.commit()
-    except:
+    except Exception as e:
         db.session.rollback()
+        print('Delete team exception: ' + str(e))
         success = False
     return success
 
