@@ -1535,13 +1535,6 @@ def search():
     split_terms = search_string.split()
     num_terms = len(split_terms)
 
-    #Separated results in case it's more convenient...depends on how we do the search results page I guess
-    #user_search_result = User.query.whoosh_search(input).all()
-    #game_search_result = Game.query.whoosh_search(input).all()
-    #team_search_result = Team.query.whoosh_search(input).all()
-    #community_search_result = Community.query.whoosh_search(input).all()
-
-
     # returns search results with default "and" operator
     user_search_results = []
     game_search_results = []
@@ -1550,6 +1543,7 @@ def search():
 
     for user in User.query.whoosh_search(search_string).all() :
         user_search_results.append(user)
+        print(user.name)
     for game in Game.query.whoosh_search(search_string).all() :
         game_search_results.append(game)
     for team in Team.query.whoosh_search(search_string).all() :
@@ -1595,6 +1589,7 @@ def search():
     game_search_results_or = []
     team_search_results_or = []
     community_search_results_or = []
+
     if num_terms > 1 :
         for user in User.query.whoosh_search(wildcard_search_string, or_=True).all() :
             user_search_results_or.append(object_as_dict(user))
