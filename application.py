@@ -284,25 +284,25 @@ def add_community():
 @application.route('/addGame', methods=['POST', 'GET'])
 def add_game():
     if request.method == 'GET':
-        platforms = []
+        # platforms = []
         streamers = []
-        genres = []
+        # genres = []
         teams = []
         communities = []
-        # Get all games for edit drop down
-        platform_query = Platform.query
-        for platform in platform_query:
-            platforms.append({'name': platform.name, 'id': platform.id})
+        # # Get all games for edit drop down
+        # platform_query = Platform.query
+        # for platform in platform_query:
+        #     platforms.append({'name': platform.name, 'id': platform.id})
 
         # Get all streamers for edit drop down
         users_query = User.query
         for user in users_query:
         streamers.append({'name': user.name, 'id': user.id})
 
-        # Get all genres for edit drop down
-        genre_query = Genre.query
-        for genre in genre_query:
-            genres.append({'name': genre.name, 'id': genre.id})
+        # # Get all genres for edit drop down
+        # genre_query = Genre.query
+        # for genre in genre_query:
+        #     genres.append({'name': genre.name, 'id': genre.id})
 
         # Get all teams for edit drop down
         team_query = Team.query
@@ -315,32 +315,37 @@ def add_game():
             communities.append({'name': community.name, 'id': community.id})
 
         today = datetime.datetime.now().date()
-        return render_template('add_game.html', platforms=platforms, streamers=streamers, genres=genres, communities=communities, teams=teams, today=today)
+        return render_template('add_game.html', streamers=streamers, communities=communities, teams=teams, today=today)
     else:
         # do the add to the db here and then render instance page of the added user
         game_id = request.form.get('game-id-add')
+        if game_id:
+            game_id = int(game_id)
         game_image_url = request.form.get('game-image-url-add')
         name = request.form.get('game-name-add')
         description = request.form.get('user-description-add')
         rated = request.form.get('game-rating-add')
-        genre = request.form.get('game-genre-add')
-        platform = request.form.get('game-platforms-add')
+        genres = request.form.getlist('genres[]')
+        platforms = request.form.getlist('platforms[]')
         release_date = request.form.get('game-release-date-add')
-        user_id = request.form.get('game-user-add')
-        if user_id:
-            user_id = int(user_id)
-        community_id = request.form.get('game-community-add')
+        
+        user_ids = request.form.getlist('game-user-add')
+
+        community_ids = request.form.getlist('game-community-add')
+        
         team_ids = request.form.getlist('game-teams-add')
         if team_ids:
             team_ids = list(map(int, team_ids))
 
         success = True
 
-        if user_id:
-            success = (add_game_to_user(game_id, user_id) and success)
+        if user_ids:
+            for user_id in user_ids:
+                success = (add_game_to_user(game_id, user_id) and success)
 
-        if community_id:
-            success = (add_game_to_community(game_id, community_id) and success)
+        if community_ids:
+            for community_id in community_ids:
+                success = (add_game_to_community(game_id, community_id) and success)
 
         if team_ids:
             for team_id in team_ids:
@@ -354,10 +359,10 @@ def add_game():
             game.name = name
             game.description = description
             game.rated = rated
-            game.platform = platform
-            game.genre = genre
-            game.user_id = user_id
-            game.community_id = community_id
+            game.platforms = platforms
+            game.genres = genres
+            game.user_ids = user_ids
+            game.community_ids = community_ids
             game.team_ids = team_ids
             game.release_date = datetime.datetime.strptime(release_date, '%Y-%m-%d')
             db.session.add(user)
