@@ -1,3 +1,4 @@
+
 /* ********************************************************************************************** */
 /* ***************************************** RECAPTCHA ****************************************** */
 /* ********************************************************************************************** */
@@ -19,16 +20,16 @@ $(document).ready(function() {
 	// multiple selector with bootstrap-select
 
 	var oldSelectedGame = "";
-	$("#user-game-add option:selected").each(function () {
+	$("#community-game-add option:selected").each(function () {
 		oldSelectedGame = $(this).text();
 	});
 
-	$('#user-game-add').change(function() {
+	$('#community-game-add').change(function() {
 
 		var bothSelectedGames = $('option:selected', this).text();
 		var newSelectedGame = bothSelectedGames.replace(oldSelectedGame, '');
 
-		$('#user-game-add option').each(function() {
+		$('#community-game-add option').each(function() {
 			if ($(this).text() == newSelectedGame) {
 				this.selected = true;
 			} else {
@@ -36,7 +37,7 @@ $(document).ready(function() {
 			}
 		});
 
-		$("#user-game-add .selectpicker").selectpicker('refresh');
+		$("#community-game-add .selectpicker").selectpicker('refresh');
 
 		oldSelectedGame = newSelectedGame;
 
@@ -44,42 +45,42 @@ $(document).ready(function() {
 
 
 /* ********************************************************************************************** */
-/* ******************************* COMMUNITY SELECTOR FORMATTING ******************************** */
+/* ********************************* OWNER SELECTOR FORMATTING ********************************** */
 /* ********************************************************************************************** */
 
-	// Only allow the user to select a single community at a time, even though it's formatted using
+	// Only allow the user to select a single game at a time, even though it's formatted using
 	// multiple selector with bootstrap-select
 
-	var oldSelectedCommunity = "";
-	$("#user-community-add option:selected").each(function () {
-		oldSelectedCommunity = $(this).text();
+	var oldSelectedOwner = "";
+	$("#community-owner-add option:selected").each(function () {
+		oldSelectedOwner = $(this).text();
 	});
 
-	$('#user-community-add').change(function() {
+	$('#community-owner-add').change(function() {
 
-		var bothSelectedCommunities = $('option:selected', this).text();
-		var newSelectedCommunity = bothSelectedCommunities.replace(oldSelectedCommunity, '');
+		var bothSelectedOwners = $('option:selected', this).text();
+		var newSelectedOwner = bothSelectedOwners.replace(oldSelectedOwner, '');
 
-		$('#user-community-add option').each(function() {
-			if ($(this).text() == newSelectedCommunity) {
+		$('#community-owner-add option').each(function() {
+			if ($(this).text() == newSelectedOwner) {
 				this.selected = true;
 			} else {
 				this.selected = false;
 			}
 		});
 
-		$("#user-community-add .selectpicker").selectpicker('refresh');
+		$("#community-owner-add .selectpicker").selectpicker('refresh');
 
-		oldSelectedCommunity = newSelectedCommunity;
+		oldSelectedOwner = newSelectedOwner;
 
 	});
 
-
-	$("#user-add-submit").click(function(e) {
+	$("#community-add-submit").click(function(e) {
 		if(!grecaptcha.getResponse()) {
 		    e.preventDefault();
 		    alert("Please verify the reCAPTCHA!");
 		}
 	});
+
 
 });
