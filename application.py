@@ -930,6 +930,11 @@ def show_all_communities():
 @application.route('/users/<wow>')
 def show_users(wow):
     q = User.query.get(wow)
+    
+    if not q:
+        flash('Sorry, that user does not exist', 'danger')
+        return redirect('/users')
+    
     user = {}
     games = []
     teams = []
@@ -991,6 +996,11 @@ def show_users(wow):
 @application.route('/games/<wow>')
 def show_games(wow):
     q = Game.query.get(wow)
+
+    if not q:
+        flash('Sorry, that game does not exist', 'danger')
+        return redirect('/games')
+
     game = {}
     users = []
     teams = []
@@ -1046,6 +1056,11 @@ def show_games(wow):
 @application.route('/teams/<wow>')
 def show_teams(wow):
     q = Team.query.get(wow)
+
+    if not q:
+        flash('Sorry, that team does not exist', 'danger')
+        return redirect('/teams')
+
     team = {}
     users = []
     games = []
@@ -1090,6 +1105,12 @@ def show_teams(wow):
 @application.route('/communities/<wow>')
 def show_communities(wow):
     q = Community.query.get(wow)
+
+
+    if not q:
+        flash('Sorry, that community does not exist', 'danger')
+        return redirect('/communities')
+
     community = {}
     games = []
     users = []
