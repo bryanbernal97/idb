@@ -1,5 +1,6 @@
 logo: static/img/LOGOSMALLER.png
 background-image: static/img/header-bg.jpg
-theme-override: static/css/PITCHME.css
-theme: sky
+# theme-override: static/css/PITCHME.css
+# theme: sky
+color: white
 team: static/img/ourteam.png
