@@ -1,0 +1,50 @@
+.reveal .slides {
+    color: white;
+}
+
+.reveal section img {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.reveal h1 {
+	
+	color: white;
+
+}
+
+.reveal h2 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h3 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h4 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h5 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h6 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}

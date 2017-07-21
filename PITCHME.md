@@ -1,26 +1,38 @@
 
-<img src="https://github.com/hannahperry5/idb/blob/develop/static/img/LOGOsortaBIG.png?raw=true" alt="Logo" style="width: 200px;"/>
-
-#### Get the word out
+<img src="static/img/LOGOSMALLER.png">
+## streamGlean
 <br>
-<span style="color:gray">Markdown Presentations For Everyone</span>
-<br>
-<span style="color:gray">on</span>
-<br>
-<span style="color:gray">GitHub, GitLab, Bitbucket, Gitea, Gogs, and GitBucket</span>
+<span style="color:gray">Hannah Perry, Blue Madrigal, Bryan Bernal</span>
 
 ---
 
-### GitPitch turns <span style="color: #e49436; text-transform: none">PITCHME.md</span> into interactive, online slideshows.
-<br>
-<span style="color:gray; font-size:0.6em;">[ JUST LIKE THIS ONE ]</span>
+###OUR GROUP
+<img src="static/img/ourteam.png">
 
 ---
 
-### No more <span style="color: #666666">Keynote.</span>
-### No more <span style="color: #666666">Powerpoint.</span>
+### Responsibilities
+
+---
+
+### <b>Demonstration</b>
 <br>
-### Just <span style="color: #e49436">Markdown</span>. Then <span style="color: #e49436">Git-Commit</span>.
+### Navigate
+<br>
+
+---
+
+### <b>Demonstration</b>
+<br>
+### Search
+<br>
+
+---
+
+### <b>Demonstration</b>
+<br>
+### Edit
+<br>
 
 ---
 
@@ -65,19 +77,36 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-<span style="color: #e49436">GIT</span>PITCH FEATURE RICH SLIDESHOWS
+<span>WHAT DID WE DO WELL?</span>
 
-- GitHub Flavored Markdown +
-- Code Presenting for Blocks, Files, and GISTs
-- Image and Video Slides
-- Custom Logos and Backgrounds
-- Multiple Themes And More
-- <span style="color: #e49436">Plus...</span>
-- Your Slideshow Is Part Of Your Project
-- Under Git Version Control Within Your Git Repo
-
+- A
+- B
+- C
 
 ---
 
-### Go for it.
-### Just add <span style="color: #e49436; text-transform: none">PITCHME.md</span> ;)
+<span>WHAT DID WE LEARN?</span>
+
+- A
+- B
+- C
+
+---
+
+<span>WHAT CAN WE DO BETTER?</span>
+
+- A
+- B
+- C
+
+---
+
+<span>WHAT PUZZLES US?</span>
+
+- A
+- B
+- C
+
+---
+
+# <span style="color: white; text-transform: none">QUESTIONS?</span>
