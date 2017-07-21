@@ -9,6 +9,44 @@
         });
       };
 
+
+/* ********************************************************************************************** */
+/* ************************************** FORM VALIDATION *************************************** */
+/* ********************************************************************************************** */
+
+    function isImageURL(url) {
+    	return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+	}
+
+	$('#add-community-form').validator({
+	    custom: {
+	        'positive': function($el) { 
+	        	var num = $el.val();
+	        	if (num == Math.floor(num)){
+	        		if(num < 0) {
+	        			return "Please enter a non-negative number"; // this message will not be used because data-error is set on elements
+	        		}
+	        	}
+	    	},
+	    	'imageURL': function($el) {
+	    		var url = $el.val();
+	    		if (!isImageURL(url)) {
+	    			return "Please enter a URL that points to an image"; // this message will not be used because data-error is set on elements
+    			}
+	    		// }
+	    	},
+	    	'uniqueID': function($el) {
+	    		var id = $el.val();
+    			if (ids.indexOf(id) != -1) {
+    				return "Sorry, that ID is already taken";
+				}
+
+	    	}
+	    	
+		}
+	});
+
+
 $(document).ready(function() {
 
 
