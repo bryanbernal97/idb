@@ -1,11 +1,7 @@
 
 # streamGlean
 <br>
-<span style="color:gray">Markdown Presentations For Everyone</span>
-<br>
-<span style="color:gray">on</span>
-<br>
-<span style="color:gray">GitHub, GitLab, Bitbucket, Gitea, Gogs, and GitBucket</span>
+<span style="color:white">Hannah Perry, Blue Madrigal, and Bryan Bernal</span>
 
 ---
 
