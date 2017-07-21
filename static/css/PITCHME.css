@@ -1,5 +1,40 @@
 
-.reveal h1, h2, h3, h4, h5, h6 {
+.reveal h1 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h2 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h3 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h4 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h5 {
+
+	/*background-color: #eeeeee;*/
+	color: white;
+
+}
+
+.reveal h6 {
 
 	/*background-color: #eeeeee;*/
 	color: white;
