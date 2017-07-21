@@ -59,17 +59,41 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-<span>CRITIQUE OF OUR SITE</span>
+<span>WHAT DID WE DO WELL?</span>
 
-- GitHub Flavored Markdown +
-- Code Presenting for Blocks, Files, and GISTs
-- Image and Video Slides
-- Custom Logos and Backgrounds
-- Multiple Themes And More
-- <span style="color: #e49436">Plus...</span>
-- Your Slideshow Is Part Of Your Project
-- Under Git Version Control Within Your Git Repo
+- A
+- B
+- C
 
+---
+
+---
+
+<span>WHAT DID WE LEARN?</span>
+
+- A
+- B
+- C
+
+---
+
+---
+
+<span>WHAT CAN WE DO BETTER?</span>
+
+- A
+- B
+- C
+
+---
+
+---
+
+<span>WHAT PUZZLES US?</span>
+
+- A
+- B
+- C
 
 ---
 
