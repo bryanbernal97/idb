@@ -12,7 +12,7 @@
 ---
 
 ### Responsibilities
-<img src="static/img/responsibilities">
+<img src="static/img/responsibilities.png">
 
 ---
 
