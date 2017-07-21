@@ -1,3 +1,5 @@
 logo: static/img/LOGOSMALLER.png
 theme: sky
 theme-override : static/css/PITCHME.css
+
+team: static/img/ourteam.png
