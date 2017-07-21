@@ -5,8 +5,8 @@
 
 ---
 
-###TITLE
-<span style="color: #FFFFFF; text-transform: none">OUR GROUP/span>
+###OUR GROUP
+<span style="color: #222222; text-transform: none">OUR GROUP/span>
 <br>
 <span style="color:gray; font-size:0.6em;">[ JUST LIKE THIS ONE ]</span>
 
