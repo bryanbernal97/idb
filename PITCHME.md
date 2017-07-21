@@ -58,7 +58,7 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-<span style="color: #e49436">GIT</span>PITCH FEATURE RICH SLIDESHOWS
+<span style="color: #6441A4">CRITIQUE OF OUR SITE</span>
 
 - GitHub Flavored Markdown +
 - Code Presenting for Blocks, Files, and GISTs
@@ -72,5 +72,4 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-### Go for it.
-### Just add <span style="color: #e49436; text-transform: none">PITCHME.md</span> ;)
+<span style="color: #6441A4; text-transform: none">QUESTIONS?</span>
