@@ -1,7 +1,11 @@
+.reveal section img {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
 
 .reveal h1 {
-
-	/*background-color: #eeeeee;*/
+	
 	color: white;
 
 }
@@ -39,11 +43,4 @@
 	/*background-color: #eeeeee;*/
 	color: white;
 
-}
-
-
-.reveal section img {
-  border: 0;
-  box-shadow: none;
-  background: transparent;
 }

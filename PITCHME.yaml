@@ -1,4 +1,4 @@
-background: static/img/header-bg.jpg
 theme-override: static/css/PITCHME.css
+background: static/img/header-bg.jpg
 theme: sky
 team: static/img/ourteam.png
