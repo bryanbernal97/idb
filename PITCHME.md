@@ -6,7 +6,6 @@
 ---
 
 ###OUR GROUP
-<br>
 <img src="static/img/ourteam.png">
 
 ---
