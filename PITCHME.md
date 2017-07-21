@@ -12,6 +12,7 @@
 ---
 
 ### Responsibilities
+<img src="static/img/responsibilities">
 
 ---
 
