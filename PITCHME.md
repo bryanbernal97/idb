@@ -6,7 +6,6 @@
 ---
 
 ###OUR GROUP
-<span style="color: #222222; text-transform: none">OUR GROUP</span>
 <br>
 <img src="static/img/ourteam.png">
 
