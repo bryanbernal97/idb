@@ -101,6 +101,7 @@ $(document).ready(function() {
 		$("#user-edit-submit").removeClass('hidden');
 		$("#user-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
+		$("#form-submit-buttons").removeClass('hidden');
 
 
 		$("#user-name").addClass('hidden');
@@ -145,6 +146,7 @@ $(document).ready(function() {
 			$("#user-edit-submit").addClass('hidden');
 			$("#user-delete-button").addClass('hidden');
 			$("#g-recaptcha").addClass('hidden');
+			$("#form-submit-buttons").addClass('hidden');
 
 
 			$("#user-name").removeClass('hidden');

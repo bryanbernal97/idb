@@ -9,6 +9,36 @@
         });
       };
 
+/* ********************************************************************************************** */
+/* ************************************** FORM VALIDATION *************************************** */
+/* ********************************************************************************************** */
+
+    function isImageURL(url) {
+    	return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+	}
+
+	$('#edit-community-form').validator({
+	    custom: {
+	        'positive': function($el) { 
+	        	var num = $el.val();
+	        	if (num == Math.floor(num)){
+	        		if(num < 0) {
+	        			return "Please enter a non-negative number"; // this message will not be used because data-error is set on elements
+	        		}
+	        	}
+	    	},
+	    	'imageURL': function($el) {
+	    		var url = $el.val();
+	    		if (!isImageURL(url)) {
+	    			return "Please enter a URL that points to an image"; // this message will not be used because data-error is set on elements
+    			}
+	    		// }
+	    	}
+	    	
+		}
+	});
+
+
 $(document).ready(function() {
 
 
@@ -104,6 +134,7 @@ $(document).ready(function() {
 		$("#community-edit-submit").removeClass('hidden');
 		$("#community-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
+		$("#form-submit-buttons").removeClass('hidden');
 	});
 
 
@@ -132,6 +163,7 @@ $(document).ready(function() {
 			$("#community-edit-submit").addClass('hidden');
 			$("#community-delete-button").addClass('hidden');
 			$("#g-recaptcha").addClass('hidden');
+			$("#form-submit-buttons").addClass('hidden');
 
 			$("#community-name").removeClass('hidden');
 			$("#community-description").removeClass('hidden');

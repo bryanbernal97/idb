@@ -123,6 +123,7 @@ $(document).ready(function() {
 		$("#game-edit-submit").removeClass('hidden');
 		$("#game-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
+		$("#form-submit-buttons").removeClass('hidden');
 	});
 
 
@@ -148,6 +149,7 @@ $(document).ready(function() {
 			$("#game-edit-submit").addClass('hidden');
 			$("#game-delete-button").addClass('hidden');
 			$("#g-recaptcha").addClass('hidden');
+			$("#form-submit-buttons").addClass('hidden');
 
 			$("#game-name").removeClass('hidden');
 			$("#game-description").removeClass('hidden');
