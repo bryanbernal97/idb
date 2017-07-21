@@ -12,7 +12,6 @@
 ---
 
 ### Responsibilities
-<img src="static/img/responsibilities.png">
 
 ---
 
@@ -111,7 +110,7 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 <span style="color: #e49436">What did they do well?</span>
 
-<img src="http://i.imgur.com/EwTQTN8.png" alt="Logo" style="width: 300px;"/>
+<img src="http://i.imgur.com/EwTQTN8.png" alt="Logo" style="width: 200px;"/>
 
 - Each page loads very fast
 - Filtering/Sorting work very well
@@ -127,7 +126,8 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 
 - A page can load fast, but still feel a little slow if its content takes a while to load in images.
-- Header/label size and color can make a world of difference in making important elements more visible and distinct. <img src="http://i.imgur.com/DLL3Wzf.png" alt="Logo" style="width: 175px;"/>
+- Header/label size and color matter a lot in UI design.
+<img src="http://i.imgur.com/DLL3Wzf.png" alt="Logo" style="width: 120px;"/>
 - Having many options for filtering makes finding content much more convenient.
 
 ---
@@ -137,7 +137,7 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 - Model images could load faster.
 - Smoother transitions when browsing through models.
 - Model instance pages could be formatted better (particularly those that include songs).
-<img src="http://i.imgur.com/Nlm7AgV.jpg" alt="Logo" style="width: 400px;"/>
+<img src="http://i.imgur.com/Nlm7AgV.jpg" alt="Logo" style="width: 300px;"/>
 - More consistency in UI element design.
 - Models other than albums are not consistent in size.
 
