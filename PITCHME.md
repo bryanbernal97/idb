@@ -59,7 +59,7 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-<span style="color: #6441A4">CRITIQUE OF OUR SITE</span>
+<span>CRITIQUE OF OUR SITE</span>
 
 - GitHub Flavored Markdown +
 - Code Presenting for Blocks, Files, and GISTs
@@ -73,4 +73,4 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-# <span style="color: #6441A4; text-transform: none">QUESTIONS?</span>
+# <span style="color: white; text-transform: none">QUESTIONS?</span>
