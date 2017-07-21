@@ -72,4 +72,4 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
-<span style="color: #6441A4; text-transform: none">QUESTIONS?</span>
+# <span style="color: #6441A4; text-transform: none">QUESTIONS?</span>
