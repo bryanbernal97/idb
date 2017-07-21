@@ -1,4 +1,3 @@
-logo: static/img/LOGOSMALLER.png
 background: static/img/header-bg.jpg
 theme-override: static/css/PITCHME.css
 theme: sky

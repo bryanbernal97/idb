@@ -1,4 +1,5 @@
 
+<img src="static/img/header-bg.png">
 ## streamGlean
 <br>
 <span style="color:gray">Hannah Perry, Blue Madrigal, Bryan Bernal</span>
