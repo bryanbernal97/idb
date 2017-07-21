@@ -68,7 +68,7 @@
 - C
 ---
 
-<span style="color: #e49436">What did they do well?</span>
+###What did they do well?
 
 <img src="http://i.imgur.com/EwTQTN8.png" alt="Logo" style="width: 200px;"/>
 
@@ -82,7 +82,7 @@
 
 ---
 
-<span style="color: #e49436">What did we learn from their website?</span>
+###What did we learn from their website?
 
 
 - A page can load fast, but still feel a little slow if its content takes a while to load in images.
@@ -92,7 +92,7 @@
 
 ---
 
-<span style="color: #e49436">What can they do better?</span>
+###What can they do better?
 
 - Model images could load faster.
 - Smoother transitions when browsing through models.
@@ -103,7 +103,7 @@
 
 ---
 
-<span style="color: #e49436">What puzzles us about their website?</span>
+###What puzzles us about their website?
 
 - There doesn't seem to be a real mobile version of the site.
 
