@@ -1,7 +1,7 @@
 
-# streamGlean
+### streamGlean
 <br>
-<span style="color:white">Hannah Perry, Blue Madrigal, and Bryan Bernal</span>
+<span style="color:gray">Hannah Perry, Blue Madrigal, Bryan Bernal</span>
 
 ---
 
