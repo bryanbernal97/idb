@@ -5,7 +5,7 @@
 
 ---
 
-### GitPitch turns <span style="color: #e49436; text-transform: none">PITCHME.md</span> into interactive, online slideshows.
+###<span style="color: #FFFFFF; text-transform: none">OUR GROUP/span>
 <br>
 <span style="color:gray; font-size:0.6em;">[ JUST LIKE THIS ONE ]</span>
 
