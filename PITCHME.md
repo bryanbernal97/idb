@@ -18,28 +18,28 @@
 
 ### <b>Demonstration</b>
 <br>
-### Navigate
+###Navigate
 <br>
 
 ---
 
 ### <b>Demonstration</b>
 <br>
-### Search
+###Search
 <br>
 
 ---
 
 ### <b>Demonstration</b>
 <br>
-### Edit
+###Edit
 <br>
 
 ---
 
 ### <b>Demonstration</b>
 <br>
-### Run Unit Tests
+###Unit Tests
 <br>
 
 ---
