@@ -85,10 +85,10 @@
 
 ###What did we learn from their website?
 
-<h1 style="font-size:60%;">1. A page can load fast, but still feel a little slow if its content takes a while to load in images.</h1>
-<h1 style="font-size:60%;">2. Header/label size and color matter a lot in UI design.</h1>
+<h1 style="font-size:70%;">1. A page can load fast, but still feel a little slow if its content takes a while to load in images.</h1>
+<h1 style="font-size:70%;">2. Header/label size and color matter a lot in UI design.</h1>
 <img src="http://i.imgur.com/DLL3Wzf.png" alt="Logo" style="width: 120px;"/>
-<h1 style="font-size:60%;">3. Having many options for filtering makes finding content much more convenient.</h1>
+<h1 style="font-size:70%;">3. Having many options for filtering makes finding content much more convenient.</h1>
 
 ---
 
