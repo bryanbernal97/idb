@@ -11,10 +11,28 @@
 
 ---
 
-### No more <span style="color: #666666">Keynote.</span>
-### No more <span style="color: #666666">Powerpoint.</span>
+### Responsibilities
+
+---
+
+### <b>Demonstration</b>
 <br>
-### Just <span style="color: #e49436">Markdown</span>. Then <span style="color: #e49436">Git-Commit</span>.
+### Navigate
+<br>
+
+---
+
+### <b>Demonstration</b>
+<br>
+### Search
+<br>
+
+---
+
+### <b>Demonstration</b>
+<br>
+### Edit
+<br>
 
 ---
 
