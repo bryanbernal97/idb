@@ -1237,11 +1237,11 @@ def get_name_by_id(_id, what_kind):
         q = Game.query.get(_id)
     elif what_kind == 'team':
         q = Team.query.get(_id)
+    
     if q:
         return q.name
-    print(_id)
-    q = Team.query.get(_id)
-    return None
+    else:
+        return 'None'
 
 
 def render_users(users_filter, users_sort):
