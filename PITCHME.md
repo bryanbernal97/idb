@@ -37,7 +37,7 @@
 
 ---
 
-<span>WHAT DID WE DO WELL?</span>
+## <span>WHAT DID WE DO WELL?</span>
 
 - Front-End Design
 - Filtering
@@ -45,7 +45,7 @@
 
 ---
 
-<span>WHAT DID WE LEARN?</span>
+## <span>WHAT DID WE LEARN?</span>
 
 - AWS
 - Flask
@@ -54,7 +54,7 @@
 
 ---
 
-<span>WHAT CAN WE DO BETTER?</span>
+## <span>WHAT CAN WE DO BETTER?</span>
 
 - Search
 - Server-Side Validation
@@ -62,7 +62,7 @@
 
 ---
 
-<span>WHAT PUZZLES US?</span>
+##<span>WHAT PUZZLES US?</span>
 
 - React
 - Whoosh
