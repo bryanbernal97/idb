@@ -1,2 +1,3 @@
 logo: static/img/LOGOSMALLER.png
-background-color: white
+theme: sky
+theme-override : static/css/PITCHME.css
