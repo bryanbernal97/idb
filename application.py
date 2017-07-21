@@ -141,6 +141,7 @@ def add_team():
     if request.method == 'GET':
         games = []
         streamers = []
+        team_ids = []
 
          # Get all users for edit drop down
         users_query = User.query
@@ -152,9 +153,12 @@ def add_team():
         for game in game_query:
             games.append({'name': game.name, 'id': game.id})
 
+        team_query = Team.query
+        for team in team_query:
+            team_ids.append(team.id)
 
         today = datetime.datetime.now().date()
-        return render_template('add_team.html', games=games, streamers=streamers, today=today)
+        return render_template('add_team.html', games=games, streamers=streamers, today=today, team_ids=json.dumps(team_ids))
     else:
         # do the add to the db here and then render instance page of the added team
         team_id = request.form.get('team-id-add')
@@ -218,6 +222,7 @@ def add_community():
     if request.method == 'GET':
         games = []
         users = []
+        community_ids = []
         # Get all games for edit drop down
         game_query = Game.query
         for game in game_query:
@@ -228,7 +233,11 @@ def add_community():
         for user in users_query:
             users.append({'name': user.name, 'id': user.id})
 
-        return render_template('add_community.html', games=games, users=users)
+        communities_query = Community.query
+        for community in communities_query:
+            community_ids.append(community.id)
+
+        return render_template('add_community.html', games=games, users=users, community_ids=json.dumps(community_ids))
     else:
         # do the add to the db here and then render instance page of the added user
         community_id = request.form.get('community-id-add')
@@ -282,6 +291,7 @@ def add_game():
         streamers = []
         teams = []
         communities = []
+        game_ids = []
 
         # Get all streamers for edit drop down
         users_query = User.query
@@ -298,8 +308,12 @@ def add_game():
         for community in community_query:
             communities.append({'name': community.name, 'id': community.id})
 
+        games_query = Game.query
+        for game in games_query:
+            game_ids.append(game.id)
+
         today = datetime.datetime.now().date()
-        return render_template('add_game.html', streamers=streamers, communities=communities, teams=teams, today=today)
+        return render_template('add_game.html', streamers=streamers, communities=communities, teams=teams, today=today, game_ids=json.dumps(game_ids))
     else:
         game_id = request.form.get('game-id-add')
         if game_id:
