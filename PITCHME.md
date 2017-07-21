@@ -39,33 +39,34 @@
 
 <span>WHAT DID WE DO WELL?</span>
 
-- A
-- B
-- C
+- Front-End Design
+- Filtering
+- Sorting
 
 ---
 
 <span>WHAT DID WE LEARN?</span>
 
-- A
-- B
-- C
+- AWS
+- Flask
+- SQLAlchemy
+- React
 
 ---
 
 <span>WHAT CAN WE DO BETTER?</span>
 
-- A
-- B
-- C
+- Search
+- Server-Side Validation
+- Load Times
 
 ---
 
 <span>WHAT PUZZLES US?</span>
 
-- A
-- B
-- C
+- React
+- Whoosh
+
 ---
 
 ###What did they do well?
