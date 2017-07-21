@@ -85,8 +85,6 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
----
-
 <span>WHAT DID WE LEARN?</span>
 
 - A
@@ -95,15 +93,11 @@ Instantly use your GitPitch slideshow URL to promote, pitch or present absolutel
 
 ---
 
----
-
 <span>WHAT CAN WE DO BETTER?</span>
 
 - A
 - B
 - C
-
----
 
 ---
 
