@@ -18,21 +18,28 @@
 
 ### <b>Demonstration</b>
 <br>
-### Navigate
+###Navigate
 <br>
 
 ---
 
 ### <b>Demonstration</b>
 <br>
-### Search
+###Search
 <br>
 
 ---
 
 ### <b>Demonstration</b>
 <br>
-### Edit
+###Edit
+<br>
+
+---
+
+### <b>Demonstration</b>
+<br>
+###Unit Tests
 <br>
 
 ---
@@ -85,10 +92,10 @@
 
 ###What did we learn from their website?
 
-<font size="14">- A page can load fast, but still feel a little slow if its content takes a while to load in images.
-- Header/label size and color matter a lot in UI design.
+<h2 style="font-size:70%;">1. A page can load fast, but still feels a little slow if it's content takes a while to load in images.</h2>
+<h2 style="font-size:70%;">2. Header/label size and color matter a lot in UI design.</h2>
 <img src="http://i.imgur.com/DLL3Wzf.png" alt="Logo" style="width: 120px;"/>
-- Having many options for filtering makes finding content much more convenient.</font>
+<h2 style="font-size:70%;">3. Having many options for filtering makes finding content much more convenient.</h2>
 
 ---
 
@@ -96,7 +103,7 @@
 
 - Model images could load faster.
 - Smoother transitions when browsing through models.
-- Model instance pages could be formatted better
+- Model instance pages could be formatted better.
 <img src="http://i.imgur.com/Nlm7AgV.jpg" alt="Logo" style="width: 300px;"/>
 - More consistency in UI element design.
 - Models other than albums are not consistent in size.
