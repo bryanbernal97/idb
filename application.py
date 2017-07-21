@@ -805,7 +805,11 @@ def show_all_teams():
 
 @application.route('/communities')
 def show_all_communities():
-    return render_communities(communities_filter=None, communities_sort=None)    
+    return render_communities(communities_filter=None, communities_sort=None)
+
+@application.route('/vis')
+def show_visualization():
+    return render_template('visualization.html')
 
 
 @application.route('/users/<wow>')

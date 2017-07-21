@@ -124,7 +124,7 @@
 								<small id="user-views" class="text-muted">{{user['views']}}</small>
 
 								<!-- Edit Form Field -->
-								<small><input type="number" id="user-views-edit" name="user-views-edit" class="form-control hidden" data-error="Bruh, that email address is invalid"value="{{user['views']}}"></small>
+								<small><input type="number" min="0" step="1" id="user-views-edit" name="user-views-edit" class="form-control hidden" data-error="Bruh, that email address is invalid"value="{{user['views']}}"></small>
 							</div>
 						</h3>
 
