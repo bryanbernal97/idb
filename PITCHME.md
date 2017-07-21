@@ -1,6 +1,4 @@
 
-<img src="https://github.com/hannahperry5/idb/blob/develop/static/img/LOGOsortaBIG.png?raw=true" alt="Logo" style="width: 200px;"/>
-
 # streamGlean
 <br>
 <span style="color:gray">Markdown Presentations For Everyone</span>
