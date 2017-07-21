@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{team['name']}}{% endblock %}
+{% block title %}Add New Team{% endblock %}
 
 {% block custom_css %}
     <link href="/static/css/addTeam.css" rel="stylesheet">
@@ -45,6 +45,9 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
 
+                    <h2 class="section-heading">Add New Team</h2>
+
+
                     <form role="form" action= "/addTeam" id="add-team-form" method="POST">
 
                         <!-- Picture -->
@@ -57,18 +60,10 @@
 
                                 <!-- Edit Form Field -->
                                 <small>
-                                    <input type="text" class="form-control" id="team-id-add" name="team-id-add">
-                                </small>
-                            </div>
-                        </h3>
-
-                        <h3>
-                            Image URL:<br>
-                            <div class="input-col-4">
-
-                                <!-- Edit Form Field -->
-                                <small>
-                                    <input type="url" class="form-control" id="team-image-url-add" name="team-image-url-add">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" id="team-id-add" name="team-id-add" placeholder="Required" data-positive data-uniqueID required>
+                                        <span class="help-block with-errors"></span>
+                                    </div>
                                 </small>
                             </div>
                         </h3>
@@ -80,10 +75,28 @@
 
                                 <!-- add Form Field -->
                                 <small>
-                                    <input type="text" class="form-control" id="team-name-add" name="team-name-add">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="team-name-add" name="team-name-add" placeholder="Required" required>
+                                        <span class="help-block with-errors"></span>
+                                    </div>
                                 </small>
                             </div>
                         </h3>
+
+                        <h3>
+                            Image URL:<br>
+                            <div class="input-col-4">
+
+                                <!-- Edit Form Field -->
+                                <small>
+                                    <div class="form-group">
+                                        <input type="url" class="form-control" id="team-image-url-add" name="team-image-url-add" data-imageURL data-error="Please enter a URL that points to an image">
+                                        <span class="help-block with-errors"></span>
+                                    </div>
+                                </small>
+                            </div>
+                        </h3>
+
 
                         <!-- Info -->
                         <h3>
@@ -118,10 +131,9 @@
                             <!-- add Form Field -->
                             <small>
                                 <br>
-                                <div class="btn-group bootstrap-select show-tick input-col-4" id="team-games-add" name="team-games-add">
+                                <div class="btn-group bootstrap-select show-tick input-col-4" id="team-games-add">
                                     <select class="selectpicker form-control" name="team-games-add" multiple data-live-search="true" data-dropup-auto="false">
                                     {% for game in games %}
-
                                             <option value="{{game['id']}}">{{game['name']}}</option>
                                     {% endfor %}
                                 </select>
@@ -157,7 +169,9 @@
                         <div id="g-recaptcha" class="g-recaptcha" data-sitekey="6LdDhSkUAAAAACNeH507j02X8yH-p_QhJEEDJHHm" style="display:inline-table;"></div>
                         <br>
                         <br>
-                        <button type="submit" id="team-add-submit" class="btn btn-primary streamglean-button hidden">Submit</button>
+                        <row>
+                        <button type="submit" id="team-add-submit" class="btn btn-primary streamglean-button">Submit</button>
+                        </row>
                     </form>
                 </div>
             </div>
@@ -169,6 +183,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+<script>
+var ids = {{team_ids|safe}};
+</script>
 <script src="/static/js/addTeam.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async defer></script>
 {% endblock %}

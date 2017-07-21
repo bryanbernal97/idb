@@ -44,6 +44,7 @@ $(document).ready(function() {
 		$("#team-edit-submit").removeClass('hidden');
 		$("#team-delete-button").removeClass('hidden');
 		$("#g-recaptcha").removeClass('hidden');
+		$("#form-submit-buttons").removeClass('hidden');
 
 	});
 
@@ -71,6 +72,7 @@ $(document).ready(function() {
 			$("#team-edit-submit").addClass('hidden');
 			$("#team-delete-button").addClass('hidden');
 			$("#g-recaptcha").addClass('hidden');
+			$("#form-submit-buttons").addClass('hidden');
 			
 			$("#team-name").removeClass('hidden');
 			$("#team-info").removeClass('hidden');
